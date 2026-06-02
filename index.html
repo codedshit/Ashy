@@ -21,15 +21,20 @@
         .links a { display: flex; align-items: center; justify-content: center; color: #bf0000; text-decoration: none; margin: 15px 0; font-weight: bold; font-size: 18px; }
         .links a i, .links a img { margin-right: 10px; width: 25px; text-align: center; }
 
-        /* Floating Player */
+        /* Responsive Floating Player */
         .music-player {
             position: fixed; bottom: 10px; left: 50%; transform: translateX(-50%);
             width: 90%; max-width: 300px; background: rgba(0, 0, 0, 0.7);
             padding: 8px 15px; border-radius: 50px; display: flex; align-items: center;
             gap: 10px; border: 2px solid #bf0000; z-index: 1000; backdrop-filter: blur(10px);
         }
-        .album-art img { width: 35px; height: 35px; border-radius: 50%; object-fit: cover; }
-        .track-info { flex-grow: 1; color: #bf0000; font-size: 12px; font-weight: bold; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        @media (min-width: 768px) {
+            .music-player { max-width: 400px; padding: 12px 25px; }
+        }
+        .album-art img { width: 35px; height: 35px; border-radius: 50%; object-fit: cover; border: 1px solid #bf0000; }
+        .track-container { flex-grow: 1; overflow: hidden; }
+        .track-info { color: #bf0000; font-size: 12px; font-weight: bold; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        #time-display { font-size: 10px; color: #800000; }
         .controls { display: flex; gap: 10px; color: #bf0000; font-size: 16px; }
         .controls button { background: none; border: none; color: #bf0000; cursor: pointer; }
     </style>
@@ -69,7 +74,10 @@
 
     <div class="music-player">
         <div class="album-art"><img id="cover" src="" alt="Art"></div>
-        <div class="track-info" id="song-title">Loading...</div>
+        <div class="track-container">
+            <div class="track-info" id="song-title">Loading...</div>
+            <div id="time-display">0:00</div>
+        </div>
         <div class="controls">
             <button onclick="prevSong()"><i class="fas fa-step-backward"></i></button>
             <button onclick="togglePlay()"><i id="play-pause" class="fas fa-play"></i></button>
@@ -94,12 +102,22 @@
         const coverArt = document.getElementById('cover');
         const playBtn = document.getElementById('play-pause');
         const overlay = document.getElementById("play-overlay");
+        const timeDisplay = document.getElementById("time-display");
 
         function loadSong(i) {
             songTitle.innerText = playlist[i].title;
             audio.src = playlist[i].src;
             coverArt.src = playlist[i].cover;
+            timeDisplay.innerText = "0:00";
         }
+
+        audio.addEventListener('timeupdate', () => {
+            const mins = Math.floor(audio.currentTime / 60);
+            const secs = Math.floor(audio.currentTime % 60);
+            timeDisplay.innerText = `${mins}:${secs < 10 ? '0' : ''}${secs}`;
+        });
+
+        audio.addEventListener('ended', nextSong);
 
         function startAudio() {
             index = Math.floor(Math.random() * playlist.length);
