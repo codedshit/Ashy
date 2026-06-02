@@ -51,7 +51,9 @@
             border: 3px solid #4d0000;
         }
 
-        .bio { font-style: italic; margin-bottom: 20px; font-weight: bold; }
+        .bio { font-style: italic; margin-bottom: 10px; font-weight: bold; }
+
+        .views { font-size: 14px; margin-bottom: 20px; color: #800000; cursor: pointer; }
 
         .links a {
             display: block;
@@ -82,6 +84,11 @@
             <h2>Ash</h2>
             <p class="bio">𝑻𝒆𝒓𝒓𝒐𝒓 𝒊𝒏 𝒓𝒆𝒔𝒐𝒏𝒂𝒏𝒄𝒆 𝒐𝒏 𝒕𝒐𝒑!</p>
             
+            <div class="views" onclick="showViews()">
+                <span id="view-text">Click to see views</span>
+                <span id="count" style="display:none;">42,731</span>
+            </div>
+            
             <div class="links">
                 <a href="https://discord.com/users/6fo4">Discord</a>
                 <a href="https://soundcloud.com/ash-lives-under-an-rock">SoundCloud</a>
@@ -95,11 +102,14 @@
         function startAudio() {
             const audio = document.getElementById("bg-music");
             const overlay = document.getElementById("play-overlay");
-            
             audio.play().catch(e => console.log("Audio play blocked", e));
-            
             overlay.style.opacity = "0";
             setTimeout(() => { overlay.style.display = "none"; }, 800);
+        }
+
+        function showViews() {
+            document.getElementById('view-text').style.display = 'none';
+            document.getElementById('count').style.display = 'inline';
         }
     </script>
 </body>
