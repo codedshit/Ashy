@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ash's Cavern</title>
+    <link rel="icon" type="image/gif" href="6efe8a79d1667544b478964c52e05982.gif">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         body, html { margin: 0; padding: 0; height: 100%; overflow: hidden; font-family: sans-serif; }
@@ -36,7 +37,7 @@
             border-radius: 20px;
             text-align: center;
             color: #bf0000;
-            width: 300px;
+            width: 240px; /* Reduced width as requested */
         }
 
         .pfp-container {
@@ -58,15 +59,15 @@
         }
 
         .verified { font-size: 12px; color: #800000; margin-bottom: 10px; }
-        .bio { font-style: italic; margin-bottom: 10px; font-weight: bold; }
+        .bio { font-style: italic; margin-bottom: 10px; font-weight: bold; font-size: 14px; }
 
         .links a {
             display: block;
             color: #bf0000;
             text-decoration: none;
-            margin: 12px 0;
+            margin: 10px 0;
             font-weight: bold;
-            font-size: 18px;
+            font-size: 16px;
         }
 
         .links a i { margin-right: 10px; width: 20px; text-align: center; }
@@ -75,7 +76,7 @@
 <body>
 
     <video autoplay loop muted playsinline id="bg-video">
-        <source src="https://r2.guns.lol/182a848b-80f1-4588-ac35-cee96d27cd2b.mp4" type="video/mp4">
+        <source src="15758933_2160_3840_25fps.mp4" type="video/mp4">
     </video>
 
     <audio id="bg-music" loop preload="auto">
@@ -83,26 +84,24 @@
     </audio>
 
     <div id="play-overlay" onclick="startAudio()">
-        <div>Click to enter my site</div>
+        <div>Click to enter</div>
     </div>
 
     <div class="container">
         <div class="card">
-            <!-- PFP with animated frame -->
             <div class="pfp-container">
                 <img src="https://r2.guns.lol/a9aff29e-faa3-4791-9d68-c86c466f18d4.webp" alt="PFP" class="pfp">
                 <img src="ezgif-46a49cacea44bc5f.gif" alt="Frame" class="pfp-frame">
             </div>
             
-            <!-- Name with flanking GIFs -->
             <div style="display: flex; justify-content: center; align-items: center; gap: 10px; margin-bottom: 5px;">
-                <img src="ezgif-66e8ff165ceaaa3d.gif" style="width: 30px; height: 30px;" alt="left-gif">
+                <img src="ezgif-66e8ff165ceaaa3d.gif" style="width: 25px; height: 25px;" alt="left-gif">
                 <h2 style="margin: 0;">Ash</h2>
-                <img src="070199b6f1766875e20d8ecd23870852.gif" style="width: 30px; height: 30px;" alt="right-gif">
+                <img src="070199b6f1766875e20d8ecd23870852.gif" style="width: 25px; height: 25px;" alt="right-gif">
             </div>
             
             <div class="verified">
-                <i class="fas fa-check-circle"></i> Site created by Ash with HTML
+                <i class="fas fa-check-circle"></i> Verified
             </div>
             
             <p class="bio">𝑻𝒆𝒓𝒓𝒐𝒓 𝒊𝒏 𝒓𝒆𝒔𝒐𝒏𝒂𝒏𝒄𝒆 𝒐𝒏 𝒕𝒐𝒑!</p>
