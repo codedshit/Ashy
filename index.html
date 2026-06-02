@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ash's Cavern</title>
+    <style>
+        body, html { margin: 0; padding: 0; height: 100%; overflow: hidden; font-family: sans-serif; }
+        
+        #bg-video {
+            position: fixed;
+            right: 0;
+            bottom: 0;
+            min-width: 100%;
+            min-height: 100%;
+            z-index: -1;
+            object-fit: cover;
+        }
+
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .card {
+            /* Applied Background Color: #000b34 */
+            background: rgba(0, 11, 52, 0.8);
+            backdrop-filter: blur(15px);
+            padding: 30px;
+            border-radius: 20px;
+            border: 2px solid #000000; /* Accent Color */
+            text-align: center;
+            /* Applied Text Color: #bf0000 */
+            color: #bf0000;
+            width: 300px;
+        }
+
+        .pfp {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            margin-bottom: 15px;
+            border: 3px solid #4d0000; /* Applied Icon/Border Color */
+        }
+
+        .bio { font-style: italic; margin-bottom: 20px; font-weight: bold; }
+
+        .links a {
+            display: block;
+            /* Applied Icon Color for links */
+            color: #4d0000;
+            text-decoration: none;
+            margin: 10px 0;
+            font-weight: bold;
+        }
+
+        /* Music Overlay */
+        #play-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: #000b34; color: #bf0000;
+            display: flex; justify-content: center; align-items: center;
+            z-index: 9999; cursor: pointer; font-size: 24px;
+        }
+    </style>
+</head>
+<body>
+
+    <video autoplay loop muted playsinline id="bg-video">
+        <source src="https://r2.guns.lol/182a848b-80f1-4588-ac35-cee96d27cd2b.mp4" type="video/mp4">
+    </video>
+
+    <!-- Music Player -->
+    <audio id="bg-music" loop>
+        <source src="face_xconsus_-_forever_young_voyuiwasien_KLICKAUD.mp3" type="audio/mpeg">
+    </audio>
+
+    <div id="play-overlay" onclick="startAudio()">
+        <div>Click to enter my site</div>
+    </div>
+
+    <div class="container">
+        <div class="card">
+            <img src="https://r2.guns.lol/a9aff29e-faa3-4791-9d68-c86c466f18d4.webp" alt="PFP" class="pfp">
+            <h2>Ash</h2>
+            <p class="bio">𝑻𝒆𝒓𝒓𝒐𝒓 𝒊𝒏 𝒓𝒆𝒔𝒐𝒏𝒂𝒏𝒄𝒆 𝒐𝒏 𝒕𝒐𝒑!</p>
+            
+            <div class="links">
+                <a href="https://discord.com/users/6fo4">Discord</a>
+                <a href="https://soundcloud.com/ash-lives-under-an-rock">SoundCloud</a>
+                <a href="https://www.last.fm/user/Ashy-geek">Last.fm</a>
+                <a href="https://www.roblox.com/users/4468232678/profile">Roblox</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function startAudio() {
+            const audio = document.getElementById("bg-music");
+            const overlay = document.getElementById("play-overlay");
+            audio.play();
+            overlay.style.transition = "opacity 0.8s ease";
+            overlay.style.opacity = "0";
+            setTimeout(() => { overlay.style.display = "none"; }, 800);
+        }
+    </script>
+</body>
+</html>
+
