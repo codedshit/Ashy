@@ -11,7 +11,7 @@
         #bg-video { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; object-fit: cover; }
         #play-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.4); backdrop-filter: blur(5px); color: #bf0000; display: flex; justify-content: center; align-items: center; z-index: 9999; cursor: pointer; font-size: 24px; transition: opacity 0.8s ease; }
         
-        .container { display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 20px; }
+        .container { display: flex; justify-content: center; align-items: center; min-height: 85vh; padding: 20px; }
         .card { background: rgba(0, 0, 0, 0.2); padding: 25px; border-radius: 20px; text-align: center; color: #bf0000; width: 100%; max-width: 300px; }
         .pfp-container { position: relative; width: 120px; height: 120px; margin: 0 auto 15px auto; }
         .pfp { width: 100%; height: 100%; border-radius: 50%; display: block; }
@@ -21,16 +21,16 @@
         .links a { display: flex; align-items: center; justify-content: center; color: #bf0000; text-decoration: none; margin: 15px 0; font-weight: bold; font-size: 18px; }
         .links a i, .links a img { margin-right: 10px; width: 25px; text-align: center; }
 
-        /* Floating Music Player */
+        /* Floating Player */
         .music-player {
-            position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%);
-            width: 90%; max-width: 400px; background: rgba(0, 0, 0, 0.6);
-            padding: 10px 20px; border-radius: 50px; display: flex; align-items: center;
-            gap: 15px; border: 2px solid #bf0000; z-index: 1000;
+            position: fixed; bottom: 10px; left: 50%; transform: translateX(-50%);
+            width: 90%; max-width: 300px; background: rgba(0, 0, 0, 0.7);
+            padding: 8px 15px; border-radius: 50px; display: flex; align-items: center;
+            gap: 10px; border: 2px solid #bf0000; z-index: 1000; backdrop-filter: blur(10px);
         }
-        .album-art img { width: 45px; height: 45px; border-radius: 50%; object-fit: cover; border: 1px solid #bf0000; }
-        .track-info { flex-grow: 1; color: #bf0000; font-size: 14px; font-weight: bold; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-        .controls { display: flex; gap: 15px; color: #bf0000; font-size: 20px; }
+        .album-art img { width: 35px; height: 35px; border-radius: 50%; object-fit: cover; }
+        .track-info { flex-grow: 1; color: #bf0000; font-size: 12px; font-weight: bold; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .controls { display: flex; gap: 10px; color: #bf0000; font-size: 16px; }
         .controls button { background: none; border: none; color: #bf0000; cursor: pointer; }
     </style>
 </head>
@@ -69,7 +69,7 @@
 
     <div class="music-player">
         <div class="album-art"><img id="cover" src="" alt="Art"></div>
-        <div class="track-info" id="song-title">Sometimes</div>
+        <div class="track-info" id="song-title">Loading...</div>
         <div class="controls">
             <button onclick="prevSong()"><i class="fas fa-step-backward"></i></button>
             <button onclick="togglePlay()"><i id="play-pause" class="fas fa-play"></i></button>
@@ -82,9 +82,9 @@
     <script>
         const playlist = [
             { title: "Sometimes", src: "Sometimes-mattyeux.mp3", cover: "Cover1.jpg" },
-            { title: "I Hate You So Much", src: "I_hate_you_so_much.mp3", cover: "Cover2.jpg" },
-            { title: "Say Something", src: "Saysomething_qorikardasian.mp3", cover: "Cover3.jpg" },
-            { title: "Close My Eyes", src: "Close_my_eyes.mp3", cover: "Cover4.jpg" },
+            { title: "Say Something", src: "Saysomething_qorikardasian.mp3", cover: "Cover2.jpg" },
+            { title: "Close My Eyes", src: "Close_my_eyes.mp3", cover: "Cover3.jpg" },
+            { title: "I Hate You So Much", src: "I_hate_you_so_much.mp3", cover: "Cover4.jpg" },
             { title: "Unhappy", src: "unhappy.mp3", cover: "Cover5.jpg" }
         ];
 
@@ -102,6 +102,8 @@
         }
 
         function startAudio() {
+            index = Math.floor(Math.random() * playlist.length);
+            loadSong(index);
             audio.play();
             overlay.style.opacity = "0";
             setTimeout(() => { overlay.style.display = "none"; }, 800);
