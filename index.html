@@ -4,20 +4,33 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ash's Cavern</title>
+    <link rel="icon" type="image/gif" href="6efe8a79d1667544b478964c52e05982.gif">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
         body, html { margin: 0; padding: 0; height: 100%; font-family: sans-serif; overflow-x: hidden; }
         #bg-video { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; object-fit: cover; }
         #play-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.4); backdrop-filter: blur(5px); color: #bf0000; display: flex; justify-content: center; align-items: center; z-index: 9999; cursor: pointer; font-size: 24px; transition: opacity 0.8s ease; }
-        .container { display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 20px; }
-        .card { background: rgba(0, 0, 0, 0.2); padding: 25px; border-radius: 20px; text-align: center; color: #bf0000; width: 100%; max-width: 300px; border: 1px solid #bf0000; }
         
-        /* Player Styles */
-        .music-player { background: rgba(0,0,0,0.6); padding: 15px; border-radius: 20px; display: flex; flex-direction: column; align-items: center; gap: 10px; color: white; margin-top: 20px; border: 1px solid #bf0000; }
-        .album-art img { width: 100px; height: 100px; border-radius: 10px; object-fit: cover; border: 2px solid #bf0000; }
-        .track-info { font-size: 14px; font-weight: bold; color: #bf0000; margin-bottom: 5px; }
-        .controls { display: flex; gap: 20px; }
-        .controls button { background: none; border: none; color: #bf0000; cursor: pointer; font-size: 20px; }
+        /* Floating Music Player */
+        .music-player {
+            position: fixed;
+            bottom: 20px;
+            left: 5%;
+            width: 90%;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 10px;
+            border-radius: 50px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            border: 1px solid #bf0000;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+        }
+        .album-art img { width: 50px; height: 50px; border-radius: 50%; object-fit: cover; border: 1px solid #bf0000; }
+        .track-info { flex-grow: 1; color: white; font-size: 12px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .controls { display: flex; gap: 15px; color: white; font-size: 20px; }
+        .controls button { background: none; border: none; color: white; cursor: pointer; }
     </style>
 </head>
 <body>
@@ -30,20 +43,14 @@
         <div>Click to enter</div>
     </div>
 
-    <div class="container">
-        <div class="card">
-            <h2>Ash's Cavern</h2>
-            
-            <!-- Music Player -->
-            <div class="music-player">
-                <div class="album-art"><img id="cover" src="" alt="Art"></div>
-                <div class="track-info" id="song-title">Loading...</div>
-                <div class="controls">
-                    <button onclick="prevSong()"><i class="fas fa-backward"></i></button>
-                    <button onclick="togglePlay()"><i id="play-pause" class="fas fa-play"></i></button>
-                    <button onclick="nextSong()"><i class="fas fa-forward"></i></button>
-                </div>
-            </div>
+    <!-- Compact Floating Player -->
+    <div class="music-player">
+        <div class="album-art"><img id="cover" src="" alt="Art"></div>
+        <div class="track-info" id="song-title">Loading...</div>
+        <div class="controls">
+            <button onclick="prevSong()"><i class="fas fa-step-backward"></i></button>
+            <button onclick="togglePlay()"><i id="play-pause" class="fas fa-play"></i></button>
+            <button onclick="nextSong()"><i class="fas fa-step-forward"></i></button>
         </div>
     </div>
 
@@ -100,6 +107,7 @@
             audio.play();
         }
 
+        // Initialize the first song
         loadSong(index);
     </script>
 </body>
