@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ash's Cavern</title>
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         body, html { margin: 0; padding: 0; height: 100%; overflow: hidden; font-family: sans-serif; }
         
@@ -35,7 +37,7 @@
         }
 
         .card {
-            background: transparent;
+            background: rgba(0, 0, 0, 0.2);
             padding: 30px;
             border-radius: 20px;
             text-align: center;
@@ -51,17 +53,20 @@
             border: 3px solid #4d0000;
         }
 
+        .verified { font-size: 12px; color: #800000; margin-bottom: 10px; }
         .bio { font-style: italic; margin-bottom: 10px; font-weight: bold; }
-
         .views { font-size: 14px; margin-bottom: 20px; color: #800000; cursor: pointer; }
 
         .links a {
             display: block;
-            color: #4d0000;
+            color: #bf0000;
             text-decoration: none;
-            margin: 10px 0;
+            margin: 12px 0;
             font-weight: bold;
+            font-size: 18px;
         }
+
+        .links a i { margin-right: 10px; width: 20px; text-align: center; }
     </style>
 </head>
 <body>
@@ -81,19 +86,34 @@
     <div class="container">
         <div class="card">
             <img src="https://r2.guns.lol/a9aff29e-faa3-4791-9d68-c86c466f18d4.webp" alt="PFP" class="pfp">
-            <h2>Ash</h2>
+            
+            <!-- Name with flanking GIFs -->
+            <div style="display: flex; justify-content: center; align-items: center; gap: 10px; margin-bottom: 5px;">
+                <img src="ezgif-66e8ff165ceaaa3d.gif" style="width: 30px; height: 30px;" alt="left-gif">
+                <h2 style="margin: 0;">Ash</h2>
+                <img src="070199b6f1766875e20d8ecd23870852.gif" style="width: 30px; height: 30px;" alt="right-gif">
+            </div>
+            
+            <div class="verified">
+                <i class="fas fa-check-circle"></i> Site created by Ash with HTML
+            </div>
+            
             <p class="bio">𝑻𝒆𝒓𝒓𝒐𝒓 𝒊𝒏 𝒓𝒆𝒔𝒐𝒏𝒂𝒏𝒄𝒆 𝒐𝒏 𝒕𝒐𝒑!</p>
             
             <div class="views" onclick="showViews()">
                 <span id="view-text">Click to see views</span>
-                <span id="count" style="display:none;">42,731</span>
+                <span id="count" style="display:none;">
+                    <a href="https://hits.seeyoufarm.com">
+                        <img src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2F6fo4.github.io%2FAshy%2F"/>
+                    </a>
+                </span>
             </div>
             
             <div class="links">
-                <a href="https://discord.com/users/6fo4">Discord</a>
-                <a href="https://soundcloud.com/ash-lives-under-an-rock">SoundCloud</a>
-                <a href="https://www.last.fm/user/Ashy-geek">Last.fm</a>
-                <a href="https://www.roblox.com/users/4468232678/profile">Roblox</a>
+                <a href="https://discord.com/users/6fo4"><i class="fab fa-discord"></i> Discord</a>
+                <a href="https://soundcloud.com/ash-lives-under-an-rock"><i class="fab fa-soundcloud"></i> SoundCloud</a>
+                <a href="https://www.last.fm/user/Ashy-geek"><i class="fab fa-lastfm"></i> Last.fm</a>
+                <a href="https://www.roblox.com/users/4468232678/profile"><i class="fab fa-roblox"></i> Roblox</a>
             </div>
         </div>
     </div>
