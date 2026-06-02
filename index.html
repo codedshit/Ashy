@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ash's Cavern</title>
-    <!-- Font Awesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         body, html { margin: 0; padding: 0; height: 100%; overflow: hidden; font-family: sans-serif; }
@@ -29,12 +28,7 @@
             transition: opacity 0.8s ease;
         }
 
-        .container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
+        .container { display: flex; justify-content: center; align-items: center; height: 100vh; }
 
         .card {
             background: rgba(0, 0, 0, 0.2);
@@ -45,17 +39,26 @@
             width: 300px;
         }
 
-        .pfp {
+        .pfp-container {
+            position: relative;
             width: 120px;
             height: 120px;
-            border-radius: 50%;
-            margin-bottom: 15px;
-            border: 3px solid #4d0000;
+            margin: 0 auto 15px auto;
+        }
+
+        .pfp { width: 100%; height: 100%; border-radius: 50%; display: block; }
+
+        .pfp-frame {
+            position: absolute;
+            top: -15px;
+            left: -15px;
+            width: 150px;
+            height: 150px;
+            pointer-events: none;
         }
 
         .verified { font-size: 12px; color: #800000; margin-bottom: 10px; }
         .bio { font-style: italic; margin-bottom: 10px; font-weight: bold; }
-        .views { font-size: 14px; margin-bottom: 20px; color: #800000; cursor: pointer; }
 
         .links a {
             display: block;
@@ -85,7 +88,11 @@
 
     <div class="container">
         <div class="card">
-            <img src="https://r2.guns.lol/a9aff29e-faa3-4791-9d68-c86c466f18d4.webp" alt="PFP" class="pfp">
+            <!-- PFP with animated frame -->
+            <div class="pfp-container">
+                <img src="https://r2.guns.lol/a9aff29e-faa3-4791-9d68-c86c466f18d4.webp" alt="PFP" class="pfp">
+                <img src="ezgif-46a49cacea44bc5f.gif" alt="Frame" class="pfp-frame">
+            </div>
             
             <!-- Name with flanking GIFs -->
             <div style="display: flex; justify-content: center; align-items: center; gap: 10px; margin-bottom: 5px;">
@@ -99,15 +106,6 @@
             </div>
             
             <p class="bio">𝑻𝒆𝒓𝒓𝒐𝒓 𝒊𝒏 𝒓𝒆𝒔𝒐𝒏𝒂𝒏𝒄𝒆 𝒐𝒏 𝒕𝒐𝒑!</p>
-            
-            <div class="views" onclick="showViews()">
-                <span id="view-text">Click to see hits</span>
-                <span id="count" style="display:none;">
-                    <a href="https://hits.seeyoufarm.com">
-                        <img src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2F6fo4.github.io%2FAshy%2F&count_bg=%2379C83D&title_bg=%23555555&icon=&icon_color=%23D02929&title=hits&edge_flat=false"/>
-                    </a>
-                </span>
-            </div>
             
             <div class="links">
                 <a href="https://discord.com/users/6fo4"><i class="fab fa-discord"></i> Discord</a>
@@ -125,11 +123,6 @@
             audio.play().catch(e => console.log("Audio play blocked", e));
             overlay.style.opacity = "0";
             setTimeout(() => { overlay.style.display = "none"; }, 800);
-        }
-
-        function showViews() {
-            document.getElementById('view-text').style.display = 'none';
-            document.getElementById('count').style.display = 'inline';
         }
     </script>
 </body>
