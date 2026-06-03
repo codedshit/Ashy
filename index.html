@@ -10,7 +10,7 @@
     
     <style>
         /* =========================================
-           FONTS 
+           FONTS & BASE SETTINGS
            ========================================= */
         @font-face { 
             font-family: 'ElegantTypewriter'; 
@@ -21,17 +21,15 @@
             src: url('ELEGANT TYPEWRITER Bold.ttf') format('truetype'); 
         }
 
-        /* =========================================
-           BASE PAGE SETTINGS (Allowed Vertical Scroll)
-           ========================================= */
         body, html { 
             margin: 0; 
             padding: 0; 
-            min-height: 100%; 
+            height: 100%; 
             font-family: 'ElegantTypewriter', sans-serif; 
             overflow-x: hidden; 
-            overflow-y: auto; /* Allows scrolling down to player */
+            overflow-y: auto; 
             background-color: black; 
+            scroll-behavior: smooth;
         }
 
         /* =========================================
@@ -66,29 +64,28 @@
         }
 
         /* =========================================
-           MAIN CONTENT CONTAINER
+           LAYOUT SECTIONS
            ========================================= */
-        .container { 
-            position: relative; 
-            z-index: 1; 
-            display: flex; 
-            justify-content: center; 
-            align-items: center; 
-            min-height: 100vh; 
-            padding: 20px; 
-            flex-direction: column; 
+        .page-section {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
             box-sizing: border-box;
         }
-        
-        /* Made smaller to show more background */
+
         .card { 
             background: rgba(0, 0, 0, 0.4); 
-            padding: 15px 20px; /* Tighter internal padding */
+            padding: 15px 20px; 
             border-radius: 20px; 
             text-align: center; 
             color: #bf0000; 
             width: 100%; 
-            max-width: 290px; /* Made slightly narrower */
+            max-width: 290px; 
             box-sizing: border-box;
         }
 
@@ -119,7 +116,7 @@
         }
 
         /* =========================================
-           NAME & WINGS
+           CARD CONTENTS
            ========================================= */
         .name-row { 
             display: flex; 
@@ -134,14 +131,8 @@
             color: #bf0000; 
             margin: 0; 
         }
-        .wing-icon { 
-            width: 28px; 
-            height: 28px; 
-        }
+        .wing-icon { width: 28px; height: 28px; }
 
-        /* =========================================
-           TYPEWRITER BIO & LINKS
-           ========================================= */
         .bio { 
             font-weight: bold; 
             font-size: 15px; 
@@ -151,12 +142,7 @@
             line-height: 1.3;
         }
         
-        .links {
-            display: flex;
-            flex-direction: column;
-            gap: 2px;
-        }
-        
+        .links { display: flex; flex-direction: column; gap: 2px; }
         .links a { 
             display: flex; 
             align-items: center; 
@@ -167,57 +153,165 @@
             font-weight: bold; 
             font-size: 19px; 
         }
-        .links a i, .links a img { 
-            margin-right: 12px; 
-            width: 25px; 
-            text-align: center; 
+        .links a i, .links a img { margin-right: 12px; width: 25px; text-align: center; }
+
+        /* =========================================
+           SCROLL FOR MORE INDICATOR (Font Fixed)
+           ========================================= */
+        .scroll-indicator {
+            position: absolute;
+            bottom: 25px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #bf0000;
+            text-align: center;
+            font-size: 15px;
+            font-family: 'ElegantTypewriterBold', sans-serif; /* Tied directly to your bold font */
+            letter-spacing: 0.5px;
+            transition: opacity 0.5s ease;
+            pointer-events: none;
+            animation: bounce 2s infinite;
+            text-shadow: 0px 0px 8px rgba(191, 0, 0, 0.5);
+        }
+        .scroll-indicator i {
+            display: block;
+            font-size: 18px;
+            margin-top: 6px;
+        }
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translate(-50%, 0); }
+            40% { transform: translate(-50%, -10px); }
+            60% { transform: translate(-50%, -5px); }
         }
 
         /* =========================================
-           MUSIC PLAYER (Moved out of fixed view)
+           ORGANIZED EXTRA INFO DESIGN
+           ========================================= */
+        .info-header {
+            font-family: 'ElegantTypewriterBold', sans-serif;
+            font-size: 20px;
+            margin: 5px 0 15px 0;
+            text-decoration: underline;
+            text-underline-offset: 4px;
+        }
+        .info-greeting {
+            font-size: 14px;
+            font-weight: bold;
+            margin-bottom: 14px;
+            line-height: 1.4;
+        }
+        .info-item {
+            font-size: 13px;
+            text-align: left;
+            margin: 10px 0;
+            line-height: 1.4;
+        }
+        .info-item i {
+            margin-right: 6px;
+            font-size: 12px;
+            width: 15px;
+            text-align: center;
+        }
+        .info-list-title {
+            font-family: 'ElegantTypewriterBold', sans-serif;
+            display: block;
+            margin-top: 4px;
+            font-size: 13px;
+        }
+        .info-list-content {
+            margin: 2px 0 8px 21px;
+            font-size: 12.5px;
+            color: #ff3333; /* Slightly lighter red highlight for names */
+        }
+        .info-footer {
+            font-size: 12px;
+            margin-top: 15px;
+            border-top: 1px dashed rgba(191, 0, 0, 0.4);
+            padding-top: 10px;
+            line-height: 1.4;
+        }
+
+        /* =========================================
+           MUSIC PLAYER WITH TIMELINE & SUBTITLES
            ========================================= */
         .music-player { 
-            margin: 25px auto 20px auto; /* Centers below card naturally */
+            margin: 20px auto 0 auto; 
             width: 100%; 
             max-width: 290px; 
             background: rgba(0, 0, 0, 0.85); 
-            padding: 8px 15px; 
-            border-radius: 40px; 
+            padding: 12px 15px; 
+            border-radius: 25px; 
             display: flex; 
-            align-items: center; 
-            gap: 12px; 
+            flex-direction: column;
+            gap: 10px; 
             backdrop-filter: blur(10px); 
             border: 1px solid #bf0000; 
             box-sizing: border-box;
         }
-        .album-art img { 
-            width: 40px; 
-            height: 40px; 
-            border-radius: 8px; 
-            object-fit: cover; 
+        
+        .player-subtitles {
+            text-align: center;
+            font-size: 13px;
+            color: #fff;
+            min-height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'ElegantTypewriterBold', sans-serif;
+            border-bottom: 1px dashed rgba(191, 0, 0, 0.3);
+            padding-bottom: 6px;
+            text-shadow: 0 0 4px #bf0000;
+            transition: color 0.3s ease;
         }
-        .track-container { 
-            flex-grow: 1; 
-            overflow: hidden; 
+
+        .player-main {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            width: 100%;
         }
-        .track-info { 
-            color: white; 
-            font-size: 12px; 
-            font-weight: bold; 
-            white-space: nowrap; 
-            overflow: hidden; 
+        .album-art img { width: 40px; height: 40px; border-radius: 8px; object-fit: cover; }
+        .track-container { flex-grow: 1; overflow: hidden; }
+        .track-info { color: white; font-size: 12px; font-weight: bold; white-space: nowrap; overflow: hidden; }
+        .controls { display: flex; gap: 12px; color: #bf0000; font-size: 16px; }
+        .controls button { background: none; border: none; color: #bf0000; cursor: pointer; }
+
+        .player-timeline {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            gap: 8px;
+            font-size: 11px;
+            color: rgba(255, 255, 255, 0.6);
+            font-weight: bold;
         }
-        .controls { 
-            display: flex; 
-            gap: 12px; 
-            color: #bf0000; 
-            font-size: 16px; 
+        .timeline-slider {
+            flex-grow: 1;
+            -webkit-appearance: none;
+            appearance: none;
+            height: 6px;
+            border-radius: 3px;
+            background: rgba(255, 255, 255, 0.2);
+            outline: none;
+            cursor: pointer;
         }
-        .controls button { 
-            background: none; 
-            border: none; 
-            color: #bf0000; 
-            cursor: pointer; 
+        .timeline-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: white;
+            cursor: pointer;
+        }
+        .timeline-slider::-moz-range-thumb {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: white;
+            cursor: pointer;
+            border: none;
         }
     </style>
 </head>
@@ -231,10 +325,8 @@
         <div>Click to enter</div>
     </div>
 
-    <div class="container">
-        
+    <div class="page-section" id="sec-1">
         <div class="card">
-            
             <div class="pfp-container">
                 <img src="https://r2.guns.lol/a9aff29e-faa3-4791-9d68-c86c466f18d4.webp" alt="PFP" class="pfp">
                 <img src="ezgif-46a49cacea44bc5f.gif" alt="Frame Decoration" class="pfp-frame">
@@ -252,7 +344,6 @@
                 <a href="https://discord.com/users/6fo4"><i class="fab fa-discord"></i> Discord</a>
                 <a href="https://soundcloud.com/ash-lives-under-an-rock"><i class="fab fa-soundcloud"></i> SoundCloud</a>
                 <a href="https://www.last.fm/user/Ashy-geek"><i class="fab fa-lastfm"></i> Last.fm</a>
-                
                 <a href="https://www.roblox.com/users/4468232678/profile">
                     <img src="https://upload.wikimedia.org/wikipedia/commons/3/3a/Roblox_player_icon_black.svg" 
                          style="filter: invert(15%) sepia(85%) saturate(7000%) hue-rotate(350deg) brightness(90%) contrast(115%);" 
@@ -260,18 +351,63 @@
                     Roblox
                 </a>
             </div>
+        </div>
+
+        <div class="scroll-indicator" id="scroll-prompt">
+            Scroll for more
+            <i class="fas fa-chevron-down"></i>
+        </div>
+    </div>
+
+    <div class="page-section" id="sec-2">
+        
+        <div class="card" id="extra-card">
+            <div class="info-header">Extra Info</div>
             
+            <div class="info-greeting">"Hey! It's nice to see you here."</div>
+            
+            <div class="info-item">
+                <i class="fas fa-calendar-alt"></i> Born on November 1st.
+            </div>
+            
+            <div class="info-item">
+                <i class="fas fa-headphones"></i> I usually watch animes and listen to music.
+            </div>
+            
+            <div class="info-item">
+                <i class="fas fa-tv"></i> <span class="info-list-title">Top 3 Anime (All Genres):</span>
+                <div class="info-list-content">Classroom of the Elite, Terror in Resonance, and Cyberpunk: Edgerunners</div>
+            </div>
+            
+            <div class="info-item">
+                <i class="fas fa-music"></i> <span class="info-list-title">Favorite Artists:</span>
+                <div class="info-list-content">s0rrow, overtonight and qorikardashian</div>
+            </div>
+            
+            <div class="info-footer">
+                "If you want to know more about me, send me a DM on any social media linked on this site."
+            </div>
         </div>
 
         <div class="music-player">
-            <div class="album-art"><img id="cover" src="" alt="Album Art"></div>
-            <div class="track-container">
-                <div class="track-info" id="song-title">Select a song</div>
+            <div class="player-subtitles" id="subtitles-box">...</div>
+
+            <div class="player-main">
+                <div class="album-art"><img id="cover" src="" alt="Album Art"></div>
+                <div class="track-container">
+                    <div class="track-info" id="song-title">Select a song</div>
+                </div>
+                <div class="controls">
+                    <button onclick="prevSong()"><i class="fas fa-backward"></i></button>
+                    <button onclick="togglePlay()"><i id="play-pause" class="fas fa-play"></i></button>
+                    <button onclick="nextSong()"><i class="fas fa-forward"></i></button>
+                </div>
             </div>
-            <div class="controls">
-                <button onclick="prevSong()"><i class="fas fa-backward"></i></button>
-                <button onclick="togglePlay()"><i id="play-pause" class="fas fa-play"></i></button>
-                <button onclick="nextSong()"><i class="fas fa-forward"></i></button>
+            
+            <div class="player-timeline">
+                <span id="current-time">0:00</span>
+                <input type="range" id="progress-bar" class="timeline-slider" min="0" value="0" step="1">
+                <span id="duration-time">0:00</span>
             </div>
         </div>
 
@@ -280,18 +416,54 @@
     <audio id="audio-player"></audio>
 
     <script>
-        // MUSIC PLAYLIST
+        // PLAYLIST WITH LYRICS TIMESTAMPS
         const playlist = [
-            { title: "Say Something", src: "https://archive.org/download/saysomething-qorikardashian/Saysomething-qorikardashian.mp3", cover: "https://i.ibb.co/1fJ3Qgqp/Cover2.jpg" },
-            { title: "Close My Eyes", src: "https://archive.org/download/close-my-eyes/Close_my_eyes.mp3", cover: "https://i.ibb.co/mCNNfGSH/Cover3.jpg" },
-            { title: "I Hate You So Much", src: "https://archive.org/download/i-hate-you-so-much/I_hate_you_so_much.mp3", cover: "https://i.ibb.co/jPCT7468/Cover4.jpg" },
-            { title: "Unhappy", src: "https://archive.org/download/unhappy_202606/unhappy.mp3", cover: "https://i.ibb.co/FbYVdkTp/Cover5.jpg" }
+            { 
+                title: "Say Something", 
+                src: "https://archive.org/download/saysomething-qorikardashian/Saysomething-qorikardashian.mp3", 
+                cover: "https://i.ibb.co/1fJ3Qgqp/Cover2.jpg",
+                lyrics: [
+                    { time: 0, text: "🎵 (Instrumental Intro) 🎵" },
+                    { time: 4, text: "Say something, I'm giving up on you..." },
+                    { time: 10, text: "I'll be the one, if you want me to." },
+                    { time: 16, text: "Anywhere, I would've followed you..." }
+                ]
+            },
+            { 
+                title: "Close My Eyes", 
+                src: "https://archive.org/download/close-my-eyes/Close_my_eyes.mp3", 
+                cover: "https://i.ibb.co/mCNNfGSH/Cover3.jpg",
+                lyrics: [
+                    { time: 0, text: "🎵 Close My Eyes - Playing 🎵" }
+                ]
+            },
+            { 
+                title: "I Hate You So Much", 
+                src: "https://archive.org/download/i-hate-you-so-much/I_hate_you_so_much.mp3", 
+                cover: "https://i.ibb.co/jPCT7468/Cover4.jpg",
+                lyrics: [
+                    { time: 0, text: "🎵 I Hate You So Much - Playing 🎵" }
+                ]
+            },
+            { 
+                title: "Unhappy", 
+                src: "https://archive.org/download/unhappy_202606/unhappy.mp3", 
+                cover: "https://i.ibb.co/FbYVdkTp/Cover5.jpg",
+                lyrics: [
+                    { time: 0, text: "🎵 Unhappy - Playing 🎵" }
+                ]
+            }
         ];
 
         let index = 0;
         const audio = document.getElementById('audio-player');
         const bio = document.getElementById('bio-text');
         const playBtn = document.getElementById('play-pause');
+        const progressBar = document.getElementById('progress-bar');
+        const currentTimeText = document.getElementById('current-time');
+        const durationTimeText = document.getElementById('duration-time');
+        const subtitlesBox = document.getElementById('subtitles-box');
+        const scrollPrompt = document.getElementById('scroll-prompt');
         
         function startAudio() {
             document.getElementById("play-overlay").style.opacity = "0";
@@ -304,6 +476,15 @@
             typeWriter();
         }
 
+        // FADE OUT SCROLL PROMPT
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 40) {
+                scrollPrompt.style.opacity = "0";
+            } else {
+                scrollPrompt.style.opacity = "1";
+            }
+        });
+
         // TYPEWRITER EFFECT
         function typeWriter() {
             const messages = [
@@ -315,7 +496,6 @@
             function type() {
                 let current = messages[mIdx];
                 bio.innerText = deleting ? current.substring(0, cIdx--) : current.substring(0, cIdx++);
-                
                 let speed = deleting ? 40 : 80;
                 
                 if (!deleting && cIdx > current.length) { 
@@ -327,19 +507,59 @@
                     mIdx = (mIdx + 1) % messages.length; 
                     speed = 800; 
                 }
-                
                 setTimeout(type, speed);
             }
             type();
         }
 
-        // PLAYER CONTROLS
+        function formatTime(secs) {
+            if (isNaN(secs)) return "0:00";
+            let minutes = Math.floor(secs / 60);
+            let seconds = Math.floor(secs % 60);
+            return minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
+        }
+
+        // AUDIO LAYER & TIMELINE TRACKING
         function loadSong(i) { 
             index = i; 
             document.getElementById('song-title').innerText = playlist[i].title; 
             audio.src = playlist[i].src; 
             document.getElementById('cover').src = playlist[i].cover; 
+            progressBar.value = 0;
+            currentTimeText.innerText = "0:00";
+            subtitlesBox.innerText = "...";
         }
+
+        audio.addEventListener('loadedmetadata', () => {
+            progressBar.max = Math.floor(audio.duration);
+            durationTimeText.innerText = formatTime(audio.duration);
+        });
+
+        audio.addEventListener('timeupdate', () => {
+            if (!audio.paused) {
+                const currentSec = Math.floor(audio.currentTime);
+                progressBar.value = currentSec;
+                currentTimeText.innerText = formatTime(audio.currentTime);
+                
+                const currentTrack = playlist[index];
+                if (currentTrack.lyrics) {
+                    let activeLine = "...";
+                    for (let i = 0; i < currentTrack.lyrics.length; i++) {
+                        if (currentSec >= currentTrack.lyrics[i].time) {
+                            activeLine = currentTrack.lyrics[i].text;
+                        }
+                    }
+                    if (subtitlesBox.innerText !== activeLine) {
+                        subtitlesBox.innerText = activeLine;
+                    }
+                }
+            }
+        });
+
+        progressBar.addEventListener('input', () => {
+            audio.currentTime = progressBar.value;
+            currentTimeText.innerText = formatTime(progressBar.value);
+        });
         
         function togglePlay() { 
             if (audio.paused) { 
@@ -351,19 +571,10 @@
             } 
         }
         
-        function nextSong() { 
-            index = (index + 1) % playlist.length; 
-            loadSong(index); 
-            audio.play(); 
-        }
-        
-        function prevSong() { 
-            index = (index - 1 + playlist.length) % playlist.length; 
-            loadSong(index); 
-            audio.play(); 
-        }
-        
+        function nextSong() { index = (index + 1) % playlist.length; loadSong(index); audio.play(); playBtn.className = "fas fa-pause"; }
+        function prevSong() { index = (index - 1 + playlist.length) % playlist.length; loadSong(index); audio.play(); playBtn.className = "fas fa-pause"; }
         audio.addEventListener('ended', nextSong);
     </script>
 </body>
 </html>
+
