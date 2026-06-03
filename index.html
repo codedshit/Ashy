@@ -4,36 +4,36 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ash's Cavern</title>
-    <link rel="icon" type="image/gif" href="6efe8a79d1667544b478964c52e05982.gif">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
         @font-face { font-family: 'ElegantTypewriter'; src: url('ELEGANT TYPEWRITER Regular.ttf') format('truetype'); }
         @font-face { font-family: 'ElegantTypewriterBold'; src: url('ELEGANT TYPEWRITER Bold.ttf') format('truetype'); }
 
-        body, html { margin: 0; padding: 0; height: 100%; font-family: 'ElegantTypewriter', sans-serif; background: black; }
+        body, html { margin: 0; padding: 0; height: 100%; font-family: 'ElegantTypewriter', sans-serif; background: black; overflow: hidden; }
         #bg-video { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -999; object-fit: cover; }
         
         #play-overlay { 
             position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
-            background: rgba(0, 0, 0, 0.7); color: white; display: flex; 
+            background: rgba(0, 0, 0, 0.8); color: white; display: flex; 
             justify-content: center; align-items: center; z-index: 9999; 
             cursor: pointer; font-family: 'ElegantTypewriter'; font-size: 24px;
         }
-
-        .container { display: flex; justify-content: center; align-items: center; min-height: 85vh; padding: 20px; }
-        .card { background: rgba(0, 0, 0, 0.4); padding: 25px; border-radius: 20px; text-align: center; color: #bf0000; width: 300px; }
-        .pfp-container { position: relative; width: 120px; height: 120px; margin: 0 auto 15px auto; }
-        .pfp { width: 100%; height: 100%; border-radius: 50%; }
-        .pfp-frame { position: absolute; top: -15px; left: -15px; width: 150px; height: 150px; pointer-events: none; }
         
-        .bio { font-family: 'ElegantTypewriter', monospace; font-size: 16px; color: #bf0000; min-height: 3em; margin: 15px 0; font-weight: bold; }
-        .links a { display: flex; align-items: center; justify-content: center; color: #bf0000; text-decoration: none; margin: 15px 0; font-weight: bold; font-size: 18px; }
-        .links a i, .links a img { margin-right: 10px; width: 25px; }
+        .container { display: flex; justify-content: center; align-items: center; min-height: 100vh; flex-direction: column; }
+        .card { background: rgba(0, 0, 0, 0.4); padding: 30px; border-radius: 20px; text-align: center; width: 300px; }
 
-        .music-player { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); width: 300px; background: rgba(0, 0, 0, 0.85); padding: 10px; border-radius: 20px; display: flex; align-items: center; gap: 10px; z-index: 1000; }
-        .album-art img { width: 40px; height: 40px; border-radius: 8px; }
-        .controls { display: flex; gap: 10px; color: #bf0000; }
-        .controls button { background: none; border: none; color: #bf0000; cursor: pointer; }
+        .pfp { width: 150px; height: 150px; border-radius: 50%; margin-bottom: 15px; border: 2px solid #bf0000; }
+        .header-row { display: flex; align-items: center; justify-content: center; gap: 15px; margin-bottom: 10px; }
+        .wing-icon { width: 40px; height: 40px; }
+        .header-name { font-family: 'ElegantTypewriterBold'; font-size: 40px; color: #bf0000; margin: 0; }
+
+        .bio { font-size: 18px; color: #bf0000; min-height: 3em; margin-bottom: 20px; font-weight: bold; }
+
+        .links { display: flex; flex-direction: column; gap: 15px; }
+        .links a { color: #bf0000; text-decoration: none; font-size: 20px; font-weight: bold; }
+
+        .music-player { position: fixed; bottom: 20px; left: 20px; display: flex; align-items: center; gap: 10px; background: rgba(0,0,0,0.6); padding: 10px; border-radius: 10px; }
+        .album-art { width: 40px; height: 40px; border-radius: 8px; }
     </style>
 </head>
 <body>
@@ -42,66 +42,76 @@
         <source src="15776218_2160_3840_30fps.mp4" type="video/mp4">
     </video>
 
-    <div id="play-overlay" onclick="startAudio()"><div>Click to enter my site</div></div>
+    <div id="play-overlay" onclick="startAll()"><div>Click to enter my site</div></div>
 
     <div class="container">
         <div class="card">
-            <div class="pfp-container">
-                <img src="https://r2.guns.lol/a9aff29e-faa3-4791-9d68-c86c466f18d4.webp" alt="PFP" class="pfp">
-                <img src="ezgif-46a49cacea44bc5f.gif" alt="Frame" class="pfp-frame">
+            <img src="26408.png" alt="Profile" class="pfp">
+            <div class="header-row">
+                <img src="ezgif-66e8ff165ceaaa3d.gif" class="wing-icon">
+                <h1 class="header-name">Ash</h1>
+                <img src="070199b6f1766875e20d8ecd23870852.gif" class="wing-icon">
             </div>
-            <h2 style="font-family: 'ElegantTypewriterBold'; margin: 0;">Ash</h2>
             <p class="bio" id="bio-text"></p>
             <div class="links">
                 <a href="https://discord.com/users/6fo4"><i class="fab fa-discord"></i> Discord</a>
                 <a href="https://soundcloud.com/ash-lives-under-an-rock"><i class="fab fa-soundcloud"></i> SoundCloud</a>
+                <a href="https://www.last.fm/user/Ashy-geek"><i class="fas fa-music"></i> Last.fm</a>
+                <a href="https://www.roblox.com/users/4468232678/profile"><i class="fas fa-gamepad"></i> Roblox</a>
             </div>
         </div>
     </div>
 
     <div class="music-player">
-        <div class="album-art"><img id="cover" src="https://i.ibb.co/1fJ3Qgqp/Cover2.jpg" alt="Art"></div>
-        <div class="controls">
-            <button onclick="togglePlay()"><i id="play-pause" class="fas fa-play"></i></button>
-        </div>
+        <img src="https://i.ibb.co/1fJ3Qgqp/Cover2.jpg" class="album-art" id="cover">
+        <button onclick="togglePlay()" style="background:none; border:none; color:#bf0000; cursor:pointer; font-size: 20px;"><i id="play-btn" class="fas fa-play"></i></button>
     </div>
 
     <audio id="audio-player"></audio>
 
     <script>
         const audio = document.getElementById('audio-player');
-        const playBtn = document.getElementById('play-pause');
-        const overlay = document.getElementById("play-overlay");
-        const bioElement = document.getElementById('bio-text');
+        const playBtn = document.getElementById('play-btn');
+        const bio = document.getElementById('bio-text');
+        
+        const playlist = [
+            "https://archive.org/download/saysomething-qorikardashian/Saysomething-qorikardashian.mp3",
+            "https://archive.org/download/close-my-eyes/Close_my_eyes.mp3",
+            "https://archive.org/download/i-hate-you-so-much/I_hate_you_so_much.mp3"
+        ];
+        let currentIdx = 0;
+        const phrases = ["This site was created by Ash.", "Click the links to see my socials."];
+        let pIdx = 0, cIdx = 0, deleting = false;
 
-        function startAudio() {
-            overlay.style.opacity = "0";
-            setTimeout(() => { overlay.style.display = "none"; }, 800);
-            startTypewriter();
+        function startAll() {
+            document.getElementById("play-overlay").style.display = "none";
+            loadAndPlay();
+            typeWriter();
         }
 
+        function loadAndPlay() {
+            audio.src = playlist[currentIdx];
+            audio.play();
+            playBtn.className = "fas fa-pause";
+        }
+
+        audio.onended = () => {
+            currentIdx = (currentIdx + 1) % playlist.length;
+            loadAndPlay();
+        };
+
         function togglePlay() {
-            if (audio.paused) { audio.play(); playBtn.className = "fas fa-pause"; }
+            if(audio.paused) { audio.play(); playBtn.className = "fas fa-pause"; }
             else { audio.pause(); playBtn.className = "fas fa-play"; }
         }
 
-        function startTypewriter() {
-            const messages = ["This site was created by Ash.", "Click the logos to enter my socials."];
-            let msgIdx = 0, charIdx = 0;
-            function type() {
-                if (msgIdx < messages.length) {
-                    if (charIdx < messages[msgIdx].length) {
-                        bioElement.innerHTML += messages[msgIdx].charAt(charIdx);
-                        charIdx++;
-                        setTimeout(type, 60);
-                    } else {
-                        setTimeout(() => { bioElement.innerHTML = ""; charIdx = 0; msgIdx++; type(); }, 1500);
-                    }
-                }
-            }
-            type();
+        function typeWriter() {
+            let current = phrases[pIdx];
+            bio.innerText = deleting ? current.substring(0, cIdx--) : current.substring(0, cIdx++);
+            if (!deleting && cIdx > current.length) { deleting = true; setTimeout(typeWriter, 2000); }
+            else if (deleting && cIdx === 0) { deleting = false; pIdx = (pIdx + 1) % phrases.length; setTimeout(typeWriter, 500); }
+            else { setTimeout(typeWriter, deleting ? 50 : 100); }
         }
     </script>
 </body>
 </html>
-
