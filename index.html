@@ -7,9 +7,9 @@
     <link rel="icon" type="image/gif" href="6efe8a79d1667544b478964c52e05982.gif">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
-        body, html { margin: 0; padding: 0; height: 100%; font-family: sans-serif; overflow-x: hidden; }
+        body, html { margin: 0; padding: 0; height: 100%; font-family: sans-serif; overflow-x: hidden; background: #000; }
         #bg-video { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; object-fit: cover; }
-        #play-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.4); backdrop-filter: blur(5px); color: #bf0000; display: flex; justify-content: center; align-items: center; z-index: 9999; cursor: pointer; font-size: 24px; transition: opacity 0.8s ease; }
+        #play-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.6); color: white; display: flex; justify-content: center; align-items: center; z-index: 9999; cursor: pointer; transition: opacity 0.8s ease; }
         
         .container { display: flex; justify-content: center; align-items: center; min-height: 85vh; padding: 20px; }
         .card { background: rgba(0, 0, 0, 0.2); padding: 25px; border-radius: 20px; text-align: center; color: #bf0000; width: 100%; max-width: 300px; }
@@ -21,22 +21,24 @@
         .links a { display: flex; align-items: center; justify-content: center; color: #bf0000; text-decoration: none; margin: 15px 0; font-weight: bold; font-size: 18px; }
         .links a i, .links a img { margin-right: 10px; width: 25px; text-align: center; }
 
-        /* Responsive Floating Player */
+        /* Compact Modern Player */
         .music-player {
-            position: fixed; bottom: 10px; left: 50%; transform: translateX(-50%);
-            width: 90%; max-width: 300px; background: rgba(0, 0, 0, 0.7);
-            padding: 8px 15px; border-radius: 50px; display: flex; align-items: center;
-            gap: 10px; border: 2px solid #bf0000; z-index: 1000; backdrop-filter: blur(10px);
+            position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
+            width: 90%; max-width: 350px; background: rgba(0, 0, 0, 0.85);
+            padding: 8px 15px; border-radius: 40px; display: flex; align-items: center;
+            gap: 12px; border: 1px solid #333; z-index: 1000; backdrop-filter: blur(10px);
         }
-        @media (min-width: 768px) {
-            .music-player { max-width: 400px; padding: 12px 25px; }
-        }
-        .album-art img { width: 35px; height: 35px; border-radius: 50%; object-fit: cover; border: 1px solid #bf0000; }
-        .track-container { flex-grow: 1; overflow: hidden; }
-        .track-info { color: #bf0000; font-size: 12px; font-weight: bold; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-        #time-display { font-size: 10px; color: #800000; }
-        .controls { display: flex; gap: 10px; color: #bf0000; font-size: 16px; }
-        .controls button { background: none; border: none; color: #bf0000; cursor: pointer; }
+        .album-art img { width: 40px; height: 40px; border-radius: 8px; object-fit: cover; }
+        .track-container { flex-grow: 1; display: flex; flex-direction: column; justify-content: center; overflow: hidden; }
+        .track-info { color: white; font-size: 12px; font-weight: bold; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        
+        .time-wrapper { display: flex; align-items: center; gap: 6px; margin-top: 4px; }
+        .time-bar { flex-grow: 1; height: 4px; background: #333; border-radius: 2px; cursor: pointer; }
+        .progress { height: 100%; background: #bf0000; width: 0%; border-radius: 2px; transition: width 0.1s; }
+        .time-text { font-size: 9px; color: #888; width: 25px; text-align: center; }
+
+        .controls { display: flex; gap: 12px; color: #bf0000; font-size: 14px; align-items: center; }
+        .controls button { background: none; border: none; color: #bf0000; cursor: pointer; font-size: 14px; }
     </style>
 </head>
 <body>
@@ -75,13 +77,17 @@
     <div class="music-player">
         <div class="album-art"><img id="cover" src="" alt="Art"></div>
         <div class="track-container">
-            <div class="track-info" id="song-title">Loading...</div>
-            <div id="time-display">0:00</div>
+            <div class="track-info" id="song-title">Select a song</div>
+            <div class="time-wrapper">
+                <span id="current-time" class="time-text">0:00</span>
+                <div class="time-bar" onclick="seek(event)"><div id="progress" class="progress"></div></div>
+                <span id="total-time" class="time-text">0:00</span>
+            </div>
         </div>
         <div class="controls">
-            <button onclick="prevSong()"><i class="fas fa-step-backward"></i></button>
+            <button onclick="prevSong()"><i class="fas fa-backward"></i></button>
             <button onclick="togglePlay()"><i id="play-pause" class="fas fa-play"></i></button>
-            <button onclick="nextSong()"><i class="fas fa-step-forward"></i></button>
+            <button onclick="nextSong()"><i class="fas fa-forward"></i></button>
         </div>
     </div>
 
@@ -89,11 +95,11 @@
 
     <script>
         const playlist = [
-            { title: "Sometimes", src: "Sometimes-mattyeux.mp3", cover: "Cover1.jpg" },
-            { title: "Say Something", src: "Saysomething_qorikardasian.mp3", cover: "Cover2.jpg" },
-            { title: "Close My Eyes", src: "Close_my_eyes.mp3", cover: "Cover3.jpg" },
-            { title: "I Hate You So Much", src: "I_hate_you_so_much.mp3", cover: "Cover4.jpg" },
-            { title: "Unhappy", src: "unhappy.mp3", cover: "Cover5.jpg" }
+            { title: "Sometimes", src: "https://archive.org/download/sometimes-mattyeux/Sometimes-mattyeux.mp3", cover: "https://i.ibb.co/ch1kKNVf/Cover1.jpg" },
+            { title: "Say Something", src: "https://archive.org/download/saysomething-qorikardasian/Saysomething_qorikardasian.mp3", cover: "https://i.ibb.co/1fJ3Qgqp/Cover2.jpg" },
+            { title: "Close My Eyes", src: "https://archive.org/download/close-my-eyes/Close_my_eyes.mp3", cover: "https://i.ibb.co/mCNNfGSH/Cover3.jpg" },
+            { title: "I Hate You So Much", src: "https://archive.org/download/i-hate-you-so-much/I_hate_you_so_much.mp3", cover: "https://i.ibb.co/jPCT7468/Cover4.jpg" },
+            { title: "Unhappy", src: "https://archive.org/download/unhappy_202606/unhappy.mp3", cover: "https://i.ibb.co/FbYVdkTp/Cover5.jpg" }
         ];
 
         let index = 0;
@@ -102,19 +108,27 @@
         const coverArt = document.getElementById('cover');
         const playBtn = document.getElementById('play-pause');
         const overlay = document.getElementById("play-overlay");
-        const timeDisplay = document.getElementById("time-display");
+        const progress = document.getElementById('progress');
+        const curTime = document.getElementById('current-time');
+        const durTime = document.getElementById('total-time');
+
+        function formatTime(s) {
+            const m = Math.floor(s / 60);
+            const sec = Math.floor(s % 60);
+            return `${m}:${sec < 10 ? '0' : ''}${sec}`;
+        }
 
         function loadSong(i) {
             songTitle.innerText = playlist[i].title;
             audio.src = playlist[i].src;
             coverArt.src = playlist[i].cover;
-            timeDisplay.innerText = "0:00";
         }
 
         audio.addEventListener('timeupdate', () => {
-            const mins = Math.floor(audio.currentTime / 60);
-            const secs = Math.floor(audio.currentTime % 60);
-            timeDisplay.innerText = `${mins}:${secs < 10 ? '0' : ''}${secs}`;
+            const { currentTime, duration } = audio;
+            progress.style.width = `${(currentTime / duration) * 100}%`;
+            curTime.innerText = formatTime(currentTime);
+            durTime.innerText = formatTime(duration || 0);
         });
 
         audio.addEventListener('ended', nextSong);
@@ -135,8 +149,11 @@
 
         function nextSong() { index = (index + 1) % playlist.length; loadSong(index); audio.play(); }
         function prevSong() { index = (index - 1 + playlist.length) % playlist.length; loadSong(index); audio.play(); }
-
-        loadSong(index);
+        function seek(e) {
+            const width = e.target.clientWidth;
+            const clickX = e.offsetX;
+            audio.currentTime = (clickX / width) * audio.duration;
+        }
     </script>
 </body>
 </html>
