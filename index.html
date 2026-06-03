@@ -22,14 +22,15 @@
         }
 
         /* =========================================
-           BASE PAGE SETTINGS
+           BASE PAGE SETTINGS (Allowed Vertical Scroll)
            ========================================= */
         body, html { 
             margin: 0; 
             padding: 0; 
-            height: 100%; 
+            min-height: 100%; 
             font-family: 'ElegantTypewriter', sans-serif; 
             overflow-x: hidden; 
+            overflow-y: auto; /* Allows scrolling down to player */
             background-color: black; 
         }
 
@@ -43,7 +44,7 @@
             width: 100%; 
             height: 100%; 
             object-fit: cover; 
-            z-index: 0; /* Sits at the very back */
+            z-index: 0; 
         }
         
         #play-overlay { 
@@ -69,23 +70,26 @@
            ========================================= */
         .container { 
             position: relative; 
-            z-index: 1; /* Sits above the video */
+            z-index: 1; 
             display: flex; 
             justify-content: center; 
             align-items: center; 
-            min-height: 85vh; 
+            min-height: 100vh; 
             padding: 20px; 
             flex-direction: column; 
+            box-sizing: border-box;
         }
         
+        /* Made smaller to show more background */
         .card { 
             background: rgba(0, 0, 0, 0.4); 
-            padding: 25px; 
+            padding: 15px 20px; /* Tighter internal padding */
             border-radius: 20px; 
             text-align: center; 
             color: #bf0000; 
             width: 100%; 
-            max-width: 320px; 
+            max-width: 290px; /* Made slightly narrower */
+            box-sizing: border-box;
         }
 
         /* =========================================
@@ -93,9 +97,9 @@
            ========================================= */
         .pfp-container { 
             position: relative; 
-            width: 120px; 
-            height: 120px; 
-            margin: 0 auto 20px auto; 
+            width: 110px; 
+            height: 110px; 
+            margin: 5px auto 15px auto; 
         }
         .pfp { 
             width: 100%; 
@@ -106,11 +110,11 @@
         }
         .pfp-frame { 
             position: absolute; 
-            top: -15px; 
-            left: -15px; 
-            width: 150px; 
-            height: 150px; 
-            pointer-events: none; /* Allows clicking through the frame */
+            top: -14px; 
+            left: -14px; 
+            width: 138px; 
+            height: 138px; 
+            pointer-events: none; 
             z-index: 2;
         }
 
@@ -122,17 +126,17 @@
             align-items: center; 
             justify-content: center; 
             gap: 10px; 
-            margin-bottom: 15px; 
+            margin-bottom: 10px; 
         }
         .header-name { 
             font-family: 'ElegantTypewriterBold', sans-serif; 
-            font-size: 32px; 
+            font-size: 28px; 
             color: #bf0000; 
             margin: 0; 
         }
         .wing-icon { 
-            width: 30px; 
-            height: 30px; 
+            width: 28px; 
+            height: 28px; 
         }
 
         /* =========================================
@@ -140,16 +144,17 @@
            ========================================= */
         .bio { 
             font-weight: bold; 
-            font-size: 16px; 
-            margin-bottom: 20px; 
+            font-size: 15px; 
+            margin-bottom: 15px; 
             min-height: 3em; 
             color: #bf0000;
+            line-height: 1.3;
         }
         
         .links {
             display: flex;
             flex-direction: column;
-            gap: 5px;
+            gap: 2px;
         }
         
         .links a { 
@@ -158,9 +163,9 @@
             justify-content: center; 
             color: #bf0000; 
             text-decoration: none; 
-            margin: 10px 0; 
+            margin: 6px 0; 
             font-weight: bold; 
-            font-size: 20px; 
+            font-size: 19px; 
         }
         .links a i, .links a img { 
             margin-right: 12px; 
@@ -169,24 +174,21 @@
         }
 
         /* =========================================
-           MUSIC PLAYER
+           MUSIC PLAYER (Moved out of fixed view)
            ========================================= */
         .music-player { 
-            position: fixed; 
-            bottom: 20px; 
-            left: 50%; 
-            transform: translateX(-50%); 
-            width: 90%; 
-            max-width: 350px; 
+            margin: 25px auto 20px auto; /* Centers below card naturally */
+            width: 100%; 
+            max-width: 290px; 
             background: rgba(0, 0, 0, 0.85); 
             padding: 8px 15px; 
             border-radius: 40px; 
             display: flex; 
             align-items: center; 
             gap: 12px; 
-            z-index: 1000; 
             backdrop-filter: blur(10px); 
             border: 1px solid #bf0000; 
+            box-sizing: border-box;
         }
         .album-art img { 
             width: 40px; 
@@ -230,6 +232,7 @@
     </div>
 
     <div class="container">
+        
         <div class="card">
             
             <div class="pfp-container">
@@ -259,18 +262,19 @@
             </div>
             
         </div>
-    </div>
 
-    <div class="music-player">
-        <div class="album-art"><img id="cover" src="" alt="Album Art"></div>
-        <div class="track-container">
-            <div class="track-info" id="song-title">Select a song</div>
+        <div class="music-player">
+            <div class="album-art"><img id="cover" src="" alt="Album Art"></div>
+            <div class="track-container">
+                <div class="track-info" id="song-title">Select a song</div>
+            </div>
+            <div class="controls">
+                <button onclick="prevSong()"><i class="fas fa-backward"></i></button>
+                <button onclick="togglePlay()"><i id="play-pause" class="fas fa-play"></i></button>
+                <button onclick="nextSong()"><i class="fas fa-forward"></i></button>
+            </div>
         </div>
-        <div class="controls">
-            <button onclick="prevSong()"><i class="fas fa-backward"></i></button>
-            <button onclick="togglePlay()"><i id="play-pause" class="fas fa-play"></i></button>
-            <button onclick="nextSong()"><i class="fas fa-forward"></i></button>
-        </div>
+
     </div>
 
     <audio id="audio-player"></audio>
@@ -289,22 +293,18 @@
         const bio = document.getElementById('bio-text');
         const playBtn = document.getElementById('play-pause');
         
-        // START EVERYTHING
         function startAudio() {
-            // Hide Overlay
             document.getElementById("play-overlay").style.opacity = "0";
             setTimeout(() => { document.getElementById("play-overlay").style.display = "none"; }, 800);
             
-            // Start Music
             loadSong(Math.floor(Math.random() * playlist.length));
             audio.play();
             playBtn.className = "fas fa-pause";
             
-            // Start Typewriter
             typeWriter();
         }
 
-        // TYPEWRITER EFFECT (TYPE IN, BACKSPACE OUT)
+        // TYPEWRITER EFFECT
         function typeWriter() {
             const messages = [
                 "This site was created by Ash, using HTML, JS and CSS.", 
@@ -316,16 +316,16 @@
                 let current = messages[mIdx];
                 bio.innerText = deleting ? current.substring(0, cIdx--) : current.substring(0, cIdx++);
                 
-                let speed = deleting ? 40 : 80; // Speed of typing vs erasing
+                let speed = deleting ? 40 : 80;
                 
                 if (!deleting && cIdx > current.length) { 
                     deleting = true; 
-                    speed = 2500; // Wait at the end of the sentence before erasing
+                    speed = 2500; 
                 } 
                 else if (deleting && cIdx === 0) { 
                     deleting = false; 
                     mIdx = (mIdx + 1) % messages.length; 
-                    speed = 800; // Wait before typing the next sentence
+                    speed = 800; 
                 }
                 
                 setTimeout(type, speed);
@@ -333,7 +333,7 @@
             type();
         }
 
-        // MUSIC CONTROLS
+        // PLAYER CONTROLS
         function loadSong(i) { 
             index = i; 
             document.getElementById('song-title').innerText = playlist[i].title; 
@@ -363,10 +363,7 @@
             audio.play(); 
         }
         
-        // Auto-play next song when one ends
         audio.addEventListener('ended', nextSong);
-
     </script>
 </body>
 </html>
-
