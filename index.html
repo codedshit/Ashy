@@ -4,21 +4,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ash's Cavern</title>
-    <link rel="icon" type="image/gif" href="6efe8a79d1667544b478964c52e05982.gif">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
-        body, html { margin: 0; padding: 0; height: 100%; font-family: sans-serif; overflow-x: hidden; background: black; }
+        @font-face { font-family: 'ElegantTypewriter'; src: url('ELEGANT TYPEWRITER Regular.ttf') format('truetype'); }
+        @font-face { font-family: 'ElegantTypewriterBold'; src: url('ELEGANT TYPEWRITER Bold.ttf') format('truetype'); }
+        
+        body, html { margin: 0; padding: 0; height: 100%; font-family: 'ElegantTypewriter', sans-serif; overflow-x: hidden; background: black; }
         #bg-video { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -999; object-fit: cover; }
         #play-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.6); color: white; display: flex; justify-content: center; align-items: center; z-index: 9999; cursor: pointer; transition: opacity 0.8s ease; }
         
-        .container { display: flex; justify-content: center; align-items: center; min-height: 85vh; padding: 20px; }
+        .container { display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 20px; flex-direction: column; }
         .card { background: rgba(0, 0, 0, 0.2); padding: 25px; border-radius: 20px; text-align: center; color: #bf0000; width: 100%; max-width: 300px; }
-        .pfp-container { position: relative; width: 120px; height: 120px; margin: 0 auto 15px auto; }
-        .pfp { width: 100%; height: 100%; border-radius: 50%; display: block; }
-        .pfp-frame { position: absolute; top: -15px; left: -15px; width: 150px; height: 150px; pointer-events: none; }
+        .pfp { width: 150px; height: 150px; border-radius: 50%; display: block; margin: 0 auto 15px auto; border: 2px solid #bf0000; }
+        .name-row { display: flex; align-items: center; justify-content: center; gap: 10px; margin-bottom: 15px; }
+        .header-name { font-family: 'ElegantTypewriterBold'; font-size: 32px; color: #bf0000; margin: 0; }
+        .wing-icon { width: 30px; height: 30px; }
         .bio { font-weight: bold; font-size: 16px; margin-bottom: 20px; min-height: 3em; }
         .links a { display: flex; align-items: center; justify-content: center; color: #bf0000; text-decoration: none; margin: 15px 0; font-weight: bold; font-size: 18px; }
-        .links a i, .links a img { margin-right: 10px; width: 25px; text-align: center; }
+        .links a i { margin-right: 10px; width: 25px; text-align: center; }
 
         .music-player { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); width: 90%; max-width: 350px; background: rgba(0, 0, 0, 0.85); padding: 8px 15px; border-radius: 40px; display: flex; align-items: center; gap: 12px; z-index: 1000; backdrop-filter: blur(10px); border: 1px solid #333; }
         .album-art img { width: 40px; height: 40px; border-radius: 8px; object-fit: cover; }
@@ -38,24 +41,18 @@
 
     <div class="container">
         <div class="card">
-            <div class="pfp-container">
-                <img src="26408.png" alt="PFP" class="pfp">
-                <img src="ezgif-46a49cacea44bc5f.gif" alt="Frame" class="pfp-frame">
-            </div>
-            <div style="display: flex; justify-content: center; align-items: center; gap: 8px; margin-bottom: 5px;">
-                <img src="ezgif-66e8ff165ceaaa3d.gif" style="width: 25px; height: 25px;">
-                <h2 style="margin: 0; font-size: 24px;">Ash</h2>
-                <img src="070199b6f1766875e20d8ecd23870852.gif" style="width: 25px; height: 25px;">
+            <img src="26408.png" alt="PFP" class="pfp">
+            <div class="name-row">
+                <img src="ezgif-66e8ff165ceaaa3d.gif" class="wing-icon">
+                <h2 class="header-name">Ash</h2>
+                <img src="070199b6f1766875e20d8ecd23870852.gif" class="wing-icon">
             </div>
             <p class="bio" id="bio-text"></p>
             <div class="links">
                 <a href="https://discord.com/users/6fo4"><i class="fab fa-discord"></i> Discord</a>
                 <a href="https://soundcloud.com/ash-lives-under-an-rock"><i class="fab fa-soundcloud"></i> SoundCloud</a>
                 <a href="https://www.last.fm/user/Ashy-geek"><i class="fab fa-lastfm"></i> Last.fm</a>
-                <a href="https://www.roblox.com/users/4468232678/profile">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/3/3a/Roblox_player_icon_black.svg" style="width: 20px; height: 20px; filter: invert(10%) sepia(90%) saturate(6000%) hue-rotate(350deg) brightness(80%) contrast(110%);" alt="Roblox">
-                    Roblox
-                </a>
+                <a href="https://www.roblox.com/users/4468232678/profile"><i class="fas fa-gamepad"></i> Roblox</a>
             </div>
         </div>
     </div>
