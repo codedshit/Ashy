@@ -216,66 +216,104 @@ body {
         @keyframes blink { 50% { opacity: 0; } }
 
         /* =========================================
-           SOCIAL LINK BUTTONS
+           SOCIAL LINKS (ORGANIZED COOL GRID)
            ========================================= */
         .links {
-            display: flex; flex-direction: column; gap: 10px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 11px;
+            max-width: 180px;
+            margin: 14px auto 0;
         }
         .links a {
-            display: flex; align-items: center; gap: 12px;
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid var(--border-subtle);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 52px;
+            height: 52px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1.5px solid rgba(0, 240, 255, 0.12);
             border-radius: 14px;
-            padding: 10px 14px;
-            color: var(--silver); text-decoration: none;
-            font-size: 13.5px; font-weight: 500;
-            transition: all 0.3s ease;
+            text-decoration: none;
+            transition: all 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
         }
+
+        /* Unique color for each platform */
+        .links a:nth-child(1) { --platform-color: #5865F2; } /* Discord - Purple */
+        .links a:nth-child(2) { --platform-color: #00F7EF; } /* TikTok - Cyan */
+        .links a:nth-child(3) { --platform-color: #1f6feb; } /* GitHub - Blue */
+        .links a:nth-child(4) { --platform-color: #1DB954; } /* Spotify - Green */
+        .links a:nth-child(5) { --platform-color: #0ea5e9; } /* X/Twitter - Sky Blue */
+        .links a:nth-child(6) { --platform-color: #E60023; } /* Pinterest - Red */
+        .links a:nth-child(7) { --platform-color: #ff003c; } /* Last.fm - Crimson */
+        .links a:nth-child(8) { --platform-color: #ff6d00; } /* SoundCloud - Orange */
+        .links a:nth-child(9) { --platform-color: #ff5700; } /* Roblox - Dark Orange */
+        .links a:nth-child(10) { --platform-color: #c562ff; } /* AniList - Purple */
+
+        .links a::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, var(--platform-color), transparent);
+            opacity: 0;
+            transition: opacity 0.35s ease;
+            border-radius: 12px;
+        }
+
         .links a:hover {
-            background: rgba(0, 240, 255, 0.08);
-            border-color: var(--secondary);
-            color: var(--white);
-            transform: translateX(5px);
+            border-color: var(--platform-color);
+            background: rgba(0, 240, 255, 0.06);
+            box-shadow: 0 0 20px var(--platform-color),
+                        inset 0 0 12px rgba(0, 240, 255, 0.08);
+            transform: translateY(-6px) scale(1.1);
         }
 
-        /* Icon box */
-        .link-icon-box {
-            width: 34px; height: 34px;
-            background: rgba(255, 0, 60, 0.08);
-            border: 1px solid rgba(255, 0, 60, 0.2);
-            border-radius: 10px;
-            display: flex; align-items: center; justify-content: center;
-            flex-shrink: 0;
-            transition: all 0.3s ease;
+        .links a:hover::before {
+            opacity: 0.15;
         }
-        .links a:hover .link-icon-box {
-            background: var(--secondary);
-            border-color: var(--secondary);
-            box-shadow: 0 0 15px var(--glow-sec);
-        }
-        .link-icon-box i {
-            color: var(--primary);
-            font-size: 16px; transition: color 0.3s ease;
-        }
-        .links a:hover .link-icon-box i { color: #000; }
         
+        .link-icon-box {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 12px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .link-icon-box i,
+        .link-icon-box img,
+        .link-icon-box svg {
+            color: var(--platform-color);
+            font-size: 24px;
+            width: 26px;
+            height: 26px;
+            transition: all 0.35s ease;
+        }
+
+        .links a:hover .link-icon-box i,
+        .links a:hover .link-icon-box img,
+        .links a:hover .link-icon-box svg { 
+            color: #fff;
+            filter: drop-shadow(0 0 10px var(--platform-color));
+            transform: scale(1.25);
+        }
+
         .link-icon-box img {
-            width: 18px; height: 18px;
-            filter: invert(15%) sepia(90%) saturate(6000%) hue-rotate(340deg) brightness(90%) contrast(110%);
-            transition: filter 0.3s ease;
+            width: 22px;
+            filter: invert(15%) sepia(90%) saturate(100%) hue-rotate(200deg) brightness(90%);
         }
+
         .links a:hover .link-icon-box img {
-            filter: invert(0%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(0%) contrast(100%);
+            filter: brightness(2.2) drop-shadow(0 0 8px var(--platform-color));
         }
 
-        .link-name { flex: 1; text-align: left; letter-spacing: 0.5px; }
-
-        .link-chevron {
-            color: rgba(255, 255, 255, 0.2);
-            font-size: 11px;
-            transition: all 0.3s ease;
-        }
-        .links a:hover .link-chevron { color: var(--secondary); transform: translateX(3px); }
+        .link-name { display: none; }
+        .link-chevron { display: none; }
 
         /* =========================================
            DYNAMIC SCROLL INDICATOR
@@ -524,7 +562,7 @@ body {
     </video>
 
     <div id="play-overlay" onclick="startSite()">
-        Click to enter
+        Click to enter the site <3
         <span>Ash's Cavern</span>
     </div>
 
@@ -551,27 +589,47 @@ body {
             <p class="bio" id="bio-text"></p>
 
             <div class="links">
-                <a href="https://discord.com/users/6fo4">
+                <!-- Discord -->
+                <a href="https://discord.com/users/6fo4" title="Discord">
                     <span class="link-icon-box"><i class="fab fa-discord"></i></span>
-                    <span class="link-name">Discord</span>
-                    <i class="fas fa-chevron-right link-chevron"></i>
                 </a>
-                <a href="https://soundcloud.com/ash-lives-under-an-rock">
-                    <span class="link-icon-box"><i class="fab fa-soundcloud"></i></span>
-                    <span class="link-name">SoundCloud</span>
-                    <i class="fas fa-chevron-right link-chevron"></i>
+                <!-- TikTok -->
+                <a href="https://www.tiktok.com/@kissmylips666?_r=1&_t=ZN-96vZBeBZOek" title="TikTok">
+                    <span class="link-icon-box"><i class="fab fa-tiktok"></i></span>
                 </a>
-                <a href="https://www.last.fm/user/Ashy-geek">
+                <!-- GitHub -->
+                <a href="https://github.com/6fo4" title="GitHub">
+                    <span class="link-icon-box"><i class="fab fa-github"></i></span>
+                </a>
+                <!-- Spotify -->
+                <a href="https://open.spotify.com/user/31oyzi66p57fkbpncfhkvt2nxi2u?si=dfu_TO7xQOyhAQRNUksztw" title="Spotify">
+                    <span class="link-icon-box"><i class="fab fa-spotify"></i></span>
+                </a>
+                <!-- X (Twitter) -->
+                <a href="https://x.com/Lobsterki" title="X (Twitter)">
+                    <span class="link-icon-box"><i class="fab fa-x-twitter"></i></span>
+                </a>
+                <!-- Pinterest -->
+                <a href="https://pin.it/2R9xvir5E" title="Pinterest">
+                    <span class="link-icon-box"><i class="fab fa-pinterest"></i></span>
+                </a>
+                <!-- Last.fm -->
+                <a href="https://www.last.fm/user/Ashy-geek" title="Last.fm">
                     <span class="link-icon-box"><i class="fab fa-lastfm"></i></span>
-                    <span class="link-name">Last.fm</span>
-                    <i class="fas fa-chevron-right link-chevron"></i>
                 </a>
-                <a href="https://www.roblox.com/users/4468232678/profile">
+                <!-- SoundCloud -->
+                <a href="https://soundcloud.com/ash-lives-under-an-rock" title="SoundCloud">
+                    <span class="link-icon-box"><i class="fab fa-soundcloud"></i></span>
+                </a>
+                <!-- Roblox -->
+                <a href="https://www.roblox.com/users/4468232678/profile" title="Roblox">
                     <span class="link-icon-box">
                         <img src="https://upload.wikimedia.org/wikipedia/commons/3/3a/Roblox_player_icon_black.svg" alt="Roblox">
                     </span>
-                    <span class="link-name">Roblox</span>
-                    <i class="fas fa-chevron-right link-chevron"></i>
+                </a>
+                <!-- AniList -->
+                <a href="https://anilist.co/user/Klxxy/" title="AniList">
+                    <span class="link-icon-box"><i class="fas fa-leaf"></i></span>
                 </a>
             </div>
         </div>
@@ -681,27 +739,9 @@ body {
            SITE ENTRY & TYPEWRITER
            ================================================ */
                 /* ================================================
-           VIEW COUNTER (RELIABLE: LocalStorage + Hits API)
+           VIEW COUNTER (Firebase Global)
            ================================================ */
-        async function updateViewCounter() {
-            const viewKey = 'ash_cavern_views';
-            let viewCount = parseInt(localStorage.getItem(viewKey)) || 0;
-            viewCount++;
-            localStorage.setItem(viewKey, viewCount);
-            
-            // Display local count (always works)
-            document.getElementById('view-count').innerText = viewCount;
-            
-            // Try to sync with Hits API (more reliable than CounterAPI)
-            try {
-                await fetch('https://hits.seeyoufarm.com/api/count/incr/?name=ash_cavern&label=visits', { 
-                    mode: 'no-cors',
-                    method: 'GET'
-                });
-            } catch (e) {
-                // API unavailable - no problem, localStorage keeps working
-            }
-        }
+        // This function is now defined at the bottom of the file with Firebase SDK
 
         function startSite() {
             const overlay = document.getElementById('play-overlay');
@@ -908,6 +948,42 @@ body {
             }
         }
         setInterval(fetchNowPlaying, 30_000);
+    </script>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database.js"></script>
+    <script>
+        // Firebase Configuration
+        const firebaseConfig = {
+            databaseURL: "https://views-tracker-89d9b-default-rtdb.firebaseio.com"
+        };
+
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        const database = firebase.database();
+
+        // Update view counter with Firebase
+        async function updateViewCounter() {
+            try {
+                const viewsRef = database.ref('views/count');
+                
+                // Read current value
+                viewsRef.once('value', (snapshot) => {
+                    let count = snapshot.val() || 0;
+                    count++;
+                    
+                    // Write updated value
+                    viewsRef.set(count);
+                    
+                    // Display
+                    document.getElementById('view-count').innerText = count;
+                });
+            } catch (error) {
+                console.log("Firebase error:", error);
+                document.getElementById('view-count').innerText = "∞";
+            }
+        }
     </script>
 </body>
 </html>
