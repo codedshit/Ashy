@@ -10,9 +10,6 @@
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600&display=swap" rel="stylesheet">
 
     <style>
-        /* =========================================
-           FONTS & CUSTOM CURSOR
-           ========================================= */
         @font-face {
             font-family: 'ElegantTypewriter';
             src: url('ELEGANT TYPEWRITER Regular.ttf') format('truetype');
@@ -22,63 +19,43 @@
             src: url('ELEGANT TYPEWRITER Bold.ttf') format('truetype');
         }
 
-        /* =========================================
-           CSS VARIABLES (CRIMSON & CYAN THEME)
-           ========================================= */
         :root {
-            --primary:      #ff003c; /* Vibrant Crimson */
-            --secondary:    #00f0ff; /* Cyber Cyan */
+            --primary:      #ff003c;
+            --secondary:    #00f0ff;
             --gradient:     linear-gradient(135deg, var(--primary), var(--secondary));
-            
             --card-bg:      rgba(12, 12, 14, 0.75);
             --white:        #ffffff;
             --silver:       #c4c4c4;
             --muted:        #7a7a7a;
-            
             --glow-prim:    rgba(255, 0, 60, 0.25);
             --glow-sec:     rgba(0, 240, 255, 0.15);
             --border-subtle: rgba(255, 255, 255, 0.08);
             --blur:         blur(16px);
         }
 
-        /* =========================================
-           BASE
-           ========================================= */
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-        html,
-body {
-    margin: 0;
-    padding: 0;
-    overflow-x: hidden;
-    font-family: 'JetBrains Mono', monospace;
-    background-color: #050505;
-    scroll-behavior: smooth;
-    cursor: crosshair;
-}
+        html, body {
+            margin: 0; padding: 0;
+            overflow-x: hidden;
+            font-family: 'JetBrains Mono', monospace;
+            background-color: #050505;
+            scroll-behavior: smooth;
+            cursor: crosshair;
+        }
+        body { min-height: 100vh; }
 
-body {
-    min-height: 100vh;
-}
-
-        /* Custom Scrollbar */
         ::-webkit-scrollbar { width: 6px; }
         ::-webkit-scrollbar-track { background: #000; }
         ::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 10px; }
 
-        /* =========================================
-           BACKGROUND VIDEO
-           ========================================= */
         #bg-video {
             position: fixed; top: 0; left: 0;
             width: 100%; height: 100%;
             object-fit: cover; z-index: 0;
-            opacity: 0.8; /* Slightly dimmed for better contrast */
+            opacity: 0.8;
         }
 
-        /* =========================================
-           ENTER OVERLAY
-           ========================================= */
         #play-overlay {
             position: fixed; top: 0; left: 0;
             width: 100%; height: 100%;
@@ -99,9 +76,6 @@ body {
             letter-spacing: 4px; text-transform: uppercase;
         }
 
-        /* =========================================
-           PAGE SECTIONS
-           ========================================= */
         .page-section {
             position: relative; z-index: 1; width: 100%;
             display: flex; justify-content: center;
@@ -110,9 +84,6 @@ body {
         #sec-1 { min-height: 100vh; padding: 0 15px; }
         #sec-2 { min-height: 100vh; padding: 50px 15px 85px; gap: 20px; }
 
-        /* =========================================
-           GLASS CARD SYSTEM
-           ========================================= */
         .card {
             background: var(--card-bg);
             backdrop-filter: var(--blur);
@@ -134,34 +105,159 @@ body {
                         inset 0 1px 0 rgba(255,255,255,0.1);
             border-color: rgba(0, 240, 255, 0.3);
         }
- /* =========================================
-           VIEW COUNTER
+
+        /* =========================================
+           CHAT BUTTON (replaces view counter)
            ========================================= */
-        .view-counter {
+        .chat-btn {
             position: absolute;
-            top: 20px;
-            left: 20px;
+            top: 20px; left: 20px;
             display: inline-flex;
             align-items: center;
             justify-content: center;
             gap: 6px;
             background: rgba(0, 240, 255, 0.05);
             border: 1px solid rgba(0, 240, 255, 0.2);
-            padding: 5px 10px;
+            padding: 6px 11px;
             border-radius: 8px;
-            font-size: 11px;
+            font-size: 12px;
+            font-family: 'JetBrains Mono', monospace;
             font-weight: 600;
             color: #00f0ff;
             box-shadow: 0 0 8px rgba(0, 240, 255, 0.2);
             z-index: 10;
             backdrop-filter: blur(4px);
+            cursor: crosshair;
+            transition: all 0.3s ease;
         }
-        .view-counter i {
+        .chat-btn i { font-size: 13px; color: white; opacity: 0.85; }
+        .chat-btn:hover {
+            background: rgba(0, 240, 255, 0.12);
+            box-shadow: 0 0 16px rgba(0, 240, 255, 0.4);
+            transform: scale(1.06);
+            border-color: rgba(0, 240, 255, 0.5);
+        }
+
+        /* =========================================
+           CHAT MODAL OVERLAY
+           ========================================= */
+        .chat-overlay {
+            position: fixed; inset: 0;
+            background: rgba(0, 0, 0, 0.75);
+            backdrop-filter: blur(6px);
+            z-index: 1000;
+            opacity: 0; pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+        .chat-overlay.active {
+            opacity: 1; pointer-events: all;
+        }
+
+        /* =========================================
+           CHAT MODAL
+           ========================================= */
+        .chat-modal {
+            position: fixed;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -52%) scale(0.92);
+            z-index: 1001;
+            background: rgba(10, 10, 13, 0.97);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid rgba(0, 240, 255, 0.18);
+            border-radius: 22px;
+            padding: 30px 26px 24px;
+            width: 90%; max-width: 320px;
+            box-shadow: 0 30px 80px rgba(0,0,0,0.9),
+                        0 0 40px rgba(0, 240, 255, 0.08),
+                        inset 0 1px 0 rgba(255,255,255,0.04);
+            opacity: 0; pointer-events: none;
+            transition: all 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .chat-modal.active {
+            opacity: 1; pointer-events: all;
+            transform: translate(-50%, -50%) scale(1);
+        }
+
+        .chat-close {
+            position: absolute; top: 14px; right: 16px;
+            background: none; border: none;
+            color: var(--muted); font-size: 15px;
+            cursor: crosshair; transition: color 0.2s, transform 0.2s;
+            line-height: 1;
+        }
+        .chat-close:hover { color: var(--primary); transform: scale(1.2); }
+
+        .chat-modal-title {
+            font-family: 'ElegantTypewriterBold', sans-serif;
+            font-size: 19px;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 4px;
+            letter-spacing: 0.5px;
+        }
+        .chat-modal-sub {
+            font-size: 11px; color: var(--muted);
+            margin-bottom: 20px; letter-spacing: 0.5px;
+        }
+
+        .chat-input, .chat-textarea {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 11px;
+            color: var(--white);
+            font-family: 'JetBrains Mono', monospace;
             font-size: 12px;
-            color: white;
-            opacity: 0.8;
+            padding: 11px 13px;
+            outline: none;
+            margin-bottom: 10px;
+            transition: border-color 0.25s, box-shadow 0.25s;
+            resize: none;
+            display: block;
         }
-            
+        .chat-input::placeholder, .chat-textarea::placeholder {
+            color: var(--muted); opacity: 0.8;
+        }
+        .chat-input:focus, .chat-textarea:focus {
+            border-color: rgba(0, 240, 255, 0.35);
+            box-shadow: 0 0 12px rgba(0, 240, 255, 0.08);
+            background: rgba(0, 240, 255, 0.03);
+        }
+        .chat-textarea { height: 90px; }
+
+        .chat-send {
+            width: 100%; padding: 12px;
+            background: rgba(255, 0, 60, 0.12);
+            border: 1px solid rgba(255, 0, 60, 0.35);
+            border-radius: 11px;
+            color: var(--white);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 13px; font-weight: 500;
+            cursor: crosshair;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 15px var(--glow-prim);
+            letter-spacing: 0.5px;
+        }
+        .chat-send:hover:not(:disabled) {
+            background: var(--primary);
+            border-color: var(--primary);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 0, 60, 0.4);
+        }
+        .chat-send:disabled {
+            opacity: 0.45; cursor: not-allowed; transform: none;
+        }
+
+        .chat-feedback {
+            font-size: 11px; text-align: center;
+            margin-top: 11px; min-height: 18px;
+            transition: all 0.3s; letter-spacing: 0.5px;
+        }
+        .chat-feedback.success { color: var(--secondary); text-shadow: 0 0 8px var(--glow-sec); }
+        .chat-feedback.error   { color: var(--primary); text-shadow: 0 0 8px var(--glow-prim); }
+
         /* =========================================
            PROFILE PICTURE
            ========================================= */
@@ -184,9 +280,6 @@ body {
             pointer-events: none; z-index: 2;
         }
 
-        /* =========================================
-           NAME ROW
-           ========================================= */
         .name-row {
             display: flex; align-items: center;
             justify-content: center; gap: 12px; margin-bottom: 12px;
@@ -201,9 +294,6 @@ body {
         }
         .wing-icon { width: 30px; height: 30px; }
 
-        /* =========================================
-           BIO TYPEWRITER
-           ========================================= */
         .bio {
             font-size: 13px; font-weight: 400;
             color: var(--silver); margin-bottom: 20px;
@@ -216,9 +306,6 @@ body {
         }
         @keyframes blink { 50% { opacity: 0; } }
 
-        /* =========================================
-           SOCIAL LINKS (ORGANIZED COOL GRID)
-           ========================================= */
         .links {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -230,38 +317,32 @@ body {
             display: flex;
             align-items: center;
             justify-content: center;
-            width: 52px;
-            height: 52px;
+            width: 52px; height: 52px;
             background: rgba(255, 255, 255, 0.04);
             border: 1.5px solid rgba(0, 240, 255, 0.12);
             border-radius: 14px;
             text-decoration: none;
             transition: all 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            position: relative;
-            overflow: hidden;
+            position: relative; overflow: hidden;
         }
-
-        /* Unique color for each platform */
-        .links a:nth-child(1) { --platform-color: #5865F2; } /* Discord - Purple */
-        .links a:nth-child(2) { --platform-color: #00F7EF; } /* TikTok - Cyan */
-        .links a:nth-child(3) { --platform-color: #1f6feb; } /* GitHub - Blue */
-        .links a:nth-child(4) { --platform-color: #1DB954; } /* Spotify - Green */
-        .links a:nth-child(5) { --platform-color: #0ea5e9; } /* X/Twitter - Sky Blue */
-        .links a:nth-child(6) { --platform-color: #E60023; } /* Pinterest - Red */
-        .links a:nth-child(7) { --platform-color: #ff6d00; } /* SoundCloud - Orange */
-        .links a:nth-child(8) { --platform-color: #ff5700; } /* Roblox - Dark Orange */
-        .links a:nth-child(9) { --platform-color: #c562ff; } /* AniList - Purple */
+        .links a:nth-child(1) { --platform-color: #5865F2; }
+        .links a:nth-child(2) { --platform-color: #00F7EF; }
+        .links a:nth-child(3) { --platform-color: #1f6feb; }
+        .links a:nth-child(4) { --platform-color: #1DB954; }
+        .links a:nth-child(5) { --platform-color: #0ea5e9; }
+        .links a:nth-child(6) { --platform-color: #E60023; }
+        .links a:nth-child(7) { --platform-color: #ff6d00; }
+        .links a:nth-child(8) { --platform-color: #ff5700; }
+        .links a:nth-child(9) { --platform-color: #c562ff; }
 
         .links a::before {
             content: '';
-            position: absolute;
-            inset: 0;
+            position: absolute; inset: 0;
             background: linear-gradient(135deg, var(--platform-color), transparent);
             opacity: 0;
             transition: opacity 0.35s ease;
             border-radius: 12px;
         }
-
         .links a:hover {
             border-color: var(--platform-color);
             background: rgba(0, 240, 255, 0.06);
@@ -269,55 +350,35 @@ body {
                         inset 0 0 12px rgba(0, 240, 255, 0.08);
             transform: translateY(-6px) scale(1.1);
         }
+        .links a:hover::before { opacity: 0.15; }
 
-        .links a:hover::before {
-            opacity: 0.15;
-        }
-        
         .link-icon-box {
-            width: 100%;
-            height: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 12px;
-            position: relative;
-            z-index: 1;
+            width: 100%; height: 100%;
+            display: flex; align-items: center; justify-content: center;
+            border-radius: 12px; position: relative; z-index: 1;
         }
-        
-        .link-icon-box i,
-        .link-icon-box img,
-        .link-icon-box svg {
+        .link-icon-box i, .link-icon-box img, .link-icon-box svg {
             color: var(--platform-color);
-            font-size: 24px;
-            width: 26px;
-            height: 26px;
+            font-size: 24px; width: 26px; height: 26px;
             transition: all 0.35s ease;
         }
-
         .links a:hover .link-icon-box i,
         .links a:hover .link-icon-box img,
-        .links a:hover .link-icon-box svg { 
+        .links a:hover .link-icon-box svg {
             color: #fff;
             filter: drop-shadow(0 0 10px var(--platform-color));
             transform: scale(1.25);
         }
-
         .link-icon-box img {
             width: 22px;
             filter: invert(15%) sepia(90%) saturate(100%) hue-rotate(200deg) brightness(90%);
         }
-
         .links a:hover .link-icon-box img {
             filter: brightness(2.2) drop-shadow(0 0 8px var(--platform-color));
         }
-
         .link-name { display: none; }
         .link-chevron { display: none; }
 
-        /* =========================================
-           DYNAMIC SCROLL INDICATOR
-           ========================================= */
         .scroll-indicator {
             position: fixed; bottom: 30px;
             left: 50%; transform: translateX(-50%);
@@ -325,23 +386,18 @@ body {
             text-align: center; font-size: 13px;
             font-family: 'ElegantTypewriterBold', sans-serif;
             letter-spacing: 1px;
-            transition: opacity 0.4s ease, transform 0.4s ease; 
+            transition: opacity 0.4s ease, transform 0.4s ease;
             z-index: 10;
             text-shadow: 0 0 12px var(--glow-sec);
-            white-space: nowrap;
-            cursor: default;
+            white-space: nowrap; cursor: default;
         }
         .scroll-indicator.bouncing { animation: bounce 2s ease-in-out infinite; }
         .scroll-indicator i { display: block; font-size: 15px; margin-top: 8px; }
-        
         @keyframes bounce {
             0%, 100% { transform: translate(-50%, 0); }
-            50%      { transform: translate(-50%, -8px); }
+            50%       { transform: translate(-50%, -8px); }
         }
 
-        /* =========================================
-           EXTRA INFO CARD 
-           ========================================= */
         .info-header {
             font-family: 'ElegantTypewriterBold', sans-serif;
             font-size: 20px; color: var(--secondary);
@@ -355,7 +411,6 @@ body {
             bottom: -4px; left: 10%; width: 80%; height: 2px;
             background: var(--gradient); border-radius: 2px;
         }
-        
         .info-greeting {
             font-size: 13px; font-weight: 300; color: var(--silver);
             margin-bottom: 18px; line-height: 1.6;
@@ -366,48 +421,32 @@ body {
             display: flex; flex-direction: column; gap: 4px;
         }
         .info-title-row { display: flex; align-items: center; gap: 8px; }
-        .info-title-row i {
-            color: var(--primary); font-size: 13px;
-            width: 16px; text-align: center;
-        }
+        .info-title-row i { color: var(--primary); font-size: 13px; width: 16px; text-align: center; }
         .info-list-title {
             font-family: 'ElegantTypewriter', sans-serif;
             font-size: 13.5px; font-weight: 600; color: var(--white);
         }
-        .info-list-content {
-            margin-left: 24px; font-size: 12px;
-            color: var(--secondary); opacity: 0.9;
-        }
-        
-        .info-tag-container {
-            display: flex; flex-wrap: wrap; gap: 6px; margin-left: 24px; margin-top: 4px;
-        }
+        .info-list-content { margin-left: 24px; font-size: 12px; color: var(--secondary); opacity: 0.9; }
+        .info-tag-container { display: flex; flex-wrap: wrap; gap: 6px; margin-left: 24px; margin-top: 4px; }
         .info-tag {
             background: rgba(0, 240, 255, 0.1);
             border: 1px solid rgba(0, 240, 255, 0.2);
             padding: 3px 8px; border-radius: 6px;
             font-size: 10.5px; color: var(--secondary);
         }
-
         .info-footer {
             font-size: 11.5px; font-weight: 300; color: var(--muted);
             margin-top: 20px; border-top: 1px dashed rgba(255,255,255,0.1);
             padding-top: 12px; line-height: 1.6;
         }
 
-        /* =========================================
-           CUSTOM MEDIA PLAYER 
-           ========================================= */
         .player {
             width: 100%; max-width: 310px;
             background: var(--card-bg);
-            backdrop-filter: var(--blur);
-            -webkit-backdrop-filter: var(--blur);
+            backdrop-filter: var(--blur); -webkit-backdrop-filter: var(--blur);
             border: 1px solid var(--border-subtle);
-            border-radius: 24px;
-            overflow: hidden;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.5), 
-                        0 0 25px var(--glow-prim);
+            border-radius: 24px; overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.5), 0 0 25px var(--glow-prim);
             transition: transform 0.4s ease, box-shadow 0.4s ease;
         }
         .player:hover {
@@ -415,19 +454,13 @@ body {
             box-shadow: 0 15px 50px rgba(0,0,0,0.6), 0 0 35px var(--glow-sec);
             border-color: rgba(0, 240, 255, 0.3);
         }
-
         .cover-wrapper { position: relative; width: 100%; aspect-ratio: 1; }
-        .cover {
-            width: 100%; height: 100%; object-fit: cover;
-            display: block; background: #111;
-        }
+        .cover { width: 100%; height: 100%; object-fit: cover; display: block; background: #111; }
         .cover-overlay {
             position: absolute; bottom: 0; left: 0; width: 100%; height: 50%;
             background: linear-gradient(to top, rgba(10,10,12,1), transparent);
         }
-
         .player-body { padding: 0 22px 22px; position: relative; z-index: 2; margin-top: -30px; }
-
         .info { margin-bottom: 16px; text-align: center; }
         .title {
             font-size: 16px; font-weight: 600; color: var(--white);
@@ -435,11 +468,7 @@ body {
             letter-spacing: 0.5px; margin-bottom: 4px;
             text-shadow: 0 0 10px rgba(255,255,255,0.2);
         }
-        .index {
-            font-size: 11px; font-weight: 400; color: var(--secondary);
-            letter-spacing: 2px; text-transform: uppercase;
-        }
-
+        .index { font-size: 11px; font-weight: 400; color: var(--secondary); letter-spacing: 2px; text-transform: uppercase; }
         .progress-wrap {
             margin-bottom: 6px; cursor: pointer;
             position: relative; height: 4px;
@@ -459,13 +488,11 @@ body {
             box-shadow: 0 0 5px rgba(255,255,255,0.5);
         }
         .progress-wrap:hover .progress-fill::after { opacity: 1; }
-        
         .times {
             display: flex; justify-content: space-between;
             font-size: 10px; font-weight: 400; color: var(--silver);
             margin-bottom: 18px; margin-top: 8px; letter-spacing: 0.5px;
         }
-
         .controls {
             display: flex; align-items: center; justify-content: space-between;
             margin-bottom: 18px; padding: 0 10px;
@@ -476,7 +503,6 @@ body {
             transition: all 0.2s ease; line-height: 1;
         }
         .ctrl:hover { color: var(--secondary); text-shadow: 0 0 8px var(--glow-sec); }
-        
         .ctrl.play {
             color: var(--white); font-size: 18px;
             width: 44px; height: 44px;
@@ -487,12 +513,7 @@ body {
             transition: all 0.3s ease;
             box-shadow: 0 0 15px var(--glow-prim);
         }
-        .ctrl.play:hover {
-            background: var(--primary);
-            border-color: var(--primary);
-            transform: scale(1.05);
-        }
-
+        .ctrl.play:hover { background: var(--primary); border-color: var(--primary); transform: scale(1.05); }
         .vol { display: flex; align-items: center; gap: 10px; }
         .vol i { color: var(--muted); font-size: 11px; flex-shrink: 0; }
         input[type=range] {
@@ -506,9 +527,6 @@ body {
             box-shadow: 0 0 8px var(--glow-sec);
         }
 
-        /* =========================================
-           LAST.FM WIDGET 
-           ========================================= */
         .lastfm-widget {
             width: 100%; max-width: 310px;
             background: var(--card-bg);
@@ -518,7 +536,6 @@ body {
             transition: transform 0.3s ease;
         }
         .lastfm-widget:hover { transform: translateY(-3px); border-color: rgba(0, 240, 255, 0.2); }
-        
         .lfm-header { display: flex; align-items: center; gap: 8px; margin-bottom: 14px; }
         .lfm-label {
             font-family: 'ElegantTypewriterBold', sans-serif;
@@ -532,10 +549,9 @@ body {
         }
         @keyframes lfm-pulse {
             0%, 100% { opacity: 1; transform: scale(1); box-shadow: 0 0 0 0 rgba(0,240,255,0.6); }
-            50%      { opacity: 0.5; transform: scale(0.8); box-shadow: 0 0 0 6px rgba(0,240,255,0); }
+            50%       { opacity: 0.5; transform: scale(0.8); box-shadow: 0 0 0 6px rgba(0,240,255,0); }
         }
         .lfm-dot.paused { animation: none; opacity: 0.3; background: var(--muted); }
-
         .lfm-body { display: flex; align-items: center; gap: 14px; }
         .lfm-art {
             width: 50px; height: 50px; border-radius: 10px;
@@ -543,53 +559,25 @@ body {
             border: 1px solid var(--border-subtle);
         }
         .lfm-text { flex: 1; overflow: hidden; }
-        .lfm-track {
-            font-size: 13px; font-weight: 600; color: var(--white);
-            white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-        }
-        .lfm-artist {
-            font-size: 11.5px; font-weight: 400; color: var(--silver);
-            white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-top: 4px;
-        }
+        .lfm-track { font-size: 13px; font-weight: 600; color: var(--white); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .lfm-artist { font-size: 11.5px; font-weight: 400; color: var(--silver); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-top: 4px; }
         .lfm-status { font-size: 10px; color: var(--secondary); margin-top: 6px; letter-spacing: 0.5px; }
 
-        /* =========================================
-           TOP RIGHT GIF
-           ========================================= */
         .top-right-gif {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            width: 45px;
-            height: auto;
-            z-index: 10;
-            pointer-events: none;
-        }
-        
-            /* =========================================
-           BAN NOTICE TEXT
-           ========================================= */
-        .ban-notice {
-            text-align: center;
-            margin: 25px auto 10px auto;
-            font-family: 'JetBrains Mono', monospace;
-            z-index: 10;
-            position: relative;
-        }
-        .ban-notice h3 {
-            color: var(--primary);
-            font-size: 16px;
-            font-weight: 600;
-            letter-spacing: 1.5px;
-            text-shadow: 0 0 10px var(--glow-prim);
-            margin-bottom: 6px;
-        }
-        .ban-notice p {
-            color: var(--silver);
-            font-size: 12px;
-            opacity: 0.8;
+            position: absolute; top: 20px; right: 20px;
+            width: 45px; height: auto; z-index: 10; pointer-events: none;
         }
 
+        .ban-notice {
+            text-align: center; margin: 25px auto 10px auto;
+            font-family: 'JetBrains Mono', monospace;
+            z-index: 10; position: relative;
+        }
+        .ban-notice h3 {
+            color: var(--primary); font-size: 16px; font-weight: 600;
+            letter-spacing: 1.5px; text-shadow: 0 0 10px var(--glow-prim); margin-bottom: 6px;
+        }
+        .ban-notice p { color: var(--silver); font-size: 12px; opacity: 0.8; }
     </style>
 </head>
 <body>
@@ -601,22 +589,38 @@ body {
     <div id="play-overlay" onclick="startSite()">
         Click to enter <3
         <span>Ash's Cavern</span>
-    </div> 
+    </div>
 
-        <div class="page-section" id="sec-1">
+    <!-- ============ CHAT MODAL ============ -->
+    <div class="chat-overlay" id="chatOverlay" onclick="closeChat()"></div>
+
+    <div class="chat-modal" id="chatModal">
+        <button class="chat-close" onclick="closeChat()"><i class="fas fa-times"></i></button>
+        <div class="chat-modal-title">Leave a message 💬</div>
+        <div class="chat-modal-sub">Ash will receive it on Discord</div>
+        <input type="text" id="chatName" class="chat-input" placeholder="Your name..." maxlength="50" autocomplete="off">
+        <textarea id="chatMsg" class="chat-textarea" placeholder="Your message..." maxlength="500"></textarea>
+        <button class="chat-send" id="chatSendBtn" onclick="sendMessage()">
+            Send &nbsp;<i class="fas fa-paper-plane"></i>
+        </button>
+        <div class="chat-feedback" id="chatFeedback"></div>
+    </div>
+    <!-- ==================================== -->
+
+    <div class="page-section" id="sec-1">
         <div class="card">
-            
-            <!-- View Counter Badge -->
-            <div class="view-counter">
-                <i class="fas fa-eye"></i> <span id="view-count">...</span>
-            </div>
-<img src="https://raw.githubusercontent.com/6fo4/Ashy/2195e435f7f36e42d76ff37225ec09cc3ce58922/0c3a146cf1cb9d6bcb8cd1df8b657b7a.gif" class="top-right-gif" alt="Corner GIF">
+
+            <!-- Chat Button (top-left) -->
+            <button class="chat-btn" onclick="openChat()">
+                <i class="fas fa-comment-dots"></i> msg
+            </button>
+
+            <img src="https://raw.githubusercontent.com/6fo4/Ashy/2195e435f7f36e42d76ff37225ec09cc3ce58922/0c3a146cf1cb9d6bcb8cd1df8b657b7a.gif" class="top-right-gif" alt="Corner GIF">
 
             <div class="pfp-container">
                 <img src="https://r2.guns.lol/a9aff29e-faa3-4791-9d68-c86c466f18d4.webp" alt="PFP" class="pfp">
                 <img src="ezgif-46a49cacea44bc5f.gif" alt="" class="pfp-frame">
             </div>
-
 
             <div class="name-row">
                 <img src="ezgif-66e8ff165ceaaa3d.gif" class="wing-icon" alt="">
@@ -627,46 +631,38 @@ body {
             <p class="bio" id="bio-text"></p>
 
             <div class="links">
-                <!-- Discord -->
                 <a href="https://discord.com/users/6fo4" title="Discord">
                     <span class="link-icon-box"><i class="fab fa-discord"></i></span>
                 </a>
-                <!-- TikTok -->
                 <a href="https://www.tiktok.com/@kissmylips666?_r=1&_t=ZN-96vZBeBZOek" title="TikTok">
                     <span class="link-icon-box"><i class="fab fa-tiktok"></i></span>
                 </a>
-                <!-- GitHub -->
                 <a href="https://github.com/6fo4" title="GitHub">
                     <span class="link-icon-box"><i class="fab fa-github"></i></span>
                 </a>
-                <!-- Spotify -->
                 <a href="https://open.spotify.com/user/31oyzi66p57fkbpncfhkvt2nxi2u?si=dfu_TO7xQOyhAQRNUksztw" title="Spotify">
                     <span class="link-icon-box"><i class="fab fa-spotify"></i></span>
                 </a>
-                <!-- X (Twitter) -->
                 <a href="https://x.com/Lobsterki" title="X (Twitter)">
                     <span class="link-icon-box"><i class="fab fa-x-twitter"></i></span>
                 </a>
-                <!-- Last.fm -->
                 <a href="https://www.last.fm/user/Ashy-geek" title="Last.fm">
                     <span class="link-icon-box"><i class="fab fa-lastfm"></i></span>
                 </a>
-                <!-- SoundCloud -->
                 <a href="https://soundcloud.com/ash-lives-under-an-rock" title="SoundCloud">
                     <span class="link-icon-box"><i class="fab fa-soundcloud"></i></span>
                 </a>
-                <!-- Roblox -->
                 <a href="https://www.roblox.com/users/4468232678/profile" title="Roblox">
                     <span class="link-icon-box">
                         <img src="https://upload.wikimedia.org/wikipedia/commons/3/3a/Roblox_player_icon_black.svg" alt="Roblox">
                     </span>
                 </a>
-                <!-- AniList -->
                 <a href="https://anilist.co/user/Klxxy/" title="AniList">
                     <span class="link-icon-box"><i class="fas fa-leaf"></i></span>
                 </a>
             </div>
-       <div class="ban-notice">
+
+            <div class="ban-notice">
                 <h3>#FUCK GUNS.LOL</h3>
                 <p>They banned me 😩</p>
             </div>
@@ -704,13 +700,12 @@ body {
             </div>
 
             <div class="info-item">
-    <div class="info-title-row"><i class="fas fa-calendar-alt"></i> <span class="info-list-title">Birthday</span></div>
-    <div class="info-tag-container">
-        <span class="info-tag">November 1st</span>
-    </div>
-</div>
+                <div class="info-title-row"><i class="fas fa-calendar-alt"></i> <span class="info-list-title">Birthday</span></div>
+                <div class="info-tag-container">
+                    <span class="info-tag">November 1st</span>
+                </div>
+            </div>
 
-            
             <div class="info-item">
                 <div class="info-title-row"><i class="fas fa-tv"></i> <span class="info-list-title">Top Tier Anime</span></div>
                 <div class="info-tag-container">
@@ -719,7 +714,7 @@ body {
                     <span class="info-tag">Terror in resonance</span>
                 </div>
             </div>
-            
+
             <div class="info-item">
                 <div class="info-title-row"><i class="fas fa-headphones-alt"></i> <span class="info-list-title">Favorite artists (All time)</span></div>
                 <div class="info-tag-container">
@@ -739,13 +734,11 @@ body {
                 <img class="cover" id="cover" src="" alt="Album Art">
                 <div class="cover-overlay"></div>
             </div>
-            
             <div class="player-body">
                 <div class="info">
                     <div class="title" id="title">—</div>
                     <div class="index" id="idx">1 / 19</div>
                 </div>
-
                 <div class="progress-wrap" id="progWrap">
                     <div class="progress-fill" id="progFill"></div>
                 </div>
@@ -753,7 +746,6 @@ body {
                     <span id="cur">0:00</span>
                     <span id="dur">0:00</span>
                 </div>
-
                 <div class="controls">
                     <button class="ctrl" onclick="prev()"><i class="fas fa-step-backward"></i></button>
                     <button class="ctrl" onclick="shuffle()"><i class="fas fa-random"></i></button>
@@ -761,7 +753,6 @@ body {
                     <button class="ctrl" onclick="toggleRepeat()" id="repeatBtn"><i class="fas fa-redo"></i></button>
                     <button class="ctrl" onclick="next()"><i class="fas fa-step-forward"></i></button>
                 </div>
-
                 <div class="vol">
                     <i class="fas fa-volume-down"></i>
                     <input type="range" id="vol" min="0" max="100" value="70">
@@ -775,13 +766,88 @@ body {
 
     <script>
         /* ================================================
+           ⚠️  PASTE YOUR DISCORD WEBHOOK URL BELOW
+           How to get one:
+           Discord Server → Settings → Integrations → Webhooks → New Webhook → Copy URL
+           ================================================ */
+        const DISCORD_WEBHOOK = 'YOUR_DISCORD_WEBHOOK_URL_HERE';
+
+        /* ================================================
+           CHAT MODAL
+           ================================================ */
+        function openChat() {
+            document.getElementById('chatOverlay').classList.add('active');
+            document.getElementById('chatModal').classList.add('active');
+            document.getElementById('chatName').focus();
+        }
+
+        function closeChat() {
+            document.getElementById('chatOverlay').classList.remove('active');
+            document.getElementById('chatModal').classList.remove('active');
+            document.getElementById('chatFeedback').textContent = '';
+            document.getElementById('chatFeedback').className = 'chat-feedback';
+        }
+
+        async function sendMessage() {
+            const name = document.getElementById('chatName').value.trim();
+            const msg  = document.getElementById('chatMsg').value.trim();
+            const fb   = document.getElementById('chatFeedback');
+            const btn  = document.getElementById('chatSendBtn');
+
+            fb.className = 'chat-feedback';
+            fb.textContent = '';
+
+            if (!name) { fb.className = 'chat-feedback error'; fb.textContent = '⚠ Please enter your name!'; return; }
+            if (!msg)  { fb.className = 'chat-feedback error'; fb.textContent = '⚠ Please write a message!'; return; }
+            if (!DISCORD_WEBHOOK || DISCORD_WEBHOOK === 'https://discord.com/api/webhooks/1512201185019302060/y9BMNAEK-Bt5QoHMhAHE-4gfIb3QYWRJZwNjo3_o7LC4FOkedINykKQ2cZDKrDRserf3') {
+                fb.className = 'chat-feedback error'; fb.textContent = '⚠ Webhook not set up yet!'; return;
+            }
+
+            btn.disabled = true;
+            btn.innerHTML = 'Sending... <i class="fas fa-spinner fa-spin"></i>';
+
+            try {
+                const res = await fetch(DISCORD_WEBHOOK, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        embeds: [{
+                            title: '💬 New message from Ash\'s Cavern',
+                            color: 0xff003c,
+                            fields: [
+                                { name: '👤 Name', value: name, inline: true },
+                                { name: '📝 Message', value: msg, inline: false }
+                            ],
+                            footer: { text: "ash's cavern · github.io" },
+                            timestamp: new Date().toISOString()
+                        }]
+                    })
+                });
+
+                if (res.ok || res.status === 204) {
+                    fb.className = 'chat-feedback success';
+                    fb.textContent = '✨ Message sent! Ash will see it soon.';
+                    document.getElementById('chatName').value = '';
+                    document.getElementById('chatMsg').value = '';
+                    setTimeout(closeChat, 2500);
+                } else {
+                    throw new Error('Bad response');
+                }
+            } catch {
+                fb.className = 'chat-feedback error';
+                fb.textContent = '✗ Failed to send. Try again!';
+            }
+
+            btn.disabled = false;
+            btn.innerHTML = 'Send &nbsp;<i class="fas fa-paper-plane"></i>';
+        }
+
+        // Close modal with Escape key
+        document.addEventListener('keydown', e => { if (e.key === 'Escape') closeChat(); });
+
+        /* ================================================
            SITE ENTRY & TYPEWRITER
            ================================================ */
-                /* ================================================
-           VIEW COUNTER (Firebase Global)
-           ================================================ */
-        // This function is now defined at the bottom of the file with Firebase SDK
-
         function startSite() {
             const overlay = document.getElementById('play-overlay');
             overlay.style.opacity = '0';
@@ -790,15 +856,12 @@ body {
 
             typeWriter();
             fetchNowPlaying();
-                    updateViewCounter();
 
-
-            // Start custom player (this is my startup function / bio)
             if (!playing) {
                 audio.play().then(() => {
                     playing = true;
                     updateBtn();
-                }).catch(e => console.log("Audio autoplay blocked until interaction.", e));
+                }).catch(e => console.log("Audio autoplay blocked.", e));
             }
         }
 
@@ -816,7 +879,6 @@ body {
             function type() {
                 const cur = messages[mIdx];
                 bio.innerText = deleting ? cur.substring(0, cIdx--) : cur.substring(0, cIdx++);
-
                 let speed = deleting ? 30 : 60;
                 if (!deleting && cIdx > cur.length)  { deleting = true; speed = 2500; }
                 else if (deleting && cIdx === 0)     { deleting = false; mIdx = (mIdx + 1) % messages.length; speed = 600; }
@@ -826,7 +888,7 @@ body {
         }
 
         /* ================================================
-           DYNAMIC SCROLL INDICATOR
+           SCROLL INDICATOR
            ================================================ */
         window.addEventListener('scroll', () => {
             const prompt = document.getElementById('scroll-prompt');
@@ -834,29 +896,21 @@ body {
             const currentScroll = window.scrollY;
 
             if (currentScroll < 50) {
-                // Near Top
                 prompt.innerHTML = 'Scroll for more <i class="fas fa-chevron-down"></i>';
-                prompt.style.opacity = '1';
-                prompt.style.cursor = 'default';
-                prompt.classList.add('bouncing');
-                prompt.onclick = null;
+                prompt.style.opacity = '1'; prompt.style.cursor = 'default';
+                prompt.classList.add('bouncing'); prompt.onclick = null;
             } else if (currentScroll >= maxScroll - 40) {
-                // At Bottom
                 prompt.innerHTML = 'Scroll up <i class="fas fa-chevron-up"></i>';
-                prompt.style.opacity = '1';
-                prompt.style.cursor = 'pointer';
+                prompt.style.opacity = '1'; prompt.style.cursor = 'pointer';
                 prompt.classList.remove('bouncing');
                 prompt.onclick = () => window.scrollTo({ top: 0, behavior: 'smooth' });
             } else {
-                // Middle of page
-                prompt.style.opacity = '0';
-                prompt.style.cursor = 'default';
-                prompt.onclick = null;
+                prompt.style.opacity = '0'; prompt.style.cursor = 'default'; prompt.onclick = null;
             }
         });
 
         /* ================================================
-           CUSTOM MEDIA PLAYER LOGIC
+           MEDIA PLAYER
            ================================================ */
         const songs = [
             { mp3: "BABYREINDEER_wmspfn", jpg: "BABYREINDEER_fqtcmu", name: "BABYREINDEER" },
@@ -887,74 +941,54 @@ body {
         function loadTrack(i, autoplay = false) {
             idx = i;
             const song = songs[i];
-            audio.src  = `${CDN}/video/upload/${song.mp3}.mp3`;
-            document.getElementById('cover').src  = `${CDN}/image/upload/${song.jpg}.jpg`;
+            audio.src = `${CDN}/video/upload/${song.mp3}.mp3`;
+            document.getElementById('cover').src = `${CDN}/image/upload/${song.jpg}.jpg`;
             document.getElementById('title').textContent = song.name;
             document.getElementById('idx').textContent   = `${i + 1} / ${songs.length}`;
             document.getElementById('progFill').style.width = '0%';
             document.getElementById('cur').textContent = '0:00';
             document.getElementById('dur').textContent = '0:00';
-            if (autoplay) { 
-                audio.play().catch(e => console.log(e)); 
-                playing = true; 
-                updateBtn(); 
-            }
+            if (autoplay) { audio.play().catch(e => console.log(e)); playing = true; updateBtn(); }
         }
 
         function togglePlay() {
-            if (playing) {
-                audio.pause();
-            } else {
-                audio.play();
-            }
-            playing = !playing;
-            updateBtn();
+            playing ? audio.pause() : audio.play();
+            playing = !playing; updateBtn();
         }
-
         function next()    { loadTrack((idx + 1) % songs.length, playing); }
         function prev()    { loadTrack((idx - 1 + songs.length) % songs.length, playing); }
         function shuffle() { loadTrack(Math.floor(Math.random() * songs.length), playing); }
-
         function toggleRepeat() {
             repeat = !repeat;
             document.getElementById('repeatBtn').style.color = repeat ? 'var(--secondary)' : '';
             document.getElementById('repeatBtn').style.textShadow = repeat ? '0 0 8px var(--glow-sec)' : 'none';
         }
-
         function updateBtn() {
             document.getElementById('playBtn').innerHTML =
                 playing ? '<i class="fas fa-pause"></i>' : '<i class="fas fa-play" style="margin-left:2px;"></i>';
         }
-
         function fmt(s) {
             if (isNaN(s)) return '0:00';
             return `${Math.floor(s/60)}:${String(Math.floor(s%60)).padStart(2,'0')}`;
         }
-
         audio.addEventListener('timeupdate', () => {
             const pct = (audio.currentTime / audio.duration) * 100 || 0;
             document.getElementById('progFill').style.width = pct + '%';
             document.getElementById('cur').textContent = fmt(audio.currentTime);
         });
-
         audio.addEventListener('loadedmetadata', () => {
             document.getElementById('dur').textContent = fmt(audio.duration);
         });
-
         audio.addEventListener('ended', () => {
             repeat ? (audio.currentTime = 0, audio.play()) : next();
         });
-
         document.getElementById('progWrap').addEventListener('click', e => {
             const r = e.currentTarget.getBoundingClientRect();
             audio.currentTime = ((e.clientX - r.left) / r.width) * audio.duration;
         });
-
         document.getElementById('vol').addEventListener('input', e => {
             audio.volume = e.target.value / 100;
         });
-
-        // Initialize Audio on load but wait for overlay click to play
         audio.volume = 0.7;
         loadTrack(Math.floor(Math.random() * songs.length), false);
 
@@ -967,15 +1001,15 @@ body {
 
         async function fetchNowPlaying() {
             try {
-                const res  = await fetch(`https://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=${LFM_USER}&api_key=${LFM_KEY}&format=json&limit=1`);
-                const data = await res.json();
+                const res   = await fetch(`https://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=${LFM_USER}&api_key=${LFM_KEY}&format=json&limit=1`);
+                const data  = await res.json();
                 const track = data?.recenttracks?.track?.[0];
                 if (!track) return;
 
-                const isLive  = track['@attr']?.nowplaying === 'true';
-                const name    = track.name || 'Unknown Track';
-                const artist  = track.artist?.['#text'] || 'Unknown Artist';
-                const artUrl  = (track.image?.find(i => i.size === 'large')?.[  '#text'] || '').trim() || LFM_DEFAULT;
+                const isLive = track['@attr']?.nowplaying === 'true';
+                const name   = track.name || 'Unknown Track';
+                const artist = track.artist?.['#text'] || 'Unknown Artist';
+                const artUrl = (track.image?.find(i => i.size === 'large')?.['#text'] || '').trim() || LFM_DEFAULT;
 
                 document.getElementById('lfm-track').innerText  = name;
                 document.getElementById('lfm-artist').innerText = artist;
@@ -990,43 +1024,6 @@ body {
         }
         setInterval(fetchNowPlaying, 30_000);
     </script>
-
-    <!-- Firebase SDK -->
-    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database.js"></script>
-    <script>
-        // Firebase Configuration
-        const firebaseConfig = {
-            databaseURL: "https://views-tracker-89d9b-default-rtdb.firebaseio.com"
-        };
-
-        // Initialize Firebase
-        firebase.initializeApp(firebaseConfig);
-        const database = firebase.database();
-
-        // Update view counter with Firebase
-        async function updateViewCounter() {
-            try {
-                const viewsRef = database.ref('views/count');
-                
-                // Read current value
-                viewsRef.once('value', (snapshot) => {
-                    let count = snapshot.val() || 0;
-                    count++;
-                    
-                    // Write updated value
-                    viewsRef.set(count);
-                    
-                    // Display
-                    document.getElementById('view-count').innerText = count;
-                });
-            } catch (error) {
-                console.log("Firebase error:", error);
-                document.getElementById('view-count').innerText = "∞";
-            }
-        }
-    </script>
 </body>
 </html>
-
 
