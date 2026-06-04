@@ -133,7 +133,33 @@ body {
                         inset 0 1px 0 rgba(255,255,255,0.1);
             border-color: rgba(0, 240, 255, 0.3);
         }
-
+ /* =========================================
+           VIEW COUNTER
+           ========================================= */
+        .view-counter {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            background: rgba(0, 240, 255, 0.05);
+            border: 1px solid rgba(0, 240, 255, 0.2);
+            padding: 5px 10px;
+            border-radius: 8px;
+            font-size: 11px;
+            font-weight: 600;
+            color: #00f0ff;
+            box-shadow: 0 0 8px rgba(0, 240, 255, 0.2);
+            z-index: 10;
+            backdrop-filter: blur(4px);
+        }
+        .view-counter i {
+            font-size: 12px;
+            color: white;
+            opacity: 0.8;
+            
         /* =========================================
            PROFILE PICTURE
            ========================================= */
@@ -497,16 +523,23 @@ body {
     </video>
 
     <div id="play-overlay" onclick="startSite()">
-        Click to enter
+        Click to enter the site <3
         <span>Ash's Cavern</span>
     </div>
 
-    <div class="page-section" id="sec-1">
+        <div class="page-section" id="sec-1">
         <div class="card">
+            
+            <!-- View Counter Badge -->
+            <div class="view-counter">
+                <i class="fas fa-eye"></i> <span id="view-count">...</span>
+            </div>
+
             <div class="pfp-container">
                 <img src="https://r2.guns.lol/a9aff29e-faa3-4791-9d68-c86c466f18d4.webp" alt="PFP" class="pfp">
                 <img src="ezgif-46a49cacea44bc5f.gif" alt="" class="pfp-frame">
             </div>
+
 
             <div class="name-row">
                 <img src="ezgif-66e8ff165ceaaa3d.gif" class="wing-icon" alt="">
@@ -646,6 +679,19 @@ body {
         /* ================================================
            SITE ENTRY & TYPEWRITER
            ================================================ */
+                /* ================================================
+           VIEW COUNTER API
+           ================================================ */
+        async function updateViewCounter() {
+            try {
+                const res = await fetch('https://api.counterapi.dev/v1/ashs_cavern_site/visits/up');
+                const data = await res.json();
+                document.getElementById('view-count').innerText = data.count;
+            } catch (error) {
+                document.getElementById('view-count').innerText = "Offline";
+            }
+        }
+
         function startSite() {
             const overlay = document.getElementById('play-overlay');
             overlay.style.opacity = '0';
@@ -654,6 +700,8 @@ body {
 
             typeWriter();
             fetchNowPlaying();
+                    updateViewCounter();
+
 
             // Start custom player if not already playing
             if (!playing) {
