@@ -11,7 +11,7 @@
 
     <style>
         /* =========================================
-           FONTS
+           FONTS & CUSTOM CURSOR
            ========================================= */
         @font-face {
             font-family: 'ElegantTypewriter';
@@ -23,33 +23,42 @@
         }
 
         /* =========================================
-           CSS VARIABLES (Sophisticated Midnight & Ruby Theme)
+           CSS VARIABLES (CRIMSON & CYAN THEME)
            ========================================= */
         :root {
-            --primary-red:  #cc0000;
-            --accent-ruby:  #ff3333;
-            --card-bg:      rgba(15, 15, 18, 0.82);
-            --border-glow:  rgba(204, 0, 0, 0.15);
-            --border-muted: rgba(255, 255, 255, 0.08);
-            --border-hover: rgba(204, 0, 0, 0.4);
+            --primary:      #ff003c; /* Vibrant Crimson */
+            --secondary:    #00f0ff; /* Cyber Cyan */
+            --gradient:     linear-gradient(135deg, var(--primary), var(--secondary));
+            
+            --card-bg:      rgba(12, 12, 14, 0.75);
             --white:        #ffffff;
-            --silver:       #d4d4d8;
-            --muted:        #71717a;
-            --blur:         blur(20px);
+            --silver:       #c4c4c4;
+            --muted:        #7a7a7a;
+            
+            --glow-prim:    rgba(255, 0, 60, 0.25);
+            --glow-sec:     rgba(0, 240, 255, 0.15);
+            --border-subtle: rgba(255, 255, 255, 0.08);
+            --blur:         blur(16px);
         }
 
         /* =========================================
            BASE
            ========================================= */
-        *, *::before, *::after { box-sizing: border-box; }
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
         body, html {
-            margin: 0; padding: 0; height: 100%;
+            height: 100%;
             font-family: 'JetBrains Mono', monospace;
             overflow-x: hidden; overflow-y: auto;
-            background-color: #09090b;
+            background-color: #050505;
             scroll-behavior: smooth;
+            cursor: crosshair; /* Cool custom cursor vibe */
         }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #000; }
+        ::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 10px; }
 
         /* =========================================
            BACKGROUND VIDEO
@@ -58,7 +67,7 @@
             position: fixed; top: 0; left: 0;
             width: 100%; height: 100%;
             object-fit: cover; z-index: 0;
-            opacity: 0.45; /* Toned down background intensity */
+            opacity: 0.8; /* Slightly dimmed for better contrast */
         }
 
         /* =========================================
@@ -67,21 +76,21 @@
         #play-overlay {
             position: fixed; top: 0; left: 0;
             width: 100%; height: 100%;
-            background: #09090b;
-            color: var(--primary-red);
+            background: rgba(4, 4, 6, 0.95);
+            color: var(--primary);
             display: flex; flex-direction: column;
             justify-content: center; align-items: center;
             gap: 12px; z-index: 9999; cursor: pointer;
-            transition: opacity 0.8s ease, visibility 0.8s;
+            transition: opacity 0.8s ease, backdrop-filter 0.8s ease;
             font-family: 'ElegantTypewriterBold', sans-serif;
-            font-size: 26px; letter-spacing: 1px;
+            font-size: 28px; letter-spacing: 2px;
+            text-shadow: 0 0 20px var(--glow-prim);
         }
         #play-overlay span {
-            font-size: 11px;
+            font-size: 12px;
             font-family: 'JetBrains Mono', monospace;
-            font-weight: 300; color: var(--muted);
-            letter-spacing: 3.5px; text-transform: uppercase;
-            margin-top: 4px;
+            font-weight: 400; color: var(--secondary);
+            letter-spacing: 4px; text-transform: uppercase;
         }
 
         /* =========================================
@@ -93,25 +102,30 @@
             align-items: center; flex-direction: column;
         }
         #sec-1 { min-height: 100vh; padding: 0 15px; }
-        #sec-2 { min-height: 100vh; padding: 60px 15px 80px; gap: 20px; }
+        #sec-2 { min-height: 100vh; padding: 50px 15px 85px; gap: 20px; }
 
         /* =========================================
-           GLASS CARD SHELL
+           GLASS CARD SYSTEM
            ========================================= */
         .card {
             background: var(--card-bg);
             backdrop-filter: var(--blur);
             -webkit-backdrop-filter: var(--blur);
-            padding: 24px 22px; border-radius: 20px;
+            padding: 22px 26px; border-radius: 24px;
             text-align: center; color: var(--white);
-            width: 100%; max-width: 292px;
-            border: 1px solid var(--border-muted);
+            width: 100%; max-width: 310px;
+            border: 1px solid var(--border-subtle);
             box-shadow: 0 10px 40px rgba(0,0,0,0.5), 
-                        0 0 30px var(--border-glow);
-            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+                        0 0 20px var(--glow-prim),
+                        inset 0 1px 0 rgba(255,255,255,0.05);
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease;
         }
         .card:hover {
-            border-color: rgba(204, 0, 0, 0.25);
+            transform: translateY(-5px);
+            box-shadow: 0 15px 50px rgba(0,0,0,0.6), 
+                        0 0 30px var(--glow-sec),
+                        inset 0 1px 0 rgba(255,255,255,0.1);
+            border-color: rgba(0, 240, 255, 0.3);
         }
 
         /* =========================================
@@ -119,17 +133,20 @@
            ========================================= */
         .pfp-container {
             position: relative;
-            width: 110px; height: 110px;
-            margin: 5px auto 16px auto;
+            width: 115px; height: 115px;
+            margin: 0 auto 20px auto;
         }
         .pfp {
             width: 100%; height: 100%;
             border-radius: 50%; display: block; object-fit: cover;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            border: 2px solid transparent;
+            background-image: var(--gradient);
+            background-origin: border-box;
+            background-clip: padding-box, border-box;
         }
         .pfp-frame {
             position: absolute; top: -14px; left: -14px;
-            width: 138px; height: 138px;
+            width: 143px; height: 143px;
             pointer-events: none; z-index: 2;
         }
 
@@ -138,300 +155,333 @@
            ========================================= */
         .name-row {
             display: flex; align-items: center;
-            justify-content: center; gap: 10px; margin-bottom: 12px;
+            justify-content: center; gap: 12px; margin-bottom: 12px;
         }
         .header-name {
             font-family: 'ElegantTypewriterBold', sans-serif;
-            font-size: 28px; color: var(--white); margin: 0;
-            text-shadow: 0 0 15px rgba(255,255,255,0.1);
+            font-size: 32px; margin: 0;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 30px var(--glow-prim);
         }
-        .wing-icon { width: 28px; height: 28px; }
+        .wing-icon { width: 30px; height: 30px; }
 
         /* =========================================
            BIO TYPEWRITER
            ========================================= */
         .bio {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 12px; font-weight: 400;
-            color: var(--silver); margin-bottom: 18px;
-            min-height: 3.5em; line-height: 1.6;
+            font-size: 13px; font-weight: 400;
+            color: var(--silver); margin-bottom: 20px;
+            min-height: 3.2em; line-height: 1.6;
         }
+        .bio::after {
+            content: '|';
+            animation: blink 1s step-end infinite;
+            color: var(--secondary);
+        }
+        @keyframes blink { 50% { opacity: 0; } }
 
         /* =========================================
            SOCIAL LINK BUTTONS
            ========================================= */
         .links {
-            display: flex; flex-direction: column; gap: 8px;
-            margin-top: 4px;
+            display: flex; flex-direction: column; gap: 10px;
         }
         .links a {
             display: flex; align-items: center; gap: 12px;
             background: rgba(255, 255, 255, 0.03);
-            border: 1px solid var(--border-muted);
-            border-radius: 12px;
+            border: 1px solid var(--border-subtle);
+            border-radius: 14px;
             padding: 10px 14px;
             color: var(--silver); text-decoration: none;
-            font-size: 13px; font-weight: 500;
-            font-family: 'JetBrains Mono', monospace;
-            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-            letter-spacing: 0.3px;
+            font-size: 13.5px; font-weight: 500;
+            transition: all 0.3s ease;
         }
         .links a:hover {
-            background: rgba(204, 0, 0, 0.08);
-            border-color: var(--border-hover);
+            background: rgba(0, 240, 255, 0.08);
+            border-color: var(--secondary);
             color: var(--white);
-            transform: translateX(4px);
+            transform: translateX(5px);
         }
 
         /* Icon box */
         .link-icon-box {
-            width: 32px; height: 32px;
-            background: rgba(255, 255, 255, 0.04);
-            border: 1px solid var(--border-muted);
-            border-radius: 8px;
+            width: 34px; height: 34px;
+            background: rgba(255, 0, 60, 0.08);
+            border: 1px solid rgba(255, 0, 60, 0.2);
+            border-radius: 10px;
             display: flex; align-items: center; justify-content: center;
             flex-shrink: 0;
-            transition: all 0.25s ease;
+            transition: all 0.3s ease;
         }
         .links a:hover .link-icon-box {
-            background: rgba(204, 0, 0, 0.2);
-            border-color: rgba(204, 0, 0, 0.4);
+            background: var(--secondary);
+            border-color: var(--secondary);
+            box-shadow: 0 0 15px var(--glow-sec);
         }
         .link-icon-box i {
-            color: var(--silver);
-            font-size: 15px; line-height: 1;
-            transition: color 0.25s;
+            color: var(--primary);
+            font-size: 16px; transition: color 0.3s ease;
         }
-        .links a:hover .link-icon-box i {
-            color: var(--accent-ruby);
-        }
-        /* Roblox SVG */
+        .links a:hover .link-icon-box i { color: #000; }
+        
         .link-icon-box img {
-            width: 15px; height: 15px;
-            filter: invert(90%) sepia(10%) saturate(200%) hue-rotate(200deg);
-            transition: filter 0.25s;
+            width: 18px; height: 18px;
+            filter: invert(15%) sepia(90%) saturate(6000%) hue-rotate(340deg) brightness(90%) contrast(110%);
+            transition: filter 0.3s ease;
         }
         .links a:hover .link-icon-box img {
-            filter: invert(15%) sepia(95%) saturate(6000%) hue-rotate(0deg) brightness(95%) contrast(120%);
+            filter: invert(0%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(0%) contrast(100%);
         }
 
-        .link-name { flex: 1; text-align: left; }
+        .link-name { flex: 1; text-align: left; letter-spacing: 0.5px; }
 
-        /* Chevron arrow */
         .link-chevron {
-            color: var(--muted);
-            font-size: 10px;
-            transition: all 0.25s ease;
+            color: rgba(255, 255, 255, 0.2);
+            font-size: 11px;
+            transition: all 0.3s ease;
         }
-        .links a:hover .link-chevron {
-            color: var(--primary-red);
-            transform: translateX(2px);
-        }
+        .links a:hover .link-chevron { color: var(--secondary); transform: translateX(3px); }
 
         /* =========================================
-           FIXED MORPHING SCROLL INDICATOR
+           DYNAMIC SCROLL INDICATOR
            ========================================= */
         .scroll-indicator {
-            position: fixed; bottom: 28px;
+            position: fixed; bottom: 30px;
             left: 50%; transform: translateX(-50%);
-            color: var(--silver);
-            text-align: center; font-size: 11px;
-            font-family: 'JetBrains Mono', monospace;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
+            color: var(--secondary);
+            text-align: center; font-size: 13px;
+            font-family: 'ElegantTypewriterBold', sans-serif;
+            letter-spacing: 1px;
+            transition: opacity 0.4s ease, transform 0.4s ease; 
             z-index: 10;
-            transition: opacity 0.4s ease, transform 0.4s ease;
-            pointer-events: none;
-            animation: bounce 2.2s ease-in-out infinite;
+            text-shadow: 0 0 12px var(--glow-sec);
+            white-space: nowrap;
+            cursor: default;
         }
-        .scroll-indicator i { display: block; font-size: 13px; margin-top: 6px; color: var(--primary-red); }
+        .scroll-indicator.bouncing { animation: bounce 2s ease-in-out infinite; }
+        .scroll-indicator i { display: block; font-size: 15px; margin-top: 8px; }
+        
         @keyframes bounce {
             0%, 100% { transform: translate(-50%, 0); }
-            45%       { transform: translate(-50%, -6px); }
-            65%       { transform: translate(-50%, -3px); }
+            50%      { transform: translate(-50%, -8px); }
         }
 
         /* =========================================
-           LAST.FM WIDGET
-           ========================================= */
-        .lastfm-widget {
-            width: 100%; max-width: 292px;
-            background: var(--card-bg);
-            backdrop-filter: var(--blur);
-            -webkit-backdrop-filter: var(--blur);
-            border-radius: 20px;
-            border: 1px solid var(--border-muted);
-            box-shadow: 0 10px 40px rgba(0,0,0,0.4), 0 0 20px var(--border-glow);
-            padding: 14px 16px;
-        }
-        .lfm-header {
-            display: flex; align-items: center; gap: 8px;
-            margin-bottom: 12px;
-        }
-        .lfm-label {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 10px; font-weight: 600; color: var(--silver);
-            letter-spacing: 1.5px; text-transform: uppercase;
-        }
-        .lfm-dot {
-            width: 6px; height: 6px;
-            background: var(--primary-red); border-radius: 50%;
-            margin-left: auto;
-            box-shadow: 0 0 8px var(--primary-red);
-            animation: lfm-pulse 1.5s ease-in-out infinite;
-        }
-        @keyframes lfm-pulse {
-            0%, 100% { opacity: 1; transform: scale(1); }
-            50%       { opacity: 0.4; transform: scale(0.8); }
-        }
-        .lfm-dot.paused { animation: none; opacity: 0.25; box-shadow: none; background: var(--muted); }
-
-        .lfm-body { display: flex; align-items: center; gap: 12px; }
-        .lfm-art {
-            width: 48px; height: 48px; border-radius: 8px;
-            object-fit: cover; flex-shrink: 0;
-            background: rgba(255,255,255,0.02);
-            border: 1px solid var(--border-muted);
-        }
-        .lfm-text { flex: 1; overflow: hidden; }
-        .lfm-track {
-            font-size: 12px; font-weight: 600; color: var(--white);
-            white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-        }
-        .lfm-artist {
-            font-size: 11px; font-weight: 400; color: var(--silver);
-            white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-            margin-top: 2px; opacity: 0.8;
-        }
-        .lfm-status { font-size: 10px; color: var(--accent-ruby); margin-top: 4px; letter-spacing: 0.3px; font-weight: 300; }
-
-        /* =========================================
-           CUSTOM MEDIA PLAYER (Integrated Template)
-           ========================================= */
-        .player {
-            width: 100%; max-width: 292px;
-            background: var(--card-bg);
-            backdrop-filter: var(--blur);
-            -webkit-backdrop-filter: var(--blur);
-            border: 1px solid var(--border-muted);
-            border-radius: 20px;
-            overflow: hidden;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.4), 0 0 20px var(--border-glow);
-        }
-        .cover {
-            width: 100%;
-            aspect-ratio: 1;
-            object-fit: cover;
-            display: block;
-            background: #121214;
-            border-bottom: 1px solid var(--border-muted);
-        }
-        .player-body { padding: 16px 18px 18px; }
-        .player-info { margin-bottom: 14px; text-align: left; }
-        .player-title {
-            font-size: 13px; font-weight: 600; color: var(--white);
-            white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-            letter-spacing: 0.2px; margin-bottom: 4px;
-        }
-        .player-index {
-            font-size: 9px; font-weight: 400; color: var(--primary-red);
-            letter-spacing: 1.5px; text-transform: uppercase;
-        }
-        .progress-wrap {
-            margin-bottom: 5px; cursor: pointer; position: relative;
-            height: 3px; background: rgba(255,255,255,0.08); border-radius: 2px;
-        }
-        .progress-fill {
-            height: 100%; background: var(--primary-red); border-radius: 2px;
-            width: 0%; position: relative;
-        }
-        .progress-fill::after {
-            content: ''; position: absolute; right: -4px; top: 50%;
-            transform: translateY(-50%); width: 8px; height: 8px;
-            background: var(--white); border-radius: 50%; opacity: 0;
-            transition: opacity 0.15s;
-        }
-        .progress-wrap:hover .progress-fill::after { opacity: 1; }
-        .times {
-            display: flex; justify-content: space-between;
-            font-size: 9px; font-weight: 400; color: var(--muted);
-            margin-bottom: 14px; margin-top: 6px; letter-spacing: 0.5px;
-        }
-        .controls {
-            display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px;
-        }
-        .ctrl {
-            background: none; border: none; color: var(--silver);
-            cursor: pointer; font-size: 13px; padding: 6px;
-            transition: color 0.15s ease, transform 0.1s; line-height: 1;
-        }
-        .ctrl:hover { color: var(--accent-ruby); }
-        .ctrl:active { transform: scale(0.92); }
-        .ctrl.play {
-            color: var(--white); font-size: 15px; width: 38px; height: 38px;
-            background: rgba(204, 0, 0, 0.12); border: 1px solid rgba(204, 0, 0, 0.3);
-            border-radius: 50%; display: flex; align-items: center; justify-content: center;
-            transition: all 0.2s ease;
-        }
-        .ctrl.play:hover {
-            background: rgba(204, 0, 0, 0.25); border-color: var(--primary-red);
-            box-shadow: 0 0 10px rgba(204, 0, 0, 0.2);
-        }
-        .vol { display: flex; align-items: center; gap: 8px; }
-        .vol i { color: var(--muted); font-size: 10px; flex-shrink: 0; }
-        input[type=range] {
-            -webkit-appearance: none; appearance: none; flex: 1;
-            height: 2px; background: rgba(255,255,255,0.08); border-radius: 1px; outline: none; cursor: pointer;
-        }
-        input[type=range]::-webkit-slider-thumb {
-            -webkit-appearance: none; width: 8px; height: 8px; background: var(--primary-red); border-radius: 50%;
-        }
-        input[type=range]::-moz-range-thumb {
-            width: 8px; height: 8px; background: var(--primary-red); border-radius: 50%; border: none;
-        }
-
-        /* =========================================
-           REFINED EXTRA INFO CARD
+           EXTRA INFO CARD (Refined)
            ========================================= */
         .info-header {
             font-family: 'ElegantTypewriterBold', sans-serif;
-            font-size: 20px; color: var(--white);
-            margin: 4px 0 6px; letter-spacing: 0.5px;
+            font-size: 20px; color: var(--secondary);
+            margin: 5px 0 16px;
+            text-transform: uppercase; letter-spacing: 1.5px;
+            text-shadow: 0 0 15px var(--glow-sec);
+            position: relative; display: inline-block;
         }
+        .info-header::after {
+            content: ''; position: absolute;
+            bottom: -4px; left: 10%; width: 80%; height: 2px;
+            background: var(--gradient); border-radius: 2px;
+        }
+        
         .info-greeting {
-            font-size: 11.5px; font-weight: 400; color: var(--primary-red);
-            letter-spacing: 0.5px; margin-bottom: 18px; text-transform: uppercase;
+            font-size: 13px; font-weight: 300; color: var(--silver);
+            margin-bottom: 18px; line-height: 1.6;
         }
-        .info-grid {
-            display: flex; flex-direction: column; gap: 12px; text-align: left;
+        .info-item {
+            font-size: 12.5px; text-align: left;
+            margin: 12px 0; line-height: 1.6; color: var(--silver);
+            display: flex; flex-direction: column; gap: 4px;
         }
-        .info-row {
-            background: rgba(255,255,255,0.01);
-            border: 1px solid var(--border-muted);
-            border-radius: 10px; padding: 10px 12px;
-            transition: background 0.2s, border-color 0.2s;
+        .info-title-row { display: flex; align-items: center; gap: 8px; }
+        .info-title-row i {
+            color: var(--primary); font-size: 13px;
+            width: 16px; text-align: center;
         }
-        .info-row:hover {
-            background: rgba(255,255,255,0.02);
-            border-color: rgba(254, 254, 254, 0.15);
+        .info-list-title {
+            font-family: 'ElegantTypewriter', sans-serif;
+            font-size: 13.5px; font-weight: 600; color: var(--white);
         }
-        .info-label {
-            display: flex; align-items: center; gap: 8px;
-            font-size: 11px; font-weight: 500; color: var(--silver); margin-bottom: 4px;
+        .info-list-content {
+            margin-left: 24px; font-size: 12px;
+            color: var(--secondary); opacity: 0.9;
         }
-        .info-label i { color: var(--primary-red); font-size: 11px; width: 14px; text-align: center; }
-        .info-val {
-            font-size: 12px; color: var(--white); padding-left: 22px; opacity: 0.9; line-height: 1.5;
+        
+        .info-tag-container {
+            display: flex; flex-wrap: wrap; gap: 6px; margin-left: 24px; margin-top: 4px;
         }
-        .info-nested-list {
-            color: var(--silver); font-size: 11.5px; margin-top: 3px; line-height: 1.6;
+        .info-tag {
+            background: rgba(0, 240, 255, 0.1);
+            border: 1px solid rgba(0, 240, 255, 0.2);
+            padding: 3px 8px; border-radius: 6px;
+            font-size: 10.5px; color: var(--secondary);
         }
-        .info-nested-list span { color: var(--primary-red); font-weight: 600; }
+
         .info-footer {
-            font-size: 11px; font-weight: 400; color: var(--muted);
-            margin-top: 16px; border-top: 1px dashed var(--border-muted);
-            padding-top: 12px; line-height: 1.6; text-align: left;
+            font-size: 11.5px; font-weight: 300; color: var(--muted);
+            margin-top: 20px; border-top: 1px dashed rgba(255,255,255,0.1);
+            padding-top: 12px; line-height: 1.6;
         }
+
+        /* =========================================
+           CUSTOM MEDIA PLAYER (Merged & Themed)
+           ========================================= */
+        .player {
+            width: 100%; max-width: 310px;
+            background: var(--card-bg);
+            backdrop-filter: var(--blur);
+            -webkit-backdrop-filter: var(--blur);
+            border: 1px solid var(--border-subtle);
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.5), 
+                        0 0 25px var(--glow-prim);
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+        }
+        .player:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 50px rgba(0,0,0,0.6), 0 0 35px var(--glow-sec);
+            border-color: rgba(0, 240, 255, 0.3);
+        }
+
+        .cover-wrapper { position: relative; width: 100%; aspect-ratio: 1; }
+        .cover {
+            width: 100%; height: 100%; object-fit: cover;
+            display: block; background: #111;
+        }
+        .cover-overlay {
+            position: absolute; bottom: 0; left: 0; width: 100%; height: 50%;
+            background: linear-gradient(to top, rgba(10,10,12,1), transparent);
+        }
+
+        .player-body { padding: 0 22px 22px; position: relative; z-index: 2; margin-top: -30px; }
+
+        .info { margin-bottom: 16px; text-align: center; }
+        .title {
+            font-size: 16px; font-weight: 600; color: var(--white);
+            white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+            letter-spacing: 0.5px; margin-bottom: 4px;
+            text-shadow: 0 0 10px rgba(255,255,255,0.2);
+        }
+        .index {
+            font-size: 11px; font-weight: 400; color: var(--secondary);
+            letter-spacing: 2px; text-transform: uppercase;
+        }
+
+        .progress-wrap {
+            margin-bottom: 6px; cursor: pointer;
+            position: relative; height: 4px;
+            background: rgba(255,255,255,0.1); border-radius: 2px;
+        }
+        .progress-fill {
+            height: 100%; background: var(--gradient);
+            border-radius: 2px; width: 0%;
+            transition: width 0.1s linear; position: relative;
+            box-shadow: 0 0 10px var(--glow-prim);
+        }
+        .progress-fill::after {
+            content: ''; position: absolute;
+            right: -5px; top: 50%; transform: translateY(-50%);
+            width: 10px; height: 10px; background: var(--white);
+            border-radius: 50%; opacity: 0; transition: opacity 0.2s;
+            box-shadow: 0 0 5px rgba(255,255,255,0.5);
+        }
+        .progress-wrap:hover .progress-fill::after { opacity: 1; }
+        
+        .times {
+            display: flex; justify-content: space-between;
+            font-size: 10px; font-weight: 400; color: var(--silver);
+            margin-bottom: 18px; margin-top: 8px; letter-spacing: 0.5px;
+        }
+
+        .controls {
+            display: flex; align-items: center; justify-content: space-between;
+            margin-bottom: 18px; padding: 0 10px;
+        }
+        .ctrl {
+            background: none; border: none; color: var(--muted);
+            cursor: pointer; font-size: 15px; padding: 5px;
+            transition: all 0.2s ease; line-height: 1;
+        }
+        .ctrl:hover { color: var(--secondary); text-shadow: 0 0 8px var(--glow-sec); }
+        
+        .ctrl.play {
+            color: var(--white); font-size: 18px;
+            width: 44px; height: 44px;
+            background: rgba(255, 0, 60, 0.15);
+            border: 1px solid rgba(255, 0, 60, 0.4);
+            border-radius: 50%; display: flex;
+            align-items: center; justify-content: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 15px var(--glow-prim);
+        }
+        .ctrl.play:hover {
+            background: var(--primary);
+            border-color: var(--primary);
+            transform: scale(1.05);
+        }
+
+        .vol { display: flex; align-items: center; gap: 10px; }
+        .vol i { color: var(--muted); font-size: 11px; flex-shrink: 0; }
+        input[type=range] {
+            -webkit-appearance: none; appearance: none;
+            flex: 1; height: 3px; background: rgba(255,255,255,0.1);
+            border-radius: 2px; outline: none; cursor: pointer;
+        }
+        input[type=range]::-webkit-slider-thumb {
+            -webkit-appearance: none; width: 10px; height: 10px;
+            background: var(--secondary); border-radius: 50%; cursor: pointer;
+            box-shadow: 0 0 8px var(--glow-sec);
+        }
+
+        /* =========================================
+           LAST.FM WIDGET (Themed to match)
+           ========================================= */
+        .lastfm-widget {
+            width: 100%; max-width: 310px;
+            background: var(--card-bg);
+            backdrop-filter: var(--blur); -webkit-backdrop-filter: var(--blur);
+            border-radius: 20px; border: 1px solid var(--border-subtle);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.4); padding: 16px 20px;
+            transition: transform 0.3s ease;
+        }
+        .lastfm-widget:hover { transform: translateY(-3px); border-color: rgba(0, 240, 255, 0.2); }
+        
+        .lfm-header { display: flex; align-items: center; gap: 8px; margin-bottom: 14px; }
+        .lfm-label {
+            font-family: 'ElegantTypewriterBold', sans-serif;
+            font-size: 12px; color: var(--primary);
+            letter-spacing: 2px; text-transform: uppercase;
+        }
+        .lfm-dot {
+            width: 8px; height: 8px; background: var(--secondary);
+            border-radius: 50%; margin-left: auto;
+            animation: lfm-pulse 1.5s ease-in-out infinite;
+        }
+        @keyframes lfm-pulse {
+            0%, 100% { opacity: 1; transform: scale(1); box-shadow: 0 0 0 0 rgba(0,240,255,0.6); }
+            50%      { opacity: 0.5; transform: scale(0.8); box-shadow: 0 0 0 6px rgba(0,240,255,0); }
+        }
+        .lfm-dot.paused { animation: none; opacity: 0.3; background: var(--muted); }
+
+        .lfm-body { display: flex; align-items: center; gap: 14px; }
+        .lfm-art {
+            width: 50px; height: 50px; border-radius: 10px;
+            object-fit: cover; flex-shrink: 0;
+            border: 1px solid var(--border-subtle);
+        }
+        .lfm-text { flex: 1; overflow: hidden; }
+        .lfm-track {
+            font-size: 13px; font-weight: 600; color: var(--white);
+            white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+        }
+        .lfm-artist {
+            font-size: 11.5px; font-weight: 400; color: var(--silver);
+            white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-top: 4px;
+        }
+        .lfm-status { font-size: 10px; color: var(--secondary); margin-top: 6px; letter-spacing: 0.5px; }
+
     </style>
 </head>
 <body>
@@ -443,11 +493,6 @@
     <div id="play-overlay" onclick="startSite()">
         Click to enter
         <span>Ash's Cavern</span>
-    </div>
-
-    <div class="scroll-indicator" id="scroll-prompt">
-        Scroll for more
-        <i class="fas fa-chevron-down"></i>
     </div>
 
     <div class="page-section" id="sec-1">
@@ -492,18 +537,21 @@
         </div>
     </div>
 
+    <div class="scroll-indicator bouncing" id="scroll-prompt">
+        Scroll for more
+        <i class="fas fa-chevron-down"></i>
+    </div>
+
     <div class="page-section" id="sec-2">
 
         <div class="lastfm-widget">
             <div class="lfm-header">
-                <i class="fab fa-lastfm" style="color:var(--primary-red); font-size:13px;"></i>
+                <i class="fab fa-lastfm" style="color:var(--primary); font-size:14px;"></i>
                 <span class="lfm-label">Now Playing</span>
                 <div class="lfm-dot" id="lfm-dot"></div>
             </div>
             <div class="lfm-body">
-                <img class="lfm-art" id="lfm-art"
-                     src="https://lastfm.freetls.fastly.net/i/u/300x300/2a96cbd8b46e442fc41c2b86b821562f.png"
-                     alt="Album art">
+                <img class="lfm-art" id="lfm-art" src="https://lastfm.freetls.fastly.net/i/u/300x300/2a96cbd8b46e442fc41c2b86b821562f.png" alt="Album art">
                 <div class="lfm-text">
                     <div class="lfm-track"  id="lfm-track">Loading...</div>
                     <div class="lfm-artist" id="lfm-artist"></div>
@@ -513,46 +561,49 @@
         </div>
 
         <div class="card">
-            <div class="info-header">Identity Matrix</div>
-            <div class="info-greeting" id="dynamic-greeting">Welcome, Traveler</div>
+            <div class="info-header">Intel</div>
+            <div class="info-greeting">
+                Welcome to my digital space! I'm Ash. I spend most of my time writing front-end code, configuring Linux environments, and gaming. When I'm stepping away from the terminal, I'm usually lost in deep anime lore or hunting down new tracks.
+            </div>
 
-            <div class="info-grid">
-                <div class="info-row">
-                    <div class="info-label"><i class="fas fa-calendar-alt"></i> Timeline Arc</div>
-                    <div class="info-val">Born on November 1st.</div>
+            <div class="info-item">
+                <div class="info-title-row"><i class="fas fa-calendar-alt"></i> <span class="info-list-title">Spawn Date</span></div>
+                <div class="info-list-content">November 1st</div>
+            </div>
+            
+            <div class="info-item">
+                <div class="info-title-row"><i class="fas fa-tv"></i> <span class="info-list-title">Top Tier Anime</span></div>
+                <div class="info-tag-container">
+                    <span class="info-tag">Classroom of the Elite</span>
+                    <span class="info-tag">Terror in Resonance</span>
+                    <span class="info-tag">Cyberpunk Edgerunners</span>
                 </div>
-                
-                <div class="info-row">
-                    <div class="info-label"><i class="fas fa-headphones"></i> Core Subroutines</div>
-                    <div class="info-val">Immersed in anime streams and parsing audio frequencies.</div>
-                </div>
-
-                <div class="info-row">
-                    <div class="info-label"><i class="fas fa-tv"></i> High-Priority Media</div>
-                    <div class="info-val">
-                        <div class="info-nested-list"><span>01.</span> Classroom of the Elite</div>
-                        <div class="info-nested-list"><span>02.</span> Terror in Resonance</div>
-                        <div class="info-nested-list"><span>03.</span> Cyberpunk Edgerunners</div>
-                    </div>
-                </div>
-
-                <div class="info-row">
-                    <div class="info-label"><i class="fas fa-music"></i> Heavy Rotation Artists</div>
-                    <div class="info-val">s0rrow, overtonight, qorikardashian</div>
+            </div>
+            
+            <div class="info-item">
+                <div class="info-title-row"><i class="fas fa-headphones-alt"></i> <span class="info-list-title">Heavy Rotation</span></div>
+                <div class="info-tag-container">
+                    <span class="info-tag">s0rrow</span>
+                    <span class="info-tag">overtonight</span>
+                    <span class="info-tag">qorikardashian</span>
                 </div>
             </div>
 
             <div class="info-footer">
-                Want to connect or collaborate? Initiate an established terminal link by dropping a DM via any connected node above.
+                Want to collaborate or talk tech? Slide into my DMs on any of my linked socials.
             </div>
         </div>
 
         <div class="player">
-            <img class="cover" id="cover" src="" alt="Album Art">
+            <div class="cover-wrapper">
+                <img class="cover" id="cover" src="" alt="Album Art">
+                <div class="cover-overlay"></div>
+            </div>
+            
             <div class="player-body">
-                <div class="player-info">
-                    <div class="player-title" id="title">—</div>
-                    <div class="player-index" id="idx">0 / 0</div>
+                <div class="info">
+                    <div class="title" id="title">—</div>
+                    <div class="index" id="idx">1 / 19</div>
                 </div>
 
                 <div class="progress-wrap" id="progWrap">
@@ -566,7 +617,7 @@
                 <div class="controls">
                     <button class="ctrl" onclick="prev()"><i class="fas fa-step-backward"></i></button>
                     <button class="ctrl" onclick="shuffle()"><i class="fas fa-random"></i></button>
-                    <button class="ctrl play" id="playBtn" onclick="togglePlay()"><i class="fas fa-play"></i></button>
+                    <button class="ctrl play" id="playBtn" onclick="togglePlay()"><i class="fas fa-play" style="margin-left:2px;"></i></button>
                     <button class="ctrl" onclick="toggleRepeat()" id="repeatBtn"><i class="fas fa-redo"></i></button>
                     <button class="ctrl" onclick="next()"><i class="fas fa-step-forward"></i></button>
                 </div>
@@ -578,14 +629,85 @@
                 </div>
             </div>
         </div>
+        <audio id="audio"></audio>
 
     </div>
 
-    <audio id="audio"></audio>
-
     <script>
         /* ================================================
-           SONG UTILITIES & DATABASE
+           SITE ENTRY & TYPEWRITER
+           ================================================ */
+        function startSite() {
+            const overlay = document.getElementById('play-overlay');
+            overlay.style.opacity = '0';
+            overlay.style.backdropFilter = 'blur(0px)';
+            setTimeout(() => overlay.style.display = 'none', 800);
+
+            typeWriter();
+            fetchNowPlaying();
+
+            // Start custom player if not already playing
+            if (!playing) {
+                audio.play().then(() => {
+                    playing = true;
+                    updateBtn();
+                }).catch(e => console.log("Audio autoplay blocked until interaction.", e));
+            }
+        }
+
+        function typeWriter() {
+            const messages = [
+                'System initialized. Welcome to the Cavern.',
+                'Built by Ash via HTML, JS, and CSS.',
+                'Select a portal below to connect.'
+            ];
+            const bio = document.getElementById('bio-text');
+            let mIdx = 0, cIdx = 0, deleting = false;
+
+            function type() {
+                const cur = messages[mIdx];
+                bio.innerText = deleting ? cur.substring(0, cIdx--) : cur.substring(0, cIdx++);
+
+                let speed = deleting ? 30 : 60;
+                if (!deleting && cIdx > cur.length)  { deleting = true; speed = 2500; }
+                else if (deleting && cIdx === 0)     { deleting = false; mIdx = (mIdx + 1) % messages.length; speed = 600; }
+                setTimeout(type, speed);
+            }
+            type();
+        }
+
+        /* ================================================
+           DYNAMIC SCROLL INDICATOR
+           ================================================ */
+        window.addEventListener('scroll', () => {
+            const prompt = document.getElementById('scroll-prompt');
+            const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+            const currentScroll = window.scrollY;
+
+            if (currentScroll < 50) {
+                // Near Top
+                prompt.innerHTML = 'Scroll for more <i class="fas fa-chevron-down"></i>';
+                prompt.style.opacity = '1';
+                prompt.style.cursor = 'default';
+                prompt.classList.add('bouncing');
+                prompt.onclick = null;
+            } else if (currentScroll >= maxScroll - 40) {
+                // At Bottom
+                prompt.innerHTML = 'Scroll up <i class="fas fa-chevron-up"></i>';
+                prompt.style.opacity = '1';
+                prompt.style.cursor = 'pointer';
+                prompt.classList.remove('bouncing');
+                prompt.onclick = () => window.scrollTo({ top: 0, behavior: 'smooth' });
+            } else {
+                // Middle of page
+                prompt.style.opacity = '0';
+                prompt.style.cursor = 'default';
+                prompt.onclick = null;
+            }
+        });
+
+        /* ================================================
+           CUSTOM MEDIA PLAYER LOGIC
            ================================================ */
         const songs = [
             { mp3: "BABYREINDEER_wmspfn", jpg: "BABYREINDEER_fqtcmu", name: "BABYREINDEER" },
@@ -611,10 +733,10 @@
 
         const CDN = "https://res.cloudinary.com/dgus0vior";
         const audio = document.getElementById('audio');
-        let songIdx = 0, playing = false, repeat = false;
+        let idx = 0, playing = false, repeat = false;
 
         function loadTrack(i, autoplay = false) {
-            songIdx = i;
+            idx = i;
             const song = songs[i];
             audio.src  = `${CDN}/video/upload/${song.mp3}.mp3`;
             document.getElementById('cover').src  = `${CDN}/image/upload/${song.jpg}.jpg`;
@@ -624,36 +746,101 @@
             document.getElementById('cur').textContent = '0:00';
             document.getElementById('dur').textContent = '0:00';
             if (autoplay) { 
-                audio.play().catch(e => console.log("Playback deferred until click layout interaction.")); 
+                audio.play().catch(e => console.log(e)); 
                 playing = true; 
                 updateBtn(); 
             }
         }
 
         function togglePlay() {
-            playing ? audio.pause() : audio.play();
+            if (playing) {
+                audio.pause();
+            } else {
+                audio.play();
+            }
             playing = !playing;
             updateBtn();
         }
 
-        function next()    { loadTrack((songIdx + 1) % songs.length, playing); }
-        function prev()    { loadTrack((songIdx - 1 + songs.length) % songs.length, playing); }
+        function next()    { loadTrack((idx + 1) % songs.length, playing); }
+        function prev()    { loadTrack((idx - 1 + songs.length) % songs.length, playing); }
         function shuffle() { loadTrack(Math.floor(Math.random() * songs.length), playing); }
 
         function toggleRepeat() {
             repeat = !repeat;
-            document.getElementById('repeatBtn').style.color = repeat ? 'var(--accent-ruby)' : '';
+            document.getElementById('repeatBtn').style.color = repeat ? 'var(--secondary)' : '';
+            document.getElementById('repeatBtn').style.textShadow = repeat ? '0 0 8px var(--glow-sec)' : 'none';
         }
 
         function updateBtn() {
             document.getElementById('playBtn').innerHTML =
-                playing ? '<i class="fas fa-pause"></i>' : '<i class="fas fa-play"></i>';
+                playing ? '<i class="fas fa-pause"></i>' : '<i class="fas fa-play" style="margin-left:2px;"></i>';
         }
 
-        function fmtTime(s) {
+        function fmt(s) {
             if (isNaN(s)) return '0:00';
             return `${Math.floor(s/60)}:${String(Math.floor(s%60)).padStart(2,'0')}`;
         }
 
-        // Event
+        audio.addEventListener('timeupdate', () => {
+            const pct = (audio.currentTime / audio.duration) * 100 || 0;
+            document.getElementById('progFill').style.width = pct + '%';
+            document.getElementById('cur').textContent = fmt(audio.currentTime);
+        });
+
+        audio.addEventListener('loadedmetadata', () => {
+            document.getElementById('dur').textContent = fmt(audio.duration);
+        });
+
+        audio.addEventListener('ended', () => {
+            repeat ? (audio.currentTime = 0, audio.play()) : next();
+        });
+
+        document.getElementById('progWrap').addEventListener('click', e => {
+            const r = e.currentTarget.getBoundingClientRect();
+            audio.currentTime = ((e.clientX - r.left) / r.width) * audio.duration;
+        });
+
+        document.getElementById('vol').addEventListener('input', e => {
+            audio.volume = e.target.value / 100;
+        });
+
+        // Initialize Audio on load but wait for overlay click to play
+        audio.volume = 0.7;
+        loadTrack(Math.floor(Math.random() * songs.length), false);
+
+        /* ================================================
+           LAST.FM NOW PLAYING
+           ================================================ */
+        const LFM_KEY     = '84e191b366d86d98c1db2a74b5b39ef4';
+        const LFM_USER    = 'Ashy-geek';
+        const LFM_DEFAULT = 'https://lastfm.freetls.fastly.net/i/u/300x300/2a96cbd8b46e442fc41c2b86b821562f.png';
+
+        async function fetchNowPlaying() {
+            try {
+                const res  = await fetch(`https://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=${LFM_USER}&api_key=${LFM_KEY}&format=json&limit=1`);
+                const data = await res.json();
+                const track = data?.recenttracks?.track?.[0];
+                if (!track) return;
+
+                const isLive  = track['@attr']?.nowplaying === 'true';
+                const name    = track.name || 'Unknown Track';
+                const artist  = track.artist?.['#text'] || 'Unknown Artist';
+                const artUrl  = (track.image?.find(i => i.size === 'large')?.[  '#text'] || '').trim() || LFM_DEFAULT;
+
+                document.getElementById('lfm-track').innerText  = name;
+                document.getElementById('lfm-artist').innerText = artist;
+                document.getElementById('lfm-art').src          = artUrl;
+                document.getElementById('lfm-status').innerText = isLive ? '▶ Live Scrobbling' : '◉ Offline';
+                document.getElementById('lfm-dot').classList.toggle('paused', !isLive);
+            } catch {
+                document.getElementById('lfm-track').innerText  = 'Connection Lost';
+                document.getElementById('lfm-artist').innerText = '';
+                document.getElementById('lfm-status').innerText = '';
+            }
+        }
+        setInterval(fetchNowPlaying, 30_000);
+    </script>
+</body>
+</html>
 
