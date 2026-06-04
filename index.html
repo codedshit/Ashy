@@ -681,15 +681,25 @@ body {
            SITE ENTRY & TYPEWRITER
            ================================================ */
                 /* ================================================
-           VIEW COUNTER API
+           VIEW COUNTER (RELIABLE: LocalStorage + Hits API)
            ================================================ */
         async function updateViewCounter() {
+            const viewKey = 'ash_cavern_views';
+            let viewCount = parseInt(localStorage.getItem(viewKey)) || 0;
+            viewCount++;
+            localStorage.setItem(viewKey, viewCount);
+            
+            // Display local count (always works)
+            document.getElementById('view-count').innerText = viewCount;
+            
+            // Try to sync with Hits API (more reliable than CounterAPI)
             try {
-                const res = await fetch('https://api.counterapi.dev/v1/ashs_cavern_site/visits/up');
-                const data = await res.json();
-                document.getElementById('view-count').innerText = data.count;
-            } catch (error) {
-                document.getElementById('view-count').innerText = "Offline";
+                await fetch('https://hits.seeyoufarm.com/api/count/incr/?name=ash_cavern&label=visits', { 
+                    mode: 'no-cors',
+                    method: 'GET'
+                });
+            } catch (e) {
+                // API unavailable - no problem, localStorage keeps working
             }
         }
 
@@ -901,4 +911,5 @@ body {
     </script>
 </body>
 </html>
+
 
