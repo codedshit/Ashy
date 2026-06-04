@@ -793,7 +793,7 @@ body {
                     updateViewCounter();
 
 
-            // Start custom player if not already playing
+            // Start custom player (this is my startup function / bio)
             if (!playing) {
                 audio.play().then(() => {
                     playing = true;
@@ -805,11 +805,9 @@ body {
         function typeWriter() {
             const messages = [
                 'Welcome to the Cavern.',
-                'Call me Daddy Ash 🤭',
-                'Site was built by Ash and hosted on Github Repo.',
+                'Remember to call me "Daddy Ash" 🤭',
                 'Select a website logo below to know me better <3.',
-                'This was created using JavaScripts and CSS.',
-                'Later on i will try adding python features <3',
+                'Site was built by Ash and hosted on Github pages',
                 'Even if am from South Asia it doesnt mean am black 😩'
             ];
             const bio = document.getElementById('bio-text');
