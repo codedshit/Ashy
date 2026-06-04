@@ -23,18 +23,19 @@
         }
 
         /* =========================================
-           CSS VARIABLES
+           CSS VARIABLES (Sophisticated Midnight & Ruby Theme)
            ========================================= */
         :root {
-            --red:        #bf0000;
-            --red-glow:   rgba(191, 0, 0, 0.18);
-            --red-border: rgba(191, 0, 0, 0.30);
-            --red-dim:    rgba(191, 0, 0, 0.12);
-            --card-bg:    rgba(12, 12, 12, 0.78);
-            --white:      #ffffff;
-            --silver:     #b8b8b8;
-            --muted:      #606060;
-            --blur:       blur(16px);
+            --primary-red:  #cc0000;
+            --accent-ruby:  #ff3333;
+            --card-bg:      rgba(15, 15, 18, 0.82);
+            --border-glow:  rgba(204, 0, 0, 0.15);
+            --border-muted: rgba(255, 255, 255, 0.08);
+            --border-hover: rgba(204, 0, 0, 0.4);
+            --white:        #ffffff;
+            --silver:       #d4d4d8;
+            --muted:        #71717a;
+            --blur:         blur(20px);
         }
 
         /* =========================================
@@ -46,7 +47,7 @@
             margin: 0; padding: 0; height: 100%;
             font-family: 'JetBrains Mono', monospace;
             overflow-x: hidden; overflow-y: auto;
-            background-color: #000;
+            background-color: #09090b;
             scroll-behavior: smooth;
         }
 
@@ -57,6 +58,7 @@
             position: fixed; top: 0; left: 0;
             width: 100%; height: 100%;
             object-fit: cover; z-index: 0;
+            opacity: 0.45; /* Toned down background intensity */
         }
 
         /* =========================================
@@ -65,12 +67,12 @@
         #play-overlay {
             position: fixed; top: 0; left: 0;
             width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.88);
-            color: var(--red);
+            background: #09090b;
+            color: var(--primary-red);
             display: flex; flex-direction: column;
             justify-content: center; align-items: center;
-            gap: 10px; z-index: 9999; cursor: pointer;
-            transition: opacity 0.8s ease;
+            gap: 12px; z-index: 9999; cursor: pointer;
+            transition: opacity 0.8s ease, visibility 0.8s;
             font-family: 'ElegantTypewriterBold', sans-serif;
             font-size: 26px; letter-spacing: 1px;
         }
@@ -79,6 +81,7 @@
             font-family: 'JetBrains Mono', monospace;
             font-weight: 300; color: var(--muted);
             letter-spacing: 3.5px; text-transform: uppercase;
+            margin-top: 4px;
         }
 
         /* =========================================
@@ -90,21 +93,25 @@
             align-items: center; flex-direction: column;
         }
         #sec-1 { min-height: 100vh; padding: 0 15px; }
-        #sec-2 { min-height: 100vh; padding: 50px 15px 65px; gap: 13px; }
+        #sec-2 { min-height: 100vh; padding: 60px 15px 80px; gap: 20px; }
 
         /* =========================================
-           GLASS CARD
+           GLASS CARD SHELL
            ========================================= */
         .card {
             background: var(--card-bg);
             backdrop-filter: var(--blur);
             -webkit-backdrop-filter: var(--blur);
-            padding: 18px 22px; border-radius: 22px;
+            padding: 24px 22px; border-radius: 20px;
             text-align: center; color: var(--white);
             width: 100%; max-width: 292px;
-            border: 1px solid var(--red-border);
-            box-shadow: 0 0 40px var(--red-glow),
-                        inset 0 1px 0 rgba(255,255,255,0.04);
+            border: 1px solid var(--border-muted);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.5), 
+                        0 0 30px var(--border-glow);
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+        .card:hover {
+            border-color: rgba(204, 0, 0, 0.25);
         }
 
         /* =========================================
@@ -118,6 +125,7 @@
         .pfp {
             width: 100%; height: 100%;
             border-radius: 50%; display: block; object-fit: cover;
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
         .pfp-frame {
             position: absolute; top: -14px; left: -14px;
@@ -134,8 +142,8 @@
         }
         .header-name {
             font-family: 'ElegantTypewriterBold', sans-serif;
-            font-size: 28px; color: var(--red); margin: 0;
-            text-shadow: 0 0 22px rgba(191,0,0,0.45);
+            font-size: 28px; color: var(--white); margin: 0;
+            text-shadow: 0 0 15px rgba(255,255,255,0.1);
         }
         .wing-icon { width: 28px; height: 28px; }
 
@@ -145,8 +153,8 @@
         .bio {
             font-family: 'JetBrains Mono', monospace;
             font-size: 12px; font-weight: 400;
-            color: var(--silver); margin-bottom: 16px;
-            min-height: 3em; line-height: 1.6;
+            color: var(--silver); margin-bottom: 18px;
+            min-height: 3.5em; line-height: 1.6;
         }
 
         /* =========================================
@@ -157,84 +165,90 @@
             margin-top: 4px;
         }
         .links a {
-            display: flex; align-items: center; gap: 11px;
-            background: rgba(191, 0, 0, 0.05);
-            border: 1px solid rgba(191, 0, 0, 0.18);
+            display: flex; align-items: center; gap: 12px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border-muted);
             border-radius: 12px;
-            padding: 9px 13px 9px 10px;
+            padding: 10px 14px;
             color: var(--silver); text-decoration: none;
             font-size: 13px; font-weight: 500;
             font-family: 'JetBrains Mono', monospace;
-            transition: background 0.22s ease, border-color 0.22s ease,
-                        color 0.22s ease, transform 0.22s ease;
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
             letter-spacing: 0.3px;
         }
         .links a:hover {
-            background: rgba(191, 0, 0, 0.13);
-            border-color: var(--red);
+            background: rgba(204, 0, 0, 0.08);
+            border-color: var(--border-hover);
             color: var(--white);
-            transform: translateX(3px);
+            transform: translateX(4px);
         }
 
         /* Icon box */
         .link-icon-box {
             width: 32px; height: 32px;
-            background: rgba(191, 0, 0, 0.10);
-            border: 1px solid rgba(191, 0, 0, 0.22);
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--border-muted);
             border-radius: 8px;
             display: flex; align-items: center; justify-content: center;
             flex-shrink: 0;
-            transition: background 0.22s ease, border-color 0.22s ease;
+            transition: all 0.25s ease;
         }
         .links a:hover .link-icon-box {
-            background: rgba(191, 0, 0, 0.24);
-            border-color: rgba(191, 0, 0, 0.55);
+            background: rgba(204, 0, 0, 0.2);
+            border-color: rgba(204, 0, 0, 0.4);
         }
         .link-icon-box i {
-            color: var(--red);
+            color: var(--silver);
             font-size: 15px; line-height: 1;
+            transition: color 0.25s;
         }
-        /* Roblox SVG — kept red to match other icons */
+        .links a:hover .link-icon-box i {
+            color: var(--accent-ruby);
+        }
+        /* Roblox SVG */
         .link-icon-box img {
-            width: 16px; height: 16px;
-            filter: invert(10%) sepia(100%) saturate(7000%)
-                    hue-rotate(0deg) brightness(95%) contrast(120%);
+            width: 15px; height: 15px;
+            filter: invert(90%) sepia(10%) saturate(200%) hue-rotate(200deg);
+            transition: filter 0.25s;
+        }
+        .links a:hover .link-icon-box img {
+            filter: invert(15%) sepia(95%) saturate(6000%) hue-rotate(0deg) brightness(95%) contrast(120%);
         }
 
-        /* Text label */
         .link-name { flex: 1; text-align: left; }
 
         /* Chevron arrow */
         .link-chevron {
-            color: rgba(191, 0, 0, 0.35);
+            color: var(--muted);
             font-size: 10px;
-            transition: color 0.22s ease, transform 0.22s ease;
+            transition: all 0.25s ease;
         }
         .links a:hover .link-chevron {
-            color: var(--red);
+            color: var(--primary-red);
             transform: translateX(2px);
         }
 
         /* =========================================
-           SCROLL INDICATOR
+           FIXED MORPHING SCROLL INDICATOR
            ========================================= */
         .scroll-indicator {
-            position: absolute; bottom: 28px;
+            position: fixed; bottom: 28px;
             left: 50%; transform: translateX(-50%);
-            color: var(--red);
-            text-align: center; font-size: 13px;
-            font-family: 'ElegantTypewriterBold', sans-serif;
-            letter-spacing: 0.5px;
-            transition: opacity 0.5s ease; pointer-events: none;
+            color: var(--silver);
+            text-align: center; font-size: 11px;
+            font-family: 'JetBrains Mono', monospace;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            z-index: 10;
+            transition: opacity 0.4s ease, transform 0.4s ease;
+            pointer-events: none;
             animation: bounce 2.2s ease-in-out infinite;
-            text-shadow: 0 0 10px rgba(191,0,0,0.45);
-            white-space: nowrap;
         }
-        .scroll-indicator i { display: block; font-size: 14px; margin-top: 7px; }
+        .scroll-indicator i { display: block; font-size: 13px; margin-top: 6px; color: var(--primary-red); }
         @keyframes bounce {
             0%, 100% { transform: translate(-50%, 0); }
-            45%       { transform: translate(-50%, -9px); }
-            65%       { transform: translate(-50%, -4px); }
+            45%       { transform: translate(-50%, -6px); }
+            65%       { transform: translate(-50%, -3px); }
         }
 
         /* =========================================
@@ -245,39 +259,39 @@
             background: var(--card-bg);
             backdrop-filter: var(--blur);
             -webkit-backdrop-filter: var(--blur);
-            border-radius: 18px;
-            border: 1px solid var(--red-border);
-            box-shadow: 0 0 30px var(--red-glow),
-                        inset 0 1px 0 rgba(255,255,255,0.04);
-            padding: 13px 16px;
+            border-radius: 20px;
+            border: 1px solid var(--border-muted);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.4), 0 0 20px var(--border-glow);
+            padding: 14px 16px;
         }
         .lfm-header {
-            display: flex; align-items: center; gap: 7px;
-            margin-bottom: 11px;
+            display: flex; align-items: center; gap: 8px;
+            margin-bottom: 12px;
         }
         .lfm-label {
-            font-family: 'ElegantTypewriterBold', sans-serif;
-            font-size: 11px; color: var(--red);
-            letter-spacing: 2px; text-transform: uppercase;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 10px; font-weight: 600; color: var(--silver);
+            letter-spacing: 1.5px; text-transform: uppercase;
         }
         .lfm-dot {
-            width: 7px; height: 7px;
-            background: var(--red); border-radius: 50%;
+            width: 6px; height: 6px;
+            background: var(--primary-red); border-radius: 50%;
             margin-left: auto;
+            box-shadow: 0 0 8px var(--primary-red);
             animation: lfm-pulse 1.5s ease-in-out infinite;
         }
         @keyframes lfm-pulse {
-            0%, 100% { opacity: 1;   transform: scale(1);   box-shadow: 0 0 0 0   rgba(191,0,0,0.6); }
-            50%       { opacity: 0.5; transform: scale(0.7); box-shadow: 0 0 0 5px rgba(191,0,0,0); }
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50%       { opacity: 0.4; transform: scale(0.8); }
         }
-        .lfm-dot.paused { animation: none; opacity: 0.28; }
+        .lfm-dot.paused { animation: none; opacity: 0.25; box-shadow: none; background: var(--muted); }
 
         .lfm-body { display: flex; align-items: center; gap: 12px; }
         .lfm-art {
-            width: 46px; height: 46px; border-radius: 9px;
+            width: 48px; height: 48px; border-radius: 8px;
             object-fit: cover; flex-shrink: 0;
-            background: rgba(191,0,0,0.08);
-            border: 1px solid var(--red-border);
+            background: rgba(255,255,255,0.02);
+            border: 1px solid var(--border-muted);
         }
         .lfm-text { flex: 1; overflow: hidden; }
         .lfm-track {
@@ -285,102 +299,138 @@
             white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
         }
         .lfm-artist {
-            font-size: 11px; font-weight: 400; color: var(--muted);
+            font-size: 11px; font-weight: 400; color: var(--silver);
             white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-            margin-top: 3px;
+            margin-top: 2px; opacity: 0.8;
         }
-        .lfm-status { font-size: 10px; color: var(--red); margin-top: 5px; letter-spacing: 0.5px; }
+        .lfm-status { font-size: 10px; color: var(--accent-ruby); margin-top: 4px; letter-spacing: 0.3px; font-weight: 300; }
 
         /* =========================================
-           EXTRA INFO CARD
+           CUSTOM MEDIA PLAYER (Integrated Template)
            ========================================= */
-        .info-header {
-            font-family: 'ElegantTypewriterBold', sans-serif;
-            font-size: 19px; color: var(--red);
-            margin: 4px 0 14px;
-            text-decoration: underline;
-            text-underline-offset: 5px;
-            text-decoration-color: rgba(191,0,0,0.4);
-            text-shadow: 0 0 18px rgba(191,0,0,0.35);
-        }
-        .info-greeting {
-            font-size: 12.5px; font-weight: 300; color: var(--silver);
-            font-style: italic; margin-bottom: 14px; line-height: 1.5;
-        }
-        .info-item {
-            font-size: 12px; text-align: left;
-            margin: 9px 0; line-height: 1.5; color: var(--silver);
-        }
-        .info-item > i {
-            margin-right: 7px; font-size: 11px;
-            width: 14px; text-align: center; color: var(--red);
-        }
-        .info-list-title {
-            font-family: 'ElegantTypewriter', sans-serif;
-            font-size: 13px; font-weight: 600;
-            display: block; margin-top: 3px; color: var(--white);
-        }
-        .info-list-content {
-            margin: 3px 0 6px 21px; font-size: 11.5px;
-            color: var(--red); line-height: 1.6;
-        }
-        .info-footer {
-            font-size: 11px; font-weight: 300; color: var(--muted);
-            margin-top: 14px;
-            border-top: 1px dashed rgba(191,0,0,0.2);
-            padding-top: 10px; line-height: 1.55;
-        }
-
-        /* =========================================
-           SOUNDCLOUD WIDGET
-           ========================================= */
-        .sc-wrap {
+        .player {
             width: 100%; max-width: 292px;
             background: var(--card-bg);
             backdrop-filter: var(--blur);
             -webkit-backdrop-filter: var(--blur);
-            border-radius: 22px;
-            border: 1px solid var(--red-border);
-            box-shadow: 0 0 40px var(--red-glow),
-                        inset 0 1px 0 rgba(255,255,255,0.04);
+            border: 1px solid var(--border-muted);
+            border-radius: 20px;
             overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.4), 0 0 20px var(--border-glow);
         }
-        .sc-header {
-            display: flex; align-items: center; gap: 9px;
-            padding: 13px 16px 10px;
-            border-bottom: 1px solid rgba(191,0,0,0.18);
+        .cover {
+            width: 100%;
+            aspect-ratio: 1;
+            object-fit: cover;
+            display: block;
+            background: #121214;
+            border-bottom: 1px solid var(--border-muted);
         }
-        .sc-header i { color: var(--red); font-size: 17px; }
-        .sc-title {
-            font-family: 'ElegantTypewriterBold', sans-serif;
-            font-size: 14px; color: var(--white); letter-spacing: 0.3px;
+        .player-body { padding: 16px 18px 18px; }
+        .player-info { margin-bottom: 14px; text-align: left; }
+        .player-title {
+            font-size: 13px; font-weight: 600; color: var(--white);
+            white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+            letter-spacing: 0.2px; margin-bottom: 4px;
         }
-        .sc-open-link {
-            margin-left: auto; font-size: 9.5px; font-weight: 300;
-            color: var(--muted); text-decoration: none;
-            letter-spacing: 0.5px; white-space: nowrap;
-            transition: color 0.2s ease;
+        .player-index {
+            font-size: 9px; font-weight: 400; color: var(--primary-red);
+            letter-spacing: 1.5px; text-transform: uppercase;
         }
-        .sc-open-link:hover { color: var(--red); }
-        .sc-wrap iframe { display: block; border: none; }
+        .progress-wrap {
+            margin-bottom: 5px; cursor: pointer; position: relative;
+            height: 3px; background: rgba(255,255,255,0.08); border-radius: 2px;
+        }
+        .progress-fill {
+            height: 100%; background: var(--primary-red); border-radius: 2px;
+            width: 0%; position: relative;
+        }
+        .progress-fill::after {
+            content: ''; position: absolute; right: -4px; top: 50%;
+            transform: translateY(-50%); width: 8px; height: 8px;
+            background: var(--white); border-radius: 50%; opacity: 0;
+            transition: opacity 0.15s;
+        }
+        .progress-wrap:hover .progress-fill::after { opacity: 1; }
+        .times {
+            display: flex; justify-content: space-between;
+            font-size: 9px; font-weight: 400; color: var(--muted);
+            margin-bottom: 14px; margin-top: 6px; letter-spacing: 0.5px;
+        }
+        .controls {
+            display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px;
+        }
+        .ctrl {
+            background: none; border: none; color: var(--silver);
+            cursor: pointer; font-size: 13px; padding: 6px;
+            transition: color 0.15s ease, transform 0.1s; line-height: 1;
+        }
+        .ctrl:hover { color: var(--accent-ruby); }
+        .ctrl:active { transform: scale(0.92); }
+        .ctrl.play {
+            color: var(--white); font-size: 15px; width: 38px; height: 38px;
+            background: rgba(204, 0, 0, 0.12); border: 1px solid rgba(204, 0, 0, 0.3);
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            transition: all 0.2s ease;
+        }
+        .ctrl.play:hover {
+            background: rgba(204, 0, 0, 0.25); border-color: var(--primary-red);
+            box-shadow: 0 0 10px rgba(204, 0, 0, 0.2);
+        }
+        .vol { display: flex; align-items: center; gap: 8px; }
+        .vol i { color: var(--muted); font-size: 10px; flex-shrink: 0; }
+        input[type=range] {
+            -webkit-appearance: none; appearance: none; flex: 1;
+            height: 2px; background: rgba(255,255,255,0.08); border-radius: 1px; outline: none; cursor: pointer;
+        }
+        input[type=range]::-webkit-slider-thumb {
+            -webkit-appearance: none; width: 8px; height: 8px; background: var(--primary-red); border-radius: 50%;
+        }
+        input[type=range]::-moz-range-thumb {
+            width: 8px; height: 8px; background: var(--primary-red); border-radius: 50%; border: none;
+        }
 
-        /* SC now-playing mini bar (shows while audio plays) */
-        .sc-now-bar {
-            display: none;
-            align-items: center; gap: 8px;
-            padding: 7px 16px 9px;
-            border-bottom: 1px solid rgba(191,0,0,0.12);
-            font-size: 11px; font-weight: 400;
-            color: var(--silver);
+        /* =========================================
+           REFINED EXTRA INFO CARD
+           ========================================= */
+        .info-header {
+            font-family: 'ElegantTypewriterBold', sans-serif;
+            font-size: 20px; color: var(--white);
+            margin: 4px 0 6px; letter-spacing: 0.5px;
         }
-        .sc-now-bar.visible { display: flex; }
-        .sc-now-dot {
-            width: 6px; height: 6px;
-            background: var(--red); border-radius: 50%; flex-shrink: 0;
-            animation: lfm-pulse 1.2s ease-in-out infinite;
+        .info-greeting {
+            font-size: 11.5px; font-weight: 400; color: var(--primary-red);
+            letter-spacing: 0.5px; margin-bottom: 18px; text-transform: uppercase;
         }
-        #sc-now-title {
-            flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+        .info-grid {
+            display: flex; flex-direction: column; gap: 12px; text-align: left;
+        }
+        .info-row {
+            background: rgba(255,255,255,0.01);
+            border: 1px solid var(--border-muted);
+            border-radius: 10px; padding: 10px 12px;
+            transition: background 0.2s, border-color 0.2s;
+        }
+        .info-row:hover {
+            background: rgba(255,255,255,0.02);
+            border-color: rgba(254, 254, 254, 0.15);
+        }
+        .info-label {
+            display: flex; align-items: center; gap: 8px;
+            font-size: 11px; font-weight: 500; color: var(--silver); margin-bottom: 4px;
+        }
+        .info-label i { color: var(--primary-red); font-size: 11px; width: 14px; text-align: center; }
+        .info-val {
+            font-size: 12px; color: var(--white); padding-left: 22px; opacity: 0.9; line-height: 1.5;
+        }
+        .info-nested-list {
+            color: var(--silver); font-size: 11.5px; margin-top: 3px; line-height: 1.6;
+        }
+        .info-nested-list span { color: var(--primary-red); font-weight: 600; }
+        .info-footer {
+            font-size: 11px; font-weight: 400; color: var(--muted);
+            margin-top: 16px; border-top: 1px dashed var(--border-muted);
+            padding-top: 12px; line-height: 1.6; text-align: left;
         }
     </style>
 </head>
@@ -395,9 +445,11 @@
         <span>Ash's Cavern</span>
     </div>
 
-    <!-- =============================================
-         SECTION 1 — MAIN PROFILE
-         ============================================= -->
+    <div class="scroll-indicator" id="scroll-prompt">
+        Scroll for more
+        <i class="fas fa-chevron-down"></i>
+    </div>
+
     <div class="page-section" id="sec-1">
         <div class="card">
             <div class="pfp-container">
@@ -438,22 +490,13 @@
                 </a>
             </div>
         </div>
-
-        <div class="scroll-indicator" id="scroll-prompt">
-            Scroll for more
-            <i class="fas fa-chevron-down"></i>
-        </div>
     </div>
 
-    <!-- =============================================
-         SECTION 2 — INFO, LAST.FM & SOUNDCLOUD
-         ============================================= -->
     <div class="page-section" id="sec-2">
 
-        <!-- LAST.FM NOW PLAYING -->
         <div class="lastfm-widget">
             <div class="lfm-header">
-                <i class="fab fa-lastfm" style="color:var(--red); font-size:13px;"></i>
+                <i class="fab fa-lastfm" style="color:var(--primary-red); font-size:13px;"></i>
                 <span class="lfm-label">Now Playing</span>
                 <div class="lfm-dot" id="lfm-dot"></div>
             </div>
@@ -469,203 +512,148 @@
             </div>
         </div>
 
-        <!-- EXTRA INFO -->
         <div class="card">
-            <div class="info-header">Extra Info</div>
-            <div class="info-greeting">"Hey! It's nice to see you here."</div>
+            <div class="info-header">Identity Matrix</div>
+            <div class="info-greeting" id="dynamic-greeting">Welcome, Traveler</div>
 
-            <div class="info-item">
-                <i class="fas fa-calendar-alt"></i> Born on November 1st.
-            </div>
-            <div class="info-item">
-                <i class="fas fa-headphones"></i> I usually watch animes and listen to music.
-            </div>
-            <div class="info-item">
-                <i class="fas fa-tv"></i>
-                <span class="info-list-title">Top 3 Animes (All Genres):</span>
-                <div class="info-list-content">
-                    Classroom of the Elite,<br>
-                    Terror in Resonance and<br>
-                    Cyberpunk Edgerunners
+            <div class="info-grid">
+                <div class="info-row">
+                    <div class="info-label"><i class="fas fa-calendar-alt"></i> Timeline Arc</div>
+                    <div class="info-val">Born on November 1st.</div>
                 </div>
-            </div>
-            <div class="info-item">
-                <i class="fas fa-music"></i>
-                <span class="info-list-title">Favorite Artists:</span>
-                <div class="info-list-content">s0rrow, overtonight and qorikardashian</div>
+                
+                <div class="info-row">
+                    <div class="info-label"><i class="fas fa-headphones"></i> Core Subroutines</div>
+                    <div class="info-val">Immersed in anime streams and parsing audio frequencies.</div>
+                </div>
+
+                <div class="info-row">
+                    <div class="info-label"><i class="fas fa-tv"></i> High-Priority Media</div>
+                    <div class="info-val">
+                        <div class="info-nested-list"><span>01.</span> Classroom of the Elite</div>
+                        <div class="info-nested-list"><span>02.</span> Terror in Resonance</div>
+                        <div class="info-nested-list"><span>03.</span> Cyberpunk Edgerunners</div>
+                    </div>
+                </div>
+
+                <div class="info-row">
+                    <div class="info-label"><i class="fas fa-music"></i> Heavy Rotation Artists</div>
+                    <div class="info-val">s0rrow, overtonight, qorikardashian</div>
+                </div>
             </div>
 
             <div class="info-footer">
-                If you want to know more about me, send me a DM on any social media linked on this site.
+                Want to connect or collaborate? Initiate an established terminal link by dropping a DM via any connected node above.
             </div>
         </div>
 
-        <!-- SOUNDCLOUD WIDGET -->
-        <div class="sc-wrap">
-            <div class="sc-header">
-                <i class="fab fa-soundcloud"></i>
-                <span class="sc-title">My Playlist</span>
-                <a class="sc-open-link"
-                   href="https://soundcloud.com/ash-lives-under-an-rock/sets/site-playlist"
-                   target="_blank">Open ↗</a>
-            </div>
+        <div class="player">
+            <img class="cover" id="cover" src="" alt="Album Art">
+            <div class="player-body">
+                <div class="player-info">
+                    <div class="player-title" id="title">—</div>
+                    <div class="player-index" id="idx">0 / 0</div>
+                </div>
 
-            <!-- Mini now-playing bar shown while a track plays -->
-            <div class="sc-now-bar" id="sc-now-bar">
-                <span class="sc-now-dot"></span>
-                <span id="sc-now-title">Playing…</span>
-            </div>
+                <div class="progress-wrap" id="progWrap">
+                    <div class="progress-fill" id="progFill"></div>
+                </div>
+                <div class="times">
+                    <span id="cur">0:00</span>
+                    <span id="dur">0:00</span>
+                </div>
 
-            <iframe
-                id="sc-iframe"
-                width="100%"
-                height="280"
-                scrolling="no"
-                frameborder="no"
-                allow="autoplay; encrypted-media"
-                src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/playlists/soundcloud%253Aplaylists%253A2247333686&color=%23bf0000&auto_play=false&hide_related=true&show_comments=false&show_user=false&show_reposts=false&show_teaser=false&visual=true">
-            </iframe>
+                <div class="controls">
+                    <button class="ctrl" onclick="prev()"><i class="fas fa-step-backward"></i></button>
+                    <button class="ctrl" onclick="shuffle()"><i class="fas fa-random"></i></button>
+                    <button class="ctrl play" id="playBtn" onclick="togglePlay()"><i class="fas fa-play"></i></button>
+                    <button class="ctrl" onclick="toggleRepeat()" id="repeatBtn"><i class="fas fa-redo"></i></button>
+                    <button class="ctrl" onclick="next()"><i class="fas fa-step-forward"></i></button>
+                </div>
+
+                <div class="vol">
+                    <i class="fas fa-volume-down"></i>
+                    <input type="range" id="vol" min="0" max="100" value="70">
+                    <i class="fas fa-volume-up"></i>
+                </div>
+            </div>
         </div>
 
     </div>
 
-    <!-- SoundCloud Widget API -->
-    <script src="https://w.soundcloud.com/player/api.js"></script>
+    <audio id="audio"></audio>
 
     <script>
         /* ================================================
-           SOUNDCLOUD WIDGET SETUP
-           — Pre-fetch sounds on load so we can play
-             instantly (within the click gesture) on entry
+           SONG UTILITIES & DATABASE
            ================================================ */
-        let scWidget  = null;
-        let scSounds  = null;   // pre-fetched track list
-        let pendingPlay = false; // play as soon as READY fires
+        const songs = [
+            { mp3: "BABYREINDEER_wmspfn", jpg: "BABYREINDEER_fqtcmu", name: "BABYREINDEER" },
+            { mp3: "BURNMYLUNGS_xencvs", jpg: "BURNMYLUNGS_hucvba", name: "BURNMYLUNGS" },
+            { mp3: "BYOB_p_Omar_Duro_oj8nje", jpg: "BYOB_p_Omar_Duro_vbsyzr", name: "BYOB p Omar Duro" },
+            { mp3: "close_my_eyes_dxspqp", jpg: "close_my_eyes_xu0ryv", name: "close my eyes" },
+            { mp3: "fake_your_face_awx0wt", jpg: "fake_ur_face_fdscum", name: "fake ur face" },
+            { mp3: "HOW2SCREAM_cwx74u", jpg: "HOW2SCREAM_mg99ct", name: "HOW2SCREAM" },
+            { mp3: "i_hate_u_so_much_w9vhe1", jpg: "i_hate_u_so_much_u4cfvi", name: "i hate u so much" },
+            { mp3: "i_put_the_gun_to_my_head_xtjecj", jpg: "i_put_the_gun_to_my_head_qkkcp6", name: "i put the gun to my head" },
+            { mp3: "Ingrid_Witt_-_If_I_Had_A_Tail_gcpju5", jpg: "Ingrid_Witt_-_If_I_Had_A_Tail_u84yrz", name: "Ingrid Witt - If I Had A Tail" },
+            { mp3: "lose_her_pttein", jpg: "lose_her_b7lrza", name: "lose her" },
+            { mp3: "MTC_-_S3RL_lrdy50", jpg: "MTC_-_S3RL_nafo6m", name: "MTC - S3RL" },
+            { mp3: "MYGRIMWEDDING_p4p4d6", jpg: "MYGRIMWEDDING_vdj049", name: "MYGRIMWEDDING" },
+            { mp3: "pr3tty_lil_sc3n3_sluttt__3_gsthgx", jpg: "pr3tty_lil_sc3n3_sluttt__3_w1qubg", name: "pr3tty lil sc3n3 sluttt <3" },
+            { mp3: "RADIOHEART_eg4awo", jpg: "RADIOHEART_ldcuwa", name: "RADIOHEART" },
+            { mp3: "SAYSOMETHING_q4xe2p", jpg: "SAYSOMETHING_h0k1um", name: "SAYSOMETHING" },
+            { mp3: "so_bitter_lmh6ox", jpg: "So_bitter_mzkawa", name: "So bitter" },
+            { mp3: "sometimes_-_mattyeux_hhft67", jpg: "sometimes_-_mattyeux_guxvq8", name: "sometimes - mattyeux" },
+            { mp3: "unhappy_uiwslo", jpg: "unhappy_i1ufa0", name: "unhappy" },
+            { mp3: "Vonni_x_PINKBLXXD_o8w5hh", jpg: "Vonni_x_PINKBLXXD_bdjyph", name: "Vonni x PINKBLXXD" }
+        ];
 
-        function initSCWidget() {
-            if (typeof SC === 'undefined') {
-                setTimeout(initSCWidget, 400);
-                return;
-            }
-            scWidget = SC.Widget(document.getElementById('sc-iframe'));
+        const CDN = "https://res.cloudinary.com/dgus0vior";
+        const audio = document.getElementById('audio');
+        let songIdx = 0, playing = false, repeat = false;
 
-            scWidget.bind(SC.Widget.Events.READY, function () {
-                // Pre-load the sounds array so skip() is instant later
-                scWidget.getSounds(function (sounds) {
-                    scSounds = sounds || [];
-                    if (pendingPlay) playRandom();
-                });
-            });
-
-            // Update the mini now-playing bar when a track changes
-            scWidget.bind(SC.Widget.Events.PLAY, function () {
-                scWidget.getCurrentSound(function (sound) {
-                    if (!sound) return;
-                    const bar = document.getElementById('sc-now-bar');
-                    bar.classList.add('visible');
-                    document.getElementById('sc-now-title').innerText =
-                        (sound.title || 'Playing…').replace(/^[\w\s]*-\s*/, '');
-                });
-            });
-        }
-
-        function playRandom() {
-            if (!scWidget) return;
-            if (scSounds && scSounds.length > 0) {
-                const idx = Math.floor(Math.random() * scSounds.length);
-                scWidget.skip(idx);
-            }
-            scWidget.setVolume(75);
-            scWidget.play();
-        }
-
-        window.addEventListener('load', initSCWidget);
-
-        /* ================================================
-           SITE ENTRY
-           ================================================ */
-        function startSite() {
-            const overlay = document.getElementById('play-overlay');
-            overlay.style.opacity = '0';
-            setTimeout(() => overlay.style.display = 'none', 800);
-
-            typeWriter();
-            fetchNowPlaying();
-
-            // Play immediately if widget is ready, otherwise queue it
-            if (scWidget && scSounds !== null) {
-                playRandom();
-            } else {
-                pendingPlay = true;
+        function loadTrack(i, autoplay = false) {
+            songIdx = i;
+            const song = songs[i];
+            audio.src  = `${CDN}/video/upload/${song.mp3}.mp3`;
+            document.getElementById('cover').src  = `${CDN}/image/upload/${song.jpg}.jpg`;
+            document.getElementById('title').textContent = song.name;
+            document.getElementById('idx').textContent   = `${i + 1} / ${songs.length}`;
+            document.getElementById('progFill').style.width = '0%';
+            document.getElementById('cur').textContent = '0:00';
+            document.getElementById('dur').textContent = '0:00';
+            if (autoplay) { 
+                audio.play().catch(e => console.log("Playback deferred until click layout interaction.")); 
+                playing = true; 
+                updateBtn(); 
             }
         }
 
-        /* ================================================
-           SCROLL — FADE PROMPT
-           ================================================ */
-        window.addEventListener('scroll', () => {
-            document.getElementById('scroll-prompt').style.opacity =
-                window.scrollY > 40 ? '0' : '1';
-        });
-
-        /* ================================================
-           TYPEWRITER EFFECT
-           ================================================ */
-        function typeWriter() {
-            const messages = [
-                'This site was created by Ash, using HTML, JS and CSS.',
-                'Click the logos to enter my socials'
-            ];
-            const bio = document.getElementById('bio-text');
-            let mIdx = 0, cIdx = 0, deleting = false;
-
-            function type() {
-                const cur = messages[mIdx];
-                bio.innerText = deleting
-                    ? cur.substring(0, cIdx--)
-                    : cur.substring(0, cIdx++);
-
-                let speed = deleting ? 38 : 78;
-                if (!deleting && cIdx > cur.length)  { deleting = true;  speed = 2400; }
-                else if (deleting && cIdx === 0)      { deleting = false; mIdx = (mIdx + 1) % messages.length; speed = 700; }
-                setTimeout(type, speed);
-            }
-            type();
+        function togglePlay() {
+            playing ? audio.pause() : audio.play();
+            playing = !playing;
+            updateBtn();
         }
 
-        /* ================================================
-           LAST.FM NOW PLAYING
-           ================================================ */
-        const LFM_KEY     = '84e191b366d86d98c1db2a74b5b39ef4';
-        const LFM_USER    = 'Ashy-geek';
-        const LFM_DEFAULT = 'https://lastfm.freetls.fastly.net/i/u/300x300/2a96cbd8b46e442fc41c2b86b821562f.png';
+        function next()    { loadTrack((songIdx + 1) % songs.length, playing); }
+        function prev()    { loadTrack((songIdx - 1 + songs.length) % songs.length, playing); }
+        function shuffle() { loadTrack(Math.floor(Math.random() * songs.length), playing); }
 
-        async function fetchNowPlaying() {
-            try {
-                const res  = await fetch(`https://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=${LFM_USER}&api_key=${LFM_KEY}&format=json&limit=1`);
-                const data = await res.json();
-                const track = data?.recenttracks?.track?.[0];
-                if (!track) return;
-
-                const isLive  = track['@attr']?.nowplaying === 'true';
-                const name    = track.name || 'Unknown Track';
-                const artist  = track.artist?.['#text'] || 'Unknown Artist';
-                const artUrl  = (track.image?.find(i => i.size === 'large')?.[  '#text'] || '').trim() || LFM_DEFAULT;
-
-                document.getElementById('lfm-track').innerText  = name;
-                document.getElementById('lfm-artist').innerText = artist;
-                document.getElementById('lfm-art').src          = artUrl;
-                document.getElementById('lfm-status').innerText = isLive ? '▶ Listening now' : '◉ Last played';
-                document.getElementById('lfm-dot').classList.toggle('paused', !isLive);
-            } catch {
-                document.getElementById('lfm-track').innerText  = 'Unavailable';
-                document.getElementById('lfm-artist').innerText = '';
-                document.getElementById('lfm-status').innerText = '';
-            }
+        function toggleRepeat() {
+            repeat = !repeat;
+            document.getElementById('repeatBtn').style.color = repeat ? 'var(--accent-ruby)' : '';
         }
 
-        setInterval(fetchNowPlaying, 30_000);
-    </script>
-</body>
-</html>
+        function updateBtn() {
+            document.getElementById('playBtn').innerHTML =
+                playing ? '<i class="fas fa-pause"></i>' : '<i class="fas fa-play"></i>';
+        }
+
+        function fmtTime(s) {
+            if (isNaN(s)) return '0:00';
+            return `${Math.floor(s/60)}:${String(Math.floor(s%60)).padStart(2,'0')}`;
+        }
+
+        // Event
 
