@@ -35,48 +35,19 @@
 
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-        /* Hide default cursor to use custom one */
         html, body {
             margin: 0; padding: 0;
             overflow-x: hidden;
             font-family: 'JetBrains Mono', monospace;
             background-color: #050505;
             scroll-behavior: smooth;
-            cursor: none;
+            /* CURSOR REMOVED — default cursor restored */
         }
         body { min-height: 100vh; position: relative; }
-        
-        /* Interactive elements get no cursor to let custom cursor shine */
-        a, button, .ctrl, .chat-btn, .links a { cursor: none; }
-        /* Keep text cursor for inputs */
-        input, textarea { cursor: text; }
 
         ::-webkit-scrollbar { width: 6px; }
         ::-webkit-scrollbar-track { background: #000; }
         ::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 10px; }
-
-        /* =========================================
-           CUSTOM CURSOR
-           ========================================= */
-        .cursor-dot {
-            width: 6px; height: 6px;
-            background: var(--secondary);
-            border-radius: 50%;
-            position: fixed; top: 0; left: 0;
-            pointer-events: none; z-index: 99999;
-            transform: translate(-50%, -50%);
-            box-shadow: 0 0 10px var(--secondary);
-        }
-        .cursor-ring {
-            width: 24px; height: 24px;
-            border: 1.5px solid var(--primary);
-            border-radius: 50%;
-            position: fixed; top: 0; left: 0;
-            pointer-events: none; z-index: 99998;
-            transform: translate(-50%, -50%);
-            box-shadow: 0 0 10px rgba(255, 0, 60, 0.4);
-            transition: width 0.2s, height 0.2s, border-color 0.2s;
-        }
 
         /* =========================================
            SCROLL PROGRESS BAR
@@ -112,7 +83,7 @@
             color: var(--primary);
             display: flex; flex-direction: column;
             justify-content: center; align-items: center;
-            gap: 12px; z-index: 9999; cursor: none;
+            gap: 12px; z-index: 9999;
             transition: opacity 0.8s ease, backdrop-filter 0.8s ease;
             font-family: 'ElegantTypewriterBold', sans-serif;
             font-size: 28px; letter-spacing: 2px;
@@ -131,6 +102,7 @@
         }
         #sec-1 { min-height: 100vh; padding: 0 15px; }
         #sec-2 { min-height: 100vh; padding: 50px 15px 85px; gap: 20px; overflow-x: hidden; }
+        #sec-3 { padding: 20px 15px 80px; gap: 20px; }
 
         /* SCROLL REVEAL CLASSES */
         .reveal {
@@ -143,6 +115,9 @@
             transform: translateY(0);
         }
 
+        /* =========================================
+           CARDS — gradient accent line REMOVED
+           ========================================= */
         .card, .lastfm-widget, .player {
             background: var(--card-bg);
             backdrop-filter: var(--blur);
@@ -151,46 +126,40 @@
             text-align: center; color: var(--white);
             width: 100%; max-width: 310px;
             border: 1px solid var(--border-subtle);
-            box-shadow: 0 10px 40px rgba(0,0,0,0.5), 
+            box-shadow: 0 10px 40px rgba(0,0,0,0.5),
                         0 0 20px var(--glow-prim),
                         inset 0 1px 0 rgba(255,255,255,0.05);
             transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease;
             position: relative;
             overflow: hidden;
         }
-        
-        /* Top Gradient Accent Line */
-        .card::before, .lastfm-widget::before, .player::before {
-            content: ''; position: absolute;
-            top: 0; left: 0; right: 0; height: 3px;
-            background: var(--gradient);
-            border-radius: 24px 24px 0 0;
-            opacity: 0.8;
-        }
+        /* ::before gradient accent lines have been REMOVED */
 
         .card { padding: 22px 26px; }
         .card:hover, .lastfm-widget:hover, .player:hover {
             transform: translateY(-5px);
-            box-shadow: 0 15px 50px rgba(0,0,0,0.6), 
+            box-shadow: 0 15px 50px rgba(0,0,0,0.6),
                         0 0 30px var(--glow-sec),
                         inset 0 1px 0 rgba(255,255,255,0.1);
             border-color: rgba(0, 240, 255, 0.3);
         }
 
-        /* CHAT BUTTON */
+        /* =========================================
+           CHAT BUTTON — icon only, larger
+           ========================================= */
         .chat-btn {
             position: absolute; top: 20px; left: 20px;
             display: inline-flex; align-items: center; justify-content: center;
-            gap: 6px; background: rgba(0, 240, 255, 0.05);
+            background: rgba(0, 240, 255, 0.05);
             border: 1px solid rgba(0, 240, 255, 0.2);
-            padding: 6px 11px; border-radius: 8px; font-size: 12px;
-            font-family: 'JetBrains Mono', monospace; font-weight: 600;
+            width: 36px; height: 36px;
+            border-radius: 10px; font-size: 17px;
             color: #00f0ff; box-shadow: 0 0 8px rgba(0, 240, 255, 0.2);
             z-index: 10; backdrop-filter: blur(4px); transition: all 0.3s ease;
         }
         .chat-btn:hover {
             background: rgba(0, 240, 255, 0.12); border-color: rgba(0, 240, 255, 0.5);
-            box-shadow: 0 0 16px rgba(0, 240, 255, 0.4); transform: scale(1.06);
+            box-shadow: 0 0 16px rgba(0, 240, 255, 0.4); transform: scale(1.08);
         }
 
         /* CHAT MODAL */
@@ -211,11 +180,10 @@
             opacity: 0; pointer-events: none; transition: all 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
         .chat-modal.active { opacity: 1; pointer-events: all; transform: translate(-50%, -50%) scale(1); }
-        .chat-close { position: absolute; top: 14px; right: 16px; background: none; border: none; color: var(--muted); font-size: 15px; transition: color 0.2s, transform 0.2s; }
+        .chat-close { position: absolute; top: 14px; right: 16px; background: none; border: none; color: var(--muted); font-size: 15px; transition: color 0.2s, transform 0.2s; cursor: pointer; }
         .chat-close:hover { color: var(--primary); transform: scale(1.2); }
         .chat-modal-title { font-family: 'ElegantTypewriterBold', sans-serif; font-size: 19px; background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 4px; }
         .chat-modal-sub { font-size: 11px; color: var(--muted); margin-bottom: 20px; }
-        
         .chat-input, .chat-textarea {
             width: 100%; background: rgba(255, 255, 255, 0.04);
             border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 11px;
@@ -224,16 +192,12 @@
         }
         .chat-textarea { height: 90px; }
         .chat-input:focus, .chat-textarea:focus { border-color: rgba(0, 240, 255, 0.35); box-shadow: 0 0 12px rgba(0, 240, 255, 0.08); background: rgba(0, 240, 255, 0.03); }
-        
-        .char-counter {
-            text-align: right; font-size: 10px; color: var(--muted); margin-bottom: 10px; padding-right: 5px;
-        }
-
+        .char-counter { text-align: right; font-size: 10px; color: var(--muted); margin-bottom: 10px; padding-right: 5px; }
         .chat-send {
             width: 100%; padding: 12px; background: rgba(255, 0, 60, 0.12);
             border: 1px solid rgba(255, 0, 60, 0.35); border-radius: 11px;
             color: var(--white); font-family: 'JetBrains Mono', monospace;
-            font-size: 13px; font-weight: 500; transition: all 0.3s ease; box-shadow: 0 0 15px var(--glow-prim);
+            font-size: 13px; font-weight: 500; transition: all 0.3s ease; box-shadow: 0 0 15px var(--glow-prim); cursor: pointer;
         }
         .chat-send:hover:not(:disabled) { background: var(--primary); border-color: var(--primary); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(255, 0, 60, 0.4); }
         .chat-feedback { font-size: 11px; text-align: center; margin-top: 11px; min-height: 18px; transition: all 0.3s; }
@@ -246,7 +210,7 @@
         .pfp-frame { position: absolute; top: -14px; left: -14px; width: 143px; height: 143px; pointer-events: none; z-index: 2; }
 
         .name-row { display: flex; align-items: center; justify-content: center; gap: 12px; margin-bottom: 12px; }
-        
+
         /* GLITCH HOVER EFFECT */
         .header-name {
             font-family: 'ElegantTypewriterBold', sans-serif; font-size: 32px; margin: 0;
@@ -275,7 +239,6 @@
         }
 
         .wing-icon { width: 30px; height: 30px; }
-
         .bio { font-size: 13px; font-weight: 400; color: var(--silver); margin-bottom: 20px; min-height: 3.2em; line-height: 1.6; }
         .bio::after { content: '|'; animation: blink 1s step-end infinite; color: var(--secondary); }
         @keyframes blink { 50% { opacity: 0; } }
@@ -286,7 +249,7 @@
             display: flex; align-items: center; justify-content: center; width: 52px; height: 52px;
             background: rgba(255, 255, 255, 0.04); border: 1.5px solid rgba(0, 240, 255, 0.12);
             border-radius: 14px; text-decoration: none; transition: all 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            position: relative; overflow: visible; /* Changed for tooltip */
+            position: relative; overflow: visible;
         }
         .links a:nth-child(1) { --platform-color: #5865F2; }
         .links a:nth-child(2) { --platform-color: #00F7EF; }
@@ -307,8 +270,6 @@
             box-shadow: 0 0 20px var(--platform-color), inset 0 0 12px rgba(0, 240, 255, 0.08); transform: translateY(-6px) scale(1.1);
         }
         .links a:hover::before { opacity: 0.15; }
-        
-        /* Tooltip implementation */
         .links a::after {
             content: attr(data-tooltip); position: absolute; bottom: -32px; left: 50%;
             transform: translateX(-50%) translateY(10px); background: #111;
@@ -329,7 +290,7 @@
             position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); color: var(--secondary);
             text-align: center; font-size: 13px; font-family: 'ElegantTypewriterBold', sans-serif;
             letter-spacing: 1px; transition: opacity 0.4s ease, transform 0.4s ease; z-index: 10;
-            text-shadow: 0 0 12px var(--glow-sec); white-space: nowrap; cursor: none;
+            text-shadow: 0 0 12px var(--glow-sec); white-space: nowrap; pointer-events: none;
         }
         .scroll-indicator.bouncing { animation: bounce 2s ease-in-out infinite; }
         .scroll-indicator i { display: block; font-size: 15px; margin-top: 8px; }
@@ -356,12 +317,11 @@
         .cover { width: 100%; height: 100%; object-fit: cover; display: block; background: #111; }
         .cover-overlay { position: absolute; bottom: 0; left: 0; width: 100%; height: 50%; background: linear-gradient(to top, rgba(10,10,12,1), transparent); }
         .player-body { padding: 0 22px 22px; position: relative; z-index: 2; margin-top: -30px; }
-        
         .info-container { display: flex; align-items: center; justify-content: center; gap: 8px; margin-bottom: 16px; }
         .info { text-align: center; overflow: hidden; flex: 1; }
         .title { font-size: 16px; font-weight: 600; color: var(--white); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; letter-spacing: 0.5px; margin-bottom: 4px; text-shadow: 0 0 10px rgba(255,255,255,0.2); }
         .index { font-size: 11px; font-weight: 400; color: var(--secondary); letter-spacing: 2px; text-transform: uppercase; }
-        
+
         /* EQ BARS */
         .eq-bars { display: flex; align-items: flex-end; gap: 2px; height: 14px; opacity: 0; transition: opacity 0.3s; }
         .eq-bars.active { opacity: 1; }
@@ -372,38 +332,33 @@
         .eq-bar:nth-child(4) { animation-delay: 0.3s; height: 80%; }
         @keyframes eq { 0% { height: 20%; } 100% { height: 100%; } }
 
-        .progress-wrap { margin-bottom: 6px; cursor: none; position: relative; height: 4px; background: rgba(255,255,255,0.1); border-radius: 2px; }
+        .progress-wrap { margin-bottom: 6px; cursor: pointer; position: relative; height: 4px; background: rgba(255,255,255,0.1); border-radius: 2px; }
         .progress-fill { height: 100%; background: var(--gradient); border-radius: 2px; width: 0%; transition: width 0.1s linear; position: relative; box-shadow: 0 0 10px var(--glow-prim); }
         .progress-fill::after { content: ''; position: absolute; right: -5px; top: 50%; transform: translateY(-50%); width: 10px; height: 10px; background: var(--white); border-radius: 50%; opacity: 0; transition: opacity 0.2s; box-shadow: 0 0 5px rgba(255,255,255,0.5); }
         .progress-wrap:hover .progress-fill::after { opacity: 1; }
         .times { display: flex; justify-content: space-between; font-size: 10px; font-weight: 400; color: var(--silver); margin-bottom: 18px; margin-top: 8px; letter-spacing: 0.5px; }
         .controls { display: flex; align-items: center; justify-content: space-between; margin-bottom: 18px; padding: 0 10px; }
-        .ctrl { background: none; border: none; color: var(--muted); font-size: 15px; padding: 5px; transition: all 0.2s ease; line-height: 1; }
+        .ctrl { background: none; border: none; color: var(--muted); font-size: 15px; padding: 5px; transition: all 0.2s ease; line-height: 1; cursor: pointer; }
         .ctrl:hover { color: var(--secondary); text-shadow: 0 0 8px var(--glow-sec); }
         .ctrl.play { color: var(--white); font-size: 18px; width: 44px; height: 44px; background: rgba(255, 0, 60, 0.15); border: 1px solid rgba(255, 0, 60, 0.4); border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: all 0.3s ease; box-shadow: 0 0 15px var(--glow-prim); }
         .ctrl.play:hover { background: var(--primary); border-color: var(--primary); transform: scale(1.05); }
         .vol { display: flex; align-items: center; gap: 10px; }
         .vol i { color: var(--muted); font-size: 11px; flex-shrink: 0; }
-        input[type=range] { -webkit-appearance: none; appearance: none; flex: 1; height: 3px; background: rgba(255,255,255,0.1); border-radius: 2px; outline: none; }
+        input[type=range] { -webkit-appearance: none; appearance: none; flex: 1; height: 3px; background: rgba(255,255,255,0.1); border-radius: 2px; outline: none; cursor: pointer; }
         input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 10px; height: 10px; background: var(--secondary); border-radius: 50%; box-shadow: 0 0 8px var(--glow-sec); }
 
         /* LASTFM WIDGET */
         .lastfm-widget { padding: 16px 20px; }
         .lfm-header { display: flex; align-items: center; gap: 8px; margin-bottom: 14px; }
         .lfm-label { font-family: 'ElegantTypewriterBold', sans-serif; font-size: 12px; color: var(--primary); letter-spacing: 2px; text-transform: uppercase; }
-        
         .lfm-dot { width: 8px; height: 8px; background: var(--secondary); border-radius: 50%; margin-left: auto; animation: lfm-pulse 1.5s ease-in-out infinite; }
         @keyframes lfm-pulse { 0%, 100% { opacity: 1; transform: scale(1); box-shadow: 0 0 0 0 rgba(0,240,255,0.6); } 50% { opacity: 0.5; transform: scale(0.8); box-shadow: 0 0 0 6px rgba(0,240,255,0); } }
         .lfm-dot.paused { animation: none; opacity: 0.3; background: var(--muted); }
-        
         .lfm-body { display: flex; align-items: center; gap: 14px; text-align: left; }
-        
-        /* SPINNING ART */
         .lfm-art-wrap { position: relative; width: 50px; height: 50px; flex-shrink: 0; }
         .lfm-art { width: 100%; height: 100%; border-radius: 10px; object-fit: cover; border: 1px solid var(--border-subtle); transition: border-radius 0.4s ease; }
         .lfm-art.spinning { border-radius: 50%; animation: spinRecord 4s linear infinite; border-color: rgba(0, 240, 255, 0.4); box-shadow: 0 0 10px var(--glow-sec); }
         @keyframes spinRecord { 100% { transform: rotate(360deg); } }
-
         .lfm-text { flex: 1; overflow: hidden; display: flex; flex-direction: column; }
         .lfm-track-row { display: flex; align-items: center; gap: 6px; }
         .lfm-track { font-size: 13px; font-weight: 600; color: var(--white); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
@@ -412,7 +367,7 @@
 
         .top-right-gif { position: absolute; top: 20px; right: 20px; width: 45px; height: auto; z-index: 10; pointer-events: none; }
 
-        /* RESTYLED BAN CHIP */
+        /* BAN CHIP */
         .ban-notice { text-align: center; margin: 25px auto 10px auto; z-index: 10; position: relative; display: flex; justify-content: center; }
         .ban-chip {
             display: inline-flex; align-items: center; gap: 8px;
@@ -423,6 +378,94 @@
             text-transform: uppercase; transition: all 0.3s;
         }
         .ban-chip:hover { background: rgba(255, 0, 60, 0.15); transform: translateY(-2px); box-shadow: 0 0 20px rgba(255, 0, 60, 0.4); }
+
+        /* =========================================
+           PHOTO DUMP SECTION
+           ========================================= */
+        .photo-dump-card {
+            max-width: 310px;
+            padding: 22px 18px 18px;
+            overflow: hidden;
+        }
+
+        .photo-dump-sub {
+            font-size: 11px;
+            color: var(--muted);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-top: -10px;
+            margin-bottom: 18px;
+        }
+
+        /* True masonry via CSS columns */
+        .photo-grid {
+            -webkit-columns: 2;
+            columns: 2;
+            -webkit-column-gap: 8px;
+            column-gap: 8px;
+            width: 100%;
+        }
+
+        .photo-item {
+            break-inside: avoid;
+            -webkit-column-break-inside: avoid;
+            margin-bottom: 8px;
+            border-radius: 12px;
+            overflow: hidden;
+            position: relative;
+            display: block;
+        }
+
+        .photo-item img {
+            width: 100%;
+            display: block;
+            object-fit: cover;
+            border-radius: 12px;
+            transition: transform 0.45s ease, filter 0.45s ease;
+        }
+
+        /* Subtle dark vignette on hover */
+        .photo-item::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 12px;
+            background: linear-gradient(to bottom, rgba(0,240,255,0.06), rgba(255,0,60,0.06));
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            pointer-events: none;
+        }
+
+        .photo-item:hover img {
+            transform: scale(1.04);
+            filter: brightness(1.08);
+        }
+        .photo-item:hover::after {
+            opacity: 1;
+        }
+
+        /* Loading / empty state for the Imgur-powered grid */
+        .photo-state {
+            width: 100%;
+            padding: 28px 0 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            color: var(--muted);
+            font-size: 11px;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            /* span across both CSS columns */
+            column-span: all;
+        }
+        .photo-state i {
+            font-size: 22px;
+            color: var(--secondary);
+            opacity: 0.5;
+        }
+        .photo-state.spinning i { animation: imgurSpin 0.9s linear infinite; }
+        @keyframes imgurSpin { 100% { transform: rotate(360deg); } }
 
         /* FOOTER */
         .site-footer {
@@ -437,8 +480,7 @@
 
     <div id="scroll-progress"></div>
 
-    <div class="cursor-dot" id="cursor-dot"></div>
-    <div class="cursor-ring" id="cursor-ring"></div>
+    <!-- CURSOR DIVS REMOVED -->
 
     <canvas id="particles-canvas"></canvas>
 
@@ -447,7 +489,7 @@
     </video>
 
     <div id="play-overlay" onclick="startSite()">
-        Click to enter <3
+        Click to enter &lt;3
         <span>Ash's Cavern</span>
     </div>
 
@@ -458,25 +500,27 @@
         <div class="chat-modal-title">Leave a message 💬</div>
         <div class="chat-modal-sub">
             Ash will receive it on Discord<br>
-            <span style="color:#ff003c;">Please don't spam message me <3</span>
+            <span style="color:#ff003c;">Please don't spam message me &lt;3</span>
         </div>
         <input type="text" id="chatName" class="chat-input" placeholder="Your name..." maxlength="50" autocomplete="off">
         <textarea id="chatMsg" class="chat-textarea" placeholder="Your message..." maxlength="500"></textarea>
         <div class="char-counter" id="char-count">0/500</div>
-        
         <button class="chat-send" id="chatSendBtn" onclick="sendMessage()">
             Send &nbsp;<i class="fas fa-paper-plane"></i>
         </button>
         <div class="chat-feedback" id="chatFeedback"></div>
     </div>
 
+    <!-- ── SECTION 1: Profile Card ── -->
     <div class="page-section" id="sec-1">
         <div class="card">
+
+            <!-- ICON-ONLY chat button, no text -->
             <button class="chat-btn" onclick="openChat()">
-                <i class="fas fa-comment-dots"></i> msg
+                <i class="fas fa-comment-dots"></i>
             </button>
 
-            <img src="https://raw.githubusercontent.com/6fo4/Ashy/2195e435f7f36e42d76ff37225ec09cc3ce58922/0c3a146cf1cb9d6bcb8cd1df8b657b7a.gif" class="top-right-gif" alt="Corner GIF">
+            <img src="https://raw.githubusercontent.com/6fo4/Ashy/2195e435f7f36e42d76ff37225ec09cc3ce58922/0c3a146cf1cb9d6bcb8cd1df8b657b7a.gif" class="top-right-gif" alt="">
 
             <div class="pfp-container">
                 <img src="https://r2.guns.lol/a9aff29e-faa3-4791-9d68-c86c466f18d4.webp" alt="PFP" class="pfp">
@@ -536,6 +580,7 @@
         <i class="fas fa-chevron-down"></i>
     </div>
 
+    <!-- ── SECTION 2: Widgets ── -->
     <div class="page-section" id="sec-2">
 
         <div class="lastfm-widget reveal">
@@ -566,7 +611,6 @@
             <div class="info-greeting">
                 Welcome to my digital space! As you know, I go by Ash. I spend most of my time on TikTok or Discord. When I'm not on those, I'm usually lost in deep anime lore or hunting down new tracks.
             </div>
-
             <div class="info-item">
                 <div class="info-title-row"><i class="fas fa-calendar-alt"></i> <span class="info-list-title">Birthday Stats</span></div>
                 <div class="info-tag-container">
@@ -575,7 +619,6 @@
                     <span class="info-tag" id="bday-countdown" style="border-color: var(--primary); color: var(--primary);">Loading...</span>
                 </div>
             </div>
-
             <div class="info-item">
                 <div class="info-title-row"><i class="fas fa-tv"></i> <span class="info-list-title">Top Tier Anime</span></div>
                 <div class="info-tag-container">
@@ -584,7 +627,6 @@
                     <span class="info-tag">Terror in Resonance</span>
                 </div>
             </div>
-
             <div class="info-item">
                 <div class="info-title-row"><i class="fas fa-headphones-alt"></i> <span class="info-list-title">Favorite Artists (All Time)</span></div>
                 <div class="info-tag-container">
@@ -592,9 +634,8 @@
                     <span class="info-tag">qorikardashian</span>
                 </div>
             </div>
-
             <div class="info-footer">
-                Want to get to know me better or just talk? Slide into my DMs on any of my linked socials <3.
+                Want to get to know me better or just talk? Slide into my DMs on any of my linked socials &lt;3.
             </div>
         </div>
 
@@ -613,7 +654,6 @@
                         <div class="eq-bar"></div><div class="eq-bar"></div><div class="eq-bar"></div><div class="eq-bar"></div>
                     </div>
                 </div>
-                
                 <div class="progress-wrap" id="progWrap">
                     <div class="progress-fill" id="progFill"></div>
                 </div>
@@ -639,52 +679,52 @@
 
     </div>
 
+    <!-- ══════════════════════════════════════
+         SECTION 3: PHOTO DUMP
+         ══════════════════════════════════════
+         TO ADD YOUR OWN PHOTOS:
+           • Replace the src="" values in each <img> below with your photo URL or local path
+           • To add more photos: copy a <div class="photo-item"> block and paste it inside .photo-grid
+           • To remove a photo: delete its <div class="photo-item"> block
+           • Portrait shots (tall) will naturally sit taller; landscape shots shorter — no extra CSS needed
+         ══════════════════════════════════════ -->
+    <div class="page-section" id="sec-3">
+        <div class="card photo-dump-card reveal">
+            <div class="info-header">Photo Dump</div>
+            <p class="photo-dump-sub">moments from my world</p>
+
+            <!-- ══════════════════════════════════════════════
+                 PHOTO DUMP — powered by Imgur
+                 ══════════════════════════════════════════════
+                 No code editing needed to add photos!
+                 Just follow the 5-minute setup in the JS below.
+                 After that, upload/delete on imgur.com and this
+                 grid updates automatically for ALL visitors.
+                 ══════════════════════════════════════════════ -->
+            <div class="photo-grid" id="photo-grid">
+                <div class="photo-state spinning">
+                    <i class="fas fa-circle-notch"></i>
+                    loading photos…
+                </div>
+            </div>
+        </div>
+    </div>
+
     <footer class="site-footer">
         © <span id="current-year"></span> Ash. All rights reserved.
     </footer>
 
     <script>
         /* ================================================
-           CONFIG & UTILS
+           CONFIG
            ================================================ */
         const DISCORD_WEBHOOK = 'https://discord.com/api/webhooks/1512201185019302060/y9BMNAEK-Bt5QoHMhAHE-4gfIb3QYWRJZwNjo3_o7LC4FOkedINykKQ2cZDKrDRserf3';
         document.getElementById('current-year').textContent = new Date().getFullYear();
 
         /* ================================================
-           CUSTOM CURSOR
+           NOTE: Custom cursor code has been removed.
+           The default system cursor is now used.
            ================================================ */
-        const cursorDot = document.getElementById('cursor-dot');
-        const cursorRing = document.getElementById('cursor-ring');
-        let mouseX = 0, mouseY = 0, ringX = 0, ringY = 0;
-
-        window.addEventListener('mousemove', (e) => {
-            mouseX = e.clientX;
-            mouseY = e.clientY;
-            cursorDot.style.left = mouseX + 'px';
-            cursorDot.style.top = mouseY + 'px';
-        });
-
-        function animateCursor() {
-            // Smooth follow math for the ring
-            ringX += (mouseX - ringX) * 0.15;
-            ringY += (mouseY - ringY) * 0.15;
-            cursorRing.style.left = ringX + 'px';
-            cursorRing.style.top = ringY + 'px';
-            requestAnimationFrame(animateCursor);
-        }
-        animateCursor();
-
-        // Hover effects for custom cursor
-        document.querySelectorAll('a, button, input, textarea, .ctrl').forEach(el => {
-            el.addEventListener('mouseenter', () => {
-                cursorRing.style.width = '35px'; cursorRing.style.height = '35px';
-                cursorRing.style.borderColor = 'var(--secondary)';
-            });
-            el.addEventListener('mouseleave', () => {
-                cursorRing.style.width = '24px'; cursorRing.style.height = '24px';
-                cursorRing.style.borderColor = 'var(--primary)';
-            });
-        });
 
         /* ================================================
            CANVAS PARTICLES
@@ -725,7 +765,7 @@
             }
         }
 
-        for(let i = 0; i < 40; i++) particles.push(new Particle());
+        for (let i = 0; i < 40; i++) particles.push(new Particle());
 
         function animateParticles() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -735,90 +775,260 @@
         animateParticles();
 
         /* ================================================
-           SCROLL PROGRESS & REVEAL
+           SCROLL PROGRESS, REVEAL & SCROLL INDICATOR
            ================================================ */
         const scrollProgress = document.getElementById('scroll-progress');
-        window.addEventListener('scroll', () => {
+        const scrollPrompt   = document.getElementById('scroll-prompt');
+
+        function handleScroll() {
             const currentScroll = window.scrollY;
-            const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
-            scrollProgress.style.width = `${(currentScroll / maxScroll) * 100}%`;
+            const totalHeight   = document.documentElement.scrollHeight - window.innerHeight;
+            scrollProgress.style.width = ((currentScroll / totalHeight) * 100) + '%';
 
-            const prompt = document.getElementById('scroll-prompt');
-            if (currentScroll < 50) {
-                prompt.innerHTML = 'Scroll for more <i class="fas fa-chevron-down"></i>';
-                prompt.style.opacity = '1';
-                prompt.classList.add('bouncing'); prompt.onclick = null;
-            } else if (currentScroll >= maxScroll - 40) {
-                prompt.innerHTML = 'Scroll up <i class="fas fa-chevron-up"></i>';
-                prompt.style.opacity = '1'; 
-                prompt.classList.remove('bouncing');
-                prompt.onclick = () => window.scrollTo({ top: 0, behavior: 'smooth' });
+            // Hide scroll indicator after first scroll
+            if (currentScroll > 80) {
+                scrollPrompt.style.opacity   = '0';
+                scrollPrompt.style.transform = 'translateX(-50%) translateY(10px)';
             } else {
-                prompt.style.opacity = '0'; prompt.onclick = null;
+                scrollPrompt.style.opacity   = '1';
+                scrollPrompt.style.transform = 'translateX(-50%) translateY(0)';
             }
-        });
 
-        // Intersection Observer for scroll reveal
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('active');
+            // Reveal animations
+            document.querySelectorAll('.reveal').forEach(el => {
+                if (el.getBoundingClientRect().top < window.innerHeight - 80) {
+                    el.classList.add('active');
                 }
             });
-        }, { threshold: 0.1 });
-        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+        }
 
+        window.addEventListener('scroll', handleScroll);
+        // Trigger once on load in case elements are already in view
+        handleScroll();
 
         /* ================================================
-           AGE & BIRTHDAY CALCULATOR
+           PLAY OVERLAY
            ================================================ */
-        function calculateAgeStats() {
-            // NOTE: This is my actual birthyear
-            const birthYear = 2011; 
-            const bday = new Date(birthYear, 10, 1); // 10 = Nov (0-indexed)
-            const today = new Date();
-            
-            let age = today.getFullYear() - bday.getFullYear();
-            const m = today.getMonth() - bday.getMonth();
-            if (m < 0 || (m === 0 && today.getDate() < bday.getDate())) { age--; }
-            document.getElementById('age-tag').innerText = `Age: ${age}`;
+        function startSite() {
+            const overlay = document.getElementById('play-overlay');
+            overlay.style.opacity = '0';
+            overlay.style.pointerEvents = 'none';
+            setTimeout(() => overlay.style.display = 'none', 900);
 
-            let nextBday = new Date(today.getFullYear(), 10, 1);
-            if (today > nextBday) { nextBday.setFullYear(today.getFullYear() + 1); }
-            
-            const diffTime = Math.abs(nextBday - today);
-            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-            
-            if (diffDays === 365 || diffDays === 366 || diffDays === 0) {
-                document.getElementById('bday-countdown').innerText = `🎉 It's my birthday!`;
+            const video = document.getElementById('bg-video');
+            if (video) video.play().catch(() => {});
+        }
+
+        /* ================================================
+           BIO TYPEWRITER
+           ================================================ */
+        const bioStrings = [
+            'Remember to call me "Daddy Ash" 🤭',
+            'anime addict & music enjoyer',
+            'just vibing in my cavern 🕸️',
+        ];
+        const bioEl = document.getElementById('bio-text');
+        let bioIdx = 0, charIdx = 0, deleting = false;
+
+        function typeBio() {
+            const current = bioStrings[bioIdx];
+            if (!deleting) {
+                bioEl.textContent = current.slice(0, ++charIdx);
+                if (charIdx === current.length) {
+                    deleting = true;
+                    setTimeout(typeBio, 2200);
+                    return;
+                }
             } else {
-                document.getElementById('bday-countdown').innerText = `${diffDays} days until birthday`;
+                bioEl.textContent = current.slice(0, --charIdx);
+                if (charIdx === 0) {
+                    deleting = false;
+                    bioIdx = (bioIdx + 1) % bioStrings.length;
+                }
+            }
+            setTimeout(typeBio, deleting ? 40 : 75);
+        }
+        typeBio();
+
+        /* ================================================
+           BIRTHDAY / AGE CALCULATION
+           ================================================ */
+        (function calcBirthday() {
+            // ─── UPDATE BIRTH_YEAR if needed ───
+            const BIRTH_YEAR = 2006;
+            const today      = new Date();
+            const thisYearBday = new Date(today.getFullYear(), 10, 1); // Nov 1 (month 10 = Nov)
+            let age = today.getFullYear() - BIRTH_YEAR;
+            if (today < thisYearBday) age--;
+
+            document.getElementById('age-tag').textContent = 'Age: ' + age;
+
+            // Days until next birthday
+            let nextBday = new Date(today.getFullYear(), 10, 1);
+            if (today >= nextBday) nextBday = new Date(today.getFullYear() + 1, 10, 1);
+            const daysLeft = Math.ceil((nextBday - today) / (1000 * 60 * 60 * 24));
+
+            const bdayEl = document.getElementById('bday-countdown');
+            if (daysLeft === 0) {
+                bdayEl.textContent = '🎂 Today!';
+            } else {
+                bdayEl.textContent = daysLeft + 'd until bday';
+            }
+        })();
+
+        /* ================================================
+           LAST.FM WIDGET
+           ================================================ */
+        // ─── REPLACE WITH YOUR LAST.FM API KEY ───
+        const LASTFM_API_KEY  = 'YOUR_LASTFM_API_KEY';
+        const LASTFM_USER     = 'Ashy-geek';
+
+        async function fetchLastFm() {
+            try {
+                const res  = await fetch(
+                    `https://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=${LASTFM_USER}&api_key=${LASTFM_API_KEY}&format=json&limit=1`
+                );
+                const data = await res.json();
+                const track = data.recenttracks.track[0];
+                const isNowPlaying = track['@attr']?.nowplaying === 'true';
+
+                document.getElementById('lfm-track').textContent  = track.name;
+                document.getElementById('lfm-artist').textContent = track.artist['#text'];
+                document.getElementById('lfm-status').textContent = isNowPlaying ? 'Now Playing' : 'Last Played';
+
+                const art = track.image?.find(i => i.size === 'large')?.['#text'];
+                if (art && art !== '') document.getElementById('lfm-art').src = art;
+
+                const dot   = document.getElementById('lfm-dot');
+                const artEl = document.getElementById('lfm-art');
+                const eqEl  = document.getElementById('lfm-eq');
+
+                if (isNowPlaying) {
+                    dot.classList.remove('paused');
+                    artEl.classList.add('spinning');
+                    eqEl.classList.add('active');
+                } else {
+                    dot.classList.add('paused');
+                    artEl.classList.remove('spinning');
+                    eqEl.classList.remove('active');
+                }
+            } catch (e) {
+                document.getElementById('lfm-track').textContent  = 'Unable to load';
+                document.getElementById('lfm-artist').textContent = '';
+                document.getElementById('lfm-status').textContent = '';
+                document.getElementById('lfm-dot').classList.add('paused');
             }
         }
-        calculateAgeStats();
+
+        fetchLastFm();
+        setInterval(fetchLastFm, 30000);
 
         /* ================================================
-           CHAT MODAL & WEBHOOK
+           MUSIC PLAYER
            ================================================ */
-        const msgArea = document.getElementById('chatMsg');
-        const charCount = document.getElementById('char-count');
-        
-        msgArea.addEventListener('input', function() {
-            charCount.textContent = `${this.value.length}/500`;
+        // ─── ADD YOUR TRACKS HERE ───────────────────────
+        // Format: { title: 'Track Title', src: 'file.mp3', cover: 'cover.jpg' }
+        const tracks = [
+            // { title: 'Track Name', src: 'audio/track1.mp3', cover: 'covers/cover1.jpg' },
+        ];
+
+        let currentTrack = 0;
+        let isRepeat     = false;
+        const audio      = document.getElementById('audio');
+        const playBtn    = document.getElementById('playBtn');
+        const playerEq   = document.getElementById('player-eq');
+
+        function loadTrack(index) {
+            if (!tracks.length) return;
+            const t = tracks[index];
+            document.getElementById('title').textContent = t.title;
+            document.getElementById('idx').textContent   = (index + 1) + ' / ' + tracks.length;
+            document.getElementById('cover').src         = t.cover || '';
+            audio.src = t.src;
+            audio.volume = document.getElementById('vol').value / 100;
+        }
+
+        function togglePlay() {
+            if (!tracks.length) return;
+            if (audio.paused) {
+                audio.play();
+                playBtn.innerHTML = '<i class="fas fa-pause"></i>';
+                playerEq.classList.add('active');
+            } else {
+                audio.pause();
+                playBtn.innerHTML = '<i class="fas fa-play" style="margin-left:2px;"></i>';
+                playerEq.classList.remove('active');
+            }
+        }
+
+        function next() {
+            if (!tracks.length) return;
+            currentTrack = (currentTrack + 1) % tracks.length;
+            loadTrack(currentTrack);
+            if (!audio.paused) audio.play();
+        }
+
+        function prev() {
+            if (!tracks.length) return;
+            currentTrack = (currentTrack - 1 + tracks.length) % tracks.length;
+            loadTrack(currentTrack);
+            if (!audio.paused) audio.play();
+        }
+
+        function shuffle() {
+            if (!tracks.length) return;
+            currentTrack = Math.floor(Math.random() * tracks.length);
+            loadTrack(currentTrack);
+            if (!audio.paused) audio.play();
+        }
+
+        function toggleRepeat() {
+            isRepeat = !isRepeat;
+            document.getElementById('repeatBtn').style.color = isRepeat ? 'var(--secondary)' : '';
+        }
+
+        audio.addEventListener('ended', () => { isRepeat ? audio.play() : next(); });
+
+        audio.addEventListener('timeupdate', () => {
+            if (!audio.duration) return;
+            const pct = (audio.currentTime / audio.duration) * 100;
+            document.getElementById('progFill').style.width = pct + '%';
+            document.getElementById('cur').textContent = fmt(audio.currentTime);
+            document.getElementById('dur').textContent = fmt(audio.duration);
         });
 
+        document.getElementById('progWrap').addEventListener('click', e => {
+            if (!audio.duration) return;
+            const rect = e.currentTarget.getBoundingClientRect();
+            audio.currentTime = ((e.clientX - rect.left) / rect.width) * audio.duration;
+        });
+
+        document.getElementById('vol').addEventListener('input', e => {
+            audio.volume = e.target.value / 100;
+        });
+
+        function fmt(s) {
+            const m = Math.floor(s / 60);
+            return m + ':' + String(Math.floor(s % 60)).padStart(2, '0');
+        }
+
+        if (tracks.length) loadTrack(0);
+
+        /* ================================================
+           CHAT MODAL
+           ================================================ */
         function openChat() {
             document.getElementById('chatOverlay').classList.add('active');
             document.getElementById('chatModal').classList.add('active');
-            document.getElementById('chatName').focus();
         }
-
         function closeChat() {
             document.getElementById('chatOverlay').classList.remove('active');
             document.getElementById('chatModal').classList.remove('active');
-            document.getElementById('chatFeedback').textContent = '';
-            document.getElementById('chatFeedback').className = 'chat-feedback';
         }
+
+        document.getElementById('chatMsg').addEventListener('input', function () {
+            document.getElementById('char-count').textContent = this.value.length + '/500';
+        });
 
         async function sendMessage() {
             const name = document.getElementById('chatName').value.trim();
@@ -826,204 +1036,123 @@
             const fb   = document.getElementById('chatFeedback');
             const btn  = document.getElementById('chatSendBtn');
 
-            fb.className = 'chat-feedback'; fb.textContent = '';
+            if (!name || !msg) {
+                fb.textContent = 'Please fill in both fields.';
+                fb.className   = 'chat-feedback error';
+                return;
+            }
 
-            if (!name) { fb.className = 'chat-feedback error'; fb.textContent = '⚠ Please enter your name!'; return; }
-            if (!msg)  { fb.className = 'chat-feedback error'; fb.textContent = '⚠ Please write a message!'; return; }
-
-            btn.disabled = true; btn.innerHTML = 'Sending... <i class="fas fa-spinner fa-spin"></i>';
+            btn.disabled = true;
+            btn.textContent = 'Sending...';
 
             try {
-                const res = await fetch(DISCORD_WEBHOOK, {
-                    method: 'POST', headers: { 'Content-Type': 'application/json' },
+                await fetch(DISCORD_WEBHOOK, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
                         embeds: [{
-                            title: '💬 New message from Ash\'s Cavern', color: 0xff003c,
-                            fields: [{ name: '👤 Name', value: name, inline: true }, { name: '📝 Message', value: msg, inline: false }],
-                            footer: { text: "ash's cavern · github.io" }, timestamp: new Date().toISOString()
+                            title: '📩 New Message from Ash\'s Cavern',
+                            color: 0x00f0ff,
+                            fields: [
+                                { name: 'From', value: name, inline: true },
+                                { name: 'Message', value: msg }
+                            ],
+                            timestamp: new Date().toISOString()
                         }]
                     })
                 });
-                if (res.ok || res.status === 204) {
-                    fb.className = 'chat-feedback success'; fb.textContent = '✨ Message sent! Ash will see it soon.';
-                    document.getElementById('chatName').value = ''; msgArea.value = '';
-                    charCount.textContent = '0/500';
-                    setTimeout(closeChat, 2500);
-                } else throw new Error('Bad response');
-            } catch {
-                fb.className = 'chat-feedback error'; fb.textContent = '✗ Failed to send. Try again!';
+                fb.textContent = '✓ Message sent! ♡';
+                fb.className   = 'chat-feedback success';
+                document.getElementById('chatName').value = '';
+                document.getElementById('chatMsg').value  = '';
+                document.getElementById('char-count').textContent = '0/500';
+                setTimeout(closeChat, 2000);
+            } catch (e) {
+                fb.textContent = 'Failed to send. Try again.';
+                fb.className   = 'chat-feedback error';
             }
-            btn.disabled = false; btn.innerHTML = 'Send &nbsp;<i class="fas fa-paper-plane"></i>';
-        }
 
-        document.addEventListener('keydown', e => { if (e.key === 'Escape') closeChat(); });
-
-        /* ================================================
-           SITE ENTRY & TYPEWRITER
-           ================================================ */
-        function startSite() {
-            const overlay = document.getElementById('play-overlay');
-            overlay.style.opacity = '0';
-            overlay.style.backdropFilter = 'blur(0px)';
-            setTimeout(() => overlay.style.display = 'none', 800);
-
-            typeWriter(); fetchNowPlaying();
-
-            if (!playing) {
-                audio.play().then(() => {
-                    playing = true; updateBtn();
-                }).catch(e => console.log("Audio autoplay blocked.", e));
-            }
-        }
-
-        function typeWriter() {
-            const messages = [
-                'Welcome to the Cavern.',
-                'Remember to call me "Daddy Ash" 🤭',
-                'Select a logo below to get to know me better <3',
-                'Built by Ash, hosted on GitHub Pages.',
-                'Even though I\'m from South Asia, it doesn\'t mean I\'m black 😩'
-            ];
-            const bio = document.getElementById('bio-text');
-            let mIdx = 0, cIdx = 0, deleting = false;
-
-            function type() {
-                const cur = messages[mIdx];
-                bio.innerText = deleting ? cur.substring(0, cIdx--) : cur.substring(0, cIdx++);
-                let speed = deleting ? 30 : 60;
-                if (!deleting && cIdx > cur.length)  { deleting = true; speed = 2500; }
-                else if (deleting && cIdx === 0)     { deleting = false; mIdx = (mIdx + 1) % messages.length; speed = 600; }
-                setTimeout(type, speed);
-            }
-            type();
+            btn.disabled    = false;
+            btn.innerHTML   = 'Send &nbsp;<i class="fas fa-paper-plane"></i>';
         }
 
         /* ================================================
-           MEDIA PLAYER
+           PHOTO DUMP — Imgur API
+           ─────────────────────────────────────────────────
+           ONE-TIME SETUP (takes ~5 minutes, then never again):
+
+           STEP 1 — Get a free Client-ID:
+             → Go to: https://api.imgur.com/oauth2/addclient
+             → App name: anything (e.g. "Ash's Cavern")
+             → Authorization type: "Anonymous usage without user authorization"
+             → Email: your email  →  Submit
+             → Copy the "Client ID" shown on the next page
+
+           STEP 2 — Create your album:
+             → Log in to imgur.com
+             → Click your avatar → Images → New album
+             → Set privacy to "Hidden" or "Public"
+             → Open the album — the URL looks like imgur.com/a/XXXXXXX
+             → Copy those letters (XXXXXXX)
+
+           STEP 3 — Paste both values below:
            ================================================ */
-        const songs = [
-            { mp3: "BABYREINDEER_wmspfn", jpg: "BABYREINDEER_fqtcmu", name: "BABYREINDEER" },
-            { mp3: "BURNMYLUNGS_xencvs", jpg: "BURNMYLUNGS_hucvba", name: "BURNMYLUNGS" },
-            { mp3: "BYOB_p_Omar_Duro_oj8nje", jpg: "BYOB_p_Omar_Duro_vbsyzr", name: "BYOB p Omar Duro" },
-            { mp3: "close_my_eyes_dxspqp", jpg: "close_my_eyes_xu0ryv", name: "close my eyes" },
-            { mp3: "fake_your_face_awx0wt", jpg: "fake_ur_face_fdscum", name: "fake ur face" },
-            { mp3: "HOW2SCREAM_cwx74u", jpg: "HOW2SCREAM_mg99ct", name: "HOW2SCREAM" },
-            { mp3: "i_hate_u_so_much_w9vhe1", jpg: "i_hate_u_so_much_u4cfvi", name: "i hate u so much" },
-            { mp3: "i_put_the_gun_to_my_head_xtjecj", jpg: "i_put_the_gun_to_my_head_qkkcp6", name: "i put the gun to my head" },
-            { mp3: "Ingrid_Witt_-_If_I_Had_A_Tail_gcpju5", jpg: "Ingrid_Witt_-_If_I_Had_A_Tail_u84yrz", name: "Ingrid Witt - If I Had A Tail" },
-            { mp3: "lose_her_pttein", jpg: "lose_her_b7lrza", name: "lose her" },
-            { mp3: "MTC_-_S3RL_lrdy50", jpg: "MTC_-_S3RL_nafo6m", name: "MTC - S3RL" },
-            { mp3: "MYGRIMWEDDING_p4p4d6", jpg: "MYGRIMWEDDING_vdj049", name: "MYGRIMWEDDING" },
-            { mp3: "pr3tty_lil_sc3n3_sluttt__3_gsthgx", jpg: "pr3tty_lil_sc3n3_sluttt__3_w1qubg", name: "pr3tty lil sc3n3 sluttt <3" },
-            { mp3: "RADIOHEART_eg4awo", jpg: "RADIOHEART_ldcuwa", name: "RADIOHEART" },
-            { mp3: "SAYSOMETHING_q4xe2p", jpg: "SAYSOMETHING_h0k1um", name: "SAYSOMETHING" },
-            { mp3: "so_bitter_lmh6ox", jpg: "So_bitter_mzkawa", name: "So bitter" },
-            { mp3: "sometimes_-_mattyeux_hhft67", jpg: "sometimes_-_mattyeux_guxvq8", name: "sometimes - mattyeux" },
-            { mp3: "unhappy_uiwslo", jpg: "unhappy_i1ufa0", name: "unhappy" },
-            { mp3: "Vonni_x_PINKBLXXD_o8w5hh", jpg: "Vonni_x_PINKBLXXD_bdjyph", name: "Vonni x PINKBLXXD" }
-        ];
+        const IMGUR_CLIENT_ID = 'YOUR_CLIENT_ID';   // ← paste here
+        const IMGUR_ALBUM_ID  = 'YOUR_ALBUM_HASH';  // ← paste here
 
-        const CDN = "https://res.cloudinary.com/dgus0vior";
-        const audio = document.getElementById('audio');
-        const playerEq = document.getElementById('player-eq');
-        let idx = 0, playing = false, repeat = false;
+        /* After setup: just upload/delete photos on imgur.com inside
+           that album — this grid refreshes automatically for everyone. */
 
-        function loadTrack(i, autoplay = false) {
-            idx = i; const song = songs[i];
-            audio.src = `${CDN}/video/upload/${song.mp3}.mp3`;
-            document.getElementById('cover').src = `${CDN}/image/upload/${song.jpg}.jpg`;
-            document.getElementById('title').textContent = song.name;
-            document.getElementById('idx').textContent   = `${i + 1} / ${songs.length}`;
-            document.getElementById('progFill').style.width = '0%';
-            document.getElementById('cur').textContent = '0:00';
-            document.getElementById('dur').textContent = '0:00';
-            if (autoplay) { audio.play().catch(e => console.log(e)); playing = true; updateBtn(); }
-        }
+        async function loadPhotoDump() {
+            const grid = document.getElementById('photo-grid');
 
-        function togglePlay() {
-            playing ? audio.pause() : audio.play();
-            playing = !playing; updateBtn();
-        }
-        function next()    { loadTrack((idx + 1) % songs.length, playing); }
-        function prev()    { loadTrack((idx - 1 + songs.length) % songs.length, playing); }
-        function shuffle() { loadTrack(Math.floor(Math.random() * songs.length), playing); }
-        function toggleRepeat() {
-            repeat = !repeat;
-            document.getElementById('repeatBtn').style.color = repeat ? 'var(--secondary)' : '';
-            document.getElementById('repeatBtn').style.textShadow = repeat ? '0 0 8px var(--glow-sec)' : 'none';
-        }
-        function updateBtn() {
-            document.getElementById('playBtn').innerHTML = playing ? '<i class="fas fa-pause"></i>' : '<i class="fas fa-play" style="margin-left:2px;"></i>';
-            if(playing) { playerEq.classList.add('active'); } else { playerEq.classList.remove('active'); }
-        }
-        function fmt(s) {
-            if (isNaN(s)) return '0:00';
-            return `${Math.floor(s/60)}:${String(Math.floor(s%60)).padStart(2,'0')}`;
-        }
-        
-        audio.addEventListener('timeupdate', () => {
-            const pct = (audio.currentTime / audio.duration) * 100 || 0;
-            document.getElementById('progFill').style.width = pct + '%';
-            document.getElementById('cur').textContent = fmt(audio.currentTime);
-        });
-        audio.addEventListener('loadedmetadata', () => { document.getElementById('dur').textContent = fmt(audio.duration); });
-        audio.addEventListener('ended', () => { repeat ? (audio.currentTime = 0, audio.play()) : next(); });
-        
-        document.getElementById('progWrap').addEventListener('click', e => {
-            const r = e.currentTarget.getBoundingClientRect();
-            audio.currentTime = ((e.clientX - r.left) / r.width) * audio.duration;
-        });
-        document.getElementById('vol').addEventListener('input', e => { audio.volume = e.target.value / 100; });
-        
-        audio.volume = 0.7;
-        loadTrack(Math.floor(Math.random() * songs.length), false);
+            const setState = (icon, text, spin = false) => {
+                grid.innerHTML = `
+                    <div class="photo-state${spin ? ' spinning' : ''}">
+                        <i class="fas fa-${icon}"></i>${text}
+                    </div>`;
+            };
 
-        /* ================================================
-           LAST.FM NOW PLAYING
-           ================================================ */
-        const LFM_KEY     = '84e191b366d86d98c1db2a74b5b39ef4';
-        const LFM_USER    = 'Ashy-geek';
-        const LFM_DEFAULT = 'https://lastfm.freetls.fastly.net/i/u/300x300/2a96cbd8b46e442fc41c2b86b821562f.png';
+            // Not configured yet — show a friendly hint
+            if (!IMGUR_CLIENT_ID || IMGUR_CLIENT_ID === 'YOUR_CLIENT_ID') {
+                setState('image', 'Add your Imgur keys to show photos');
+                return;
+            }
 
-        async function fetchNowPlaying() {
+            setState('circle-notch', 'loading photos…', true);
+
             try {
-                const res   = await fetch(`https://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=${LFM_USER}&api_key=${LFM_KEY}&format=json&limit=1`);
-                const data  = await res.json();
-                const track = data?.recenttracks?.track?.[0];
-                if (!track) return;
+                const res = await fetch(
+                    `https://api.imgur.com/3/album/${IMGUR_ALBUM_ID}/images`,
+                    { headers: { 'Authorization': `Client-ID ${IMGUR_CLIENT_ID}` } }
+                );
+                const data = await res.json();
 
-                const isLive = track['@attr']?.nowplaying === 'true';
-                const name   = track.name || 'Unknown Track';
-                const artist = track.artist?.['#text'] || 'Unknown Artist';
-                const artUrl = (track.image?.find(i => i.size === 'large')?.['#text'] || '').trim() || LFM_DEFAULT;
-
-                document.getElementById('lfm-track').innerText  = name;
-                document.getElementById('lfm-artist').innerText = artist;
-                document.getElementById('lfm-art').src          = artUrl;
-                document.getElementById('lfm-status').innerText = isLive ? '▶ Live Scrobbling' : '◉ Offline';
-                
-                // Toggle Spin + EQ + Dot based on live status
-                const lfmArt = document.getElementById('lfm-art');
-                const lfmEq = document.getElementById('lfm-eq');
-                const lfmDot = document.getElementById('lfm-dot');
-                
-                if (isLive) {
-                    lfmArt.classList.add('spinning');
-                    lfmEq.classList.add('active');
-                    lfmDot.classList.remove('paused');
-                } else {
-                    lfmArt.classList.remove('spinning');
-                    lfmEq.classList.remove('active');
-                    lfmDot.classList.add('paused');
+                if (!data.success || !data.data || data.data.length === 0) {
+                    setState('images', 'No photos yet — add some to your Imgur album!');
+                    return;
                 }
 
-            } catch {
-                document.getElementById('lfm-track').innerText  = 'Connection Lost';
-                document.getElementById('lfm-artist').innerText = '';
-                document.getElementById('lfm-status').innerText = '';
+                // Build the masonry grid from real images
+                grid.innerHTML = '';
+                data.data.forEach(img => {
+                    const div   = document.createElement('div');
+                    div.className = 'photo-item';
+                    const image = document.createElement('img');
+                    image.src     = img.link;
+                    image.alt     = img.description || 'photo dump';
+                    image.loading = 'lazy'; // only load when scrolled into view
+                    div.appendChild(image);
+                    grid.appendChild(div);
+                });
+
+            } catch (err) {
+                setState('exclamation-circle', 'Could not load photos — check your Client-ID');
             }
         }
-        setInterval(fetchNowPlaying, 30000);
+
+        loadPhotoDump();
+
     </script>
 </body>
 </html>
