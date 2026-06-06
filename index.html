@@ -42,12 +42,12 @@
             font-family: 'JetBrains Mono', monospace;
             background-color: #050505;
             scroll-behavior: smooth;
-            cursor: auto;
+            cursor: none;
         }
         body { min-height: 100vh; position: relative; }
         
         /* Interactive elements get no cursor to let custom cursor shine */
-        a, button, .ctrl, .chat-btn, .links a { cursor: auto; }
+        a, button, .ctrl, .chat-btn, .links a { cursor: none; }
         /* Keep text cursor for inputs */
         input, textarea { cursor: text; }
 
@@ -112,7 +112,7 @@
             color: var(--primary);
             display: flex; flex-direction: column;
             justify-content: center; align-items: center;
-            gap: 12px; z-index: 9999; cursor: auto;
+            gap: 12px; z-index: 9999; cursor: none;
             transition: opacity 0.8s ease, backdrop-filter 0.8s ease;
             font-family: 'ElegantTypewriterBold', sans-serif;
             font-size: 28px; letter-spacing: 2px;
@@ -329,7 +329,7 @@
             position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); color: var(--secondary);
             text-align: center; font-size: 13px; font-family: 'ElegantTypewriterBold', sans-serif;
             letter-spacing: 1px; transition: opacity 0.4s ease, transform 0.4s ease; z-index: 10;
-            text-shadow: 0 0 12px var(--glow-sec); white-space: nowrap; cursor: auto;
+            text-shadow: 0 0 12px var(--glow-sec); white-space: nowrap; cursor: none;
         }
         .scroll-indicator.bouncing { animation: bounce 2s ease-in-out infinite; }
         .scroll-indicator i { display: block; font-size: 15px; margin-top: 8px; }
@@ -372,7 +372,7 @@
         .eq-bar:nth-child(4) { animation-delay: 0.3s; height: 80%; }
         @keyframes eq { 0% { height: 20%; } 100% { height: 100%; } }
 
-        .progress-wrap { margin-bottom: 6px; cursor: auto; position: relative; height: 4px; background: rgba(255,255,255,0.1); border-radius: 2px; }
+        .progress-wrap { margin-bottom: 6px; cursor: none; position: relative; height: 4px; background: rgba(255,255,255,0.1); border-radius: 2px; }
         .progress-fill { height: 100%; background: var(--gradient); border-radius: 2px; width: 0%; transition: width 0.1s linear; position: relative; box-shadow: 0 0 10px var(--glow-prim); }
         .progress-fill::after { content: ''; position: absolute; right: -5px; top: 50%; transform: translateY(-50%); width: 10px; height: 10px; background: var(--white); border-radius: 50%; opacity: 0; transition: opacity 0.2s; box-shadow: 0 0 5px rgba(255,255,255,0.5); }
         .progress-wrap:hover .progress-fill::after { opacity: 1; }
@@ -431,101 +431,19 @@
             font-family: 'JetBrains Mono', monospace; letter-spacing: 0.5px;
             background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
         }
-    
-@media (max-width: 768px) {
-    .card, .player, .lastfm-widget {
-        max-width: 95vw !important;
-        border-radius: 20px !important;
-    }
-
-    .card { padding: 18px !important; }
-
-    .header-name {
-        font-size: 26px !important;
-    }
-
-    .bio {
-        font-size: 12px !important;
-        line-height: 1.5 !important;
-    }
-
-    .links {
-        grid-template-columns: repeat(3, 1fr) !important;
-        gap: 10px !important;
-        max-width: 210px !important;
-    }
-
-    .links a {
-        width: 58px !important;
-        height: 58px !important;
-    }
-
-    .link-icon-box i {
-        font-size: 26px !important;
-    }
-
-    .chat-btn {
-        top: 12px !important;
-        left: 12px !important;
-        padding: 8px !important;
-        min-width: 38px !important;
-    }
-
-    .chat-modal {
-        width: 94vw !important;
-        max-width: 94vw !important;
-        padding: 22px !important;
-    }
-
-    .controls {
-        padding: 0 !important;
-    }
-
-    .ctrl {
-        padding: 10px !important;
-        font-size: 18px !important;
-    }
-
-    .ctrl.play {
-        width: 52px !important;
-        height: 52px !important;
-    }
-
-    .scroll-indicator {
-        bottom: 18px !important;
-        font-size: 12px !important;
-    }
-
-    .info-tag-container {
-        margin-left: 0 !important;
-    }
-
-    .top-right-gif {
-        width: 36px !important;
-    }
-
-    .player-body {
-        padding: 0 16px 18px !important;
-    }
-
-    #clock-widget {
-        font-size: 12px !important;
-        padding: 8px 12px !important;
-    }
-}
-
-</style>
+    </style>
 </head>
 <body>
 
     <div id="scroll-progress"></div>
 
-    
+    <div class="cursor-dot" id="cursor-dot"></div>
+    <div class="cursor-ring" id="cursor-ring"></div>
 
     <canvas id="particles-canvas"></canvas>
 
     <video autoplay loop muted playsinline id="bg-video">
-        <source src="Dark_raining.mp4" type="video/mp4">
+        <source src="15776218_2160_3840_30fps.mp4" type="video/mp4">
     </video>
 
     <div id="play-overlay" onclick="startSite()">
@@ -555,7 +473,7 @@
     <div class="page-section" id="sec-1">
         <div class="card">
             <button class="chat-btn" onclick="openChat()">
-                <i class="fas fa-comment-dots"></i>
+                <i class="fas fa-comment-dots"></i> msg
             </button>
 
             <img src="https://raw.githubusercontent.com/6fo4/Ashy/2195e435f7f36e42d76ff37225ec09cc3ce58922/0c3a146cf1cb9d6bcb8cd1df8b657b7a.gif" class="top-right-gif" alt="Corner GIF">
@@ -721,9 +639,7 @@
 
     </div>
 
-    
-<div id="live-clock" style="position:fixed;top:15px;right:15px;z-index:999;background:rgba(0,0,0,.4);backdrop-filter:blur(10px);padding:8px 12px;border-radius:12px;color:#00f0ff">00:00:00</div>
-<footer class="site-footer">
+    <footer class="site-footer">
         © <span id="current-year"></span> Ash. All rights reserved.
     </footer>
 
@@ -737,8 +653,8 @@
         /* ================================================
            CUSTOM CURSOR
            ================================================ */
-        /* custom cursor removed */ const cursorDot=null;
-        const cursorRing=null;
+        const cursorDot = document.getElementById('cursor-dot');
+        const cursorRing = document.getElementById('cursor-ring');
         let mouseX = 0, mouseY = 0, ringX = 0, ringY = 0;
 
         window.addEventListener('mousemove', (e) => {
@@ -1108,13 +1024,7 @@
             }
         }
         setInterval(fetchNowPlaying, 30000);
-    
-setInterval(()=>{
- const c=document.getElementById('live-clock');
- if(c) c.textContent=new Date().toLocaleTimeString();
-},1000);
-
-</script>
+    </script>
 </body>
 </html>
 
