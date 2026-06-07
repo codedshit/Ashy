@@ -56,29 +56,6 @@
         ::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 10px; }
 
         /* =========================================
-           CUSTOM CURSOR
-           ========================================= */
-        .cursor-dot {
-            width: 6px; height: 6px;
-            background: var(--secondary);
-            border-radius: 50%;
-            position: fixed; top: 0; left: 0;
-            pointer-events: none; z-index: 99999;
-            transform: translate(-50%, -50%);
-            box-shadow: 0 0 10px var(--secondary);
-        }
-        .cursor-ring {
-            width: 24px; height: 24px;
-            border: 1.5px solid var(--primary);
-            border-radius: 50%;
-            position: fixed; top: 0; left: 0;
-            pointer-events: none; z-index: 99998;
-            transform: translate(-50%, -50%);
-            box-shadow: 0 0 10px rgba(255, 0, 60, 0.4);
-            transition: width 0.2s, height 0.2s, border-color 0.2s;
-        }
-
-        /* =========================================
            SCROLL PROGRESS BAR
            ========================================= */
         #scroll-progress {
@@ -437,13 +414,10 @@
 
     <div id="scroll-progress"></div>
 
-    <div class="cursor-dot" id="cursor-dot"></div>
-    <div class="cursor-ring" id="cursor-ring"></div>
-
     <canvas id="particles-canvas"></canvas>
 
     <video autoplay loop muted playsinline id="bg-video">
-        <source src="15776218_2160_3840_30fps.mp4" type="video/mp4">
+        <source src="https://raw.githubusercontent.com/6fo4/Ashy/93d3021c31c34795ee36b5c237927ee89a4236e5/Dark_raining.mp4" type="video/mp4">
     </video>
 
     <div id="play-overlay" onclick="startSite()">
@@ -473,7 +447,7 @@
     <div class="page-section" id="sec-1">
         <div class="card">
             <button class="chat-btn" onclick="openChat()">
-                <i class="fas fa-comment-dots"></i> msg
+                <i class="fas fa-comment-dots"></i>
             </button>
 
             <img src="https://raw.githubusercontent.com/6fo4/Ashy/2195e435f7f36e42d76ff37225ec09cc3ce58922/0c3a146cf1cb9d6bcb8cd1df8b657b7a.gif" class="top-right-gif" alt="Corner GIF">
@@ -649,42 +623,6 @@
            ================================================ */
         const DISCORD_WEBHOOK = 'https://discord.com/api/webhooks/1512201185019302060/y9BMNAEK-Bt5QoHMhAHE-4gfIb3QYWRJZwNjo3_o7LC4FOkedINykKQ2cZDKrDRserf3';
         document.getElementById('current-year').textContent = new Date().getFullYear();
-
-        /* ================================================
-           CUSTOM CURSOR
-           ================================================ */
-        const cursorDot = document.getElementById('cursor-dot');
-        const cursorRing = document.getElementById('cursor-ring');
-        let mouseX = 0, mouseY = 0, ringX = 0, ringY = 0;
-
-        window.addEventListener('mousemove', (e) => {
-            mouseX = e.clientX;
-            mouseY = e.clientY;
-            cursorDot.style.left = mouseX + 'px';
-            cursorDot.style.top = mouseY + 'px';
-        });
-
-        function animateCursor() {
-            // Smooth follow math for the ring
-            ringX += (mouseX - ringX) * 0.15;
-            ringY += (mouseY - ringY) * 0.15;
-            cursorRing.style.left = ringX + 'px';
-            cursorRing.style.top = ringY + 'px';
-            requestAnimationFrame(animateCursor);
-        }
-        animateCursor();
-
-        // Hover effects for custom cursor
-        document.querySelectorAll('a, button, input, textarea, .ctrl').forEach(el => {
-            el.addEventListener('mouseenter', () => {
-                cursorRing.style.width = '35px'; cursorRing.style.height = '35px';
-                cursorRing.style.borderColor = 'var(--secondary)';
-            });
-            el.addEventListener('mouseleave', () => {
-                cursorRing.style.width = '24px'; cursorRing.style.height = '24px';
-                cursorRing.style.borderColor = 'var(--primary)';
-            });
-        });
 
         /* ================================================
            CANVAS PARTICLES
@@ -914,8 +852,8 @@
             { mp3: "SAYSOMETHING_q4xe2p", jpg: "SAYSOMETHING_h0k1um", name: "SAYSOMETHING" },
             { mp3: "so_bitter_lmh6ox", jpg: "So_bitter_mzkawa", name: "So bitter" },
             { mp3: "unhappy_uiwslo", jpg: "unhappy_i1ufa0", name: "unhappy" },
-            { mp3: "Vonni_x_PINKBLXXD_o8w5hh", jpg: "Vonni_x_PINKBLXXD_bdjyph", name: "Vonni x PINKBLXXD" }
-            { mp3: "bedrott_ycimmv", jpg: "ab67616d0000b27342dd2dbff868828a54982a38_hxo7tk", name: "Bedrott" }
+            { mp3: "Vonni_x_PINKBLXXD_o8w5hh", jpg: "Vonni_x_PINKBLXXD_bdjyph", name: "Vonni x PINKBLXXD" },
+            { mp3: "bedrott_ycimmv", jpg: "ab67616d0000b27342dd2dbff868828a54982a38_hxo7tk", name: "Bedrott" },
             { mp3: "1tap_f8eqoq", jpg: "ab67616d0000b2734887f6761f60275faf9b6055_ortp0c", name: "1tap" }
         ];
 
@@ -1023,3 +961,4 @@
     </script>
 </body>
 </html>
+
