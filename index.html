@@ -127,29 +127,31 @@
             border-radius: 24px;
             text-align: center; color: var(--white);
             width: 100%; max-width: 310px;
-            border: 1px solid var(--border-subtle);
-            box-shadow: 0 10px 40px rgba(0,0,0,0.5), 
-                        0 0 20px var(--glow-prim),
+            border: 1px solid rgba(255, 0, 60, 0.18);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.5),
+                        0 0 18px rgba(255, 0, 60, 0.18),
+                        0 0 45px rgba(255, 0, 60, 0.07),
                         inset 0 1px 0 rgba(255,255,255,0.05);
             transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease;
             position: relative;
             overflow: hidden;
         }
         
-        /* Top Gradient Accent Line */
+        /* Subtle corner-to-corner inner glow instead of top line */
         .card::before, .lastfm-widget::before, .player::before {
-            content: ''; position: absolute;
-            top: 0; left: 0; right: 0; height: 3px;
-            background: var(--gradient);
-            border-radius: 24px 24px 0 0;
-            opacity: 0.8;
+            content: ''; position: absolute; inset: 0;
+            border-radius: 24px;
+            background: radial-gradient(ellipse at top left, rgba(255, 0, 60, 0.1) 0%, transparent 55%),
+                        radial-gradient(ellipse at bottom right, rgba(0, 240, 255, 0.07) 0%, transparent 55%);
+            pointer-events: none;
         }
 
         .card { padding: 22px 26px; }
         .card:hover, .lastfm-widget:hover, .player:hover {
             transform: translateY(-5px);
-            box-shadow: 0 15px 50px rgba(0,0,0,0.6), 
-                        0 0 30px var(--glow-sec),
+            box-shadow: 0 15px 50px rgba(0,0,0,0.6),
+                        0 0 22px rgba(0, 240, 255, 0.22),
+                        0 0 55px rgba(0, 240, 255, 0.09),
                         inset 0 1px 0 rgba(255,255,255,0.1);
             border-color: rgba(0, 240, 255, 0.3);
         }
@@ -499,7 +501,7 @@
 
             <div class="ban-notice">
                 <div class="ban-chip">
-                    <i class="fas fa-ban"></i> F*CK GUNS.LOL - Banned
+                    <i class="fas fa-ban"></i> F*CK GUNS.LOL - They banned me
                 </div>
             </div>
         </div>
