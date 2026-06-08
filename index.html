@@ -288,7 +288,13 @@
             60% { clip-path: inset(20% 0 50% 0); } 80% { clip-path: inset(50% 0 30% 0); } 100% { clip-path: inset(5% 0 80% 0); }
         }
 
-        .wing-icon { width: 30px; height: 30px; }
+        .wing-icon {
+    width: 30px;
+    height: 30px;
+    margin-left: -5px;
+    margin-right: -5px;
+    margin-top: 5px; /* Adjust this value to lower the wings slightly :> */
+}
 
         .bio { font-size: 13px; font-weight: 400; color: var(--silver); margin-bottom: 20px; min-height: 3.2em; line-height: 1.6; }
         .bio::after { content: '|'; animation: blink 1s step-end infinite; color: var(--secondary); }
