@@ -724,7 +724,7 @@
             let age = today.getFullYear() - bday.getFullYear();
             const m = today.getMonth() - bday.getMonth();
             if (m < 0 || (m === 0 && today.getDate() < bday.getDate())) { age--; }
-            document.getElementById('age-tag').innerText = `Age: XX`;
+            document.getElementById('age-tag').innerText = 'Age: XX';
 
             let nextBday = new Date(today.getFullYear(), 10, 1);
             if (today > nextBday) { nextBday.setFullYear(today.getFullYear() + 1); }
