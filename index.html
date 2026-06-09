@@ -444,6 +444,93 @@
         }
         .ban-chip:hover { background: rgba(255, 0, 60, 0.15); transform: translateY(-2px); box-shadow: 0 0 20px rgba(255, 0, 60, 0.4); }
 
+        /* OBSESSION SPOTLIGHT */
+        .obsession-card {
+            background: var(--card-bg);
+            backdrop-filter: var(--blur);
+            -webkit-backdrop-filter: var(--blur);
+            border-radius: 24px;
+            width: 100%; max-width: 310px;
+            border: 2px solid rgba(0, 240, 255, 0.3);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.5),
+                        0 0 25px rgba(0, 240, 255, 0.35),
+                        0 0 60px rgba(0, 240, 255, 0.15),
+                        inset 0 1px 0 rgba(255,255,255,0.05);
+            padding: 20px 22px;
+            text-align: left;
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .obsession-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 50px rgba(0,0,0,0.6),
+                        0 0 35px rgba(255, 0, 60, 0.45),
+                        0 0 80px rgba(255, 0, 60, 0.2),
+                        inset 0 1px 0 rgba(255,255,255,0.1);
+            border-color: rgba(255, 0, 60, 0.55);
+        }
+        .obsession-card::before {
+            content: ''; position: absolute; inset: 0; border-radius: 24px;
+            background: radial-gradient(ellipse at top right, rgba(0, 240, 255, 0.12) 0%, transparent 55%),
+                        radial-gradient(ellipse at bottom left, rgba(255, 0, 60, 0.08) 0%, transparent 55%);
+            pointer-events: none;
+        }
+        .obs-header {
+            display: flex; align-items: center; gap: 8px; margin-bottom: 16px;
+        }
+        .obs-title {
+            font-family: 'ElegantTypewriterBold', sans-serif;
+            font-size: 13px; color: var(--secondary);
+            letter-spacing: 2px; text-transform: uppercase;
+        }
+        .obs-counter {
+            margin-left: auto; font-size: 10px; color: var(--muted);
+            font-family: 'JetBrains Mono', monospace; letter-spacing: 1px;
+        }
+        .obs-body {
+            display: flex; align-items: center; gap: 14px;
+        }
+        .obs-emoji {
+            font-size: 38px; line-height: 1; flex-shrink: 0;
+            filter: drop-shadow(0 0 10px rgba(0, 240, 255, 0.4));
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .obsession-card:hover .obs-emoji { transform: scale(1.15) rotate(-5deg); }
+        .obs-text { flex: 1; overflow: hidden; }
+        .obs-name {
+            font-size: 15px; font-weight: 600; color: var(--white);
+            white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+            letter-spacing: 0.3px; margin-bottom: 4px;
+        }
+        .obs-desc {
+            font-size: 11px; color: var(--silver); line-height: 1.5;
+        }
+        .obs-type {
+            display: inline-block; margin-top: 6px;
+            background: rgba(255, 0, 60, 0.12); border: 1px solid rgba(255, 0, 60, 0.3);
+            color: var(--primary); font-size: 9px; letter-spacing: 1.5px;
+            text-transform: uppercase; padding: 2px 8px; border-radius: 4px;
+        }
+        .obs-dots {
+            display: flex; justify-content: center; gap: 6px; margin-top: 16px;
+        }
+        .obs-dot {
+            width: 6px; height: 6px; border-radius: 50%;
+            background: rgba(255,255,255,0.15); transition: all 0.3s ease;
+            cursor: none;
+        }
+        .obs-dot.active {
+            background: var(--secondary);
+            box-shadow: 0 0 8px rgba(0, 240, 255, 0.7);
+            width: 18px; border-radius: 3px;
+        }
+        .obs-fade-enter { animation: obsFadeIn 0.5s ease forwards; }
+        @keyframes obsFadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
         /* FOOTER */
         .site-footer {
             width: 100%; text-align: center; padding: 20px; margin-top: 20px;
@@ -621,7 +708,7 @@
             </div>
 
             <div class="info-item">
-                <div class="item-title-row"><i class="fas fa-headphones-alt"></i> <span class="info-list-title">Current status</span></div>
+                <div class="info-title-row"><i class="fas fa-bolt"></i> <span class="info-list-title">Current status</span></div>
                 <div class="info-tag-container">
                     <span class="info-tag">Trying not to sleep</span>
                     <span class="info-tag">Being perceived</span>
@@ -634,6 +721,23 @@
                 Want to get to know me better or just talk? Slide into my DMs on any of my linked socials <3.
             </div>
                 </div>
+
+        <div class="obsession-card reveal" id="obsessionCard">
+            <div class="obs-header">
+                <i class="fas fa-fire" style="color:var(--primary); font-size:13px;"></i>
+                <span class="obs-title">Currently Obsessed</span>
+                <span class="obs-counter" id="obsCounter">1 / 5</span>
+            </div>
+            <div class="obs-body" id="obsBody">
+                <div class="obs-emoji" id="obsEmoji"></div>
+                <div class="obs-text">
+                    <div class="obs-name" id="obsName"></div>
+                    <div class="obs-desc" id="obsDesc"></div>
+                    <span class="obs-type" id="obsType"></span>
+                </div>
+            </div>
+            <div class="obs-dots" id="obsDots"></div>
+        </div>
 
         <div class="player reveal">
             <div class="cover-wrapper">
@@ -1020,8 +1124,51 @@
                 document.getElementById('lfm-status').innerText = '';
             }
         }
+        /* ================================================
+           OBSESSION SPOTLIGHT
+           ================================================ */
+        const obsessions = [
+            { emoji: '🎵', name: 'Hyperpop', desc: 'half nostalgia, half corrupted ', type: 'music' },
+            { emoji: '🌸', name: 'Clannad', desc: 'Nagisa deserved the world.', type: 'anime' },
+            { emoji: '🏰', name: 'Kabaneri of the Iron Fortress', desc: 'Absolute peak fiction.', type: 'anime' },
+        ];
+
+        let obsIdx = 0;
+        const obsDotsEl = document.getElementById('obsDots');
+
+        // Build dots
+        obsessions.forEach((_, i) => {
+            const d = document.createElement('div');
+            d.className = 'obs-dot' + (i === 0 ? ' active' : '');
+            d.addEventListener('click', () => showObs(i));
+            obsDotsEl.appendChild(d);
+        });
+
+        function showObs(i) {
+            obsIdx = i;
+            const o = obsessions[i];
+            const body = document.getElementById('obsBody');
+            body.classList.remove('obs-fade-enter');
+            void body.offsetWidth; // reflow
+            body.classList.add('obs-fade-enter');
+
+            document.getElementById('obsEmoji').textContent = o.emoji;
+            document.getElementById('obsName').textContent  = o.name;
+            document.getElementById('obsDesc').textContent  = o.desc;
+            document.getElementById('obsType').textContent  = o.type;
+            document.getElementById('obsCounter').textContent = `${i + 1} / ${obsessions.length}`;
+
+            document.querySelectorAll('.obs-dot').forEach((d, di) => {
+                d.classList.toggle('active', di === i);
+            });
+        }
+
+        showObs(0);
+        setInterval(() => showObs((obsIdx + 1) % obsessions.length), 4000);
+
         setInterval(fetchNowPlaying, 30000);
     </script>
 </body>
 </html>
+
 
