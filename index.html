@@ -531,6 +531,130 @@
             to   { opacity: 1; transform: translateY(0); }
         }
 
+        /* =========================================
+           CLICK RIPPLE
+           ========================================= */
+        .ripple-burst {
+            position: fixed; pointer-events: none; z-index: 99999;
+            border-radius: 50%; transform: translate(-50%, -50%);
+            border: 2px solid rgba(0, 240, 255, 0.9);
+            width: 0; height: 0;
+            animation: ripplePop 0.55s cubic-bezier(0.2, 0.8, 0.4, 1) forwards;
+        }
+        .ripple-burst.alt { border-color: rgba(255, 0, 60, 0.9); }
+        @keyframes ripplePop {
+            0%   { width: 0;    height: 0;    opacity: 1; }
+            100% { width: 90px; height: 90px; opacity: 0; }
+        }
+
+        /* =========================================
+           KONAMI FLASH
+           ========================================= */
+        #konami-flash {
+            position: fixed; inset: 0; z-index: 99998;
+            pointer-events: none; opacity: 0;
+            display: flex; align-items: center; justify-content: center;
+            flex-direction: column; gap: 10px;
+            background: rgba(0,0,0,0.93);
+            backdrop-filter: blur(10px);
+            transition: opacity 0.25s ease;
+        }
+        #konami-flash.active { opacity: 1; pointer-events: all; }
+        #konami-flash .kf-text {
+            font-family: 'ElegantTypewriterBold', sans-serif;
+            font-size: 26px; letter-spacing: 3px;
+            background: var(--gradient); -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: kfGlitch 0.12s infinite;
+            text-align: center; padding: 0 20px;
+        }
+        #konami-flash .kf-sub {
+            font-size: 11px; color: var(--secondary);
+            font-family: 'JetBrains Mono', monospace;
+            letter-spacing: 3px; text-transform: uppercase; opacity: 0.65;
+        }
+        #konami-flash .kf-hint {
+            font-size: 9px; color: var(--muted);
+            font-family: 'JetBrains Mono', monospace;
+            letter-spacing: 2px; margin-top: 6px;
+        }
+        @keyframes kfGlitch {
+            0%   { filter: hue-rotate(0deg)   saturate(1); transform: translate(0,0); }
+            25%  { filter: hue-rotate(90deg)  saturate(3); transform: translate(-2px, 1px); }
+            50%  { filter: hue-rotate(200deg) saturate(2); transform: translate(2px, -1px); }
+            75%  { filter: hue-rotate(300deg) saturate(4); transform: translate(-1px, 2px); }
+            100% { filter: hue-rotate(360deg) saturate(1); transform: translate(0,0); }
+        }
+
+        /* =========================================
+           CRT SCAN LINE
+           ========================================= */
+        #crt-scanline {
+            position: fixed; left: 0; top: -4px;
+            width: 100%; height: 4px; z-index: 9998;
+            pointer-events: none; opacity: 0;
+            background: linear-gradient(to bottom,
+                transparent 0%,
+                rgba(0, 240, 255, 0.06) 40%,
+                rgba(0, 240, 255, 0.18) 50%,
+                rgba(0, 240, 255, 0.06) 60%,
+                transparent 100%);
+            box-shadow: 0 0 18px rgba(0, 240, 255, 0.3), 0 0 40px rgba(0, 240, 255, 0.1);
+            filter: blur(0.5px);
+        }
+        body::after {
+            content: '';
+            position: fixed; inset: 0; z-index: 9997;
+            pointer-events: none;
+            background: repeating-linear-gradient(
+                0deg,
+                transparent,
+                transparent 2px,
+                rgba(0, 0, 0, 0.025) 2px,
+                rgba(0, 0, 0, 0.025) 4px
+            );
+        }
+
+        /* =========================================
+           PFP HEARTBEAT AURA
+           ========================================= */
+        .pfp-container::before {
+            content: '';
+            position: absolute; inset: -8px;
+            border-radius: 50%;
+            border: 2px solid var(--primary);
+            opacity: 0;
+            animation: heartbeatAura 2s ease-in-out infinite;
+            pointer-events: none; z-index: 1;
+        }
+        .pfp-container::after {
+            content: '';
+            position: absolute; inset: -16px;
+            border-radius: 50%;
+            border: 1px solid rgba(255, 0, 60, 0.35);
+            opacity: 0;
+            animation: heartbeatAura 2s ease-in-out 0.18s infinite;
+            pointer-events: none; z-index: 1;
+        }
+        @keyframes heartbeatAura {
+            0%   { transform: scale(0.92); opacity: 0; }
+            8%   { transform: scale(1.04); opacity: 0.9; }
+            16%  { transform: scale(0.97); opacity: 0.5; }
+            28%  { transform: scale(1.06); opacity: 0.7; }
+            50%  { transform: scale(1.0);  opacity: 0; }
+            100% { transform: scale(0.92); opacity: 0; }
+        }
+
+        /* =========================================
+           LIGHTNING + RAIN CANVAS
+           ========================================= */
+        #lightning-canvas, #rain-canvas {
+            position: fixed; inset: 0;
+            width: 100%; height: 100%;
+            pointer-events: none; z-index: 0;
+        }
+        #rain-canvas { opacity: 0.3; }
+
         /* FOOTER */
         .site-footer {
             width: 100%; text-align: center; padding: 20px; margin-top: 20px;
@@ -543,6 +667,15 @@
 <body>
 
     <div id="scroll-progress"></div>
+    <div id="crt-scanline"></div>
+    <canvas id="lightning-canvas"></canvas>
+    <canvas id="rain-canvas"></canvas>
+
+    <div id="konami-flash">
+        <div class="kf-text">YOU FOUND IT 💀</div>
+        <div class="kf-sub">↑ ↑ ↓ ↓ ← → ← → B A</div>
+        <div class="kf-hint">tap to close</div>
+    </div>
 
     <canvas id="particles-canvas"></canvas>
 
@@ -1166,9 +1299,200 @@
         showObs(0);
         setInterval(() => showObs((obsIdx + 1) % obsessions.length), 4000);
 
+        /* ================================================
+           CLICK RIPPLE
+           ================================================ */
+        let rippleToggle = false;
+        document.addEventListener('click', function(e) {
+            const r = document.createElement('div');
+            r.className = 'ripple-burst' + (rippleToggle ? ' alt' : '');
+            rippleToggle = !rippleToggle;
+            r.style.left = e.clientX + 'px';
+            r.style.top  = e.clientY + 'px';
+            document.body.appendChild(r);
+            setTimeout(() => r.remove(), 600);
+        });
+
+        /* ================================================
+           KONAMI CODE
+           ================================================ */
+        const KONAMI = ['ArrowUp','ArrowUp','ArrowDown','ArrowDown','ArrowLeft','ArrowRight','ArrowLeft','ArrowRight','b','a'];
+        let konamiIdx = 0;
+        document.addEventListener('keydown', e => {
+            konamiIdx = (e.key === KONAMI[konamiIdx]) ? konamiIdx + 1 : (e.key === KONAMI[0] ? 1 : 0);
+            if (konamiIdx === KONAMI.length) {
+                konamiIdx = 0;
+                const flash = document.getElementById('konami-flash');
+                flash.classList.add('active');
+                document.body.style.filter = 'hue-rotate(180deg) saturate(2.5)';
+                setTimeout(() => { document.body.style.filter = ''; }, 350);
+                setTimeout(() => flash.classList.remove('active'), 3500);
+            }
+        });
+        document.getElementById('konami-flash').addEventListener('click', () => {
+            document.getElementById('konami-flash').classList.remove('active');
+        });
+
+        /* ================================================
+           CRT SCAN LINE
+           ================================================ */
+        (function() {
+            const line = document.getElementById('crt-scanline');
+            let pos = -4, dir = 1, running = false;
+
+            function sweep() {
+                running = true;
+                pos = -4;
+                line.style.opacity = '1';
+                line.style.top = pos + 'px';
+
+                function step() {
+                    pos += 3;
+                    line.style.top = pos + 'px';
+                    if (pos < window.innerHeight + 10) {
+                        requestAnimationFrame(step);
+                    } else {
+                        line.style.opacity = '0';
+                        running = false;
+                    }
+                }
+                requestAnimationFrame(step);
+            }
+
+            // Sweep every 6–12s randomly
+            function scheduleSweep() {
+                const delay = 6000 + Math.random() * 6000;
+                setTimeout(() => { if (!running) sweep(); scheduleSweep(); }, delay);
+            }
+            scheduleSweep();
+        })();
+
+        /* ================================================
+           RAIN CANVAS
+           ================================================ */
+        (function() {
+            const rc = document.getElementById('rain-canvas');
+            const rx = rc.getContext('2d');
+            let drops = [];
+
+            function resizeRain() {
+                rc.width  = window.innerWidth;
+                rc.height = window.innerHeight;
+            }
+            window.addEventListener('resize', resizeRain);
+            resizeRain();
+
+            const DROP_COUNT = 80;
+            for (let i = 0; i < DROP_COUNT; i++) {
+                drops.push({
+                    x:     Math.random() * rc.width,
+                    y:     Math.random() * rc.height,
+                    len:   10 + Math.random() * 20,
+                    speed: 4 + Math.random() * 6,
+                    opacity: 0.15 + Math.random() * 0.35,
+                    width:  0.5 + Math.random() * 0.8
+                });
+            }
+
+            function drawRain() {
+                rx.clearRect(0, 0, rc.width, rc.height);
+                drops.forEach(d => {
+                    rx.beginPath();
+                    rx.moveTo(d.x, d.y);
+                    rx.lineTo(d.x - 1, d.y + d.len);
+                    rx.strokeStyle = `rgba(0, 220, 255, ${d.opacity})`;
+                    rx.lineWidth = d.width;
+                    rx.stroke();
+                    d.y += d.speed;
+                    if (d.y > rc.height + d.len) {
+                        d.y = -d.len;
+                        d.x = Math.random() * rc.width;
+                    }
+                });
+                requestAnimationFrame(drawRain);
+            }
+            drawRain();
+        })();
+
+        /* ================================================
+           LIGHTNING CANVAS
+           ================================================ */
+        (function() {
+            const lc = document.getElementById('lightning-canvas');
+            const lx = lc.getContext('2d');
+
+            function resizeLightning() {
+                lc.width  = window.innerWidth;
+                lc.height = window.innerHeight;
+            }
+            window.addEventListener('resize', resizeLightning);
+            resizeLightning();
+
+            // Draw a jagged bolt from (x1,y1) to (x2,y2)
+            function drawBolt(x1, y1, x2, y2, roughness, depth) {
+                if (depth <= 0) return;
+                const mx = (x1 + x2) / 2 + (Math.random() - 0.5) * roughness;
+                const my = (y1 + y2) / 2 + (Math.random() - 0.5) * roughness;
+
+                lx.beginPath();
+                lx.moveTo(x1, y1);
+                lx.lineTo(mx, my);
+                lx.lineTo(x2, y2);
+                lx.strokeStyle = `rgba(0, 240, 255, ${0.08 + Math.random() * 0.12})`;
+                lx.lineWidth = 0.5 + Math.random() * 0.8;
+                lx.shadowColor = 'rgba(0, 240, 255, 0.6)';
+                lx.shadowBlur = 6;
+                lx.stroke();
+
+                drawBolt(x1, y1, mx, my, roughness * 0.55, depth - 1);
+                drawBolt(mx, my, x2, y2, roughness * 0.55, depth - 1);
+
+                // Occasional branch
+                if (depth === 3 && Math.random() > 0.5) {
+                    const bx = mx + (Math.random() - 0.5) * roughness * 2;
+                    const by = my + roughness * 1.5;
+                    drawBolt(mx, my, bx, by, roughness * 0.4, depth - 2);
+                }
+            }
+
+            function flashLightning() {
+                lx.clearRect(0, 0, lc.width, lc.height);
+                const side = Math.random() > 0.5 ? 'left' : 'right';
+                const x1 = side === 'left' ? Math.random() * lc.width * 0.35 : lc.width * 0.65 + Math.random() * lc.width * 0.35;
+                const y1 = 0;
+                const x2 = x1 + (Math.random() - 0.5) * 120;
+                const y2 = lc.height * (0.3 + Math.random() * 0.5);
+
+                drawBolt(x1, y1, x2, y2, 90, 5);
+
+                // Fast fade out
+                let alpha = 1;
+                function fade() {
+                    alpha -= 0.08;
+                    lx.globalAlpha = Math.max(0, alpha);
+                    if (alpha > 0) requestAnimationFrame(fade);
+                    else { lc.getContext('2d').clearRect(0, 0, lc.width, lc.height); lx.globalAlpha = 1; }
+                }
+                setTimeout(fade, 60);
+            }
+
+            // Random strikes every 4–14s
+            function scheduleStrike() {
+                const delay = 4000 + Math.random() * 10000;
+                setTimeout(() => {
+                    flashLightning();
+                    // Double flash sometimes
+                    if (Math.random() > 0.6) setTimeout(flashLightning, 120);
+                    scheduleStrike();
+                }, delay);
+            }
+            scheduleStrike();
+        })();
+
         setInterval(fetchNowPlaying, 30000);
     </script>
 </body>
 </html>
+
 
 
