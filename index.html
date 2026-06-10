@@ -672,7 +672,10 @@
             z-index: 999999;
             width: 48px;
             height: 48px;
-            transform: translate(-4px, -4px); /* hotspot offset — tip of camera */
+            top: 0;
+            left: 0;
+            /* hotspot: tip of camera lens is roughly top-left corner */
+            transform: translate(-4px, -4px);
             transition: opacity 0.2s ease;
             will-change: transform;
             image-rendering: pixelated;
@@ -1551,8 +1554,8 @@
             document.addEventListener('mousemove', e => {
                 mx = e.clientX;
                 my = e.clientY;
-                cursorEl.style.left = mx + 'px';
-                cursorEl.style.top  = my + 'px';
+                // Use transform for pixel-perfect cursor placement
+                cursorEl.style.transform = `translate(calc(${mx}px - 4px), calc(${my}px - 4px))`;
             });
 
             document.addEventListener('mouseleave', () => { cursorEl.style.opacity = '0'; });
@@ -1564,7 +1567,7 @@
                which makes them appear to come FROM the bottom of the cursor
                as the cursor moves ahead. */
             const posHistory = [];
-            const DELAY_MS   = 200; // ms lag before particles appear
+            const DELAY_MS   = 150; // ms lag before particles appear
 
             document.addEventListener('mousemove', e => {
                 posHistory.push({ x: e.clientX, y: e.clientY, t: performance.now() });
