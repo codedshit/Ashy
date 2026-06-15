@@ -14,10 +14,6 @@
             font-family: 'WatermelonSugar';
             src: url('Watermelon Sugar.ttf') format('truetype');
         }
-        @font-face {
-            font-family: 'WatermelonSugar';
-            src: url('Watermelon Sugar.ttf') format('truetype');
-        }
 
         :root {
             --primary:      #2d5cff;
@@ -48,7 +44,7 @@
     gap: 6px;
     font-size: 11px;
     color: var(--silver);
-    font-family: 'JetBrains Mono', monospace;
+    font-family: 'WatermelonSugar', 'JetBrains Mono', monospace;
     opacity: 0.9;
 }
 
@@ -69,7 +65,7 @@
         html, body {
             margin: 0; padding: 0;
             overflow-x: hidden;
-            font-family: 'JetBrains Mono', monospace;
+            font-family: 'WatermelonSugar', 'JetBrains Mono', monospace;
             background-color: #040714;
             scroll-behavior: smooth;
             cursor: default;
@@ -135,14 +131,14 @@
             justify-content: center; align-items: center;
             gap: 12px; z-index: 9999; cursor: pointer;
             transition: opacity 0.8s ease, backdrop-filter 0.8s ease;
-            font-family: 'ElegantTypewriterBold', sans-serif;
+            font-family: 'WatermelonSugar', 'ElegantTypewriterBold', sans-serif;
             font-size: 28px; letter-spacing: 2px;
             text-shadow: 0 0 20px var(--glow-prim);
             pointer-events: auto;
             user-select: none;
         }
         #play-overlay span {
-            font-size: 12px; font-family: 'JetBrains Mono', monospace;
+            font-size: 12px; font-family: 'WatermelonSugar', 'JetBrains Mono', monospace;
             font-weight: 400; color: var(--secondary);
             letter-spacing: 4px; text-transform: uppercase;
         }
@@ -211,7 +207,7 @@
             gap: 6px; background: rgba(180, 223, 251, 0.05);
             border: 1px solid rgba(180, 223, 251, 0.2);
             padding: 10px 14px; border-radius: 10px; font-size: 16px;
-            font-family: 'JetBrains Mono', monospace; font-weight: 600;
+            font-family: 'WatermelonSugar', 'JetBrains Mono', monospace; font-weight: 600;
             color: var(--secondary); box-shadow: 0 0 8px rgba(180, 223, 251, 0.15);
             z-index: 10; backdrop-filter: blur(4px); transition: all 0.3s ease;
         }
@@ -240,13 +236,13 @@
         .chat-modal.active { opacity: 1; pointer-events: all; transform: translate(-50%, -50%) scale(1); }
         .chat-close { position: absolute; top: 14px; right: 16px; background: none; border: none; color: var(--muted); font-size: 15px; transition: color 0.2s, transform 0.2s; }
         .chat-close:hover { color: var(--primary); transform: scale(1.2); }
-        .chat-modal-title { font-family: 'ElegantTypewriterBold', sans-serif; font-size: 19px; background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 4px; }
+        .chat-modal-title { font-family: 'WatermelonSugar', 'ElegantTypewriterBold', sans-serif; font-size: 19px; background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 4px; }
         .chat-modal-sub { font-size: 11px; color: var(--muted); margin-bottom: 20px; }
         
         .chat-input, .chat-textarea {
             width: 100%; background: rgba(255, 255, 255, 0.04);
             border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 11px;
-            color: var(--white); font-family: 'JetBrains Mono', monospace; font-size: 12px;
+            color: var(--white); font-family: 'WatermelonSugar', 'JetBrains Mono', monospace; font-size: 12px;
             padding: 11px 13px; outline: none; margin-bottom: 5px; transition: 0.25s; resize: none; display: block;
         }
         .chat-textarea { height: 90px; }
@@ -259,7 +255,7 @@
         .chat-send {
             width: 100%; padding: 12px; background: rgba(45, 92, 255, 0.12);
             border: 1px solid rgba(45, 92, 255, 0.4); border-radius: 11px;
-            color: var(--white); font-family: 'JetBrains Mono', monospace;
+            color: var(--white); font-family: 'WatermelonSugar', 'JetBrains Mono', monospace;
             font-size: 13px; font-weight: 500; transition: all 0.3s ease; box-shadow: 0 0 15px var(--glow-prim);
         }
         .chat-send:hover:not(:disabled) { background: var(--primary); border-color: var(--primary); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(45, 92, 255, 0.5); }
@@ -276,7 +272,7 @@
         
         /* GLITCH HOVER EFFECT */
         .header-name {
-            font-family: 'ElegantTypewriterBold', sans-serif; font-size: 32px; margin: 0;
+            font-family: 'WatermelonSugar', 'ElegantTypewriterBold', sans-serif; font-size: 32px; margin: 0;
             background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
             text-shadow: 0 0 30px var(--glow-prim); position: relative; display: inline-block;
         }
@@ -301,13 +297,21 @@
             60% { clip-path: inset(20% 0 50% 0); } 80% { clip-path: inset(50% 0 30% 0); } 100% { clip-path: inset(5% 0 80% 0); }
         }
 
-        .wing-icon {
-    width: 33px;
-    height: 33px;
-    margin-left: -20px;
-    margin-right: -20px;
-    margin-top: 2px; /* Adjust this value to lower the wings slightly :> */
+        .bolt-deco {
+    font-size: 22px;
+    margin: 2px 6px 0;
+    color: var(--secondary);
+    text-shadow: 0 0 12px var(--glow-sec);
+    animation: boltFlicker 2.4s ease-in-out infinite;
+    display: inline-block;
+    user-select: none;
 }
+        .bolt-deco.right { animation-delay: 1.2s; }
+        @keyframes boltFlicker {
+            0%, 100% { transform: scale(1) rotate(0deg); opacity: 0.8; }
+            45% { transform: scale(1.2) rotate(-8deg); opacity: 1; }
+            55% { transform: scale(0.95) rotate(8deg); opacity: 0.6; }
+        }
 
         .bio { font-size: 13px; font-weight: 400; color: var(--silver); margin-bottom: 20px; min-height: 3.2em; line-height: 1.6; }
         .bio::after { content: '|'; animation: blink 1s step-end infinite; color: var(--secondary); }
@@ -348,7 +352,7 @@
             border: 1px solid rgba(180, 223, 251, 0.15); padding: 5px 10px; border-radius: 6px;
             font-size: 10px; color: var(--white); white-space: nowrap; opacity: 0;
             pointer-events: none; transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.5); font-family: 'JetBrains Mono', monospace; font-weight: 500;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.5); font-family: 'WatermelonSugar', 'JetBrains Mono', monospace; font-weight: 500;
         }
         .links a:hover::after { opacity: 1; transform: translateX(-50%) translateY(0); }
 
@@ -360,7 +364,7 @@
 
         .scroll-indicator {
             position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); color: var(--secondary);
-            text-align: center; font-size: 13px; font-family: 'ElegantTypewriterBold', sans-serif;
+            text-align: center; font-size: 13px; font-family: 'WatermelonSugar', 'ElegantTypewriterBold', sans-serif;
             letter-spacing: 1px; transition: opacity 0.4s ease, transform 0.4s ease; z-index: 10;
             text-shadow: 0 0 12px var(--glow-sec); white-space: nowrap; cursor: default;
         }
@@ -369,7 +373,7 @@
         @keyframes bounce { 0%, 100% { transform: translate(-50%, 0); } 50% { transform: translate(-50%, -8px); } }
 
         .info-header {
-            font-family: 'ElegantTypewriterBold', sans-serif; font-size: 20px; color: var(--secondary);
+            font-family: 'WatermelonSugar', 'ElegantTypewriterBold', sans-serif; font-size: 20px; color: var(--secondary);
             margin: 5px 0 16px; text-transform: uppercase; letter-spacing: 1.5px;
             text-shadow: 0 0 15px var(--glow-sec); position: relative; display: inline-block;
         }
@@ -378,7 +382,7 @@
         .info-item { font-size: 12.5px; text-align: left; margin: 12px 0; line-height: 1.6; color: var(--silver); display: flex; flex-direction: column; gap: 4px; }
         .info-title-row { display: flex; align-items: center; gap: 8px; }
         .info-title-row i { color: var(--primary); font-size: 13px; width: 16px; text-align: center; }
-        .info-list-title { font-family: 'ElegantTypewriter', sans-serif; font-size: 13.5px; font-weight: 600; color: var(--white); }
+        .info-list-title { font-family: 'WatermelonSugar', 'ElegantTypewriter', sans-serif; font-size: 13.5px; font-weight: 600; color: var(--white); }
         .info-tag-container { display: flex; flex-wrap: wrap; gap: 6px; margin-left: 24px; margin-top: 4px; }
         .info-tag { background: rgba(45, 92, 255, 0.12); border: 1px solid rgba(45, 92, 255, 0.25); padding: 3px 8px; border-radius: 6px; font-size: 10.5px; color: var(--secondary); }
         .info-footer { font-size: 11.5px; font-weight: 300; color: var(--muted); margin-top: 20px; border-top: 1px dashed rgba(255,255,255,0.1); padding-top: 12px; line-height: 1.6; }
@@ -422,7 +426,7 @@
         /* LASTFM WIDGET */
         .lastfm-widget { padding: 16px 20px; }
         .lfm-header { display: flex; align-items: center; gap: 8px; margin-bottom: 14px; }
-        .lfm-label { font-family: 'ElegantTypewriterBold', sans-serif; font-size: 12px; color: var(--primary); letter-spacing: 2px; text-transform: uppercase; }
+        .lfm-label { font-family: 'WatermelonSugar', 'ElegantTypewriterBold', sans-serif; font-size: 12px; color: var(--primary); letter-spacing: 2px; text-transform: uppercase; }
         
         .lfm-dot { width: 8px; height: 8px; background: var(--secondary); border-radius: 50%; margin-left: auto; animation: lfm-pulse 1.5s ease-in-out infinite; }
         @keyframes lfm-pulse { 0%, 100% { opacity: 1; transform: scale(1); box-shadow: 0 0 0 0 rgba(180,223,251,0.6); } 50% { opacity: 0.5; transform: scale(0.8); box-shadow: 0 0 0 6px rgba(180,223,251,0); } }
@@ -492,13 +496,13 @@
             display: flex; align-items: center; gap: 8px; margin-bottom: 16px;
         }
         .obs-title {
-            font-family: 'ElegantTypewriterBold', sans-serif;
+            font-family: 'WatermelonSugar', 'ElegantTypewriterBold', sans-serif;
             font-size: 13px; color: var(--secondary);
             letter-spacing: 2px; text-transform: uppercase;
         }
         .obs-counter {
             margin-left: auto; font-size: 10px; color: var(--muted);
-            font-family: 'JetBrains Mono', monospace; letter-spacing: 1px;
+            font-family: 'WatermelonSugar', 'JetBrains Mono', monospace; letter-spacing: 1px;
         }
         .obs-body {
             display: flex; align-items: center; gap: 14px;
@@ -573,7 +577,7 @@
         }
         #konami-flash.active { opacity: 1; pointer-events: all; }
         #konami-flash .kf-text {
-            font-family: 'ElegantTypewriterBold', sans-serif;
+            font-family: 'WatermelonSugar', 'ElegantTypewriterBold', sans-serif;
             font-size: 26px; letter-spacing: 3px;
             background: var(--gradient); -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -582,11 +586,11 @@
         }
         #konami-flash .kf-sub {
             font-size: 11px; color: var(--secondary);
-            font-family: 'JetBrains Mono', monospace;
+            font-family: 'WatermelonSugar', 'JetBrains Mono', monospace;
             letter-spacing: 3px; text-transform: uppercase; opacity: 0.65;
         }        #konami-flash .kf-hint {
             font-size: 9px; color: var(--muted);
-            font-family: 'JetBrains Mono', monospace;
+            font-family: 'WatermelonSugar', 'JetBrains Mono', monospace;
             letter-spacing: 2px; margin-top: 6px;
         }
         @keyframes kfGlitch {
@@ -643,18 +647,18 @@
         .site-footer {
             width: 100%; text-align: center; padding: 20px; margin-top: 20px;
             font-size: 11px; color: var(--muted); border-top: 1px solid var(--border-subtle);
-            font-family: 'JetBrains Mono', monospace; letter-spacing: 0.5px;
+            font-family: 'WatermelonSugar', 'JetBrains Mono', monospace; letter-spacing: 0.5px;
             background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
         }
 
         /* Custom cursor removed - using default cursor */
 
         /* =========================================
-           LIVE CLOCK WIDGET
+           VIBE TICKER WIDGET (replaces live clock)
            ========================================= */
-        #live-clock {
+        #vibe-ticker {
             position: fixed; top: 16px; right: 18px; z-index: 200;
-            font-family: 'JetBrains Mono', monospace;
+            font-family: 'WatermelonSugar', 'JetBrains Mono', monospace;
             font-size: 11px; color: var(--silver);
             background: rgba(8,12,32,0.75);
             border: 1px solid rgba(180,223,251,0.12);
@@ -663,48 +667,58 @@
             display: flex; align-items: center; gap: 7px;
             letter-spacing: 0.5px; user-select: none;
             transition: border-color 0.3s, box-shadow 0.3s;
+            max-width: 200px;
         }
-        #live-clock:hover {
+        #vibe-ticker:hover {
             border-color: rgba(180,223,251,0.3);
             box-shadow: 0 0 14px rgba(45,92,255,0.2);
         }
-        #live-clock .clock-dot {
+        #vibe-ticker .vibe-dot {
             width: 5px; height: 5px; border-radius: 50%;
             background: var(--secondary);
             box-shadow: 0 0 6px rgba(180,223,251,0.8);
             animation: statusPulse 2s ease-in-out infinite;
             flex-shrink: 0;
         }
-        #clock-time { color: var(--white); font-size: 12px; }
+        #vibe-text {
+            color: var(--white); font-size: 11px;
+            white-space: nowrap; overflow: hidden;
+            transition: opacity 0.4s ease;
+        }
+        #vibe-text.fade { opacity: 0; }
 
         /* =========================================
            CONTACT MODAL (replaces webhook form)
            ========================================= */
-        .contact-links-grid {
-            display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 6px;
-        }
-        .contact-link-btn {
-            display: flex; align-items: center; gap: 10px;
+        .fact-display {
             background: rgba(255,255,255,0.04);
             border: 1px solid rgba(180,223,251,0.12);
+            border-radius: 12px; padding: 18px 16px;
+            text-align: center; color: var(--white);
+            font-family: 'WatermelonSugar', 'JetBrains Mono', monospace;
+            font-size: 13px; line-height: 1.6;
+            min-height: 4.5em; display: flex; align-items: center; justify-content: center;
+            margin-bottom: 14px; transition: opacity 0.3s ease;
+        }
+        .fact-display.fade { opacity: 0; }
+        .fact-btn {
+            display: flex; align-items: center; justify-content: center; gap: 8px;
+            width: 100%;
+            background: rgba(45,92,255,0.1);
+            border: 1px solid rgba(45,92,255,0.4);
             border-radius: 12px; padding: 12px 14px;
-            text-decoration: none; color: var(--white);
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 11px; transition: all 0.3s ease;
+            color: var(--white);
+            font-family: 'WatermelonSugar', 'JetBrains Mono', monospace;
+            font-size: 12px; transition: all 0.3s ease;
             cursor: pointer;
         }
-        .contact-link-btn:hover {
-            background: rgba(45,92,255,0.1);
-            border-color: rgba(45,92,255,0.4);
+        .fact-btn:hover {
+            background: rgba(45,92,255,0.2);
+            border-color: var(--primary);
             transform: translateY(-2px);
-            box-shadow: 0 6px 18px rgba(45,92,255,0.2);
+            box-shadow: 0 6px 18px rgba(45,92,255,0.25);
         }
-        .contact-link-btn i { font-size: 16px; width: 18px; text-align: center; }
-        .contact-link-btn.discord i { color: #5865F2; }
-        .contact-link-btn.roblox i { color: #00a2ff; }
-        .contact-link-btn.anilist i { color: #02a9ff; }
-        .contact-link-btn span { line-height: 1.3; }
-        .contact-link-btn .contact-label { font-size: 9px; color: var(--muted); display: block; }
+        .fact-btn i { color: var(--secondary); }
 
         /* =========================================
            STAT PILLS ON PROFILE CARD
@@ -719,7 +733,7 @@
             border: 1px solid rgba(45,92,255,0.2);
             border-radius: 20px; padding: 4px 10px;
             font-size: 10px; color: var(--secondary);
-            font-family: 'JetBrains Mono', monospace;
+            font-family: 'WatermelonSugar', 'JetBrains Mono', monospace;
             letter-spacing: 0.3px;
         }
         .stat-pill i { font-size: 9px; color: var(--primary); }
@@ -733,7 +747,7 @@
         }
         .vibe-label {
             font-size: 10.5px; color: var(--muted);
-            min-width: 70px; font-family: 'JetBrains Mono', monospace;
+            min-width: 70px; font-family: 'WatermelonSugar', 'JetBrains Mono', monospace;
         }
         .vibe-track {
             flex: 1; height: 4px; background: rgba(255,255,255,0.07);
@@ -750,11 +764,11 @@
         @keyframes vibeGrow { to { transform: scaleX(1); } }
         .vibe-pct {
             font-size: 10px; color: var(--secondary);
-            font-family: 'JetBrains Mono', monospace;
+            font-family: 'WatermelonSugar', 'JetBrains Mono', monospace;
             min-width: 28px; text-align: right;
         }
         /* PHOTO DUMP CARD */
-        .photodump-card {
+        .badges-card {
             background: var(--card-bg);
             backdrop-filter: var(--blur);
             -webkit-backdrop-filter: var(--blur);
@@ -767,14 +781,15 @@
                         inset 0 1px 0 rgba(180, 223, 251, 0.06);
             overflow: hidden; position: relative;
             transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease;
+            padding: 18px 20px 20px;
         }
-        .photodump-card::before {
+        .badges-card::before {
             content: ''; position: absolute; inset: 0; border-radius: 24px;
             background: radial-gradient(ellipse at top left, rgba(45, 92, 255, 0.15) 0%, transparent 50%),
                         radial-gradient(ellipse at bottom right, rgba(180, 223, 251, 0.08) 0%, transparent 50%);
             pointer-events: none; z-index: 1;
         }
-        .photodump-card:hover {
+        .badges-card:hover {
             transform: translateY(-5px);
             box-shadow: 0 15px 50px rgba(0,0,0,0.7),
                         0 0 35px rgba(180, 223, 251, 0.35),
@@ -782,29 +797,49 @@
                         inset 0 1px 0 rgba(180, 223, 251, 0.1);
             border-color: rgba(180, 223, 251, 0.5);
         }
-        .pd-header { display: flex; align-items: center; gap: 8px; padding: 18px 20px 0; position: relative; z-index: 2; }
-        .pd-title { font-family: 'ElegantTypewriterBold', sans-serif; font-size: 13px; color: var(--secondary); letter-spacing: 2px; text-transform: uppercase; }
-        .pd-count { margin-left: auto; font-size: 10px; color: var(--muted); font-family: 'JetBrains Mono', monospace; letter-spacing: 1px; }
-        .pd-frame { margin: 14px 18px 0; border-radius: 14px; overflow: hidden; position: relative; background: #08101f; aspect-ratio: 1 / 1; border: 1px solid rgba(180, 223, 251, 0.07); }
-        .pd-img { width: 100%; height: 100%; object-fit: cover; display: block; opacity: 0; transition: opacity 0.7s ease; position: absolute; inset: 0; }
-        .pd-img.visible { opacity: 1; }
-        .pd-frame::after { content: ''; position: absolute; inset: 0; background: repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(0,0,0,0.03) 3px, rgba(0,0,0,0.03) 4px); pointer-events: none; z-index: 2; }
-        .pd-bottom { padding: 12px 20px 18px; position: relative; z-index: 2; display: flex; align-items: center; justify-content: space-between; }
-        .pd-caption { font-size: 11px; color: var(--silver); font-family: 'JetBrains Mono', monospace; font-style: italic; letter-spacing: 0.3px; flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; min-height: 16px; }
-        .pd-dots { display: flex; gap: 5px; flex-shrink: 0; margin-left: 10px; }
-        .pd-dot { width: 5px; height: 5px; border-radius: 50%; background: rgba(255,255,255,0.12); transition: all 0.3s ease; }
-        .pd-dot.active { background: var(--primary); box-shadow: 0 0 6px rgba(45, 92, 255, 0.7); width: 14px; border-radius: 3px; }
-        .pd-empty { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; gap: 8px; padding: 30px 0; color: var(--muted); font-size: 11px; font-family: 'JetBrains Mono', monospace; letter-spacing: 1px; }
-        .pd-empty i { font-size: 28px; opacity: 0.3; }
+        .badges-header { display: flex; align-items: center; gap: 8px; position: relative; z-index: 2; margin-bottom: 14px; }
+        .badges-title { font-family: 'WatermelonSugar', 'ElegantTypewriterBold', sans-serif; font-size: 13px; color: var(--secondary); letter-spacing: 2px; text-transform: uppercase; }
+        .badges-count { margin-left: auto; font-size: 10px; color: var(--muted); font-family: 'WatermelonSugar', 'JetBrains Mono', monospace; letter-spacing: 1px; }
+        .badges-grid {
+            display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px;
+            position: relative; z-index: 2;
+        }
+        .badge-item {
+            display: flex; flex-direction: column; align-items: center; gap: 6px;
+            padding: 12px 6px; border-radius: 12px;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(180, 223, 251, 0.08);
+            transition: all 0.3s ease; cursor: pointer; position: relative;
+        }
+        .badge-item:hover {
+            background: rgba(45, 92, 255, 0.1);
+            border-color: rgba(45, 92, 255, 0.4);
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 6px 16px rgba(45, 92, 255, 0.25);
+        }
+        .badge-item .badge-icon { font-size: 22px; filter: drop-shadow(0 0 6px rgba(180,223,251,0.4)); }
+        .badge-item .badge-label { font-size: 8px; color: var(--muted); letter-spacing: 0.5px; text-align: center; font-family: 'WatermelonSugar', 'JetBrains Mono', monospace; }
+        .badge-item.locked { opacity: 0.35; }
+        .badge-item.locked .badge-icon { filter: grayscale(1); }
+        .badge-tooltip {
+            position: absolute; bottom: calc(100% + 8px); left: 50%; transform: translateX(-50%) translateY(6px);
+            background: #08101f; border: 1px solid rgba(180,223,251,0.2);
+            color: var(--white); font-size: 9px; padding: 6px 10px; border-radius: 8px;
+            white-space: nowrap; opacity: 0; pointer-events: none;
+            transition: opacity 0.25s ease, transform 0.25s ease; z-index: 5;
+            font-family: 'WatermelonSugar', 'JetBrains Mono', monospace;
+        }
+        .badge-item:hover .badge-tooltip { opacity: 1; transform: translateX(-50%) translateY(0); }
+
 
     </style>
 </head>
 <body>
 
-    <!-- Clock widget -->
-    <div id="live-clock">
-        <span class="clock-dot"></span>
-        <span id="clock-time">00:00:00</span>
+    <!-- Vibe ticker widget -->
+    <div id="vibe-ticker">
+        <span class="vibe-dot"></span>
+        <span id="vibe-text">just vibing ✨</span>
     </div>
 
     <div id="scroll-progress"></div>
@@ -831,31 +866,23 @@
 
     <div class="chat-modal" id="chatModal">
         <button class="chat-close" onclick="closeChat()"><i class="fas fa-times"></i></button>
-        <div class="chat-modal-title">Get in touch 💬</div>
+        <div class="chat-modal-title">Random Fact</div>
         <div class="chat-modal-sub">
-            find me on any of these<br>
-            <span style="color:#7fc8ff;">i don't bite (usually)</span>
+            here's something about me<br>
+            <span style="color:#7fc8ff;">tap below for another one</span>
         </div>
-        <div class="contact-links-grid">
-            <a href="https://discord.com/users/6fo4" target="_blank" class="contact-link-btn discord">
-                <i class="fab fa-discord"></i>
-                <span>Discord<span class="contact-label">@codedshit</span></span>
-            </a>
-            <a href="https://www.roblox.com/users/4468232678/profile" target="_blank" class="contact-link-btn roblox">
-                <i class="fas fa-gamepad"></i>
-                <span>Roblox<span class="contact-label">Profile</span></span>
-            </a>
-            <a href="https://anilist.co/user/Klxxy/" target="_blank" class="contact-link-btn anilist" style="grid-column: span 2;">
-                <i class="fas fa-leaf"></i>
-                <span>AniList<span class="contact-label">Klxxy</span></span>
-            </a>
+        <div class="fact-display" id="factDisplay">
+            click the button to reveal a fact!
         </div>
+        <button class="fact-btn" id="factBtn" onclick="newFact()">
+            <i class="fas fa-dice"></i> Give me a fact
+        </button>
     </div>
 
     <div class="page-section" id="sec-1">
         <div class="card">
             <button class="chat-btn" onclick="openChat()">
-                <i class="fas fa-comment-dots"></i>
+                <i class="fas fa-dice"></i>
             </button>
 
             <img src="https://raw.githubusercontent.com/6fo4/Ashy/2195e435f7f36e42d76ff37225ec09cc3ce58922/0c3a146cf1cb9d6bcb8cd1df8b657b7a.gif" class="top-right-gif" alt="Corner GIF">
@@ -866,7 +893,7 @@
             </div>
 
 <div class="name-row">
-    <img src="ezgif-66e8ff165ceaaa3d.gif" class="wing-icon" alt="">
+    <span class="bolt-deco">⚡</span>
     
     <div class="name-stack">
         <h2 class="header-name" data-text="Ash">Ash</h2>
@@ -877,7 +904,7 @@
         </div>
     </div>
 
-    <img src="070199b6f1766875e20d8ecd23870852.gif" class="wing-icon" alt="">
+    <span class="bolt-deco right">⚡</span>
 </div>
 
             <p class="bio" id="bio-text"></p>
@@ -1022,23 +1049,53 @@
             <div class="obs-dots" id="obsDots"></div>
         </div>
 
-        <div class="photodump-card reveal" id="photodumpCard">
-            <div class="pd-header">
-                <i class="fas fa-camera" style="color:var(--primary); font-size:13px;"></i>
-                <span class="pd-title">Photos</span>
-                <span class="pd-count" id="pdCount">— / —</span>
+        <div class="badges-card reveal" id="badgesCard">
+            <div class="badges-header">
+                <i class="fas fa-trophy" style="color:var(--primary); font-size:13px;"></i>
+                <span class="badges-title">Badges</span>
+                <span class="badges-count" id="badgesCount">4 / 8</span>
             </div>
-            <div class="pd-frame">
-                <img class="pd-img" id="pdImgA" src="" alt="photo dump">
-                <img class="pd-img" id="pdImgB" src="" alt="photo dump">
-                <div class="pd-empty" id="pdEmpty" style="display:none;">
-                    <i class="fas fa-image"></i>
-                    <span>i dont know what to post yet</span>
+            <div class="badges-grid" id="badgesGrid">
+                <div class="badge-item">
+                    <span class="badge-icon">🫯</span>
+                    <span class="badge-label">not an Gamer</span>
+                    <div class="badge-tooltip">Probably not in a game</div>
                 </div>
-            </div>
-            <div class="pd-bottom">
-                <span class="pd-caption" id="pdCaption"></span>
-                <div class="pd-dots" id="pdDots"></div>
+                <div class="badge-item">
+                    <span class="badge-icon">🌙</span>
+                    <span class="badge-label">Night Owl</span>
+                    <div class="badge-tooltip">Up past 3am, easily</div>
+                </div>
+                <div class="badge-item">
+                    <span class="badge-icon">⚡</span>
+                    <span class="badge-label">Energized</span>
+                    <div class="badge-tooltip">Powered by natural energy</div>
+                </div>
+                <div class="badge-item">
+                    <span class="badge-icon">🍃</span>
+                    <span class="badge-label">Otaku</span>
+                    <div class="badge-tooltip">Anime enjoyer</div>
+                </div>
+                <div class="badge-item locked">
+                    <span class="badge-icon">🏆</span>
+                    <span class="badge-label">???</span>
+                    <div class="badge-tooltip">Locked</div>
+                </div>
+                <div class="badge-item locked">
+                    <span class="badge-icon">🔒</span>
+                    <span class="badge-label">???</span>
+                    <div class="badge-tooltip">Locked</div>
+                </div>
+                <div class="badge-item locked">
+                    <span class="badge-icon">🔒</span>
+                    <span class="badge-label">???</span>
+                    <div class="badge-tooltip">Locked</div>
+                </div>
+                <div class="badge-item locked">
+                    <span class="badge-icon">🔒</span>
+                    <span class="badge-label">???</span>
+                    <div class="badge-tooltip">Locked</div>
+                </div>
             </div>
         </div>
 
@@ -1219,6 +1276,32 @@
         document.addEventListener('keydown', e => { if (e.key === 'Escape') closeChat(); });
 
         /* ================================================
+           RANDOM FACT GENERATOR
+           ================================================ */
+        const funFacts = [
+            "I cant fall asleep easily",
+            "My favorite snack disappears way too fast",
+            "I've rage quit at least once this week, probably",
+            "I have way too many tabs open right now (its so annoying)",
+            "My sleep schedule doesn't exist (i sleep whenever it feels right)",
+            "I'll talk about myself for hours to you, but youll get bored",
+            "I once did an all nighter to skip school",
+            "If i talk to you often consider i like you as an friend",
+        ];
+        let lastFactIdx = -1;
+        function newFact() {
+            const display = document.getElementById('factDisplay');
+            display.classList.add('fade');
+            setTimeout(() => {
+                let idx;
+                do { idx = Math.floor(Math.random() * funFacts.length); } while (idx === lastFactIdx && funFacts.length > 1);
+                lastFactIdx = idx;
+                display.textContent = funFacts[idx];
+                display.classList.remove('fade');
+            }, 250);
+        }
+
+        /* ================================================
            SITE ENTRY & TYPEWRITER
            ================================================ */
         function startSite() {
@@ -1330,7 +1413,7 @@
         const LFM_KEY     = '84e191b366d86d98c1db2a74b5b39ef4';
         const LFM_USER    = 'Ashy-geek';
         const LFM_DEFAULT = 'https://lastfm.freetls.fastly.net/i/u/300x300/2a96cbd8b46e442fc41c2b86b821562f.png';
-
+        // please dont use my api keys  
         async function fetchNowPlaying() {
             try {
                 const res   = await fetch(`https://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=${LFM_USER}&api_key=${LFM_KEY}&format=json&limit=1`);
@@ -1348,7 +1431,7 @@
                 document.getElementById('lfm-art').src          = artUrl;
                 document.getElementById('lfm-status').innerText = isLive ? '▶ Live Scrobbling' : '◉ Offline';
                 
-                // Toggle Spin + EQ + Dot based on live status
+                // this one spins by toggling it 😩
                 const lfmArt = document.getElementById('lfm-art');
                 const lfmEq = document.getElementById('lfm-eq');
                 const lfmDot = document.getElementById('lfm-dot');
@@ -1373,8 +1456,8 @@
            OBSESSION SPOTLIGHT
            ================================================ */
         const obsessions = [
-            { emoji: '🚲', name: 'Cycling', desc: 'I just love cycling in the nature', type: 'Nature enjoyer' },
-            { emoji: '🎵', name: 'Hyperpop', desc: 'Best music genre out there 😼', type: 'music' },
+            { emoji: '🌳', name: 'Nature', desc: 'The nature is awesome', type: 'Nature enjoyer' },
+            { emoji: '🎵', name: 'Hyperpop', desc: 'i love this genre', type: 'music' },
             { emoji: '🏰', name: 'KOTIF', desc: 'Best anime obv', type: 'anime' },
             { emoji: '🛏', name: 'Sleeping', desc: 'you should try 🤯', type: 'Sleeping' }
         ];
@@ -1446,8 +1529,6 @@
             document.getElementById('konami-flash').classList.remove('active');
         });
 
-        /* CRT scanline removed */
-
         /* ================================================
            RAIN CANVAS
            ================================================ */
@@ -1509,7 +1590,7 @@
             window.addEventListener('resize', resizeLightning);
             resizeLightning();
 
-            // Draw a jagged bolt from (x1,y1) to (x2,y2)
+            // something cool 🤯
             function drawBolt(x1, y1, x2, y2, roughness, depth) {
                 if (depth <= 0) return;
                 const mx = (x1 + x2) / 2 + (Math.random() - 0.5) * roughness;
@@ -1557,12 +1638,12 @@
                 setTimeout(fade, 60);
             }
 
-            // Random strikes every 4–14s
+            // Random Lighting strikes 😼
             function scheduleStrike() {
-                const delay = 4000 + Math.random() * 10000;
+                const delay = 2000 + Math.random() * 6500;
                 setTimeout(() => {
                     flashLightning();
-                    // Double flash sometimes
+                    // Double flash 
                     if (Math.random() > 0.6) setTimeout(flashLightning, 120);
                     scheduleStrike();
                 }, delay);
@@ -1572,61 +1653,33 @@
 
         setInterval(fetchNowPlaying, 30000);
 
-        /* Custom cursor removed - using default browser cursor */
-
         /* ================================================
-           LIVE CLOCK
+           VIBE TICKER — cycles through fun status lines
            ================================================ */
         (function() {
-            const clockEl = document.getElementById('clock-time');
-            function tick() {
-                const now = new Date();
-                const h = String(now.getHours()).padStart(2, '0');
-                const m = String(now.getMinutes()).padStart(2, '0');
-                const s = String(now.getSeconds()).padStart(2, '0');
-                clockEl.textContent = `${h}:${m}:${s}`;
+            const vibeEl = document.getElementById('vibe-text');
+            const vibes = [
+                'just vibing ',
+                'probably in a new anime rn',
+                'send memes plz',
+                'sleep is for the weak',
+                'powered by energy drinks',
+                'thinking about someone',
+            ];
+            let idx = 0;
+            function rotate() {
+                vibeEl.classList.add('fade');
+                setTimeout(() => {
+                    idx = (idx + 1) % vibes.length;
+                    vibeEl.textContent = vibes[idx];
+                    vibeEl.classList.remove('fade');
+                }, 400);
             }
-            tick();
-            setInterval(tick, 1000);
-        })();
-
-        /* ================================================
-           PHOTO DUMP
-           ================================================ */
-        (function() {
-            const PHOTOS_URL = 'https://raw.githubusercontent.com/6fo4/Ashy/main/photos.json';
-            const INTERVAL_MS = 4000;
-            let photos = [], order = [], current = 0, activeSlot = 'A';
-            const imgA = document.getElementById('pdImgA');
-            const imgB = document.getElementById('pdImgB');
-            const caption = document.getElementById('pdCaption');
-            const count = document.getElementById('pdCount');
-            const dots = document.getElementById('pdDots');
-            const empty = document.getElementById('pdEmpty');
-            function shuffle(arr) { const a=[...arr]; for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];} return a; }
-            function buildDots() { dots.innerHTML=''; const shown=Math.min(photos.length,5); for(let i=0;i<shown;i++){const d=document.createElement('div');d.className='pd-dot'+(i===0?' active':'');dots.appendChild(d);} }
-            function updateDots(idx) { const all=dots.querySelectorAll('.pd-dot');const pos=idx%all.length;all.forEach((d,i)=>d.classList.toggle('active',i===pos)); }
-            function showPhoto(idx) {
-                const photo=photos[order[idx]];
-                const incoming=activeSlot==='A'?imgB:imgA;
-                const outgoing=activeSlot==='A'?imgA:imgB;
-                incoming.src=photo.url;
-                incoming.onload=()=>{incoming.classList.add('visible');outgoing.classList.remove('visible');activeSlot=activeSlot==='A'?'B':'A';};
-                caption.textContent=photo.caption||'';
-                count.textContent=`${idx+1} / ${photos.length}`;
-                updateDots(idx);
-            }
-            function next() { current=(current+1)%photos.length; if(current===0)order=shuffle(order); showPhoto(current); }
-            async function init() {
-                try { const res=await fetch(PHOTOS_URL+'?t='+Date.now()); const data=await res.json(); photos=data.photos||[]; } catch(e) { photos=[]; }
-                if(photos.length===0){empty.style.display='flex';count.textContent='0 / 0';return;}
-                empty.style.display='none'; order=shuffle([...Array(photos.length).keys()]); buildDots(); showPhoto(0);
-                if(photos.length>1)setInterval(next,INTERVAL_MS);
-            }
-            init();
+            setInterval(rotate, 5000);
         })();
 
     </script>
 </body>
 </html>
+
 
