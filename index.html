@@ -20,7 +20,7 @@
             font-weight: 400;
         }
         @font-face {
-            font-family: 'AnimeAce';
+            font-family: 'AnimeAceBold';
             src: url('animeace2_bld.ttf') format('truetype');
             font-weight: 700;
         }
@@ -371,7 +371,7 @@
         .links a:nth-child(2) { --platform-color: #00F7EF; }
         .links a:nth-child(3) { --platform-color: #1f6feb; }
         .links a:nth-child(4) { --platform-color: #1DB954; }
-        .links a:nth-child(5) { --platform-color: #0ea5e9; }
+        .links a:nth-child(5) { --platform-color: #ff3860; }
         .links a:nth-child(6) { --platform-color: #E60023; }
         .links a:nth-child(7) { --platform-color: #ff6d00; }
         .links a:nth-child(8) { --platform-color: #ff5700; }
@@ -557,7 +557,7 @@
         .obsession-card:hover .obs-emoji { transform: scale(1.15) rotate(-5deg); }
         .obs-text { flex: 1; overflow: hidden; }
         .obs-name {
-            font-size: 15px; font-weight: 600; color: var(--white);
+            font-size: 15px; font-family: 'AnimeAceBold', 'AnimeAce', 'JetBrains Mono', monospace; color: var(--white);
             white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
             letter-spacing: 0.3px; margin-bottom: 4px;
         }
@@ -799,8 +799,8 @@
             font-family: 'WatermelonSugar', 'JetBrains Mono', monospace;
             min-width: 28px; text-align: right;
         }
-        /* PHOTO DUMP CARD */
-        .badges-card {
+        /* AURA CARD */
+        .aura-card {
             background: var(--card-bg);
             backdrop-filter: var(--blur);
             -webkit-backdrop-filter: var(--blur);
@@ -814,14 +814,15 @@
             overflow: hidden; position: relative;
             transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease;
             padding: 18px 20px 20px;
+            text-align: center;
         }
-        .badges-card::before {
+        .aura-card::before {
             content: ''; position: absolute; inset: 0; border-radius: 24px;
             background: radial-gradient(ellipse at top left, rgba(91, 141, 239, 0.1) 0%, transparent 50%),
                         radial-gradient(ellipse at bottom right, rgba(143, 184, 255, 0.06) 0%, transparent 50%);
             pointer-events: none; z-index: 1;
         }
-        .badges-card:hover {
+        .aura-card:hover {
             transform: translateY(-5px);
             box-shadow: 0 15px 40px rgba(91, 141, 239, 0.2),
                         0 0 35px rgba(143, 184, 255, 0.2),
@@ -829,39 +830,69 @@
                         inset 0 1px 0 rgba(255, 255, 255, 0.6);
             border-color: rgba(143, 184, 255, 0.5);
         }
-        .badges-header { display: flex; align-items: center; gap: 8px; position: relative; z-index: 2; margin-bottom: 14px; }
-        .badges-title { font-family: 'WatermelonSugar', 'ElegantTypewriterBold', sans-serif; font-size: 13px; color: var(--secondary); letter-spacing: 2px; text-transform: uppercase; }
-        .badges-count { margin-left: auto; font-size: 10px; color: var(--muted); font-family: 'WatermelonSugar', 'JetBrains Mono', monospace; letter-spacing: 1px; }
-        .badges-grid {
-            display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px;
+        .aura-header { display: flex; align-items: center; gap: 8px; position: relative; z-index: 2; margin-bottom: 16px; text-align: left; }
+        .aura-title { font-family: 'WatermelonSugar', 'ElegantTypewriterBold', sans-serif; font-size: 13px; color: var(--secondary); letter-spacing: 2px; text-transform: uppercase; }
+        .aura-tag {
+            margin-left: auto; font-size: 9px; color: var(--secondary);
+            background: rgba(91, 141, 239, 0.14); border: 1px solid rgba(91, 141, 239, 0.35);
+            font-family: 'AnimeAceBold', 'AnimeAce', monospace; letter-spacing: 1.5px;
+            text-transform: uppercase; padding: 3px 9px; border-radius: 20px;
+            transition: all 0.4s ease;
+        }
+        .aura-orb-wrap {
             position: relative; z-index: 2;
+            display: flex; flex-direction: column; align-items: center;
+            gap: 14px; padding: 6px 0 2px;
         }
-        .badge-item {
-            display: flex; flex-direction: column; align-items: center; gap: 6px;
-            padding: 12px 6px; border-radius: 12px;
-            background: rgba(91,141,239,0.04);
-            border: 1px solid rgba(143, 184, 255, 0.08);
-            transition: all 0.3s ease; cursor: pointer; position: relative;
+        .aura-orb {
+            width: 88px; height: 88px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            background: radial-gradient(circle at 35% 30%, rgba(143,184,255,0.55), rgba(91,141,239,0.25) 60%, transparent 100%);
+            box-shadow: 0 0 0 1px rgba(143,184,255,0.3) inset,
+                        0 0 30px rgba(91,141,239,0.35),
+                        0 0 60px rgba(91,141,239,0.18);
+            position: relative;
+            animation: auraPulse 2.6s ease-in-out infinite;
         }
-        .badge-item:hover {
-            background: rgba(91, 141, 239, 0.1);
-            border-color: rgba(91, 141, 239, 0.4);
-            transform: translateY(-3px) scale(1.05);
-            box-shadow: 0 6px 16px rgba(91, 141, 239, 0.25);
+        .aura-orb::before {
+            content: ''; position: absolute; inset: -8px; border-radius: 50%;
+            border: 1.5px solid rgba(91,141,239,0.25);
+            animation: auraRing 2.6s ease-in-out infinite;
         }
-        .badge-item .badge-icon { font-size: 22px; filter: drop-shadow(0 0 6px rgba(143,184,255,0.4)); }
-        .badge-item .badge-label { font-size: 8px; color: var(--muted); letter-spacing: 0.5px; text-align: center; font-family: 'WatermelonSugar', 'JetBrains Mono', monospace; }
-        .badge-item.locked { opacity: 0.35; }
-        .badge-item.locked .badge-icon { filter: grayscale(1); }
-        .badge-tooltip {
-            position: absolute; bottom: calc(100% + 8px); left: 50%; transform: translateX(-50%) translateY(6px);
-            background: #1e2b45; border: 1px solid rgba(143,184,255,0.3);
-            color: #fff; font-size: 9px; padding: 6px 10px; border-radius: 8px;
-            white-space: nowrap; opacity: 0; pointer-events: none;
-            transition: opacity 0.25s ease, transform 0.25s ease; z-index: 5;
+        @keyframes auraPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.07); }
+        }
+        @keyframes auraRing {
+            0% { transform: scale(0.85); opacity: 0.8; }
+            70% { transform: scale(1.35); opacity: 0; }
+            100% { transform: scale(1.35); opacity: 0; }
+        }
+        .aura-emoji {
+            font-size: 34px; line-height: 1;
+            filter: drop-shadow(0 0 10px rgba(143, 184, 255, 0.5));
+            transition: transform 0.4s ease;
+        }
+        .aura-bars {
+            display: flex; align-items: flex-end; justify-content: center;
+            gap: 4px; height: 26px;
+        }
+        .aura-bars span {
+            width: 4px; border-radius: 3px;
+            background: linear-gradient(180deg, var(--secondary), var(--primary));
+            box-shadow: 0 0 8px rgba(91,141,239,0.5);
+            animation: auraBar 1.2s ease-in-out infinite;
+        }
+        @keyframes auraBar {
+            0%, 100% { height: 6px; opacity: 0.55; }
+            50% { height: 100%; opacity: 1; }
+        }
+        .aura-caption {
+            margin-top: 14px; font-size: 11px; color: var(--silver);
             font-family: 'WatermelonSugar', 'JetBrains Mono', monospace;
+            letter-spacing: 0.3px; position: relative; z-index: 2;
+            transition: opacity 0.3s ease;
         }
-        .badge-item:hover .badge-tooltip { opacity: 1; transform: translateX(-50%) translateY(0); }
 
 
     </style>
@@ -945,6 +976,10 @@
     </a>
     <a href="https://anilist.co/user/Klxxy/" data-tooltip="AniList">
         <span class="link-icon-box"><i class="fas fa-leaf"></i></span>
+    </a>
+    <a href="" data-tooltip="" style="visibility:hidden; pointer-events:none;"></a>
+    <a href="https://guns.lol/klxxy" data-tooltip="guns.lol" target="_blank" rel="noopener">
+        <span class="link-icon-box"><i class="fas fa-crosshairs"></i></span>
     </a>
 </div>
 
@@ -1075,54 +1110,19 @@
             <div class="obs-dots" id="obsDots"></div>
         </div>
 
-        <div class="badges-card reveal" id="badgesCard">
-            <div class="badges-header">
-                <i class="fas fa-trophy" style="color:var(--primary); font-size:13px;"></i>
-                <span class="badges-title">Badges</span>
-                <span class="badges-count" id="badgesCount">4 / 8</span>
+        <div class="aura-card reveal" id="auraCard">
+            <div class="aura-header">
+                <i class="fas fa-wave-square" style="color:var(--primary); font-size:13px;"></i>
+                <span class="aura-title">Current Aura</span>
+                <span class="aura-tag" id="auraTag">chill</span>
             </div>
-            <div class="badges-grid" id="badgesGrid">
-                <div class="badge-item">
-                    <span class="badge-icon">🫯</span>
-                    <span class="badge-label">not an Gamer</span>
-                    <div class="badge-tooltip">Probably not in a game</div>
+            <div class="aura-orb-wrap">
+                <div class="aura-orb" id="auraOrb">
+                    <span class="aura-emoji" id="auraEmoji">🌊</span>
                 </div>
-                <div class="badge-item">
-                    <span class="badge-icon">🌙</span>
-                    <span class="badge-label">Night Owl</span>
-                    <div class="badge-tooltip">Up past 3am, easily</div>
-                </div>
-                <div class="badge-item">
-                    <span class="badge-icon">⚡</span>
-                    <span class="badge-label">Energized</span>
-                    <div class="badge-tooltip">Powered by natural energy</div>
-                </div>
-                <div class="badge-item">
-                    <span class="badge-icon">🍃</span>
-                    <span class="badge-label">Otaku</span>
-                    <div class="badge-tooltip">Anime enjoyer</div>
-                </div>
-                <div class="badge-item locked">
-                    <span class="badge-icon">🏆</span>
-                    <span class="badge-label">???</span>
-                    <div class="badge-tooltip">Locked</div>
-                </div>
-                <div class="badge-item locked">
-                    <span class="badge-icon">🔒</span>
-                    <span class="badge-label">???</span>
-                    <div class="badge-tooltip">Locked</div>
-                </div>
-                <div class="badge-item locked">
-                    <span class="badge-icon">🔒</span>
-                    <span class="badge-label">???</span>
-                    <div class="badge-tooltip">Locked</div>
-                </div>
-                <div class="badge-item locked">
-                    <span class="badge-icon">🔒</span>
-                    <span class="badge-label">???</span>
-                    <div class="badge-tooltip">Locked</div>
-                </div>
+                <div class="aura-bars" id="auraBars"></div>
             </div>
+            <div class="aura-caption" id="auraCaption">vibing in the blue light</div>
         </div>
 
         <div class="player reveal">
@@ -1525,6 +1525,50 @@
         setInterval(() => showObs((obsIdx + 1) % obsessions.length), 4000);
 
         /* ================================================
+           AURA CARD
+           ================================================ */
+        const auras = [
+            { emoji: '🌊', tag: 'chill', caption: 'vibing in the blue light' },
+            { emoji: '🌙', tag: 'night mode', caption: 'awake when i shouldn\'t be' },
+            { emoji: '⚡', tag: 'locked in', caption: 'focused, dont disturb' },
+            { emoji: '🍃', tag: 'soft', caption: 'anime brain activated' }
+        ];
+
+        const auraBarsEl = document.getElementById('auraBars');
+        const NUM_BARS = 9;
+        for (let i = 0; i < NUM_BARS; i++) {
+            const b = document.createElement('span');
+            b.style.animationDelay = (i * 0.09) + 's';
+            auraBarsEl.appendChild(b);
+        }
+
+        let auraIdx = 0;
+        function showAura(i) {
+            auraIdx = i;
+            const a = auras[i];
+            const orb = document.getElementById('auraOrb');
+            const emoji = document.getElementById('auraEmoji');
+            const tag = document.getElementById('auraTag');
+            const caption = document.getElementById('auraCaption');
+
+            emoji.style.transform = 'scale(0.6) rotate(-15deg)';
+            tag.style.opacity = 0;
+            caption.style.opacity = 0;
+
+            setTimeout(() => {
+                emoji.textContent = a.emoji;
+                tag.textContent = a.tag;
+                caption.textContent = a.caption;
+                emoji.style.transform = 'scale(1) rotate(0deg)';
+                tag.style.opacity = 1;
+                caption.style.opacity = 1;
+            }, 220);
+        }
+
+        showAura(0);
+        setInterval(() => showAura((auraIdx + 1) % auras.length), 5000);
+
+        /* ================================================
            CLICK RIPPLE
            ================================================ */
         let rippleToggle = false;
@@ -1582,7 +1626,7 @@
             });
             document.addEventListener('mouseup', () => dot.classList.remove('clicked'));
 
-            const hoverTargets = 'a, button, .ctrl, .chat-btn, .links a, .badge-item, .card, .player, .lastfm-widget';
+            const hoverTargets = 'a, button, .ctrl, .chat-btn, .links a, .aura-card, .card, .player, .lastfm-widget';
             document.addEventListener('mouseover', (e) => {
                 if (e.target.closest(hoverTargets)) dot.classList.add('hovering');
             });
@@ -1638,6 +1682,7 @@
     </script>
 </body>
 </html>
+
 
 
 
