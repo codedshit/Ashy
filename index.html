@@ -646,6 +646,141 @@
         /* CRT scanline removed */
 
         /* =========================================
+           VIBE SNAPSHOT CARD
+           ========================================= */
+        .vibe-snapshot-card {
+            background: var(--card-bg);
+            backdrop-filter: var(--blur);
+            -webkit-backdrop-filter: var(--blur);
+            border-radius: 24px;
+            width: 100%; max-width: 310px;
+            border: 2px solid rgba(91, 141, 239, 0.3);
+            box-shadow: 0 10px 30px rgba(91, 141, 239, 0.12),
+                        0 0 25px rgba(91, 141, 239, 0.1),
+                        0 0 50px rgba(143, 184, 255, 0.08),
+                        inset 0 1px 0 rgba(255, 255, 255, 0.5);
+            padding: 20px 22px 18px;
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease;
+            position: relative; overflow: hidden;
+        }
+        .vibe-snapshot-card::before {
+            content: ''; position: absolute; inset: 0; border-radius: 24px;
+            background: radial-gradient(ellipse at top left, rgba(91, 141, 239, 0.1) 0%, transparent 50%),
+                        radial-gradient(ellipse at bottom right, rgba(143, 184, 255, 0.06) 0%, transparent 50%);
+            pointer-events: none;
+        }
+        .vibe-snapshot-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(91, 141, 239, 0.18),
+                        0 0 35px rgba(143, 184, 255, 0.2),
+                        0 0 70px rgba(143, 184, 255, 0.1),
+                        inset 0 1px 0 rgba(255, 255, 255, 0.6);
+            border-color: rgba(91, 141, 239, 0.5);
+        }
+        .vsn-header {
+            display: flex; align-items: center; gap: 8px; margin-bottom: 16px;
+            position: relative; z-index: 2;
+        }
+        .vsn-title {
+            font-family: 'WatermelonSugar', 'JetBrains Mono', monospace;
+            font-size: 13px; color: var(--secondary);
+            letter-spacing: 2px; text-transform: uppercase;
+        }
+        .vsn-live-dot {
+            margin-left: auto; width: 7px; height: 7px; border-radius: 50%;
+            background: var(--secondary);
+            box-shadow: 0 0 8px rgba(143,184,255,0.9);
+            animation: statusPulse 1.8s ease-in-out infinite;
+        }
+        .vsn-grid {
+            display: flex; align-items: center; gap: 16px;
+            margin-bottom: 18px; position: relative; z-index: 2;
+        }
+        .vsn-orb-col {
+            display: flex; flex-direction: column; align-items: center; gap: 8px; flex-shrink: 0;
+        }
+        .vsn-orb {
+            width: 72px; height: 72px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            background: radial-gradient(circle at 35% 30%, rgba(143,184,255,0.55), rgba(91,141,239,0.25) 60%, transparent 100%);
+            box-shadow: 0 0 0 1px rgba(143,184,255,0.3) inset,
+                        0 0 24px rgba(91,141,239,0.35),
+                        0 0 50px rgba(91,141,239,0.15);
+            animation: auraPulse 2.6s ease-in-out infinite;
+            position: relative;
+        }
+        .vsn-orb::after {
+            content: ''; position: absolute; inset: -7px; border-radius: 50%;
+            border: 1.5px solid rgba(91,141,239,0.2);
+            animation: auraRing 2.6s ease-in-out infinite;
+        }
+        .vsn-orb-emoji {
+            font-size: 28px; line-height: 1;
+            filter: drop-shadow(0 0 8px rgba(143, 184, 255, 0.5));
+            transition: transform 0.4s ease;
+        }
+        .vsn-mood-tag {
+            font-size: 9px; color: var(--secondary);
+            background: rgba(91, 141, 239, 0.14); border: 1px solid rgba(91, 141, 239, 0.35);
+            font-family: 'AnimeAceBold', monospace; letter-spacing: 1.5px;
+            text-transform: uppercase; padding: 3px 8px; border-radius: 20px;
+            transition: all 0.4s ease; white-space: nowrap;
+        }
+        .vsn-info-col {
+            flex: 1; overflow: hidden; display: flex; flex-direction: column; gap: 0;
+        }
+        .vsn-caption {
+            font-size: 12px; color: var(--white);
+            font-family: 'WatermelonSugar', 'JetBrains Mono', monospace;
+            line-height: 1.5; margin-bottom: 10px;
+            transition: opacity 0.3s ease;
+        }
+        .vsn-divider {
+            height: 1px; background: rgba(91,141,239,0.15); margin-bottom: 10px;
+        }
+        .vsn-fixation-row {
+            display: flex; flex-direction: column; gap: 1px; margin-bottom: 7px;
+        }
+        .vsn-fixation-label {
+            font-size: 8.5px; color: var(--muted); text-transform: uppercase;
+            letter-spacing: 1px; font-family: 'WatermelonSugar', monospace;
+        }
+        .vsn-fixation-val {
+            font-size: 12px; color: var(--white);
+            font-family: 'AnimeAce', 'JetBrains Mono', monospace;
+            white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+            transition: opacity 0.3s ease;
+        }
+        .vsn-bars {
+            display: flex; flex-direction: column; gap: 7px;
+            position: relative; z-index: 2;
+            border-top: 1px solid rgba(91,141,239,0.1);
+            padding-top: 14px;
+        }
+        .vsn-bar-row { display: flex; align-items: center; gap: 8px; }
+        .vsn-bar-label {
+            font-size: 10px; color: var(--muted);
+            min-width: 38px; font-family: 'WatermelonSugar', monospace;
+        }
+        .vsn-bar-track {
+            flex: 1; height: 4px; background: rgba(91,141,239,0.12);
+            border-radius: 2px; overflow: hidden;
+        }
+        .vsn-bar-fill {
+            height: 100%; border-radius: 2px;
+            background: var(--gradient);
+            box-shadow: 0 0 8px var(--glow-prim);
+            transform-origin: left;
+            animation: vibeGrow 1.2s cubic-bezier(0.175,0.885,0.32,1.275) forwards;
+            transform: scaleX(0);
+        }
+        .vsn-bar-pct {
+            font-size: 10px; color: var(--secondary);
+            font-family: 'WatermelonSugar', monospace;
+            min-width: 28px; text-align: right;
+        }
+
+        /* =========================================
            PFP HEARTBEAT AURA
            ========================================= */
         .pfp-container::before {
@@ -920,29 +1055,8 @@
         Just click vro
     </div>
 
-    <div class="chat-overlay" id="chatOverlay" onclick="closeChat()"></div>
-
-    <div class="chat-modal" id="chatModal">
-        <button class="chat-close" onclick="closeChat()"><i class="fas fa-times"></i></button>
-        <div class="chat-modal-title">Random Fact</div>
-        <div class="chat-modal-sub">
-            here's something about me<br>
-            <span style="color:#5b8def;">tap below for another one</span>
-        </div>
-        <div class="fact-display" id="factDisplay">
-            click the button to reveal a fact 🫩
-        </div>
-        <button class="fact-btn" id="factBtn" onclick="newFact()">
-            <i class="fas fa-dice"></i> Click to reveal a fact ab me 🫣
-        </button>
-    </div>
-
     <div class="page-section" id="sec-1">
         <div class="card">
-            <button class="chat-btn" onclick="openChat()">
-                <i class="fas fa-dice"></i>
-            </button>
-
             <img src="https://raw.githubusercontent.com/codedshit/Ashy/e154508af1075e0ad2aa2662bd381a03ac9bf17b/3516-scubbacat.gif" class="top-right-gif" alt="Corner GIF">
 
             <div class="pfp-container">
@@ -968,13 +1082,13 @@
             <p class="bio" id="bio-text"></p>
 
             <div class="links">
-    <a href="https://discord.com/users/codedshit" data-tooltip="Discord">
+    <a href="https://discord.com/users/codedshit" data-tooltip="Discord" target="_blank" rel="noopener">
         <span class="link-icon-box"><i class="fab fa-discord"></i></span>
     </a>
-    <a href="https://github.com/codedshit" data-tooltip="GitHub">
+    <a href="https://github.com/codedshit" data-tooltip="GitHub" target="_blank" rel="noopener">
         <span class="link-icon-box"><i class="fab fa-github"></i></span>
     </a>
-    <a href="https://anilist.co/user/Klxxy/" data-tooltip="AniList">
+    <a href="https://anilist.co/user/Klxxy/" data-tooltip="AniList" target="_blank" rel="noopener">
         <span class="link-icon-box"><i class="fas fa-leaf"></i></span>
     </a>
     <a href="" data-tooltip="" style="visibility:hidden; pointer-events:none;"></a>
@@ -1031,7 +1145,7 @@
         <div class="card reveal">
             <div class="info-header">Intel</div>
             <div class="info-greeting">
-            I hate LGBTQ,LGBTQI,LGBTQIA 🙄
+            I dont fw Queers 🫩
             </div>
 
             <div class="vibe-bar">
@@ -1093,36 +1207,54 @@
             </div>
                 </div>
 
-        <div class="obsession-card reveal" id="obsessionCard">
-            <div class="obs-header">
-                <i class="fas fa-fire" style="color:var(--primary); font-size:13px;"></i>
-                <span class="obs-title">Current Obsessions</span>
-                <span class="obs-counter" id="obsCounter">1 / 5</span>
+        <div class="vibe-snapshot-card reveal" id="vibeSnapshot">
+            <div class="vsn-header">
+                <i class="fas fa-satellite-dish" style="color:var(--primary); font-size:13px;"></i>
+                <span class="vsn-title">Right Now</span>
+                <div class="vsn-live-dot"></div>
             </div>
-            <div class="obs-body" id="obsBody">
-                <div class="obs-emoji" id="obsEmoji"></div>
-                <div class="obs-text">
-                    <div class="obs-name" id="obsName"></div>
-                    <div class="obs-desc" id="obsDesc"></div>
-                    <span class="obs-type" id="obsType"></span>
-                </div>
-            </div>
-            <div class="obs-dots" id="obsDots"></div>
-        </div>
 
-        <div class="aura-card reveal" id="auraCard">
-            <div class="aura-header">
-                <i class="fas fa-wave-square" style="color:var(--primary); font-size:13px;"></i>
-                <span class="aura-title">Current mood/aura 💫</span>
-                <span class="aura-tag" id="auraTag">chill</span>
-            </div>
-            <div class="aura-orb-wrap">
-                <div class="aura-orb" id="auraOrb">
-                    <span class="aura-emoji" id="auraEmoji">🌊</span>
+            <div class="vsn-grid">
+                <!-- Mood orb -->
+                <div class="vsn-orb-col">
+                    <div class="vsn-orb" id="vsnOrb">
+                        <span class="vsn-orb-emoji" id="vsnEmoji">💫</span>
+                    </div>
+                    <div class="vsn-mood-tag" id="vsnMoodTag">chill</div>
                 </div>
-                <div class="aura-bars" id="auraBars"></div>
+                <!-- Info column -->
+                <div class="vsn-info-col">
+                    <div class="vsn-caption" id="vsnCaption">vibing in the moon lightt</div>
+                    <div class="vsn-divider"></div>
+                    <div class="vsn-fixation-row">
+                        <div class="vsn-fixation-label">obsessing over</div>
+                        <div class="vsn-fixation-val" id="vsnFix">Hyperpop 🎵</div>
+                    </div>
+                    <div class="vsn-fixation-row">
+                        <div class="vsn-fixation-label">currently into</div>
+                        <div class="vsn-fixation-val" id="vsnInto">all nighters 🛏</div>
+                    </div>
+                </div>
             </div>
-            <div class="aura-caption" id="auraCaption">vibing in the blue light</div>
+
+            <!-- Micro progress bars -->
+            <div class="vsn-bars">
+                <div class="vsn-bar-row">
+                    <span class="vsn-bar-label">intelligence</span>
+                    <div class="vsn-bar-track"><div class="vsn-bar-fill" style="width:0%"></div></div>
+                    <span class="vsn-bar-pct">0%</span>
+                </div>
+                <div class="vsn-bar-row">
+                    <span class="vsn-bar-label">money</span>
+                    <div class="vsn-bar-track"><div class="vsn-bar-fill" style="width:1%; animation-delay:0.15s"></div></div>
+                    <span class="vsn-bar-pct">1%</span>
+                </div>
+                <div class="vsn-bar-row">
+                    <span class="vsn-bar-label">on phone</span>
+                    <div class="vsn-bar-track"><div class="vsn-bar-fill" style="width:99%; animation-delay:0.3s"></div></div>
+                    <span class="vsn-bar-pct">99%</span>
+                </div>
+            </div>
         </div>
 
         <div class="player reveal">
@@ -1287,40 +1419,6 @@
         calculateAgeStats();
 
         /* ================================================
-           CONTACT MODAL
-           ================================================ */
-        function openChat() {
-            document.getElementById('chatOverlay').classList.add('active');
-            document.getElementById('chatModal').classList.add('active');
-        }
-
-        function closeChat() {
-            document.getElementById('chatOverlay').classList.remove('active');
-            document.getElementById('chatModal').classList.remove('active');
-        }
-
-        document.addEventListener('keydown', e => { if (e.key === 'Escape') closeChat(); });
-
-        /* ================================================
-           RANDOM FACT GENERATOR
-           ================================================ */
-        const funFacts = [
-            "actually nevermind",
-        ];
-        let lastFactIdx = -1;
-        function newFact() {
-            const display = document.getElementById('factDisplay');
-            display.classList.add('fade');
-            setTimeout(() => {
-                let idx;
-                do { idx = Math.floor(Math.random() * funFacts.length); } while (idx === lastFactIdx && funFacts.length > 1);
-                lastFactIdx = idx;
-                display.textContent = funFacts[idx];
-                display.classList.remove('fade');
-            }, 250);
-        }
-
-        /* ================================================
            SITE ENTRY & TYPEWRITER
            ================================================ */
         function startSite() {
@@ -1468,91 +1566,41 @@
             }
         }
         /* ================================================
-           OBSESSION SPOTLIGHT
+           VIBE SNAPSHOT CARD
            ================================================ */
-        const obsessions = [
-            { emoji: '🌳', name: 'Nature', desc: 'The nature is awesome', type: 'Nature enjoyer' },
-            { emoji: '🎵', name: 'Hyperpop', desc: 'i love this genre', type: 'music' },
-            { emoji: '🏰', name: 'KOTIF', desc: 'Best anime obv', type: 'anime' },
-            { emoji: '🛏', name: 'all nighter', desc: 'you should try 🤯', type: 'Sleeping?' }
+        const vsnStates = [
+            { emoji: '🌊', tag: 'chill', caption: 'vibing in the blue light', fix: 'Hyperpop 🎵', into: 'all nighters 🛏' },
+            { emoji: '🌙', tag: 'night mode', caption: 'awake when i shouldn\'t be', fix: 'KOTIF 🏰', into: 'late night cycling 🚲' },
+            { emoji: '⚡', tag: 'locked in', caption: 'focused, don\'t disturb', fix: 'coding stuff 💻', into: 'lo-fi beats 🎧' },
+            { emoji: '🍃', tag: 'soft', caption: 'anime brain fully activated', fix: 'Clannad feels 😢', into: 'nature walks 🌳' }
         ];
+        let vsnIdx = 0;
 
-        let obsIdx = 0;
-        const obsDotsEl = document.getElementById('obsDots');
-
-        // Build dots
-        obsessions.forEach((_, i) => {
-            const d = document.createElement('div');
-            d.className = 'obs-dot' + (i === 0 ? ' active' : '');
-            d.addEventListener('click', () => showObs(i));
-            obsDotsEl.appendChild(d);
-        });
-
-        function showObs(i) {
-            obsIdx = i;
-            const o = obsessions[i];
-            const body = document.getElementById('obsBody');
-            body.classList.remove('obs-fade-enter');
-            void body.offsetWidth; // reflow
-            body.classList.add('obs-fade-enter');
-
-            document.getElementById('obsEmoji').textContent = o.emoji;
-            document.getElementById('obsName').textContent  = o.name;
-            document.getElementById('obsDesc').textContent  = o.desc;
-            document.getElementById('obsType').textContent  = o.type;
-            document.getElementById('obsCounter').textContent = `${i + 1} / ${obsessions.length}`;
-
-            document.querySelectorAll('.obs-dot').forEach((d, di) => {
-                d.classList.toggle('active', di === i);
-            });
-        }
-
-        showObs(0);
-        setInterval(() => showObs((obsIdx + 1) % obsessions.length), 4000);
-
-        /* ================================================
-           AURA CARD
-           ================================================ */
-        const auras = [
-            { emoji: '🌊', tag: 'chill', caption: 'vibing in the blue light' },
-            { emoji: '🌙', tag: 'night mode', caption: 'awake when i shouldn\'t be' },
-            { emoji: '⚡', tag: 'locked in', caption: 'focused, dont disturb' },
-            { emoji: '🍃', tag: 'soft', caption: 'anime brain activated' }
-        ];
-
-        const auraBarsEl = document.getElementById('auraBars');
-        const NUM_BARS = 9;
-        for (let i = 0; i < NUM_BARS; i++) {
-            const b = document.createElement('span');
-            b.style.animationDelay = (i * 0.09) + 's';
-            auraBarsEl.appendChild(b);
-        }
-
-        let auraIdx = 0;
-        function showAura(i) {
-            auraIdx = i;
-            const a = auras[i];
-            const orb = document.getElementById('auraOrb');
-            const emoji = document.getElementById('auraEmoji');
-            const tag = document.getElementById('auraTag');
-            const caption = document.getElementById('auraCaption');
-
-            emoji.style.transform = 'scale(0.6) rotate(-15deg)';
-            tag.style.opacity = 0;
-            caption.style.opacity = 0;
-
+        function showVSN(i) {
+            vsnIdx = i;
+            const s = vsnStates[i];
+            const elems = {
+                emoji:   document.getElementById('vsnEmoji'),
+                tag:     document.getElementById('vsnMoodTag'),
+                caption: document.getElementById('vsnCaption'),
+                fix:     document.getElementById('vsnFix'),
+                into:    document.getElementById('vsnInto'),
+            };
+            // fade out
+            Object.values(elems).forEach(el => { if(el) el.style.opacity = '0'; });
             setTimeout(() => {
-                emoji.textContent = a.emoji;
-                tag.textContent = a.tag;
-                caption.textContent = a.caption;
-                emoji.style.transform = 'scale(1) rotate(0deg)';
-                tag.style.opacity = 1;
-                caption.style.opacity = 1;
-            }, 220);
+                if(elems.emoji)   elems.emoji.textContent   = s.emoji;
+                if(elems.tag)     elems.tag.textContent     = s.tag;
+                if(elems.caption) elems.caption.textContent = s.caption;
+                if(elems.fix)     elems.fix.textContent     = s.fix;
+                if(elems.into)    elems.into.textContent    = s.into;
+                Object.values(elems).forEach(el => { if(el) el.style.transition = 'opacity 0.4s ease'; });
+                Object.values(elems).forEach(el => { if(el) el.style.opacity = '1'; });
+            }, 250);
         }
 
-        showAura(0);
-        setInterval(() => showAura((auraIdx + 1) % auras.length), 5000);
+        showVSN(0);
+        setInterval(() => showVSN((vsnIdx + 1) % vsnStates.length), 5000);
 
         /* ================================================
            CLICK RIPPLE
@@ -1668,6 +1716,7 @@
     </script>
 </body>
 </html>
+
 
 
 
