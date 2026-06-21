@@ -459,6 +459,23 @@
         input[type=range] { -webkit-appearance: none; appearance: none; flex: 1; height: 3px; background: rgba(91,141,239,0.15); border-radius: 2px; outline: none; }
         input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 10px; height: 10px; background: var(--secondary); border-radius: 50%; box-shadow: 0 0 8px var(--glow-sec); }
 
+        /* SYNCED LYRICS BOX */
+        .lyrics-card { padding: 18px 0 18px 0; }
+        .lyrics-header { display: flex; align-items: center; gap: 8px; padding: 0 20px; margin-bottom: 12px; }
+        .lyrics-header i { color: var(--primary); font-size: 13px; }
+        .lyrics-title { font-family: 'WatermelonSugar', 'ElegantTypewriterBold', sans-serif; font-size: 12px; color: var(--primary); letter-spacing: 2px; text-transform: uppercase; }
+        .lyrics-scroll {
+            max-height: 220px; overflow-y: auto; padding: 4px 22px;
+            mask-image: linear-gradient(to bottom, transparent 0, #000 24px, #000 calc(100% - 24px), transparent 100%);
+            -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 24px, #000 calc(100% - 24px), transparent 100%);
+        }
+        .lyrics-line { padding: 7px 0; text-align: left; transition: all 0.3s ease; opacity: 0.45; }
+        .lyrics-line .l-en { font-size: 11.5px; color: var(--silver); font-family: 'AnimeAce', 'JetBrains Mono', monospace; }
+        .lyrics-line .l-jp { font-size: 12.5px; color: var(--white); margin-top: 2px; font-family: 'AnimeAce', 'JetBrains Mono', monospace; }
+        .lyrics-line.active { opacity: 1; }
+        .lyrics-line.active .l-jp { color: var(--secondary); text-shadow: 0 0 10px var(--glow-prim); }
+        .lyrics-empty { padding: 0 20px; font-size: 11px; color: var(--muted); text-align: left; line-height: 1.6; }
+
         /* LASTFM WIDGET */
         .lastfm-widget { padding: 16px 20px; }
         .lfm-header { display: flex; align-items: center; gap: 8px; margin-bottom: 14px; }
@@ -1109,29 +1126,6 @@
 
     <div class="page-section" id="sec-2">
 
-        <div class="lastfm-widget reveal">
-            <div class="lfm-header">
-                <i class="fab fa-lastfm" style="color:var(--primary); font-size:14px;"></i>
-                <span class="lfm-label">Now Playing</span>
-                <div class="lfm-dot" id="lfm-dot"></div>
-            </div>
-            <div class="lfm-body">
-                <div class="lfm-art-wrap">
-                    <img class="lfm-art" id="lfm-art" src="https://lastfm.freetls.fastly.net/i/u/300x300/2a96cbd8b46e442fc41c2b86b821562f.png" alt="Album art">
-                </div>
-                <div class="lfm-text">
-                    <div class="lfm-track-row">
-                        <div class="lfm-track" id="lfm-track">Loading...</div>
-                        <div class="eq-bars" id="lfm-eq">
-                            <div class="eq-bar"></div><div class="eq-bar"></div><div class="eq-bar"></div><div class="eq-bar"></div>
-                        </div>
-                    </div>
-                    <div class="lfm-artist" id="lfm-artist"></div>
-                    <div class="lfm-status" id="lfm-status"></div>
-                </div>
-            </div>
-        </div>
-
         <div class="card reveal">
             <div class="info-header">Intel</div>
             <div class="info-greeting">
@@ -1247,6 +1241,29 @@
             </div>
         </div>
 
+        <div class="lastfm-widget reveal">
+            <div class="lfm-header">
+                <i class="fab fa-lastfm" style="color:var(--primary); font-size:14px;"></i>
+                <span class="lfm-label">Now Playing</span>
+                <div class="lfm-dot" id="lfm-dot"></div>
+            </div>
+            <div class="lfm-body">
+                <div class="lfm-art-wrap">
+                    <img class="lfm-art" id="lfm-art" src="https://lastfm.freetls.fastly.net/i/u/300x300/2a96cbd8b46e442fc41c2b86b821562f.png" alt="Album art">
+                </div>
+                <div class="lfm-text">
+                    <div class="lfm-track-row">
+                        <div class="lfm-track" id="lfm-track">Loading...</div>
+                        <div class="eq-bars" id="lfm-eq">
+                            <div class="eq-bar"></div><div class="eq-bar"></div><div class="eq-bar"></div><div class="eq-bar"></div>
+                        </div>
+                    </div>
+                    <div class="lfm-artist" id="lfm-artist"></div>
+                    <div class="lfm-status" id="lfm-status"></div>
+                </div>
+            </div>
+        </div>
+
         <div class="player reveal">
             <div class="cover-wrapper">
                 <img class="cover" id="cover" src="" alt="Album Art">
@@ -1285,6 +1302,17 @@
             </div>
         </div>
         <audio id="audio"></audio>
+
+        <div class="lyrics-card reveal">
+            <div class="lyrics-header">
+                <i class="fas fa-music"></i>
+                <span class="lyrics-title">Lyrics</span>
+            </div>
+            <div class="lyrics-empty">
+                Paste your timed lyrics into the <code>lyricsData</code> array near the bottom of the script (search for "LYRICS SYNC"). Each entry needs a timestamp (in seconds, matching the mp3) plus the line text — the box will auto-highlight and scroll to the current line as the song plays.
+            </div>
+            <div class="lyrics-scroll" id="lyricsScroll"></div>
+        </div>
 
     </div>
 
@@ -1497,6 +1525,7 @@
             const pct = (audio.currentTime / audio.duration) * 100 || 0;
             document.getElementById('progFill').style.width = pct + '%';
             document.getElementById('cur').textContent = fmt(audio.currentTime);
+            updateLyrics(audio.currentTime);
         });
         audio.addEventListener('loadedmetadata', () => { document.getElementById('dur').textContent = fmt(audio.duration); });
         audio.addEventListener('ended', () => { repeat ? (audio.currentTime = 0, audio.play()) : next(); });
@@ -1509,6 +1538,89 @@
         
         audio.volume = 0.7;
         loadTrack(Math.floor(Math.random() * songs.length), false);
+
+        /* ================================================
+           LYRICS SYNC
+           ================================================ */
+        const lyricsData = [
+    { time: 0, en: "An invisible exit, this voice that doesn't reach me", jp: "見えない出口 届かないこの声" },
+    { time: 6.5, en: "I don't even know who I am", jp: "自分が何者かも分からない" },
+    { time: 12, en: "I continue to struggle and suffer, but still", jp: "もがき苦しみ続けて それでも" },
+    { time: 17, en: "Using the feelings that I once had as sustenance", jp: "いつか馳せた想いを糧にして" },
+    { time: 23, en: "With a set story that never changes", jp: "決して変わらない 決められたストーリーで" },
+    { time: 28, en: "Even though I knew that I would never be able to compete with you", jp: "決して僕じゃ 敵わないと分かっていたって" },
+    { time: 34, en: "Hey, let me hear it as loud as you can", jp: "ねぇ 聞かせてよ 精一杯の声で" },
+    { time: 39.1, en: "Reach out and grab it, come on", jp: "手を伸ばして掴むんだ さぁ" },
+    { time: 46, en: "change the future", jp: "未来を変える" },
+    { time: 48, en: "Live, live, wander and find your way", jp: "生きて 生きて 彷徨いながら足掻き探して" },
+    { time: 55, en: "Towards the unknown", jp: "まだ見ぬ先へ" },
+    { time: 60, en: "If you need me", jp: "君が 僕を 必要としてくれてるのなら" },
+    { time: 67, en: "I'll go forever", jp: "いつまでも 行くよ" },
+    { time: 72, en: "Further on", jp: "さらに先へ" },
+    { time: 85, en: "Endless days of matching answers", jp: "はてなく続く終わらない 答え合わせの日々" },
+    { time: 91.1, en: "I don't even know if I can come to terms with it", jp: "折り合いつくのかさえ分からない" },
+    { time: 96, en: "But so that I can stop lying and say that it's probably fine", jp: "でも、それできっといいんだって 嘘つかずいられるように" },
+    { time: 104, en: "Inheriting the baton of destiny", jp: "受け継いでく 運命のバトン" },
+    { time: 108, en: "And always hurt someone", jp: "そして いつだって誰かを傷つけて" },
+    { time: 113.1, en: "Carrying the feelings that can't be saved, towards the person whose hands are ringing again", jp: "救えない想い 担ぎ また手の鳴る方へ" },
+    { time: 120, en: "Hey, let me hear it in your best voice", jp: "ねえ 聞かせなよ 精一杯の声で" },
+    { time: 125, en: "Don't look away and grab it, come on", jp: "目をそらさず掴むんだ さぁ" },
+    { time: 130.6, en: "build the future", jp: "未来を架ける" },
+    { time: 133, en: "why why why", jp: "どうして どうして" },
+    { time: 136, en: "What do you do while hiding your true feelings?", jp: "本当の気持ちを隠しながら そのままなんだい？" },
+    { time: 145, en: "What's right?", jp: "何が正しい？" },
+    { time: 147, en: "no one knows that", jp: "それは誰にも分からないんだ" },
+    { time: 153, en: "Don't be swept away and go", jp: "流されず 行けよ" },
+    { time: 157, en: "As you wish", jp: "思うままへ" },
+    { time: 171, en: "For example, if this world is fleeting", jp: "例えばもしこの世界がはかなく" },
+    { time: 174, en: "Even if I tell you it will end suddenly", jp: "突然に終わり 告げても" },
+    { time: 176, en: "Let's move on, we", jp: "進むのさ 僕らは" },
+    { time: 179, en: "Hold on to the present without change", jp: "変わらず今を踏み締めて" },
+    { time: 182, en: "For example, this world still leaves behind", jp: "例えばまだこの世界が残した" },
+    { time: 185, en: "I'll unravel the single guidepost", jp: "一筋の道標 解き明かすのさ" },
+    { time: 192, en: "I'm sure all the way", jp: "どこまでも きっと" },
+    { time: 199, en: "Live, live, wander and find your way", jp: "生きて 生きて 彷徨いながら足掻き探して" },
+    { time: 203, en: "Towards the unknown", jp: "まだ見ぬ先へ" },
+    { time: 211, en: "That's right, if we speak out loud, we can get what we want to do.", jp: "そうさ 声出せば 僕らやりたいこと掴めると" },
+    { time: 217, en: "Believe and go", jp: "信じて 行けよ" },
+    { time: 225, en: "I keep moving forward in search of answers over and over again.", jp: "何度でも 何度でも 答え求めて進むんだ" },
+    { time: 235, en: "Further on", jp: "さらに先へ" }
+        ];
+
+        const lyricsScrollEl = document.getElementById('lyricsScroll');
+        const lyricsEmptyEl  = document.querySelector('.lyrics-empty');
+
+        function renderLyrics() {
+            if (!lyricsData.length) return;
+            lyricsEmptyEl.style.display = 'none';
+            lyricsScrollEl.innerHTML = lyricsData.map((l, i) => `
+                <div class="lyrics-line" data-i="${i}">
+                    ${l.en ? `<div class="l-en">${l.en}</div>` : ''}
+                    ${l.jp ? `<div class="l-jp">${l.jp}</div>` : ''}
+                </div>
+            `).join('');
+        }
+
+        let activeLyricIdx = -1;
+        function updateLyrics(t) {
+            if (!lyricsData.length) return;
+            let idx = -1;
+            for (let i = 0; i < lyricsData.length; i++) {
+                if (t >= lyricsData[i].time) idx = i; else break;
+            }
+            if (idx === activeLyricIdx) return;
+            activeLyricIdx = idx;
+            lyricsScrollEl.querySelectorAll('.lyrics-line').forEach(el => el.classList.remove('active'));
+            if (idx >= 0) {
+                const lineEl = lyricsScrollEl.querySelector(`.lyrics-line[data-i="${idx}"]`);
+                if (lineEl) {
+                    lineEl.classList.add('active');
+                    lineEl.scrollIntoView({ block: 'center', behavior: 'smooth' });
+                }
+            }
+        }
+
+        renderLyrics();
 
         /* ================================================
            LAST.FM NOW PLAYING
@@ -1706,6 +1818,7 @@
     </script>
 </body>
 </html>
+
 
 
 
