@@ -1149,12 +1149,6 @@
             </div>
                 </div>
 
-        <div class="vibe-snapshot-card reveal" id="vibeSnapshot">
-            <div class="vsn-header">
-                <i class="fas fa-satellite-dish" style="color:var(--primary); font-size:13px;"></i>
-                <span class="vsn-title">Right Now</span>
-                <div class="vsn-live-dot"></div>
-            </div>
 
             <div class="vsn-grid">
                 <!-- Mood orb -->
@@ -1549,41 +1543,43 @@
             let activeLyricIdx = -1;
 
 function updateLyrics(t) {
-    if (!lyricsData.length) return;
-    
-    let idx = -1;
-    for (let i = 0; i < lyricsData.length; i++) {
-        if (t >= lyricsData[i].time) idx = i; 
-        else break;
-    }
-    
-    if (idx === activeLyricIdx) return;
-    activeLyricIdx = idx;
-
-    const lines = lyricsScrollEl.querySelectorAll('.lyrics-line');
-    lines.forEach(el => el.classList.remove('active'));
-
-    if (idx >= 0) {
-        const lineEl = lines[idx];
-        if (lineEl) {
-            lineEl.classList.add('active');
+    let activeLyricIdx = -1;
+        function updateLyrics(t) {
+            if (!lyricsData.length) return;
             
-            // Auto-scroll INSIDE the lyrics box only (no page jump)
-            const container = document.getElementById('lyricsScroll');
-            const containerRect = container.getBoundingClientRect();
-            const lineRect = lineEl.getBoundingClientRect();
-            
-            const isVisible = lineRect.top >= containerRect.top && 
-                             lineRect.bottom <= containerRect.bottom;
-            
-            if (!isVisible) {
-                lineEl.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'center'
-                });
+            let idx = -1;
+            for (let i = 0; i < lyricsData.length; i++) {
+                if (t >= lyricsData[i].time) idx = i; 
+                else break;
             }
-        }
-    }
+            
+            if (idx === activeLyricIdx) return;
+            activeLyricIdx = idx;
+
+            const lines = lyricsScrollEl.querySelectorAll('.lyrics-line');
+            lines.forEach(el => el.classList.remove('active'));
+
+            if (idx >= 0) {
+                const lineEl = lines[idx];
+                if (lineEl) {
+                    lineEl.classList.add('active');
+                    
+                    // Auto-scroll only inside lyrics box
+                    const container = document.getElementById('lyricsScroll');
+                    const containerRect = container.getBoundingClientRect();
+                    const lineRect = lineEl.getBoundingClientRect();
+                    
+                    const isVisible = lineRect.top >= containerRect.top && 
+                                     lineRect.bottom <= containerRect.bottom;
+                    
+                    if (!isVisible) {
+                        lineEl.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'center'
+                        });
+                    }
+                }
+            }
         }
 
         renderLyrics();
@@ -1633,43 +1629,7 @@ function updateLyrics(t) {
                 document.getElementById('lfm-status').innerText = '';
             }
         }
-        /* ================================================
-           VIBE SNAPSHOT CARD
-           ================================================ */
-        const vsnStates = [
-            { emoji: '🌝', tag: 'chill', caption: 'vibing in the moon light', fix: 'Hyperpop 🎵', into: 'all nighters 🛏' },
-            { emoji: '🌙', tag: 'nighty', caption: 'awake when i shouldn\'t be', fix: 'You 😘', into: 'late night cycling 🚲' },
-            { emoji: '⚡', tag: 'locked in', caption: 'focused, don\'t disturb', fix: 'romcom animes ❤️‍🩹', into: 'lo-fi beats 🎧' },
-            { emoji: '🍃', tag: 'soft', caption: 'anime brain', fix: 'Clannad feels 😢', into: 'nature walks 🌳' }
-        ];
-        let vsnIdx = 0;
-
-        function showVSN(i) {
-            vsnIdx = i;
-            const s = vsnStates[i];
-            const elems = {
-                emoji:   document.getElementById('vsnEmoji'),
-                tag:     document.getElementById('vsnMoodTag'),
-                caption: document.getElementById('vsnCaption'),
-                fix:     document.getElementById('vsnFix'),
-                into:    document.getElementById('vsnInto'),
-            };
-            // fade out
-            Object.values(elems).forEach(el => { if(el) el.style.opacity = '0'; });
-            setTimeout(() => {
-                if(elems.emoji)   elems.emoji.textContent   = s.emoji;
-                if(elems.tag)     elems.tag.textContent     = s.tag;
-                if(elems.caption) elems.caption.textContent = s.caption;
-                if(elems.fix)     elems.fix.textContent     = s.fix;
-                if(elems.into)    elems.into.textContent    = s.into;
-                Object.values(elems).forEach(el => { if(el) el.style.transition = 'opacity 0.4s ease'; });
-                Object.values(elems).forEach(el => { if(el) el.style.opacity = '1'; });
-            }, 250);
-        }
-
-        showVSN(0);
-        setInterval(() => showVSN((vsnIdx + 1) % vsnStates.length), 5000);
-
+        
         /* ================================================
            CLICK RIPPLE
            ================================================ */
