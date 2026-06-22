@@ -829,42 +829,6 @@
             background: linear-gradient(to top, rgba(91, 141, 239, 0.06), transparent);
         }
 
-        /* Custom cursor removed - using default cursor */
-
-        /* =========================================
-           VIBE TICKER WIDGET (replaces live clock)
-           ========================================= */
-        #vibe-ticker {
-            position: fixed; top: 16px; right: 18px; z-index: 200;
-            font-family: 'WatermelonSugar', 'JetBrains Mono', monospace;
-            font-size: 11px; color: var(--silver);
-            background: rgba(232, 240, 254, 0.85);
-            border: 1px solid rgba(143,184,255,0.25);
-            padding: 7px 13px; border-radius: 10px;
-            backdrop-filter: blur(12px);
-            display: flex; align-items: center; gap: 7px;
-            letter-spacing: 0.5px; user-select: none;
-            transition: border-color 0.3s, box-shadow 0.3s;
-            max-width: 200px;
-        }
-        #vibe-ticker:hover {
-            border-color: rgba(143,184,255,0.3);
-            box-shadow: 0 0 14px rgba(91,141,239,0.2);
-        }
-        #vibe-ticker .vibe-dot {
-            width: 5px; height: 5px; border-radius: 50%;
-            background: var(--secondary);
-            box-shadow: 0 0 6px rgba(143,184,255,0.8);
-            animation: statusPulse 2s ease-in-out infinite;
-            flex-shrink: 0;
-        }
-        #vibe-text {
-            color: var(--white); font-size: 11px;
-            white-space: nowrap; overflow: hidden;
-            transition: opacity 0.4s ease;
-        }
-        #vibe-text.fade { opacity: 0; }
-
         /* =========================================
            CONTACT MODAL (replaces webhook form)
            ========================================= */
@@ -1044,12 +1008,6 @@
     </style>
 </head>
 <body>
-
-    <!-- Vibe ticker widget -->
-<div id="vibe-ticker">
-    <span class="vibe-dot"></span>
-    <span id="vibe-text">💔</span>
-</div>
 
     <div id="scroll-progress"></div>
     <div id="cursor-dot"></div>
@@ -1543,49 +1501,34 @@
            LYRICS SYNC
            ================================================ */
         const lyricsData = [
-    { time: 0, en: "An invisible exit, this voice that doesn't reach me", jp: "見えない出口 届かないこの声" },
-    { time: 6.5, en: "I don't even know who I am", jp: "自分が何者かも分からない" },
-    { time: 12, en: "I continue to struggle and suffer, but still", jp: "もがき苦しみ続けて それでも" },
-    { time: 17, en: "Using the feelings that I once had as sustenance", jp: "いつか馳せた想いを糧にして" },
-    { time: 23, en: "With a set story that never changes", jp: "決して変わらない 決められたストーリーで" },
-    { time: 28, en: "Even though I knew that I would never be able to compete with you", jp: "決して僕じゃ 敵わないと分かっていたって" },
-    { time: 34, en: "Hey, let me hear it as loud as you can", jp: "ねぇ 聞かせてよ 精一杯の声で" },
-    { time: 39.1, en: "Reach out and grab it, come on", jp: "手を伸ばして掴むんだ さぁ" },
-    { time: 46, en: "change the future", jp: "未来を変える" },
-    { time: 48, en: "Live, live, wander and find your way", jp: "生きて 生きて 彷徨いながら足掻き探して" },
-    { time: 55, en: "Towards the unknown", jp: "まだ見ぬ先へ" },
-    { time: 60, en: "If you need me", jp: "君が 僕を 必要としてくれてるのなら" },
-    { time: 67, en: "I'll go forever", jp: "いつまでも 行くよ" },
-    { time: 72, en: "Further on", jp: "さらに先へ" },
-    { time: 85, en: "Endless days of matching answers", jp: "はてなく続く終わらない 答え合わせの日々" },
-    { time: 91.1, en: "I don't even know if I can come to terms with it", jp: "折り合いつくのかさえ分からない" },
-    { time: 96, en: "But so that I can stop lying and say that it's probably fine", jp: "でも、それできっといいんだって 嘘つかずいられるように" },
-    { time: 104, en: "Inheriting the baton of destiny", jp: "受け継いでく 運命のバトン" },
-    { time: 108, en: "And always hurt someone", jp: "そして いつだって誰かを傷つけて" },
-    { time: 113.1, en: "Carrying the feelings that can't be saved, towards the person whose hands are ringing again", jp: "救えない想い 担ぎ また手の鳴る方へ" },
-    { time: 120, en: "Hey, let me hear it in your best voice", jp: "ねえ 聞かせなよ 精一杯の声で" },
-    { time: 125, en: "Don't look away and grab it, come on", jp: "目をそらさず掴むんだ さぁ" },
-    { time: 130.6, en: "build the future", jp: "未来を架ける" },
-    { time: 133, en: "why why why", jp: "どうして どうして" },
-    { time: 136, en: "What do you do while hiding your true feelings?", jp: "本当の気持ちを隠しながら そのままなんだい？" },
-    { time: 145, en: "What's right?", jp: "何が正しい？" },
-    { time: 147, en: "no one knows that", jp: "それは誰にも分からないんだ" },
-    { time: 153, en: "Don't be swept away and go", jp: "流されず 行けよ" },
-    { time: 157, en: "As you wish", jp: "思うままへ" },
-    { time: 171, en: "For example, if this world is fleeting", jp: "例えばもしこの世界がはかなく" },
-    { time: 174, en: "Even if I tell you it will end suddenly", jp: "突然に終わり 告げても" },
-    { time: 176, en: "Let's move on, we", jp: "進むのさ 僕らは" },
-    { time: 179, en: "Hold on to the present without change", jp: "変わらず今を踏み締めて" },
-    { time: 182, en: "For example, this world still leaves behind", jp: "例えばまだこの世界が残した" },
-    { time: 185, en: "I'll unravel the single guidepost", jp: "一筋の道標 解き明かすのさ" },
-    { time: 192, en: "I'm sure all the way", jp: "どこまでも きっと" },
-    { time: 199, en: "Live, live, wander and find your way", jp: "生きて 生きて 彷徨いながら足掻き探して" },
-    { time: 203, en: "Towards the unknown", jp: "まだ見ぬ先へ" },
-    { time: 211, en: "That's right, if we speak out loud, we can get what we want to do.", jp: "そうさ 声出せば 僕らやりたいこと掴めると" },
-    { time: 217, en: "Believe and go", jp: "信じて 行けよ" },
-    { time: 225, en: "I keep moving forward in search of answers over and over again.", jp: "何度でも 何度でも 答え求めて進むんだ" },
-    { time: 235, en: "Further on", jp: "さらに先へ" }
-        ];
+    { time: 0.0,   en: "An invisible exit, this voice that doesn't reach", jp: "見えない出口 届かないこの声" },
+    { time: 7.0,   en: "I don't even know who I am", jp: "自分が何者かも分からない" },
+    { time: 13.5,  en: "Continued to struggle and suffer, though", jp: "もがき苦しみ続けて それでも" },
+    { time: 20.5,  en: "Even if the story'll never change, that has been decided", jp: "決して変わらない 決められたストーリーで" },
+    { time: 27.5,  en: "Even if I know I am underpowered against the enemy", jp: "決して僕じゃ敵わないと分かっていたって" },
+    { time: 34.5,  en: "Let me hear, a voice that is as loud as possible", jp: "ねぇ 聞かせてよ 精一杯の声で" },
+    { time: 41.2,  en: "Reach my arm out and grab it, come on", jp: "手を伸ばして掴むんだ さぁ" },
+    { time: 48.0,  en: "Live, live, by wandering and struggling", jp: "生きて 生きて 彷徨いながら足掻き探して" },
+    { time: 55.0,  en: "To the unseen place ahead", jp: "まだ見ぬ先へ" },
+    { time: 62.0,  en: "If you need me", jp: "必要としてくれてるのなら" },
+    { time: 76.0,  en: "Never ending days to see I don't even know if it'll work out", jp: "はてなく続く終わらない 答え合わせの日々" },
+    { time: 89.5,  en: "I don't even know if it'll work out", jp: "折り合いつくのかさえ分からない" },
+    { time: 96.0,  en: "But that's okay, so that I don't have to lie again", jp: "でも、それできっといいんだって 嘘つかずいられるように" },
+    { time: 103.0, en: "I'll pass down a baton of fate", jp: "受け継いでく 運命のバトン" },
+    { time: 110.0, en: "Then, I always hurt myself", jp: "そして いつだって自分を傷つけて" },
+    { time: 117.0, en: "Hey, let me hear a voice that's as loud as possible", jp: "ねぇ 聞かせてよ 精一杯の声で" },
+    { time: 124.0, en: "Now I grabbed it without looking away", jp: "目をそらさず掴むんだ さぁ" },
+    { time: 131.0, en: "Why? Why?", jp: "どうして？ どうして" },
+    { time: 138.0, en: "Do you want to stay like that?", jp: "そのままなんだい？" },
+    { time: 145.0, en: "What's right? Nobody knows", jp: "何が正しい？ それは誰にも分からないんだ" },
+    { time: 152.0, en: "Don't let you get swept away, go", jp: "流されず 行けよ" },
+    { time: 172.0, en: "Ended all of sudden", jp: "突然に終わり告げても" },
+    { time: 179.0, en: "Those are the direct directions that will be revealed", jp: "一筋の道標 解き明かすのさ" },
+    { time: 192.0, en: "Live, live, by wandering and struggling", jp: "生きて 生きて 彷徨いながら足掻き探して" },
+    { time: 199.0, en: "To the unseen place ahead", jp: "まだ見ぬ先へ" },
+    { time: 206.0, en: "If we use our voices, we can achieve what we want", jp: "そうさ 声出せば 僕らやりたいこと掴めると" },
+    { time: 213.0, en: "Over and over, we'll keep going to seek an answer", jp: "何度でも 何度でも 答え求めて進むんだ" }
+];
 
         const lyricsScrollEl = document.getElementById('lyricsScroll');
         const lyricsEmptyEl  = document.querySelector('.lyrics-empty');
@@ -1612,10 +1555,10 @@
             activeLyricIdx = idx;
             lyricsScrollEl.querySelectorAll('.lyrics-line').forEach(el => el.classList.remove('active'));
             if (idx >= 0) {
-                const lineEl = lyricsScrollEl.querySelector(`.lyrics-line[data-i="${idx}"]`);
-                if (lineEl) {
-                    lineEl.classList.add('active');
-                    lineEl.scrollIntoView({ block: 'center', behavior: 'smooth' });
+    const lineEl = lyricsScrollEl.querySelector(`.lyrics-line[data-i="${idx}"]`);
+    if (lineEl) {
+        lineEl.classList.add('active');
+        // Auto-scroll disabled
                 }
             }
         }
@@ -1788,31 +1731,6 @@
                     setTimeout(() => p.remove(), 650);
                 }
             }
-        })();
-
-        /* ================================================
-           VIBE TICKER
-           ================================================ */
-        (function() {
-            const vibeEl = document.getElementById('vibe-text');
-            const vibes = [
-                'I really love you',
-                'Why do you cry?',
-                'Promise me you wont cry anymore',
-                'in this world',
-                'not much time',
-                'it makes me miss you',
-            ];
-            let idx = 0;
-            function rotate() {
-                vibeEl.classList.add('fade');
-                setTimeout(() => {
-                    idx = (idx + 1) % vibes.length;
-                    vibeEl.textContent = vibes[idx];
-                    vibeEl.classList.remove('fade');
-                }, 400);
-            }
-            setInterval(rotate, 5000);
         })();
 
     </script>
