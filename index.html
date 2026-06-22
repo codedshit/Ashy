@@ -1546,21 +1546,44 @@
 
         let activeLyricIdx = -1;
         function updateLyrics(t) {
-            if (!lyricsData.length) return;
-            let idx = -1;
-            for (let i = 0; i < lyricsData.length; i++) {
-                if (t >= lyricsData[i].time) idx = i; else break;
+            let activeLyricIdx = -1;
+
+function updateLyrics(t) {
+    if (!lyricsData.length) return;
+    
+    let idx = -1;
+    for (let i = 0; i < lyricsData.length; i++) {
+        if (t >= lyricsData[i].time) idx = i; 
+        else break;
+    }
+    
+    if (idx === activeLyricIdx) return;
+    activeLyricIdx = idx;
+
+    const lines = lyricsScrollEl.querySelectorAll('.lyrics-line');
+    lines.forEach(el => el.classList.remove('active'));
+
+    if (idx >= 0) {
+        const lineEl = lines[idx];
+        if (lineEl) {
+            lineEl.classList.add('active');
+            
+            // Auto-scroll INSIDE the lyrics box only (no page jump)
+            const container = document.getElementById('lyricsScroll');
+            const containerRect = container.getBoundingClientRect();
+            const lineRect = lineEl.getBoundingClientRect();
+            
+            const isVisible = lineRect.top >= containerRect.top && 
+                             lineRect.bottom <= containerRect.bottom;
+            
+            if (!isVisible) {
+                lineEl.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'center'
+                });
             }
-            if (idx === activeLyricIdx) return;
-            activeLyricIdx = idx;
-            lyricsScrollEl.querySelectorAll('.lyrics-line').forEach(el => el.classList.remove('active'));
-            if (idx >= 0) {
-    const lineEl = lyricsScrollEl.querySelector(`.lyrics-line[data-i="${idx}"]`);
-    if (lineEl) {
-        lineEl.classList.add('active');
-        // Auto-scroll disabled
-                }
-            }
+        }
+    }
         }
 
         renderLyrics();
