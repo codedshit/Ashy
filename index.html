@@ -114,18 +114,25 @@
             }
         }
         #cursor-dot {
-            display: none;
-            position: fixed;
-            top: 0; left: 0;
-            width: 16px; height: 16px;
-            border-radius: 50%;
-            background: radial-gradient(circle, rgba(91,141,239,0.9), rgba(143,184,255,0.35) 70%, transparent 100%);
-            box-shadow: 0 0 12px rgba(91, 141, 239, 0.5);
-            pointer-events: none;
-            z-index: 99997;
-            transform: translate(-50%, -50%);
-            transition: transform 0.08s ease-out, opacity 0.2s ease, width 0.15s ease, height 0.15s ease;
-        }
+    display: none;
+    position: fixed;
+    top: 0; left: 0;
+    width: 12px; height: 12px; /* Adjusted size for a clean dot look */
+    border-radius: 50%;
+    background: #002060; /* Dark blue color */
+    box-shadow: 0 0 8px rgba(0, 32, 96, 0.4); /* Subtle dark blue glow */
+    pointer-events: none;
+    z-index: 99997;
+    transform: translate(-50%, -50%);
+    transition: transform 0.08s ease-out, opacity 0.2s ease, width 0.15s ease, height 0.15s ease;
+}
+
+/* Also update the hover state if you want it to remain dark blue when hovering over links */
+#cursor-dot.hovering { 
+    width: 20px; 
+    height: 20px; 
+    background: #0d3b66; 
+}
         #cursor-dot.clicked { transform: translate(-50%, -50%) scale(0.6); }
         #cursor-dot.hovering { width: 26px; height: 26px; background: radial-gradient(circle, rgba(143,184,255,0.6), rgba(91,141,239,0.2) 70%, transparent 100%); }
 
