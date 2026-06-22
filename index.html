@@ -1149,6 +1149,12 @@
             </div>
                 </div>
 
+        <div class="vibe-snapshot-card reveal" id="vibeSnapshot">
+            <div class="vsn-header">
+                <i class="fas fa-satellite-dish" style="color:var(--primary); font-size:13px;"></i>
+                <span class="vsn-title">Right Now</span>
+                <div class="vsn-live-dot"></div>
+            </div>
 
             <div class="vsn-grid">
                 <!-- Mood orb -->
@@ -1495,34 +1501,34 @@
            LYRICS SYNC
            ================================================ */
         const lyricsData = [
-            { time: 0.0,   en: "An invisible exit, this voice that doesn't reach", jp: "見えない出口 届かないこの声" },
-            { time: 7.0,   en: "I don't even know who I am", jp: "自分が何者かも分からない" },
-            { time: 13.5,  en: "Continued to struggle and suffer, though", jp: "もがき苦しみ続けて それでも" },
-            { time: 20.5,  en: "Even if the story'll never change, that has been decided", jp: "決して変わらない 決められたストーリーで" },
-            { time: 27.5,  en: "Even if I know I am underpowered against the enemy", jp: "決して僕じゃ敵わないと分かっていたって" },
-            { time: 34.5,  en: "Let me hear, a voice that is as loud as possible", jp: "ねぇ 聞かせてよ 精一杯の声で" },
-            { time: 41.2,  en: "Reach my arm out and grab it, come on", jp: "手を伸ばして掴むんだ さぁ" },
-            { time: 48.0,  en: "Live, live, by wandering and struggling", jp: "生きて 生きて 彷徨いながら足掻き探して" },
-            { time: 55.0,  en: "To the unseen place ahead", jp: "まだ見ぬ先へ" },
-            { time: 62.0,  en: "If you need me", jp: "必要としてくれてるのなら" },
-            { time: 76.0,  en: "Never ending days to see I don't even know if it'll work out", jp: "はてなく続く終わらない 答え合わせの日々" },
-            { time: 89.5,  en: "I don't even know if it'll work out", jp: "折り合いつくのかさえ分からない" },
-            { time: 96.0,  en: "But that's okay, so that I don't have to lie again", jp: "でも、それできっといいんだって 嘘つかずいられるように" },
-            { time: 103.0, en: "I'll pass down a baton of fate", jp: "受け継いでく 運命のバトン" },
-            { time: 110.0, en: "Then, I always hurt myself", jp: "そして いつだって自分を傷つけて" },
-            { time: 117.0, en: "Hey, let me hear a voice that's as loud as possible", jp: "ねぇ 聞かせてよ 精一杯の声で" },
-            { time: 124.0, en: "Now I grabbed it without looking away", jp: "目をそらさず掴むんだ さぁ" },
-            { time: 131.0, en: "Why? Why?", jp: "どうして？ どうして" },
-            { time: 138.0, en: "Do you want to stay like that?", jp: "そのままなんだい？" },
-            { time: 145.0, en: "What's right? Nobody knows", jp: "何が正しい？ それは誰にも分からないんだ" },
-            { time: 152.0, en: "Don't let you get swept away, go", jp: "流されず 行けよ" },
-            { time: 172.0, en: "Ended all of sudden", jp: "突然に終わり告げても" },
-            { time: 179.0, en: "Those are the direct directions that will be revealed", jp: "一筋の道標 解き明かすのさ" },
-            { time: 192.0, en: "Live, live, by wandering and struggling", jp: "生きて 生きて 彷徨いながら足掻き探して" },
-            { time: 199.0, en: "To the unseen place ahead", jp: "まだ見ぬ先へ" },
-            { time: 206.0, en: "If we use our voices, we can achieve what we want", jp: "そうさ 声出せば 僕らやりたいこと掴めると" },
-            { time: 213.0, en: "Over and over, we'll keep going to seek an answer", jp: "何度でも 何度でも 答え求めて進むんだ" }
-        ];
+    { time: 0.0,   en: "An invisible exit, this voice that doesn't reach", jp: "見えない出口 届かないこの声" },
+    { time: 7.0,   en: "I don't even know who I am", jp: "自分が何者かも分からない" },
+    { time: 13.5,  en: "Continued to struggle and suffer, though", jp: "もがき苦しみ続けて それでも" },
+    { time: 20.5,  en: "Even if the story'll never change, that has been decided", jp: "決して変わらない 決められたストーリーで" },
+    { time: 27.5,  en: "Even if I know I am underpowered against the enemy", jp: "決して僕じゃ敵わないと分かっていたって" },
+    { time: 34.5,  en: "Let me hear, a voice that is as loud as possible", jp: "ねぇ 聞かせてよ 精一杯の声で" },
+    { time: 41.2,  en: "Reach my arm out and grab it, come on", jp: "手を伸ばして掴むんだ さぁ" },
+    { time: 48.0,  en: "Live, live, by wandering and struggling", jp: "生きて 生きて 彷徨いながら足掻き探して" },
+    { time: 55.0,  en: "To the unseen place ahead", jp: "まだ見ぬ先へ" },
+    { time: 62.0,  en: "If you need me", jp: "必要としてくれてるのなら" },
+    { time: 76.0,  en: "Never ending days to see I don't even know if it'll work out", jp: "はてなく続く終わらない 答え合わせの日々" },
+    { time: 89.5,  en: "I don't even know if it'll work out", jp: "折り合いつくのかさえ分からない" },
+    { time: 96.0,  en: "But that's okay, so that I don't have to lie again", jp: "でも、それできっといいんだって 嘘つかずいられるように" },
+    { time: 103.0, en: "I'll pass down a baton of fate", jp: "受け継いでく 運命のバトン" },
+    { time: 110.0, en: "Then, I always hurt myself", jp: "そして いつだって自分を傷つけて" },
+    { time: 117.0, en: "Hey, let me hear a voice that's as loud as possible", jp: "ねぇ 聞かせてよ 精一杯の声で" },
+    { time: 124.0, en: "Now I grabbed it without looking away", jp: "目をそらさず掴むんだ さぁ" },
+    { time: 131.0, en: "Why? Why?", jp: "どうして？ どうして" },
+    { time: 138.0, en: "Do you want to stay like that?", jp: "そのままなんだい？" },
+    { time: 145.0, en: "What's right? Nobody knows", jp: "何が正しい？ それは誰にも分からないんだ" },
+    { time: 152.0, en: "Don't let you get swept away, go", jp: "流されず 行けよ" },
+    { time: 172.0, en: "Ended all of sudden", jp: "突然に終わり告げても" },
+    { time: 179.0, en: "Those are the direct directions that will be revealed", jp: "一筋の道標 解き明かすのさ" },
+    { time: 192.0, en: "Live, live, by wandering and struggling", jp: "生きて 生きて 彷徨いながら足掻き探して" },
+    { time: 199.0, en: "To the unseen place ahead", jp: "まだ見ぬ先へ" },
+    { time: 206.0, en: "If we use our voices, we can achieve what we want", jp: "そうさ 声出せば 僕らやりたいこと掴めると" },
+    { time: 213.0, en: "Over and over, we'll keep going to seek an answer", jp: "何度でも 何度でも 答え求めて進むんだ" }
+];
 
         const lyricsScrollEl = document.getElementById('lyricsScroll');
         const lyricsEmptyEl  = document.querySelector('.lyrics-empty');
@@ -1533,7 +1539,7 @@
             lyricsScrollEl.innerHTML = lyricsData.map((l, i) => `
                 <div class="lyrics-line" data-i="${i}">
                     ${l.en ? `<div class="l-en">${l.en}</div>` : ''}
-                    ${l.en ? `<div class="l-en">${l.jp}</div>` : ''}
+                    ${l.jp ? `<div class="l-jp">${l.jp}</div>` : ''}
                 </div>
             `).join('');
         }
@@ -1541,46 +1547,24 @@
         let activeLyricIdx = -1;
         function updateLyrics(t) {
             if (!lyricsData.length) return;
-            
             let idx = -1;
             for (let i = 0; i < lyricsData.length; i++) {
-                if (t >= lyricsData[i].time) idx = i; 
-                else break;
+                if (t >= lyricsData[i].time) idx = i; else break;
             }
-            
             if (idx === activeLyricIdx) return;
             activeLyricIdx = idx;
-
-            const lines = lyricsScrollEl.querySelectorAll('.lyrics-line');
-            lines.forEach(el => el.classList.remove('active'));
-
+            lyricsScrollEl.querySelectorAll('.lyrics-line').forEach(el => el.classList.remove('active'));
             if (idx >= 0) {
-                const lineEl = lines[idx];
-                if (lineEl) {
-                    lineEl.classList.add('active');
-                    
-                    // Auto-scroll only inside lyrics box
-                    const container = document.getElementById('lyricsScroll');
-                    if (container) {
-                        const containerRect = container.getBoundingClientRect();
-                        const lineRect = lineEl.getBoundingClientRect();
-                        
-                        const isVisible = lineRect.top >= containerRect.top && 
-                                         lineRect.bottom <= containerRect.bottom;
-                        
-                        if (!isVisible) {
-                            lineEl.scrollIntoView({
-                                behavior: 'smooth',
-                                block: 'center'
-                            });
-                        }
-                    }
+    const lineEl = lyricsScrollEl.querySelector(`.lyrics-line[data-i="${idx}"]`);
+    if (lineEl) {
+        lineEl.classList.add('active');
+        // Auto-scroll disabled
                 }
             }
         }
 
         renderLyrics();
-        
+
         /* ================================================
            LAST.FM NOW PLAYING
            ================================================ */
@@ -1626,7 +1610,43 @@
                 document.getElementById('lfm-status').innerText = '';
             }
         }
-        
+        /* ================================================
+           VIBE SNAPSHOT CARD
+           ================================================ */
+        const vsnStates = [
+            { emoji: '🌝', tag: 'chill', caption: 'vibing in the moon light', fix: 'Hyperpop 🎵', into: 'all nighters 🛏' },
+            { emoji: '🌙', tag: 'nighty', caption: 'awake when i shouldn\'t be', fix: 'You 😘', into: 'late night cycling 🚲' },
+            { emoji: '⚡', tag: 'locked in', caption: 'focused, don\'t disturb', fix: 'romcom animes ❤️‍🩹', into: 'lo-fi beats 🎧' },
+            { emoji: '🍃', tag: 'soft', caption: 'anime brain', fix: 'Clannad feels 😢', into: 'nature walks 🌳' }
+        ];
+        let vsnIdx = 0;
+
+        function showVSN(i) {
+            vsnIdx = i;
+            const s = vsnStates[i];
+            const elems = {
+                emoji:   document.getElementById('vsnEmoji'),
+                tag:     document.getElementById('vsnMoodTag'),
+                caption: document.getElementById('vsnCaption'),
+                fix:     document.getElementById('vsnFix'),
+                into:    document.getElementById('vsnInto'),
+            };
+            // fade out
+            Object.values(elems).forEach(el => { if(el) el.style.opacity = '0'; });
+            setTimeout(() => {
+                if(elems.emoji)   elems.emoji.textContent   = s.emoji;
+                if(elems.tag)     elems.tag.textContent     = s.tag;
+                if(elems.caption) elems.caption.textContent = s.caption;
+                if(elems.fix)     elems.fix.textContent     = s.fix;
+                if(elems.into)    elems.into.textContent    = s.into;
+                Object.values(elems).forEach(el => { if(el) el.style.transition = 'opacity 0.4s ease'; });
+                Object.values(elems).forEach(el => { if(el) el.style.opacity = '1'; });
+            }, 250);
+        }
+
+        showVSN(0);
+        setInterval(() => showVSN((vsnIdx + 1) % vsnStates.length), 5000);
+
         /* ================================================
            CLICK RIPPLE
            ================================================ */
