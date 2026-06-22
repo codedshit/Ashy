@@ -1532,8 +1532,8 @@
             lyricsEmptyEl.style.display = 'none';
             lyricsScrollEl.innerHTML = lyricsData.map((l, i) => `
                 <div class="lyrics-line" data-i="${i}">
-                    \( {l.en ? `<div class="l-en"> \){l.en}</div>` : ''}
-                    \( {l.jp ? `<div class="l-jp"> \){l.jp}</div>` : ''}
+                    ${l.en ? `<div class="l-en">${l.en}</div>` : ''}
+                    ${l.en ? `<div class="l-en">${l.jp}</div>` : ''}
                 </div>
             `).join('');
         }
