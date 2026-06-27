@@ -26,21 +26,24 @@
         }
 
         :root {
-            --primary:      #2d7a4f;
-            --secondary:    #3aaf6e;
-            --gradient:     linear-gradient(135deg, #1a5c38, #3aaf6e);
-            --card-bg:      rgba(220, 245, 230, 0.40);
-            --white:        #0d2b1a;
-            --silver:       #2a5c3f;
-            --muted:        #5a8c6e;
-            --glow-prim:    rgba(45, 122, 79, 0.28);
-            --glow-sec:     rgba(58, 175, 110, 0.2);
-            --border-subtle: rgba(45, 122, 79, 0.14);
-            --blur:         blur(16px);
+            --primary:      #29b86c;
+            --secondary:    #5dffb0;
+            --gradient:     linear-gradient(135deg, #1a8f52, #5dffb0);
+            --card-bg:      rgba(20, 32, 27, 0.55);
+            --white:        #eafff1;
+            --silver:       #9fd9b8;
+            --muted:        #6f9a82;
+            --glow-prim:    rgba(41, 184, 108, 0.35);
+            --glow-sec:     rgba(93, 255, 176, 0.28);
+            --border-subtle: rgba(93, 255, 176, 0.14);
+            --blur:         blur(18px);
+            /* base surface */
+            --bg-deep:      #060a08;
+            --bg-mid:       #0b1310;
             /* Card tier colors */
-            --card-dark:    rgba(18, 58, 34, 0.35);
-            --card-mid:     rgba(34, 110, 64, 0.30);
-            --card-light:   rgba(180, 235, 200, 0.25);
+            --card-dark:    rgba(10, 22, 17, 0.55);
+            --card-mid:     rgba(14, 30, 23, 0.5);
+            --card-light:   rgba(18, 38, 29, 0.45);
         }
 
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -80,7 +83,7 @@
             margin: 0; padding: 0;
             overflow-x: hidden;
             font-family: 'AnimeAce', 'JetBrains Mono', monospace;
-            background-color: #ffffff;
+            background-color: var(--bg-deep);
             scroll-behavior: smooth;
             cursor: default;
         }
@@ -92,9 +95,10 @@
             position: fixed; inset: 0;
             z-index: -3; pointer-events: none;
             background:
-                radial-gradient(ellipse 60% 45% at 18% 8%, rgba(45, 122, 79, 0.1) 0%, transparent 60%),
-                radial-gradient(ellipse 55% 40% at 85% 92%, rgba(58, 175, 110, 0.12) 0%, transparent 60%),
-                radial-gradient(ellipse 70% 60% at 50% 50%, rgba(58, 175, 110, 0.05) 0%, transparent 70%);
+                radial-gradient(ellipse 60% 45% at 18% 8%, rgba(41, 184, 108, 0.16) 0%, transparent 60%),
+                radial-gradient(ellipse 55% 40% at 85% 92%, rgba(93, 255, 176, 0.14) 0%, transparent 60%),
+                radial-gradient(ellipse 70% 60% at 50% 50%, rgba(93, 255, 176, 0.05) 0%, transparent 70%),
+                linear-gradient(180deg, #060a08 0%, #0a120e 50%, #060a08 100%);
             animation: ambientDrift 18s ease-in-out infinite alternate;
         }
         @keyframes ambientDrift {
@@ -133,19 +137,13 @@
         }
 
         ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-track { background: #e8f5ee; }
+        ::-webkit-scrollbar-track { background: #0b1310; }
         ::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 10px; }
 
         /* =========================================
            SCROLL PROGRESS BAR
            ========================================= */
-        #scroll-progress {
-            position: fixed; top: 0; left: 0;
-            width: 0%; height: 3px;
-            background: var(--gradient);
-            z-index: 10000;
-            box-shadow: 0 0 10px var(--glow-prim);
-        }
+        /* scroll-progress removed: no scrolling in single-screen tabbed layout */
         /* =========================================
            PARTICLES CANVAS
            ========================================= */
@@ -158,8 +156,8 @@
         #play-overlay {
             position: fixed; top: 0; left: 0;
             width: 100%; height: 100%;
-            background: rgba(220, 245, 230, 0.82);
-            color: var(--primary);
+            background: rgba(6, 10, 8, 0.92);
+            color: var(--secondary);
             display: flex; flex-direction: column;
             justify-content: center; align-items: center;
             gap: 12px; z-index: 9999; cursor: pointer;
@@ -179,21 +177,50 @@
         .page-section {
             position: relative; z-index: 1; width: 100%;
             display: flex; justify-content: center;
-            align-items: center; flex-direction: column;
+            align-items: flex-start; flex-direction: column;
         }
-        #sec-1 { min-height: 100vh; padding: 0 15px; }
-        #sec-2 { min-height: 100vh; padding: 50px 15px 85px; gap: 20px; overflow-x: hidden; }
+        #app-shell {
+            min-height: 100vh; padding: 28px 15px 36px;
+            display: flex; flex-direction: column; align-items: center;
+            gap: 18px;
+        }
 
-        /* SCROLL REVEAL CLASSES */
-        .reveal {
-            opacity: 0;
-            transform: translateY(40px);
-            transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        /* TAB BAR */
+        .tab-bar {
+            display: flex; gap: 6px; width: 100%; max-width: 310px;
+            background: rgba(10, 22, 17, 0.55);
+            border: 1px solid var(--border-subtle);
+            border-radius: 16px; padding: 5px;
+            backdrop-filter: var(--blur); -webkit-backdrop-filter: var(--blur);
         }
-        .reveal.active {
-            opacity: 1;
-            transform: translateY(0);
+        .tab-btn {
+            flex: 1; background: none; border: none; cursor: pointer;
+            padding: 10px 6px; border-radius: 12px;
+            font-family: 'WatermelonSugar', 'JetBrains Mono', monospace;
+            font-size: 11px; letter-spacing: 1px; text-transform: uppercase;
+            color: var(--muted); transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            display: flex; align-items: center; justify-content: center; gap: 6px;
         }
+        .tab-btn i { font-size: 11px; }
+        .tab-btn:hover { color: var(--silver); }
+        .tab-btn.active {
+            color: #04140a; background: var(--gradient);
+            box-shadow: 0 4px 16px var(--glow-prim), 0 0 0 1px rgba(93,255,176,0.4) inset;
+        }
+
+        .tab-panels { width: 100%; display: flex; justify-content: center; }
+        .tab-panel {
+            display: none; width: 100%;
+            flex-direction: column; align-items: center; gap: 16px;
+        }
+        .tab-panel.active { display: flex; animation: panelIn 0.45s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        @keyframes panelIn {
+            from { opacity: 0; transform: translateY(14px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Legacy reveal hook kept harmless; tab-panel handles entrance animation now */
+        .reveal { opacity: 1; transform: none; }
 
         .card, .lastfm-widget, .player {
             background: var(--card-dark);
@@ -387,15 +414,7 @@
         .link-icon-box img { width: 22px; filter: invert(15%) sepia(90%) saturate(100%) hue-rotate(200deg) brightness(90%); }
         .links a:hover .link-icon-box img { filter: brightness(2.2) drop-shadow(0 0 8px var(--platform-color)); }
 
-        .scroll-indicator {
-            position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); color: var(--primary);
-            text-align: center; font-size: 13px; font-family: 'WatermelonSugar', 'ElegantTypewriterBold', sans-serif;
-            letter-spacing: 1px; transition: opacity 0.4s ease, transform 0.4s ease; z-index: 10;
-            text-shadow: 0 0 12px var(--glow-sec); white-space: nowrap; cursor: default;
-        }
-        .scroll-indicator.bouncing { animation: bounce 2s ease-in-out infinite; }
-        .scroll-indicator i { display: block; font-size: 15px; margin-top: 8px; }
-        @keyframes bounce { 0%, 100% { transform: translate(-50%, 0); } 50% { transform: translate(-50%, -8px); } }
+        /* scroll-indicator removed: single-screen tabbed layout replaces scroll */
 
         .info-header {
             font-family: 'WatermelonSugar', 'ElegantTypewriterBold', sans-serif; font-size: 20px; color: var(--secondary);
@@ -730,7 +749,7 @@
             flex: 1; overflow: hidden; display: flex; flex-direction: column; gap: 0;
         }
         .vsn-caption {
-            font-size: 12px; color: #1a4a2a;
+            font-size: 12px; color: var(--white);
             font-family: 'WatermelonSugar', 'JetBrains Mono', monospace;
             line-height: 1.5; margin-bottom: 10px;
             transition: opacity 0.3s ease;
@@ -746,7 +765,7 @@
             letter-spacing: 1px; font-family: 'WatermelonSugar', monospace;
         }
         .vsn-fixation-val {
-            font-size: 12px; color: #1a4a2a;
+            font-size: 12px; color: var(--white);
             font-family: 'AnimeAce', 'JetBrains Mono', monospace;
             white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
             transition: opacity 0.3s ease;
@@ -1029,7 +1048,6 @@
 </head>
 <body>
     <div id="cursor-dot"></div>
-    <div id="scroll-progress"></div>
 
     <div id="konami-flash">
         <div class="kf-text">YOU FOUND IT 💀</div>
@@ -1043,7 +1061,7 @@
         Just click vro
     </div>
 
-    <div class="page-section" id="sec-1">
+    <div class="page-section" id="app-shell">
         <div class="card">
             <!-- Corner GIF -->
             <img src="" class="top-right-gif" alt="Corner GIF" id="corner-gif" style="display:none;">
@@ -1095,184 +1113,191 @@
                 </div>
             </div>
         </div>
-    </div>
 
-    <div class="scroll-indicator bouncing" id="scroll-prompt">
-        Scroll for more
-        <i class="fas fa-chevron-down"></i>
-    </div>
-
-    <div class="page-section" id="sec-2">
-
-        <div class="card reveal">
-            <div class="info-header">Intel</div>
-            <div class="info-greeting">
-            I dont fw Queers 🫩
-            </div>
-
-            <div class="life-stats-grid">
-                <div class="ls-tile">
-                    <div class="ls-icon">🎌</div>
-                    <div class="ls-val">84%</div>
-                    <div class="ls-label">anime lover</div>
-                </div>
-                <div class="ls-tile">
-                    <div class="ls-icon">🎵</div>
-                    <div class="ls-val">78%</div>
-                    <div class="ls-label">music addict</div>
-                </div>
-                <div class="ls-tile">
-                    <div class="ls-icon">🚲</div>
-                    <div class="ls-val">25%</div>
-                    <div class="ls-label">cycling</div>
-                </div>
-                <div class="ls-tile">
-                    <div class="ls-icon">🌙</div>
-                    <div class="ls-val">18%</div>
-                    <div class="ls-label">sleeping</div>
-                </div>
-            </div>
-
-            <div class="info-item">
-                <div class="info-title-row"><i class="fas fa-calendar-alt"></i> <span class="info-list-title">Birthday Stats</span></div>
-                <div class="info-tag-container">
-                    <span class="info-tag">Nov 1st</span>
-                    <span class="info-tag" id="age-tag">Age: Loading...</span>
-                    <span class="info-tag" id="bday-countdown" style="border-color: var(--primary); color: var(--secondary);">Loading...</span>
-                </div>
-            </div>
-
-            <div class="info-item">
-                <div class="info-title-row"><i class="fas fa-tv"></i> <span class="info-list-title">Best Written Animes</span></div>
-                <div class="info-tag-container">
-                    <span class="info-tag">Dr. Stone</span>
-                    <span class="info-tag">Clannad</span>
-                    <span class="info-tag">Cyberpunk edgerunners</span>
-                    <span class="info-tag">HM: Kabaneri of the iron fortress</span>
-                    <span class="info-tag">HM: Terror in resonance</span>
-                </div>
-            </div>
-
-            <div class="info-item">
-                <div class="info-title-row"><i class="fas fa-headphones-alt"></i> <span class="info-list-title">Favorite Artists</span></div>
-                <div class="info-tag-container">
-                    <span class="info-tag">cant decide</span>
-                </div>
-            </div>
-
-            <div class="info-item">
-                <div class="info-title-row"><i class="fas fa-bolt"></i> <span class="info-list-title">Current status</span></div>
-                <div class="info-tag-container">
-                    <span class="info-tag">Trying to sleep</span>
-                </div>
-            </div>
-
-
-            <div class="info-footer">
-                Want to get to know me more? give me an friend req on discord ❤️‍🩹
-            </div>
-                </div>
-
-        <div class="vibe-snapshot-card reveal" id="vibeSnapshot">
-            <div class="vsn-header">
-                <i class="fas fa-satellite-dish" style="color:var(--primary); font-size:13px;"></i>
-                <span class="vsn-title">Right Now</span>
-                <div class="vsn-live-dot"></div>
-            </div>
-
-            <div class="vsn-grid">
-                <!-- Mood orb -->
-                <div class="vsn-orb-col">
-                    <div class="vsn-orb" id="vsnOrb">
-                        <span class="vsn-orb-emoji" id="vsnEmoji">💫</span>
-                    </div>
-                    <div class="vsn-mood-tag" id="vsnMoodTag">chill</div>
-                </div>
-                <!-- Info column -->
-                <div class="vsn-info-col">
-                    <div class="vsn-caption" id="vsnCaption">vibing in the moon lightt</div>
-                    <div class="vsn-divider"></div>
-                    <div class="vsn-fixation-row">
-                        <div class="vsn-fixation-label">obsessing over</div>
-                        <div class="vsn-fixation-val" id="vsnFix">Hyperpop 🎵</div>
-                    </div>
-                    <div class="vsn-fixation-row">
-                        <div class="vsn-fixation-label">currently into</div>
-                        <div class="vsn-fixation-val" id="vsnInto">all nighters 🛏</div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Mood tags row -->
-            <div class="vsn-tags-row">
-                <span class="vsn-tag-pill">night owl</span>
-                <span class="vsn-tag-pill">ears always in</span>
-                <span class="vsn-tag-pill">anti-social</span>
-            </div>
+        <div class="tab-bar">
+            <button class="tab-btn active" data-tab="intel" onclick="switchTab('intel')"><i class="fas fa-satellite-dish"></i> Intel</button>
+            <button class="tab-btn" data-tab="vibe" onclick="switchTab('vibe')"><i class="fas fa-bolt"></i> Vibe</button>
+            <button class="tab-btn" data-tab="music" onclick="switchTab('music')"><i class="fas fa-music"></i> Music</button>
         </div>
 
-        <div class="lastfm-widget reveal">
-            <div class="lfm-header">
-                <i class="fab fa-lastfm" style="color:var(--primary); font-size:14px;"></i>
-                <span class="lfm-label">Now Playing</span>
-                <div class="lfm-dot" id="lfm-dot"></div>
-            </div>
-            <div class="lfm-body">
-                <div class="lfm-art-wrap">
-                    <img class="lfm-art" id="lfm-art" src="https://lastfm.freetls.fastly.net/i/u/300x300/2a96cbd8b46e442fc41c2b86b821562f.png" alt="Album art">
-                </div>
-                <div class="lfm-text">
-                    <div class="lfm-track-row">
-                        <div class="lfm-track" id="lfm-track">Loading...</div>
-                        <div class="eq-bars" id="lfm-eq">
-                            <div class="eq-bar"></div><div class="eq-bar"></div><div class="eq-bar"></div><div class="eq-bar"></div>
+        <div class="tab-panels">
+
+            <div class="tab-panel active" id="tab-intel">
+                <div class="card reveal">
+                    <div class="info-header">Intel</div>
+                    <div class="info-greeting">
+                    I dont fw Queers 🫩
+                    </div>
+
+                    <div class="life-stats-grid">
+                        <div class="ls-tile">
+                            <div class="ls-icon">🎌</div>
+                            <div class="ls-val">84%</div>
+                            <div class="ls-label">anime lover</div>
+                        </div>
+                        <div class="ls-tile">
+                            <div class="ls-icon">🎵</div>
+                            <div class="ls-val">78%</div>
+                            <div class="ls-label">music addict</div>
+                        </div>
+                        <div class="ls-tile">
+                            <div class="ls-icon">🚲</div>
+                            <div class="ls-val">25%</div>
+                            <div class="ls-label">cycling</div>
+                        </div>
+                        <div class="ls-tile">
+                            <div class="ls-icon">🌙</div>
+                            <div class="ls-val">18%</div>
+                            <div class="ls-label">sleeping</div>
                         </div>
                     </div>
-                    <div class="lfm-artist" id="lfm-artist"></div>
-                    <div class="lfm-status" id="lfm-status"></div>
-                </div>
-            </div>
-        </div>
 
-        <div class="player reveal">
-            <div class="cover-wrapper">
-                <img class="cover" id="cover" src="" alt="Album Art">
-                <div class="cover-overlay"></div>
-            </div>
-            <div class="player-body">
-                <div class="info-container">
-                    <div class="info">
-                        <div class="title" id="title">—</div>
-                        <div class="index" id="idx">1 / 19</div>
+                    <div class="info-item">
+                        <div class="info-title-row"><i class="fas fa-calendar-alt"></i> <span class="info-list-title">Birthday Stats</span></div>
+                        <div class="info-tag-container">
+                            <span class="info-tag">Nov 1st</span>
+                            <span class="info-tag" id="age-tag">Age: Loading...</span>
+                            <span class="info-tag" id="bday-countdown" style="border-color: var(--primary); color: var(--secondary);">Loading...</span>
+                        </div>
                     </div>
-                    <div class="eq-bars" id="player-eq">
-                        <div class="eq-bar"></div><div class="eq-bar"></div><div class="eq-bar"></div><div class="eq-bar"></div>
-                    </div>
-                </div>
-                
-                <div class="progress-wrap" id="progWrap">
-                    <div class="progress-fill" id="progFill"></div>
-                </div>
-                <div class="times">
-                    <span id="cur">0:00</span>
-                    <span id="dur">0:00</span>
-                </div>
-                <div class="controls">
-                    <button class="ctrl" onclick="prev()"><i class="fas fa-step-backward"></i></button>
-                    <button class="ctrl" onclick="shuffle()"><i class="fas fa-random"></i></button>
-                    <button class="ctrl play" id="playBtn" onclick="togglePlay()"><i class="fas fa-play" style="margin-left:2px;"></i></button>
-                    <button class="ctrl" onclick="toggleRepeat()" id="repeatBtn"><i class="fas fa-redo"></i></button>
-                    <button class="ctrl" onclick="next()"><i class="fas fa-step-forward"></i></button>
-                </div>
-                <div class="vol">
-                    <i class="fas fa-volume-down"></i>
-                    <input type="range" id="vol" min="0" max="100" value="70">
-                    <i class="fas fa-volume-up"></i>
-                </div>
-            </div>
-        </div>
-        <audio id="audio"></audio>
 
+                    <div class="info-item">
+                        <div class="info-title-row"><i class="fas fa-tv"></i> <span class="info-list-title">Best Written Animes</span></div>
+                        <div class="info-tag-container">
+                            <span class="info-tag">Dr. Stone</span>
+                            <span class="info-tag">Clannad</span>
+                            <span class="info-tag">Cyberpunk edgerunners</span>
+                            <span class="info-tag">HM: Kabaneri of the iron fortress</span>
+                            <span class="info-tag">HM: Terror in resonance</span>
+                        </div>
+                    </div>
+
+                    <div class="info-item">
+                        <div class="info-title-row"><i class="fas fa-headphones-alt"></i> <span class="info-list-title">Favorite Artists</span></div>
+                        <div class="info-tag-container">
+                            <span class="info-tag">cant decide</span>
+                        </div>
+                    </div>
+
+                    <div class="info-item">
+                        <div class="info-title-row"><i class="fas fa-bolt"></i> <span class="info-list-title">Current status</span></div>
+                        <div class="info-tag-container">
+                            <span class="info-tag">Trying to sleep</span>
+                        </div>
+                    </div>
+
+
+                    <div class="info-footer">
+                        Want to get to know me more? give me an friend req on discord ❤️‍🩹
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-panel" id="tab-vibe">
+                <div class="vibe-snapshot-card reveal" id="vibeSnapshot">
+                    <div class="vsn-header">
+                        <i class="fas fa-satellite-dish" style="color:var(--primary); font-size:13px;"></i>
+                        <span class="vsn-title">Right Now</span>
+                        <div class="vsn-live-dot"></div>
+                    </div>
+
+                    <div class="vsn-grid">
+                        <!-- Mood orb -->
+                        <div class="vsn-orb-col">
+                            <div class="vsn-orb" id="vsnOrb">
+                                <span class="vsn-orb-emoji" id="vsnEmoji">💫</span>
+                            </div>
+                            <div class="vsn-mood-tag" id="vsnMoodTag">chill</div>
+                        </div>
+                        <!-- Info column -->
+                        <div class="vsn-info-col">
+                            <div class="vsn-caption" id="vsnCaption">vibing in the moon lightt</div>
+                            <div class="vsn-divider"></div>
+                            <div class="vsn-fixation-row">
+                                <div class="vsn-fixation-label">obsessing over</div>
+                                <div class="vsn-fixation-val" id="vsnFix">Hyperpop 🎵</div>
+                            </div>
+                            <div class="vsn-fixation-row">
+                                <div class="vsn-fixation-label">currently into</div>
+                                <div class="vsn-fixation-val" id="vsnInto">all nighters 🛏</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Mood tags row -->
+                    <div class="vsn-tags-row">
+                        <span class="vsn-tag-pill">night owl</span>
+                        <span class="vsn-tag-pill">ears always in</span>
+                        <span class="vsn-tag-pill">anti-social</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-panel" id="tab-music">
+                <div class="lastfm-widget reveal">
+                    <div class="lfm-header">
+                        <i class="fab fa-lastfm" style="color:var(--primary); font-size:14px;"></i>
+                        <span class="lfm-label">Now Playing</span>
+                        <div class="lfm-dot" id="lfm-dot"></div>
+                    </div>
+                    <div class="lfm-body">
+                        <div class="lfm-art-wrap">
+                            <img class="lfm-art" id="lfm-art" src="https://lastfm.freetls.fastly.net/i/u/300x300/2a96cbd8b46e442fc41c2b86b821562f.png" alt="Album art">
+                        </div>
+                        <div class="lfm-text">
+                            <div class="lfm-track-row">
+                                <div class="lfm-track" id="lfm-track">Loading...</div>
+                                <div class="eq-bars" id="lfm-eq">
+                                    <div class="eq-bar"></div><div class="eq-bar"></div><div class="eq-bar"></div><div class="eq-bar"></div>
+                                </div>
+                            </div>
+                            <div class="lfm-artist" id="lfm-artist"></div>
+                            <div class="lfm-status" id="lfm-status"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="player reveal">
+                    <div class="cover-wrapper">
+                        <img class="cover" id="cover" src="" alt="Album Art">
+                        <div class="cover-overlay"></div>
+                    </div>
+                    <div class="player-body">
+                        <div class="info-container">
+                            <div class="info">
+                                <div class="title" id="title">—</div>
+                                <div class="index" id="idx">1 / 19</div>
+                            </div>
+                            <div class="eq-bars" id="player-eq">
+                                <div class="eq-bar"></div><div class="eq-bar"></div><div class="eq-bar"></div><div class="eq-bar"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="progress-wrap" id="progWrap">
+                            <div class="progress-fill" id="progFill"></div>
+                        </div>
+                        <div class="times">
+                            <span id="cur">0:00</span>
+                            <span id="dur">0:00</span>
+                        </div>
+                        <div class="controls">
+                            <button class="ctrl" onclick="prev()"><i class="fas fa-step-backward"></i></button>
+                            <button class="ctrl" onclick="shuffle()"><i class="fas fa-random"></i></button>
+                            <button class="ctrl play" id="playBtn" onclick="togglePlay()"><i class="fas fa-play" style="margin-left:2px;"></i></button>
+                            <button class="ctrl" onclick="toggleRepeat()" id="repeatBtn"><i class="fas fa-redo"></i></button>
+                            <button class="ctrl" onclick="next()"><i class="fas fa-step-forward"></i></button>
+                        </div>
+                        <div class="vol">
+                            <i class="fas fa-volume-down"></i>
+                            <input type="range" id="vol" min="0" max="100" value="70">
+                            <i class="fas fa-volume-up"></i>
+                        </div>
+                    </div>
+                </div>
+                <audio id="audio"></audio>
+            </div>
+
+        </div>
     </div>
 
     <footer class="site-footer">
@@ -1346,38 +1371,18 @@
         animateParticles();
 
         /* ================================================
-           SCROLL PROGRESS & REVEAL
+           TAB SWITCHING (replaces scroll-to-reveal)
            ================================================ */
-        const scrollProgress = document.getElementById('scroll-progress');
-        window.addEventListener('scroll', () => {
-            const currentScroll = window.scrollY;
-            const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
-            scrollProgress.style.width = `${(currentScroll / maxScroll) * 100}%`;
-
-            const prompt = document.getElementById('scroll-prompt');
-            if (currentScroll < 50) {
-                prompt.innerHTML = 'Scroll for more <i class="fas fa-chevron-down"></i>';
-                prompt.style.opacity = '1';
-                prompt.classList.add('bouncing'); prompt.onclick = null;
-            } else if (currentScroll >= maxScroll - 40) {
-                prompt.innerHTML = 'Scroll up <i class="fas fa-chevron-up"></i>';
-                prompt.style.opacity = '1'; 
-                prompt.classList.remove('bouncing');
-                prompt.onclick = () => window.scrollTo({ top: 0, behavior: 'smooth' });
-            } else {
-                prompt.style.opacity = '0'; prompt.onclick = null;
-            }
-        });
-
-        // Intersection Observer for scroll reveal
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('active');
-                }
+        function switchTab(name) {
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.tab === name);
             });
-        }, { threshold: 0.1 });
-        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+            document.querySelectorAll('.tab-panel').forEach(panel => {
+                panel.classList.toggle('active', panel.id === `tab-${name}`);
+            });
+        }
+        // Reveal classes are visible by default now; keep class for compatibility
+        document.querySelectorAll('.reveal').forEach(el => el.classList.add('active'));
 
         /* ================================================
            AGE & BIRTHDAY CALCULATOR
@@ -1682,4 +1687,5 @@
     </script>
 </body>
 </html>
+
 
