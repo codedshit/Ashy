@@ -874,7 +874,7 @@ body.sky-night #sky-bg{ background:linear-gradient(160deg, var(--sky-night-a) 0%
     </div>
 </main>
 
-<footer class="site-footer">made with too many feelings by Ash ★ <span id="current-year"></span></footer>
+<footer class="site-footer">made by Ash ★ <span id="current-year"></span></footer>
 
 <script>
 /* =====================================================================
@@ -900,10 +900,17 @@ document.getElementById('current-year').textContent = new Date().getFullYear();
 /* =====================================================================
    ENTRY OVERLAY
    ===================================================================== */
-function enterSite(){
+function enterSite() {
     const overlay = document.getElementById('entry-overlay');
+
     overlay.classList.add('hidden');
-    setTimeout(() => { overlay.style.display = 'none'; }, 850);
+    setTimeout(() => {
+        overlay.style.display = 'none';
+    }, 850);
+
+    if (songs.length) {
+        loadTrack(0, true); 
+    }
 }
 
 /* =====================================================================
@@ -1163,7 +1170,7 @@ function initPlayer(){
     const empty = document.getElementById('playerEmpty');
     if (!songs.length){ ui.style.display = 'none'; empty.style.display = 'block'; return; }
     ui.style.display = 'flex'; empty.style.display = 'none';
-    loadTrack(0, false);
+    loadTrack(0, true);
 }
 
 function loadTrack(i, autoplay){
