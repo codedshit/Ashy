@@ -3,58 +3,59 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>Ash — a quiet corner of the internet</title>
-<meta name="description" content="Ash's personal corner of the internet — night owl, anime & music addict.">
-<meta name="theme-color" content="#D7ECFF">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%E2%98%80%EF%B8%8F%3C/text%3E%3C/svg%3E">
+<title>Ash — night owl 🇧🇩</title>
+<meta name="description" content="Ash's personal corner of the internet — a night owl from Noakhali, Bangladesh, obsessed with anime and rap.">
+<meta name="theme-color" content="#07100C">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%AA%94%3C/text%3E%3C/svg%3E">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;500;600;700;800&family=Instrument+Serif:ital@0;1&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+Da+2:wght@500;600;700;800&family=Hind+Siliguri:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
 <style>
 /* =====================================================================
-   0. DESIGN TOKENS
+   0. DESIGN TOKENS — dark, moody, Bangladeshi accent palette
    ===================================================================== */
 :root{
-    /* sky gradient stops — always light, hue shifts with time of day */
-    --sky-dawn-a:#FFE9D2;  --sky-dawn-b:#FBD5C6;  --sky-dawn-c:#E9E4F6;
-    --sky-day-a:#E7F3FF;   --sky-day-b:#D8ECFF;   --sky-day-c:#EAF6EE;
-    --sky-dusk-a:#F3E3F7;  --sky-dusk-b:#E6D8F5;  --sky-dusk-c:#F7DCE4;
-    --sky-night-a:#E7EAFB; --sky-night-b:#DCE1F6; --sky-night-c:#EDE6F7;
+    /* sky gradient stops — always dark, hue shifts with time of day */
+    --void-dawn-a:#2A1220;  --void-dawn-b:#3B1B1E;  --void-dawn-c:#170D12;
+    --void-day-a:#0E1F1A;   --void-day-b:#0B1714;   --void-day-c:#081210;
+    --void-dusk-a:#3A140F;  --void-dusk-b:#591C16;  --void-dusk-c:#170A0C;
+    --void-night-a:#070B12; --void-night-b:#0A0E16; --void-night-c:#05070B;
 
-    --paper:#FFFDF9;
-    --paper-strong:#FFFFFF;
-    --ink:#2E2A3D;
-    --ink-soft:#6B6580;
-    --ink-faint:#9C96AE;
+    --paper:#0B120E;
+    --paper-strong:#141F19;
+    --ink:#EDE6D6;
+    --ink-soft:rgba(237,230,214,.68);
+    --ink-faint:rgba(237,230,214,.42);
+    --on-accent:#1B0D07;
 
-    --gold:#E4A047;
-    --gold-strong:#D98A2B;
-    --gold-soft:rgba(228,160,71,.16);
-    --rose:#E2867E;
-    --rose-soft:rgba(226,134,126,.16);
-    --lav:#9B8AC4;
-    --lav-soft:rgba(155,138,196,.16);
-    --blue:#6FA3D8;
-    --blue-soft:rgba(111,163,216,.16);
+    --gold:#E3A857;
+    --gold-strong:#F0BE72;
+    --gold-soft:rgba(227,168,87,.16);
+    --red:#D6293D;
+    --red-soft:rgba(214,41,61,.18);
+    --green:#0E8A5B;
+    --green-soft:rgba(14,138,91,.18);
+    --teal:#3E8E89;
+    --teal-soft:rgba(62,142,137,.18);
 
-    --line:rgba(46,42,61,.10);
-    --line-strong:rgba(46,42,61,.16);
-    --glass:rgba(255,255,255,.62);
-    --glass-strong:rgba(255,255,255,.82);
+    --line:rgba(237,230,214,.10);
+    --line-strong:rgba(237,230,214,.18);
+    --glass:rgba(19,29,23,.68);
+    --glass-strong:rgba(24,36,29,.88);
 
-    --shadow-sm:0 8px 24px -12px rgba(46,42,61,.16);
-    --shadow-md:0 20px 48px -20px rgba(46,42,61,.20);
-    --shadow-lg:0 30px 70px -28px rgba(46,42,61,.26);
+    --shadow-sm:0 8px 24px -12px rgba(0,0,0,.55);
+    --shadow-md:0 20px 48px -20px rgba(0,0,0,.65);
+    --shadow-lg:0 30px 70px -28px rgba(0,0,0,.75);
 
-    --radius-lg:28px;
-    --radius-md:20px;
-    --radius-sm:13px;
+    --radius-lg:26px;
+    --radius-md:18px;
+    --radius-sm:12px;
 
-    --font-display:'Bricolage Grotesque', system-ui, sans-serif;
-    --font-body:'Plus Jakarta Sans', system-ui, sans-serif;
+    --font-display:'Baloo Da 2', system-ui, sans-serif;
+    --font-body:'Hind Siliguri', system-ui, sans-serif;
     --font-quote:'Instrument Serif', Georgia, serif;
     --font-mono:'IBM Plex Mono', monospace;
 }
@@ -76,32 +77,30 @@ button{ font:inherit; background:none; border:none; color:inherit; }
 a{ color:inherit; text-decoration:none; }
 ul{ list-style:none; }
 
-/* focus visibility (a11y) */
 :focus-visible{ outline:2px solid var(--gold-strong); outline-offset:3px; border-radius:6px; }
 
-/* scrollbar */
 ::-webkit-scrollbar{ width:8px; }
 ::-webkit-scrollbar-track{ background:transparent; }
-::-webkit-scrollbar-thumb{ background:linear-gradient(var(--gold),var(--rose)); border-radius:10px; }
+::-webkit-scrollbar-thumb{ background:linear-gradient(var(--gold),var(--red)); border-radius:10px; }
 
 @media (hover:hover) and (pointer:fine){ html,body{ cursor:none; } }
 
 /* =====================================================================
-   1. LIVING SKY — background, clouds, sunbeams, light-motes
+   1. LIVING NIGHT — background, ambient glow, fireflies/lanterns
    ===================================================================== */
 #sky-bg{
     position:fixed; inset:0; z-index:-5; pointer-events:none;
-    background:linear-gradient(160deg, var(--sky-day-a) 0%, var(--sky-day-b) 55%, var(--sky-day-c) 100%);
+    background:linear-gradient(160deg, var(--void-day-a) 0%, var(--void-day-b) 55%, var(--void-day-c) 100%);
     transition:background 1.4s ease;
 }
-body.sky-dawn  #sky-bg{ background:linear-gradient(160deg, var(--sky-dawn-a) 0%, var(--sky-dawn-b) 55%, var(--sky-dawn-c) 100%); }
-body.sky-day   #sky-bg{ background:linear-gradient(160deg, var(--sky-day-a) 0%, var(--sky-day-b) 55%, var(--sky-day-c) 100%); }
-body.sky-dusk  #sky-bg{ background:linear-gradient(160deg, var(--sky-dusk-a) 0%, var(--sky-dusk-b) 55%, var(--sky-dusk-c) 100%); }
-body.sky-night #sky-bg{ background:linear-gradient(160deg, var(--sky-night-a) 0%, var(--sky-night-b) 55%, var(--sky-night-c) 100%); }
+body.sky-dawn  #sky-bg{ background:linear-gradient(160deg, var(--void-dawn-a) 0%, var(--void-dawn-b) 55%, var(--void-dawn-c) 100%); }
+body.sky-day   #sky-bg{ background:linear-gradient(160deg, var(--void-day-a) 0%, var(--void-day-b) 55%, var(--void-day-c) 100%); }
+body.sky-dusk  #sky-bg{ background:linear-gradient(160deg, var(--void-dusk-a) 0%, var(--void-dusk-b) 55%, var(--void-dusk-c) 100%); }
+body.sky-night #sky-bg{ background:linear-gradient(160deg, var(--void-night-a) 0%, var(--void-night-b) 55%, var(--void-night-c) 100%); }
 
 #sunbeams{
-    position:fixed; inset:-20%; z-index:-4; pointer-events:none; opacity:.35;
-    background:repeating-conic-gradient(from 0deg at 20% 10%, rgba(255,255,255,.6) 0deg 4deg, transparent 4deg 14deg);
+    position:fixed; inset:-20%; z-index:-4; pointer-events:none; opacity:.14;
+    background:repeating-conic-gradient(from 0deg at 20% 10%, rgba(227,168,87,.7) 0deg 4deg, transparent 4deg 14deg);
     mix-blend-mode:soft-light;
     animation:beamSpin 260s linear infinite;
 }
@@ -109,13 +108,12 @@ body.sky-night #sky-bg{ background:linear-gradient(160deg, var(--sky-night-a) 0%
 
 .cloud{
     position:fixed; z-index:-3; pointer-events:none; border-radius:50%;
-    background:radial-gradient(circle, rgba(255,255,255,.85) 0%, rgba(255,255,255,0) 70%);
-    filter:blur(6px);
+    filter:blur(60px); opacity:.30;
     animation:cloudDrift linear infinite;
 }
-.cloud-a{ width:46vw; height:46vw; top:-8vw; left:-14vw; animation-duration:85s; }
-.cloud-b{ width:34vw; height:34vw; top:38vh; right:-12vw; animation-duration:110s; animation-direction:reverse; background:radial-gradient(circle, rgba(247,225,240,.8) 0%, rgba(255,255,255,0) 70%); }
-.cloud-c{ width:30vw; height:30vw; bottom:-10vh; left:12vw; animation-duration:95s; background:radial-gradient(circle, rgba(232,214,255,.7) 0%, rgba(255,255,255,0) 70%); }
+.cloud-a{ width:46vw; height:46vw; top:-10vw; left:-14vw; background:radial-gradient(circle, var(--red) 0%, transparent 70%); animation-duration:85s; }
+.cloud-b{ width:34vw; height:34vw; top:40vh; right:-14vw; animation-duration:110s; animation-direction:reverse; background:radial-gradient(circle, var(--gold) 0%, transparent 70%); }
+.cloud-c{ width:30vw; height:30vw; bottom:-12vh; left:10vw; animation-duration:95s; background:radial-gradient(circle, var(--green) 0%, transparent 70%); }
 @keyframes cloudDrift{
     0%{ transform:translateX(0) translateY(0); }
     50%{ transform:translateX(4vw) translateY(2vh); }
@@ -129,26 +127,37 @@ body.sky-night #sky-bg{ background:linear-gradient(160deg, var(--sky-night-a) 0%
 }
 
 /* =====================================================================
-   2. ENTRY OVERLAY
+   2. ENTRY OVERLAY — flag-sun disc in the dark, no blue/yellow gradient
    ===================================================================== */
 #entry-overlay{
     position:fixed; inset:0; z-index:9999; cursor:pointer;
-    display:flex; flex-direction:column; align-items:center; justify-content:center; gap:14px;
-    background:linear-gradient(160deg, var(--sky-dawn-a), var(--sky-day-b) 60%, var(--sky-dusk-c));
+    display:flex; flex-direction:column; align-items:center; justify-content:center; gap:16px;
+    background:
+        radial-gradient(circle at 50% 38%, rgba(214,41,61,.22), transparent 46%),
+        linear-gradient(180deg, #0A0F0C 0%, #050705 100%);
     transition:opacity .8s ease, visibility .8s ease;
 }
 #entry-overlay.hidden{ opacity:0; visibility:hidden; pointer-events:none; }
-.entry-sun{
-    width:74px; height:74px; border-radius:50%;
-    background:radial-gradient(circle at 35% 30%, #fff, var(--gold) 60%, var(--gold-strong) 100%);
-    box-shadow:0 0 60px 18px rgba(228,160,71,.45);
-    animation:sunPulse 3.2s ease-in-out infinite;
+
+.entry-disc{
+    position:relative; width:86px; height:86px; border-radius:50%;
+    background:radial-gradient(circle at 35% 30%, #FF9A82, var(--red) 55%, #700F1B 100%);
+    box-shadow:0 0 70px 20px rgba(214,41,61,.4), inset 0 0 0 4px rgba(255,255,255,.06);
+    animation:discPulse 3.2s ease-in-out infinite;
+    margin-bottom:4px;
 }
-@keyframes sunPulse{ 0%,100%{ transform:scale(1); } 50%{ transform:scale(1.08); } }
-.entry-title{ font-family:var(--font-display); font-weight:700; font-size:clamp(1.4rem,4vw,1.9rem); color:var(--ink); letter-spacing:.3px; }
-.entry-sub{ font-family:var(--font-mono); font-size:11px; letter-spacing:3px; text-transform:uppercase; color:var(--ink-soft); }
+.entry-disc::after{
+    content:''; position:absolute; inset:-16px; border-radius:50%;
+    border:1.5px dashed rgba(227,168,87,.4);
+    animation:spin 24s linear infinite;
+}
+@keyframes discPulse{ 0%,100%{ transform:scale(1); } 50%{ transform:scale(1.08); } }
+.entry-bn{ font-family:var(--font-display); font-weight:700; font-size:clamp(1.7rem,5.5vw,2.3rem); color:var(--ink); letter-spacing:.3px; }
+.entry-title{ font-family:var(--font-body); font-weight:500; font-size:clamp(.92rem,3vw,1.02rem); color:var(--ink-soft); text-align:center; max-width:280px; }
+.entry-sub{ font-family:var(--font-mono); font-size:11px; letter-spacing:3px; text-transform:uppercase; color:var(--gold-strong); margin-top:6px; }
 .entry-sub i{ margin-left:6px; animation:bob 1.6s ease-in-out infinite; display:inline-block; }
 @keyframes bob{ 0%,100%{ transform:translateY(0); } 50%{ transform:translateY(4px); } }
+@media (prefers-reduced-motion:reduce){ .entry-disc,.entry-disc::after,.entry-sub i{ animation:none !important; } }
 
 /* =====================================================================
    3. LAYOUT SHELL
@@ -174,21 +183,22 @@ body.sky-night #sky-bg{ background:linear-gradient(160deg, var(--sky-night-a) 0%
 }
 
 /* =====================================================================
-   4. GLASS SURFACE (shared)
+   4. GLASS SURFACE + KANTHA STITCH EDGE (signature motif)
    ===================================================================== */
 .glass{
     background:var(--glass);
-    backdrop-filter:blur(20px) saturate(140%);
-    -webkit-backdrop-filter:blur(20px) saturate(140%);
-    border:1px solid rgba(255,255,255,.7);
+    backdrop-filter:blur(22px) saturate(140%);
+    -webkit-backdrop-filter:blur(22px) saturate(140%);
+    border:1px solid var(--line-strong);
     border-radius:var(--radius-lg);
-    box-shadow:var(--shadow-md), inset 0 1px 0 rgba(255,255,255,.8);
+    box-shadow:var(--shadow-md), inset 0 1px 0 rgba(255,255,255,.04);
     position:relative; overflow:hidden;
 }
 .glass::before{
     content:''; position:absolute; inset:0; pointer-events:none;
-    background:radial-gradient(ellipse at top left, rgba(255,255,255,.55) 0%, transparent 55%);
+    background:radial-gradient(ellipse at top left, rgba(227,168,87,.07) 0%, transparent 55%);
 }
+/* stripe removed per request */
 
 /* =====================================================================
    5. PROFILE CARD
@@ -207,20 +217,15 @@ body.sky-night #sky-bg{ background:linear-gradient(160deg, var(--sky-night-a) 0%
 .avatar-wrap{ position:relative; width:110px; height:110px; margin:4px 0 2px; }
 .avatar-orb{
     width:100%; height:100%; border-radius:50%;
-    background:conic-gradient(from 200deg, var(--gold), var(--rose), var(--lav), var(--blue), var(--gold));
+    background:conic-gradient(from 200deg, var(--red), var(--gold), var(--green), var(--teal), var(--red));
     display:flex; align-items:center; justify-content:center;
-    box-shadow:0 14px 34px -10px rgba(226,134,126,.5), inset 0 0 0 5px rgba(255,255,255,.75);
+    box-shadow:0 14px 34px -10px rgba(214,41,61,.45), inset 0 0 0 5px rgba(11,18,14,.55);
     animation:breathe 6s ease-in-out infinite;
 }
-   .profile-pic {
-    width: 100%;
-    height: 100%;
-    border-radius: 50%;
-    object-fit: cover;
-   }
+.profile-pic{ width:100%; height:100%; border-radius:50%; object-fit:cover; }
 .avatar-orb span{
-    font-family:var(--font-display); font-weight:800; font-size:40px; color:var(--paper-strong);
-    text-shadow:0 2px 10px rgba(46,42,61,.25);
+    font-family:var(--font-display); font-weight:800; font-size:40px; color:var(--paper);
+    text-shadow:0 2px 10px rgba(0,0,0,.3);
 }
 @keyframes breathe{ 0%,100%{ transform:scale(1); } 50%{ transform:scale(1.035); } }
 .avatar-orbit{ position:absolute; inset:-14px; animation:spin 14s linear infinite; }
@@ -237,8 +242,8 @@ body.sky-night #sky-bg{ background:linear-gradient(160deg, var(--sky-night-a) 0%
 }
 .header-name:hover{ background-position:100% 0%; }
 
-.status-line{ display:flex; align-items:center; gap:7px; font-size:12.5px; color:var(--ink-soft); font-family:var(--font-mono); }
-.status-dot{ width:7px; height:7px; border-radius:50%; background:#4CAF7D; box-shadow:0 0 8px rgba(76,175,125,.6); animation:pulse 1.8s ease-in-out infinite; }
+.status-line{ display:flex; align-items:center; gap:7px; font-size:12.5px; color:var(--ink-soft); font-family:var(--font-mono); flex-wrap:wrap; justify-content:center; }
+.status-dot{ width:7px; height:7px; border-radius:50%; background:#3FCE86; box-shadow:0 0 8px rgba(63,206,134,.6); animation:pulse 1.8s ease-in-out infinite; }
 @keyframes pulse{ 0%,100%{ transform:scale(1); opacity:.7; } 50%{ transform:scale(1.4); opacity:1; } }
 
 .tagline{ font-family:var(--font-quote); font-style:italic; font-size:17px; color:var(--ink-soft); max-width:280px; line-height:1.5; }
@@ -255,24 +260,26 @@ body.sky-night #sky-bg{ background:linear-gradient(160deg, var(--sky-night-a) 0%
 .badge-row{ display:flex; flex-wrap:wrap; gap:8px; justify-content:center; margin-top:6px; }
 .badge{
     font-family:var(--font-mono); font-size:10.5px; letter-spacing:.4px; color:var(--ink-soft);
-    background:rgba(255,255,255,.65); border:1px solid var(--line); border-radius:999px; padding:6px 12px;
+    background:rgba(255,255,255,.03); border:1px solid var(--line); border-radius:999px; padding:6px 12px;
     transition:transform .25s ease, color .25s ease;
 }
 .badge:hover{ transform:translateY(-2px); color:var(--gold-strong); }
 
-.note-btn{
+.stamp-btn{
     margin-top:8px; display:inline-flex; align-items:center; gap:8px;
     padding:11px 20px; border-radius:999px; font-family:var(--font-display); font-weight:600; font-size:13.5px;
-    color:var(--paper-strong); background:linear-gradient(120deg, var(--gold), var(--rose));
-    box-shadow:0 10px 24px -8px rgba(228,160,71,.55); cursor:pointer;
+    color:var(--on-accent); background:linear-gradient(120deg, var(--gold), var(--red));
+    box-shadow:0 10px 24px -8px rgba(214,41,61,.45); cursor:pointer;
     transition:transform .3s cubic-bezier(.2,.9,.3,1.3), box-shadow .3s;
 }
-.note-btn:hover{ transform:translateY(-3px); box-shadow:0 14px 30px -8px rgba(228,160,71,.65); }
+.stamp-btn:hover{ transform:translateY(-3px); box-shadow:0 14px 30px -8px rgba(214,41,61,.55); }
 
 .local-time-chip{
-    font-family:var(--font-mono); font-size:11px; color:var(--ink-faint); letter-spacing:.5px;
+    font-family:var(--font-mono); font-size:11px; color:var(--ink-faint); letter-spacing:.4px;
     border-top:1px solid var(--line); padding-top:12px; margin-top:6px; width:100%;
+    display:flex; flex-direction:column; gap:5px;
 }
+.ltc-row{ display:flex; align-items:center; justify-content:center; gap:6px; }
 
 /* =====================================================================
    6. TAB BAR + PANELS
@@ -281,7 +288,7 @@ body.sky-night #sky-bg{ background:linear-gradient(160deg, var(--sky-night-a) 0%
 
 .tab-bar{
     display:flex; gap:6px; padding:6px; border-radius:18px;
-    background:rgba(255,255,255,.55); border:1px solid var(--line); box-shadow:var(--shadow-sm);
+    background:rgba(255,255,255,.02); border:1px solid var(--line); box-shadow:var(--shadow-sm);
     backdrop-filter:blur(14px);
 }
 .tab-btn{
@@ -291,7 +298,7 @@ body.sky-night #sky-bg{ background:linear-gradient(160deg, var(--sky-night-a) 0%
     transition:all .35s cubic-bezier(.2,.9,.3,1.2);
 }
 .tab-btn:hover{ color:var(--ink); }
-.tab-btn.active{ color:var(--paper-strong); background:linear-gradient(120deg, var(--gold), var(--rose)); box-shadow:0 8px 20px -8px rgba(228,160,71,.55); }
+.tab-btn.active{ color:var(--on-accent); background:linear-gradient(120deg, var(--gold), var(--red)); box-shadow:0 8px 20px -8px rgba(214,41,61,.5); }
 
 .tab-panel{ display:none; flex-direction:column; gap:18px; }
 .tab-panel.active{ display:flex; animation:panelIn .5s cubic-bezier(.2,.9,.3,1.15); }
@@ -306,19 +313,40 @@ body.sky-night #sky-bg{ background:linear-gradient(160deg, var(--sky-night-a) 0%
 .about-text{ font-size:14.5px; line-height:1.75; color:var(--ink-soft); margin-bottom:22px; }
 
 /* =====================================================================
-   7. STAT RINGS
+   7. STAT RINGS — bento layout (hero + 3), not a flat uniform grid
    ===================================================================== */
-.ring-grid{ display:grid; grid-template-columns:repeat(2,1fr); gap:16px; margin-bottom:26px; }
-@media (min-width:600px){ .ring-grid{ grid-template-columns:repeat(4,1fr); } }
-.ring-tile{ display:flex; flex-direction:column; align-items:center; gap:8px; }
-.ring-svg-wrap{ position:relative; width:78px; height:78px; }
+.ring-grid{
+    display:grid; gap:12px; margin-bottom:26px;
+    grid-template-columns:repeat(2,1fr);
+    grid-template-areas:"hero hero" "b c" "d d";
+}
+@media (min-width:600px){
+    .ring-grid{ grid-template-columns:1.3fr 1fr 1fr 1fr; grid-template-areas:"hero b c d"; }
+}
+.ring-tile{
+    display:flex; align-items:center; gap:12px; padding:14px;
+    background:rgba(255,255,255,.02); border:1px solid var(--line); border-radius:16px;
+    transition:transform .25s ease, border-color .25s ease;
+}
+.ring-tile:hover{ transform:translateY(-2px); border-color:var(--gold-soft); }
+.ring-tile.tile-hero{ grid-area:hero; background:linear-gradient(120deg, var(--red-soft), transparent 75%); border-color:rgba(214,41,61,.28); }
+.ring-tile.tile-d{ grid-area:d; background:linear-gradient(120deg, var(--green-soft), transparent 75%); border-color:rgba(14,138,91,.28); }
+.ring-tile.tile-b{ grid-area:b; flex-direction:column; text-align:center; }
+.ring-tile.tile-c{ grid-area:c; flex-direction:column; text-align:center; }
+
+.ring-svg-wrap{ position:relative; width:70px; height:70px; flex-shrink:0; }
+.tile-hero .ring-svg-wrap,.tile-d .ring-svg-wrap{ width:88px; height:88px; }
 .ring-svg{ width:100%; height:100%; transform:rotate(-90deg); }
-.ring-track{ fill:none; stroke:rgba(46,42,61,.09); stroke-width:8; }
+.ring-track{ fill:none; stroke:rgba(237,230,214,.09); stroke-width:8; }
 .ring-fill{ fill:none; stroke-width:8; stroke-linecap:round; }
 .ring-center{ position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:0; }
-.ring-emoji{ font-size:18px; }
-.ring-pct{ font-family:var(--font-mono); font-size:10.5px; color:var(--ink-soft); margin-top:1px; }
-.ring-label{ font-size:11px; color:var(--ink-faint); text-align:center; font-family:var(--font-mono); letter-spacing:.2px; }
+.ring-emoji{ font-size:17px; }
+.ring-pct{ font-family:var(--font-mono); font-size:10px; color:var(--ink-soft); margin-top:1px; }
+.ring-label{ font-size:11px; color:var(--ink-faint); text-align:center; font-family:var(--font-mono); letter-spacing:.2px; margin-top:2px; }
+
+.ring-hero-text{ display:flex; flex-direction:column; gap:2px; min-width:0; }
+.ring-hero-title{ font-family:var(--font-display); font-weight:700; font-size:15.5px; color:var(--ink); }
+.ring-hero-sub{ font-family:var(--font-mono); font-size:10.5px; color:var(--ink-faint); line-height:1.4; }
 
 /* =====================================================================
    8. INFO BLOCKS / TAGS / BIRTHDAY
@@ -333,7 +361,7 @@ body.sky-night #sky-bg{ background:linear-gradient(160deg, var(--sky-night-a) 0%
 .tag-row{ display:flex; flex-wrap:wrap; gap:8px; }
 .tag-chip{
     font-family:var(--font-mono); font-size:11.5px; color:var(--ink-soft);
-    background:rgba(255,255,255,.7); border:1px solid var(--line); border-radius:10px; padding:6px 11px;
+    background:rgba(255,255,255,.03); border:1px solid var(--line); border-radius:10px; padding:6px 11px;
     transition:transform .25s ease, border-color .25s ease, color .25s ease;
 }
 .tag-chip:hover{ transform:translateY(-2px); border-color:var(--gold-soft); color:var(--gold-strong); }
@@ -350,20 +378,20 @@ body.sky-night #sky-bg{ background:linear-gradient(160deg, var(--sky-night-a) 0%
 .confession{
     position:relative; margin-top:8px; padding:30px 26px 26px;
     border-radius:var(--radius-md); background:var(--paper-strong);
-    border:1px solid var(--rose-soft); overflow:hidden;
-    box-shadow:0 18px 40px -18px rgba(226,134,126,.35);
+    border:1px solid var(--red-soft); overflow:hidden;
+    box-shadow:0 18px 40px -18px rgba(214,41,61,.3);
 }
 .confession::before{
     content:''; position:absolute; inset:-40%; pointer-events:none; z-index:0;
-    background:radial-gradient(circle at 30% 20%, rgba(228,160,71,.20), transparent 55%),
-               radial-gradient(circle at 80% 90%, rgba(226,134,126,.20), transparent 55%);
+    background:radial-gradient(circle at 30% 20%, rgba(227,168,87,.14), transparent 55%),
+               radial-gradient(circle at 80% 90%, rgba(214,41,61,.14), transparent 55%);
     animation:candleFlicker 5s ease-in-out infinite;
 }
-@keyframes candleFlicker{ 0%,100%{ opacity:.75; } 50%{ opacity:1; } }
+@keyframes candleFlicker{ 0%,100%{ opacity:.7; } 50%{ opacity:1; } }
 @media (prefers-reduced-motion:reduce){ .confession::before{ animation:none; } }
 .confession-mark{
     position:relative; z-index:1; font-family:var(--font-quote); font-size:56px; line-height:.4;
-    color:var(--rose); opacity:.55; margin-bottom:6px;
+    color:var(--red); opacity:.6; margin-bottom:6px;
 }
 .confession-eyebrow{
     position:relative; z-index:1; font-family:var(--font-mono); font-size:10.5px; letter-spacing:2.5px;
@@ -373,28 +401,24 @@ body.sky-night #sky-bg{ background:linear-gradient(160deg, var(--sky-night-a) 0%
     position:relative; z-index:1; font-family:var(--font-quote); font-style:italic; font-size:18px;
     line-height:1.65; color:var(--ink); max-width:560px;
 }
-.confession-footer{
-    position:relative; z-index:1; font-size:12.5px; color:var(--ink-soft); margin-top:16px;
-    display:flex; align-items:center; gap:7px;
-}
 
 .intel-footer{
     margin-top:20px; padding-top:18px; border-top:1px solid var(--line);
     font-size:12.5px; color:var(--ink-soft); display:flex; align-items:center; gap:6px; flex-wrap:wrap;
 }
 .inline-link{ color:var(--gold-strong); font-weight:600; cursor:pointer; text-decoration:underline; text-decoration-color:var(--gold-soft); text-underline-offset:2px; }
-.inline-link:hover{ color:var(--rose); }
+.inline-link:hover{ color:var(--red); }
 
 /* =====================================================================
    10. VIBE PANEL
    ===================================================================== */
 .vibe-header{ display:flex; align-items:center; gap:8px; margin-bottom:18px; }
-.vibe-live-dot{ width:6px; height:6px; border-radius:50%; background:var(--rose); box-shadow:0 0 8px rgba(226,134,126,.7); animation:pulse 1.6s ease-in-out infinite; margin-left:auto; }
+.vibe-live-dot{ width:6px; height:6px; border-radius:50%; background:var(--red); box-shadow:0 0 8px rgba(214,41,61,.7); animation:pulse 1.6s ease-in-out infinite; margin-left:auto; }
 
 .vsn-grid{ display:flex; align-items:center; gap:18px; margin-bottom:16px; }
 .vsn-orb{
     width:74px; height:74px; border-radius:50%; flex-shrink:0; display:flex; align-items:center; justify-content:center;
-    background:radial-gradient(circle at 35% 30%, #fff, var(--lav-soft) 70%); border:1px solid var(--line);
+    background:radial-gradient(circle at 35% 30%, rgba(255,255,255,.05), var(--gold-soft) 75%); border:1px solid var(--line);
     font-size:32px; box-shadow:var(--shadow-sm);
 }
 .vsn-mood-tag{ text-align:center; font-family:var(--font-mono); font-size:10.5px; color:var(--ink-faint); margin-top:6px; text-transform:uppercase; letter-spacing:1px; }
@@ -410,7 +434,7 @@ body.sky-night #sky-bg{ background:linear-gradient(160deg, var(--sky-night-a) 0%
 .live-stat{ display:flex; flex-direction:column; gap:4px; }
 .live-stat-label{ font-family:var(--font-mono); font-size:10px; letter-spacing:1.5px; text-transform:uppercase; color:var(--ink-faint); }
 .live-stat-val{ font-family:var(--font-display); font-weight:700; font-size:15px; color:var(--ink); }
-.now-playing-line{ margin-top:16px; padding:12px 14px; border-radius:12px; background:rgba(255,255,255,.6); border:1px solid var(--line); font-size:12.5px; color:var(--ink-soft); display:flex; align-items:center; gap:8px; }
+.now-playing-line{ margin-top:16px; padding:12px 14px; border-radius:12px; background:rgba(255,255,255,.02); border:1px solid var(--line); font-size:12.5px; color:var(--ink-soft); display:flex; align-items:center; gap:8px; }
 .now-playing-line i{ color:var(--gold-strong); }
 
 /* =====================================================================
@@ -428,7 +452,7 @@ body.sky-night #sky-bg{ background:linear-gradient(160deg, var(--sky-night-a) 0%
 .lfm-status{ font-family:var(--font-mono); font-size:10.5px; color:var(--ink-faint); margin-top:4px; letter-spacing:.4px; }
 .eq-bars{ display:flex; align-items:flex-end; gap:2.5px; height:13px; opacity:0; transition:opacity .3s; }
 .eq-bars.active{ opacity:1; }
-.eq-bar{ width:3px; background:linear-gradient(var(--gold),var(--rose)); border-radius:2px; animation:eqBounce 1s ease-in-out infinite; }
+.eq-bar{ width:3px; background:linear-gradient(var(--gold),var(--red)); border-radius:2px; animation:eqBounce 1s ease-in-out infinite; }
 .eq-bar:nth-child(1){ animation-delay:0s; } .eq-bar:nth-child(2){ animation-delay:.15s; }
 .eq-bar:nth-child(3){ animation-delay:.3s; } .eq-bar:nth-child(4){ animation-delay:.45s; }
 @keyframes eqBounce{ 0%,100%{ height:4px; } 50%{ height:13px; } }
@@ -436,23 +460,23 @@ body.sky-night #sky-bg{ background:linear-gradient(160deg, var(--sky-night-a) 0%
 .section-label{ font-family:var(--font-mono); font-size:10.5px; letter-spacing:2px; text-transform:uppercase; color:var(--ink-faint); margin-bottom:10px; }
 .recent-row{ display:flex; align-items:center; gap:12px; padding:9px 0; border-bottom:1px solid var(--line); }
 .recent-row:last-child{ border-bottom:none; }
-.recent-art{ width:38px; height:38px; border-radius:9px; object-fit:cover; flex-shrink:0; background:var(--lav-soft); }
+.recent-art{ width:38px; height:38px; border-radius:9px; object-fit:cover; flex-shrink:0; background:var(--green-soft); }
 .recent-text{ flex:1; min-width:0; }
 .recent-track{ font-size:13px; font-weight:600; color:var(--ink); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
 .recent-artist{ font-size:11.5px; color:var(--ink-faint); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
 .recent-time{ font-family:var(--font-mono); font-size:10px; color:var(--ink-faint); flex-shrink:0; }
 
 .top-artists-row{ display:flex; flex-wrap:wrap; gap:8px; margin-top:24px; }
-.artist-chip{ display:flex; align-items:center; gap:6px; font-size:11.5px; padding:6px 12px; border-radius:999px; background:rgba(255,255,255,.7); border:1px solid var(--line); color:var(--ink-soft); }
+.artist-chip{ display:flex; align-items:center; gap:6px; font-size:11.5px; padding:6px 12px; border-radius:999px; background:rgba(255,255,255,.02); border:1px solid var(--line); color:var(--ink-soft); }
 .artist-chip .rank{ font-family:var(--font-mono); color:var(--gold-strong); font-weight:700; }
 
 /* =====================================================================
-   11b. MP3 PLAYER
+   11b. MP3 PLAYER (Cloudinary powered)
    ===================================================================== */
 .player-card{ margin-top:26px; padding-top:22px; border-top:1px solid var(--line); }
 .player{ display:flex; flex-direction:column; gap:14px; }
 .player-top{ display:flex; align-items:center; gap:14px; }
-.player-cover-wrap{ position:relative; width:60px; height:60px; border-radius:14px; overflow:hidden; flex-shrink:0; box-shadow:var(--shadow-sm); background:linear-gradient(135deg,var(--gold-soft),var(--lav-soft)); }
+.player-cover-wrap{ position:relative; width:60px; height:60px; border-radius:14px; overflow:hidden; flex-shrink:0; box-shadow:var(--shadow-sm); background:linear-gradient(135deg,var(--gold-soft),var(--green-soft)); }
 .player-cover{ width:100%; height:100%; object-fit:cover; }
 .player-cover-fallback{ position:absolute; inset:0; display:flex; align-items:center; justify-content:center; font-size:20px; color:var(--gold-strong); }
 .player-info{ flex:1; min-width:0; }
@@ -461,13 +485,13 @@ body.sky-night #sky-bg{ background:linear-gradient(160deg, var(--sky-night-a) 0%
 .player-index{ font-family:var(--font-mono); font-size:10px; color:var(--ink-faint); margin-top:2px; }
 
 .progress-wrap{ position:relative; height:5px; border-radius:4px; background:var(--line); cursor:pointer; }
-.progress-fill{ position:absolute; top:0; left:0; height:100%; border-radius:4px; background:linear-gradient(90deg,var(--gold),var(--rose)); width:0%; }
+.progress-fill{ position:absolute; top:0; left:0; height:100%; border-radius:4px; background:linear-gradient(90deg,var(--gold),var(--red)); width:0%; }
 .player-times{ display:flex; justify-content:space-between; font-family:var(--font-mono); font-size:10px; color:var(--ink-faint); margin-top:-6px; }
 
 .player-controls{ display:flex; align-items:center; justify-content:center; gap:12px; }
-.pctrl{ width:36px; height:36px; border-radius:50%; display:flex; align-items:center; justify-content:center; color:var(--ink-soft); background:rgba(255,255,255,.7); border:1px solid var(--line); cursor:pointer; transition:transform .25s ease, color .25s, border-color .25s; font-size:12.5px; }
+.pctrl{ width:36px; height:36px; border-radius:50%; display:flex; align-items:center; justify-content:center; color:var(--ink-soft); background:rgba(255,255,255,.03); border:1px solid var(--line); cursor:pointer; transition:transform .25s ease, color .25s, border-color .25s; font-size:12.5px; }
 .pctrl:hover{ color:var(--gold-strong); transform:translateY(-2px); }
-.pctrl.play-btn{ width:46px; height:46px; font-size:15px; color:var(--paper-strong); background:linear-gradient(120deg,var(--gold),var(--rose)); border:none; box-shadow:0 10px 22px -8px rgba(228,160,71,.5); }
+.pctrl.play-btn{ width:46px; height:46px; font-size:15px; color:var(--on-accent); background:linear-gradient(120deg,var(--gold),var(--red)); border:none; box-shadow:0 10px 22px -8px rgba(214,41,61,.45); }
 .pctrl.active-toggle{ color:var(--gold-strong); border-color:var(--gold-soft); background:var(--gold-soft); }
 
 .player-vol{ display:flex; align-items:center; gap:8px; color:var(--ink-faint); font-size:12px; }
@@ -477,46 +501,55 @@ body.sky-night #sky-bg{ background:linear-gradient(160deg, var(--sky-night-a) 0%
 
 .player-empty{ text-align:center; padding:26px 10px; color:var(--ink-faint); font-size:12.5px; line-height:1.7; }
 .player-empty i{ font-size:22px; color:var(--gold-soft); margin-bottom:10px; display:block; }
-.player-empty code{ background:rgba(0,0,0,.05); padding:2px 6px; border-radius:6px; font-family:var(--font-mono); font-size:11px; color:var(--ink-soft); }
+.player-empty code{ background:rgba(255,255,255,.06); padding:2px 6px; border-radius:6px; font-family:var(--font-mono); font-size:11px; color:var(--ink-soft); }
 
 /* =====================================================================
-   12. NOTE MODAL
+   12. STAMP MODAL (replaces "leave a note")
    ===================================================================== */
-.note-overlay{ position:fixed; inset:0; z-index:1000; background:rgba(46,42,61,.28); backdrop-filter:blur(6px); opacity:0; pointer-events:none; transition:opacity .3s ease; }
-.note-overlay.active{ opacity:1; pointer-events:all; }
-.note-modal{
+.stamp-overlay{ position:fixed; inset:0; z-index:1000; background:rgba(3,5,4,.62); backdrop-filter:blur(7px); opacity:0; pointer-events:none; transition:opacity .3s ease; }
+.stamp-overlay.active{ opacity:1; pointer-events:all; }
+.stamp-modal{
     position:fixed; top:50%; left:50%; transform:translate(-50%,-48%) scale(.94); z-index:1001;
-    width:90%; max-width:380px; padding:28px 26px 24px; border-radius:24px;
-    background:var(--paper-strong); box-shadow:var(--shadow-lg); border:1px solid var(--line);
+    width:90%; max-width:380px; padding:32px 26px 26px; border-radius:22px; text-align:center; overflow:hidden;
+    background:linear-gradient(165deg, #16211A, #0D1610);
+    box-shadow:var(--shadow-lg); border:1px solid var(--line-strong);
     opacity:0; pointer-events:none; transition:all .4s cubic-bezier(.2,.9,.3,1.15);
 }
-.note-modal.active{ opacity:1; pointer-events:all; transform:translate(-50%,-50%) scale(1); }
-.note-close{ position:absolute; top:16px; right:18px; color:var(--ink-faint); font-size:16px; cursor:pointer; transition:color .2s, transform .2s; }
-.note-close:hover{ color:var(--rose); transform:scale(1.15) rotate(90deg); }
-.note-title{ font-family:var(--font-display); font-weight:800; font-size:19px; color:var(--ink); margin-bottom:4px; }
-.note-sub{ font-size:12px; color:var(--ink-faint); margin-bottom:18px; }
-.note-textarea{
-    width:100%; height:96px; resize:none; background:rgba(0,0,0,.02); border:1px solid var(--line);
-    border-radius:13px; padding:12px 14px; font-family:var(--font-body); font-size:13px; color:var(--ink);
-    outline:none; transition:border-color .25s;
+.stamp-modal.active{ opacity:1; pointer-events:all; transform:translate(-50%,-50%) scale(1); }
+.stamp-modal::before{
+    content:''; position:absolute; top:0; left:0; right:0; height:5px;
+    background:repeating-linear-gradient(115deg, var(--gold) 0 10px, var(--red) 10px 20px, var(--green) 20px 30px, transparent 30px 34px);
 }
-.note-textarea:focus{ border-color:var(--gold-soft); background:rgba(0,0,0,.015); }
-.note-counter{ text-align:right; font-family:var(--font-mono); font-size:10px; color:var(--ink-faint); margin:5px 2px 14px; }
-.note-send{
-    width:100%; padding:13px; border-radius:13px; text-align:center; cursor:pointer;
-    font-family:var(--font-display); font-weight:700; font-size:13.5px; color:var(--paper-strong);
-    background:linear-gradient(120deg, var(--gold), var(--rose)); box-shadow:0 10px 22px -8px rgba(228,160,71,.5);
-    transition:transform .25s ease, box-shadow .25s ease; display:flex; align-items:center; justify-content:center; gap:8px;
+.stamp-close{ position:absolute; top:16px; right:18px; color:var(--ink-faint); font-size:16px; cursor:pointer; transition:color .2s, transform .2s; }
+.stamp-close:hover{ color:var(--red); transform:scale(1.15) rotate(90deg); }
+.stamp-eyebrow{ font-family:var(--font-mono); font-size:10.5px; letter-spacing:3px; text-transform:uppercase; color:var(--ink-faint); margin-bottom:6px; }
+.stamp-title{ font-family:var(--font-display); font-weight:800; font-size:19px; color:var(--ink); margin-bottom:20px; }
+
+.stamp-disc{
+    width:106px; height:106px; margin:0 auto 20px; border-radius:50%;
+    border:3px dashed var(--red); display:flex; flex-direction:column; align-items:center; justify-content:center;
+    color:var(--red); transform:rotate(-8deg); background:rgba(214,41,61,.05);
+    animation:stampThud .5s cubic-bezier(.2,.8,.3,1.3);
 }
-.note-send:hover{ transform:translateY(-2px); }
-.note-feedback{ text-align:center; font-size:11.5px; margin-top:11px; min-height:16px; color:var(--gold-strong); }
+@keyframes stampThud{ 0%{ transform:rotate(-8deg) scale(2.2); opacity:0; } 60%{ opacity:1; } 100%{ transform:rotate(-8deg) scale(1); opacity:1; } }
+@media (prefers-reduced-motion:reduce){ .stamp-disc{ animation:none; } }
+.stamp-disc-word{ font-family:var(--font-display); font-weight:800; font-size:22px; line-height:1.1; }
+.stamp-disc-no{ font-family:var(--font-mono); font-size:8.5px; letter-spacing:1.5px; margin-top:4px; }
+
+.stamp-word-row{ margin-bottom:4px; }
+.stamp-bn{ font-family:var(--font-display); font-weight:700; font-size:23px; color:var(--ink); }
+.stamp-translit{ font-family:var(--font-mono); font-size:11px; color:var(--gold-strong); letter-spacing:.5px; margin-top:4px; }
+.stamp-meaning{ font-family:var(--font-quote); font-style:italic; font-size:15px; color:var(--ink-soft); margin-top:8px; line-height:1.5; }
+
+.stamp-visitor{ margin-top:20px; padding-top:16px; border-top:1px solid var(--line); font-family:var(--font-mono); font-size:11px; color:var(--ink-faint); }
+.stamp-visitor strong{ color:var(--gold-strong); }
 
 /* toast */
 #toast{
     position:fixed; bottom:26px; left:50%; transform:translate(-50%,20px); z-index:1200;
-    background:var(--ink); color:var(--paper-strong); font-size:12.5px; font-family:var(--font-mono);
+    background:var(--paper-strong); color:var(--ink); font-size:12.5px; font-family:var(--font-mono);
     padding:11px 18px; border-radius:999px; opacity:0; pointer-events:none; transition:all .35s cubic-bezier(.2,.9,.3,1.2);
-    box-shadow:var(--shadow-md);
+    box-shadow:var(--shadow-md); border:1px solid var(--line-strong);
 }
 #toast.show{ opacity:1; transform:translate(-50%,0); }
 
@@ -525,10 +558,10 @@ body.sky-night #sky-bg{ background:linear-gradient(160deg, var(--sky-night-a) 0%
    ===================================================================== */
 #konami-flash{
     position:fixed; inset:0; z-index:9998; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:12px;
-    background:rgba(255,253,249,.94); backdrop-filter:blur(14px); opacity:0; pointer-events:none; transition:opacity .3s ease; text-align:center; padding:0 24px;
+    background:rgba(6,9,7,.92); backdrop-filter:blur(14px); opacity:0; pointer-events:none; transition:opacity .3s ease; text-align:center; padding:0 24px;
 }
 #konami-flash.active{ opacity:1; pointer-events:all; }
-.kf-text{ font-family:var(--font-display); font-weight:800; font-size:24px; background:linear-gradient(120deg,var(--gold),var(--rose)); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; }
+.kf-text{ font-family:var(--font-display); font-weight:800; font-size:24px; background:linear-gradient(120deg,var(--gold),var(--red)); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; }
 .kf-fact{ font-family:var(--font-quote); font-style:italic; font-size:16px; color:var(--ink-soft); max-width:340px; }
 .kf-hint{ font-family:var(--font-mono); font-size:10px; letter-spacing:2px; text-transform:uppercase; color:var(--ink-faint); }
 
@@ -537,7 +570,7 @@ body.sky-night #sky-bg{ background:linear-gradient(160deg, var(--sky-night-a) 0%
    ===================================================================== */
 #cursor-dot{
     position:fixed; top:0; left:0; width:22px; height:22px; border-radius:50%;
-    background:radial-gradient(circle, rgba(228,160,71,.5), rgba(226,134,126,.15) 70%, transparent 100%);
+    background:radial-gradient(circle, rgba(227,168,87,.5), rgba(214,41,61,.15) 70%, transparent 100%);
     transform:translate(-50%,-50%); pointer-events:none; z-index:99999; transition:width .2s, height .2s, opacity .2s;
     display:none;
 }
@@ -547,9 +580,9 @@ body.sky-night #sky-bg{ background:linear-gradient(160deg, var(--sky-night-a) 0%
 
 .ripple-burst{
     position:fixed; pointer-events:none; z-index:99997; border-radius:50%; transform:translate(-50%,-50%);
-    border:2px solid rgba(228,160,71,.6); width:0; height:0; animation:ripplePop .55s cubic-bezier(.2,.8,.4,1) forwards;
+    border:2px solid rgba(227,168,87,.55); width:0; height:0; animation:ripplePop .55s cubic-bezier(.2,.8,.4,1) forwards;
 }
-.ripple-burst.alt{ border-color:rgba(226,134,126,.6); }
+.ripple-burst.alt{ border-color:rgba(214,41,61,.55); }
 @keyframes ripplePop{ 0%{ width:0; height:0; opacity:1; } 100%{ width:80px; height:80px; opacity:0; } }
 
 /* =====================================================================
@@ -581,8 +614,9 @@ body.sky-night #sky-bg{ background:linear-gradient(160deg, var(--sky-night-a) 0%
 <div id="cursor-dot"></div>
 
 <div id="entry-overlay" onclick="enterSite()">
-    <div class="entry-sun"></div>
-    <div class="entry-title">welcome to my little sky</div>
+    <div class="entry-disc"></div>
+    <div class="entry-bn">স্বাগতম</div>
+    <div class="entry-title">welcome</div>
     <div class="entry-sub">tap to step in <i class="fas fa-chevron-down"></i></div>
 </div>
 
@@ -592,15 +626,24 @@ body.sky-night #sky-bg{ background:linear-gradient(160deg, var(--sky-night-a) 0%
     <div class="kf-hint">tap anywhere to close</div>
 </div>
 
-<div class="note-overlay" id="noteOverlay" onclick="closeNote()"></div>
-<div class="note-modal" id="noteModal" role="dialog" aria-label="Leave a note">
-    <button class="note-close" onclick="closeNote()" aria-label="Close"><i class="fas fa-times"></i></button>
-    <div class="note-title">leave a note</div>
-    <div class="note-sub">write it below — I'll copy it straight into our DMs</div>
-    <textarea class="note-textarea" id="noteText" maxlength="280" placeholder="say something nice (or chaotic)..."></textarea>
-    <div class="note-counter"><span id="noteCount">0</span>/280</div>
-    <button class="note-send" onclick="submitNote()"><i class="fas fa-paper-plane"></i> copy &amp; open discord</button>
-    <div class="note-feedback" id="noteFeedback"></div>
+<div class="stamp-overlay" id="stampOverlay" onclick="closeStamp()"></div>
+<div class="stamp-modal" id="stampModal" role="dialog" aria-label="Visitor stamp">
+    <button class="stamp-close" onclick="closeStamp()" aria-label="Close"><i class="fas fa-times"></i></button>
+    <div class="stamp-eyebrow">visitor log</div>
+    <div class="stamp-title">you've been stamped</div>
+
+    <div class="stamp-disc" id="stampDisc">
+        <span class="stamp-disc-word">প্রবেশ</span>
+        <span class="stamp-disc-no">ENTRY APPROVED</span>
+    </div>
+
+    <div class="stamp-word-row">
+        <div class="stamp-bn" id="stampWordBn">চা</div>
+        <div class="stamp-translit" id="stampTranslit">cha</div>
+        <div class="stamp-meaning" id="stampMeaning">tea — the fuel of every conversation here</div>
+    </div>
+
+    <div class="stamp-visitor">you're visitor <strong id="stampNo">0001</strong> to Ash's corner of the internet</div>
 </div>
 
 <div id="toast"></div>
@@ -610,37 +653,39 @@ body.sky-night #sky-bg{ background:linear-gradient(160deg, var(--sky-night-a) 0%
 
         <!-- ===================== PROFILE CARD ===================== -->
         <aside class="profile-card glass">
-            <div class="greeting-eyebrow"><i class="fas fa-sun"></i><span id="greetingText">good day</span></div>
+            <div class="greeting-eyebrow"><i class="fas fa-moon"></i><span id="greetingText">good day</span></div>
 
             <div class="avatar-wrap">
-    <div class="avatar-orbit"><span>🌙</span></div>
-
-    <div class="avatar-orb">
-        <img src="file_00000000adc471f4953d78925f9dd79f.png" alt="Profile Picture" class="profile-pic">
-    </div>
+                <div class="avatar-orbit"><span>🌙</span></div>
+                <div class="avatar-orb">
+                    <img src="63d5e817c7e2c9ac82af4eb7221d95c6.jpg" alt="Profile Picture" class="profile-pic">
+                </div>
             </div>
 
             <h1 class="header-name" data-text="Ash">Ash</h1>
-            <div class="status-line"><span class="status-dot"></span><span id="statusText">probably online</span>&nbsp;·&nbsp;he/him</div>
+            <div class="status-line"><span class="status-dot"></span><span id="statusText">probably online</span>&nbsp;·&nbsp;he/him&nbsp;·&nbsp;Finland</div>
             <p class="tagline">I suck at socializing 😵‍💫</p>
 
             <div class="social-row">
-                <a class="social-btn" href="https://discord.com/users/codedshit" target="_blank" rel="noopener" aria-label="Discord"><i class="fab fa-discord"></i></a>
+                <a class="social-btn" href="https://discord.com/users/codedsum" target="_blank" rel="noopener" aria-label="Discord"><i class="fab fa-discord"></i></a>
                 <a class="social-btn" href="https://github.com/codedshit" target="_blank" rel="noopener" aria-label="GitHub"><i class="fab fa-github"></i></a>
                 <a class="social-btn" href="https://anilist.co/user/Klxxy/" target="_blank" rel="noopener" aria-label="AniList"><i class="fas fa-leaf"></i></a>
                 <button class="social-btn" onclick="copyDiscord()" aria-label="Copy Discord username"><i class="fas fa-copy"></i></button>
             </div>
 
             <div class="badge-row">
-                <span class="badge">🎧 music addict</span>
+                <span class="badge">🎤 rap addict</span>
                 <span class="badge">🌙 night owl</span>
                 <span class="badge">🎌 anime brain</span>
                 <span class="badge">🚫 banned from guns.lol</span>
             </div>
 
-            <button class="note-btn" onclick="openNote()"><i class="fas fa-feather"></i> leave a note</button>
+            <button class="stamp-btn" onclick="openStamp()"><i class="fas fa-stamp"></i> stamp your visit</button>
 
-            <div class="local-time-chip" id="localTimeChip">☀️ loading your local time…</div>
+            <div class="local-time-chip" id="localTimeChip">
+                <div class="ltc-row">🕯️ <span id="localTimeVal">--:--</span> your time</div>
+                <div class="ltc-row">🇧🇩 <span id="dhakaTimeVal">--:--</span> Bangladesh time</div>
+            </div>
         </aside>
 
         <!-- ===================== TABS + PANELS ===================== -->
@@ -659,21 +704,23 @@ body.sky-night #sky-bg{ background:linear-gradient(160deg, var(--sky-night-a) 0%
                         <div class="panel-eyebrow"><i class="fas fa-satellite-dish"></i> about</div>
                         <div class="panel-title">Intel</div>
 
-                        
                         <p class="about-text">i dont fw queers 🫩</p>
 
                         <div class="ring-grid" id="statRings">
-                            <div class="ring-tile">
+                            <div class="ring-tile tile-hero">
                                 <div class="ring-svg-wrap">
                                     <svg class="ring-svg" viewBox="0 0 78 78">
                                         <circle class="ring-track" cx="39" cy="39" r="33"></circle>
-                                        <circle class="ring-fill" cx="39" cy="39" r="33" data-pct="84" style="stroke:var(--rose)"></circle>
+                                        <circle class="ring-fill" cx="39" cy="39" r="33" data-pct="84" style="stroke:var(--red)"></circle>
                                     </svg>
                                     <div class="ring-center"><span class="ring-emoji">🎌</span><span class="ring-pct">84%</span></div>
                                 </div>
-                                <div class="ring-label">anime lover</div>
+                                <div class="ring-hero-text">
+                                    <span class="ring-hero-title">anime lover</span>
+                                    <span class="ring-hero-sub">certified, no cure needed</span>
+                                </div>
                             </div>
-                            <div class="ring-tile">
+                            <div class="ring-tile tile-b">
                                 <div class="ring-svg-wrap">
                                     <svg class="ring-svg" viewBox="0 0 78 78">
                                         <circle class="ring-track" cx="39" cy="39" r="33"></circle>
@@ -683,25 +730,36 @@ body.sky-night #sky-bg{ background:linear-gradient(160deg, var(--sky-night-a) 0%
                                 </div>
                                 <div class="ring-label">music addict</div>
                             </div>
-                            <div class="ring-tile">
+                            <div class="ring-tile tile-c">
                                 <div class="ring-svg-wrap">
                                     <svg class="ring-svg" viewBox="0 0 78 78">
                                         <circle class="ring-track" cx="39" cy="39" r="33"></circle>
-                                        <circle class="ring-fill" cx="39" cy="39" r="33" data-pct="25" style="stroke:var(--blue)"></circle>
+                                        <circle class="ring-fill" cx="39" cy="39" r="33" data-pct="25" style="stroke:var(--teal)"></circle>
                                     </svg>
                                     <div class="ring-center"><span class="ring-emoji">🚲</span><span class="ring-pct">25%</span></div>
                                 </div>
                                 <div class="ring-label">cycling</div>
                             </div>
-                            <div class="ring-tile">
+                            <div class="ring-tile tile-d">
                                 <div class="ring-svg-wrap">
                                     <svg class="ring-svg" viewBox="0 0 78 78">
                                         <circle class="ring-track" cx="39" cy="39" r="33"></circle>
-                                        <circle class="ring-fill" cx="39" cy="39" r="33" data-pct="18" style="stroke:var(--lav)"></circle>
+                                        <circle class="ring-fill" cx="39" cy="39" r="33" data-pct="18" style="stroke:var(--green)"></circle>
                                     </svg>
                                     <div class="ring-center"><span class="ring-emoji">🌙</span><span class="ring-pct">18%</span></div>
                                 </div>
-                                <div class="ring-label">sleeping</div>
+                                <div class="ring-hero-text">
+                                    <span class="ring-hero-title">sleeping</span>
+                                    <span class="ring-hero-sub">schedule: theoretical</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="info-block">
+                            <div class="info-block-title"><i class="fas fa-location-dot"></i> Origin</div>
+                            <div class="tag-row">
+                                <span class="tag-chip">From Bangladesh, Noakhali 🇧🇩</span>
+                                <span class="tag-chip">Currently in Finland</span>
                             </div>
                         </div>
 
@@ -715,7 +773,7 @@ body.sky-night #sky-bg{ background:linear-gradient(160deg, var(--sky-night-a) 0%
                                         <defs>
                                             <linearGradient id="bdayGrad" x1="0" y1="0" x2="1" y2="1">
                                                 <stop offset="0" stop-color="var(--gold)"></stop>
-                                                <stop offset="1" stop-color="var(--rose)"></stop>
+                                                <stop offset="1" stop-color="var(--red)"></stop>
                                             </linearGradient>
                                         </defs>
                                     </svg>
@@ -723,7 +781,7 @@ body.sky-night #sky-bg{ background:linear-gradient(160deg, var(--sky-night-a) 0%
                                 </div>
                                 <div class="bday-facts">
                                     <div class="bday-days" id="bdayDays">counting…</div>
-                                    <div class="bday-sub">Nov 1 · <span id="zodiacTag">♏ Scorpio</span></div>
+                                    <div class="bday-sub">Nov 1</div>
                                 </div>
                             </div>
                         </div>
@@ -752,13 +810,13 @@ body.sky-night #sky-bg{ background:linear-gradient(160deg, var(--sky-night-a) 0%
                         <!-- ============ CONFESSION PLAQUE ============ -->
                         <div class="confession">
                             <div class="confession-mark">"</div>
-                            <div class="confession-eyebrow"><i class="fas fa-candle-holder" style="margin-right:6px;color:var(--rose);"></i>something I don't say out loud</div>
+                            <div class="confession-eyebrow"><i class="fas fa-candle-holder" style="margin-right:6px;color:var(--red);"></i>something I don't say out loud</div>
                             <p class="confession-text">This may seem foolish of me, but every night I cry not because I'm sad. It's because I think of myself dying, wondering where I will go Heaven or Hell? Or even eternal sleep. The mere thought of it makes me scared, I really want help 😞.</p>
                         </div>
 
                         <div class="intel-footer">
-                            <i class="fas fa-heart" style="color:var(--rose);"></i>
-                            Want in? <span class="inline-link" onclick="openNote()">leave me a note</span> or add me on <span class="inline-link" onclick="copyDiscord()">Discord</span>.
+                            <i class="fas fa-heart" style="color:var(--red);"></i>
+                            Want in? <span class="inline-link" onclick="openStamp()">get your stamp</span> or add me on <span class="inline-link" onclick="copyDiscord()">Discord</span>.
                         </div>
                     </div>
                 </div>
@@ -774,13 +832,13 @@ body.sky-night #sky-bg{ background:linear-gradient(160deg, var(--sky-night-a) 0%
 
                         <div class="vsn-grid">
                             <div style="display:flex;flex-direction:column;align-items:center;">
-                                <div class="vsn-orb"><span id="vsnEmoji">💫</span></div>
-                                <div class="vsn-mood-tag" id="vsnMoodTag">chill</div>
+                                <div class="vsn-orb"><span id="vsnEmoji">🪔</span></div>
+                                <div class="vsn-mood-tag" id="vsnMoodTag">adda mode</div>
                             </div>
                             <div class="vsn-info-col">
-                                <p class="vsn-caption" id="vsnCaption">vibing in the moonlight</p>
-                                <div class="vsn-fixation-row"><span class="vsn-fixation-label">obsessing over</span><span class="vsn-fixation-val" id="vsnFix">Hyperpop 🎵</span></div>
-                                <div class="vsn-fixation-row"><span class="vsn-fixation-label">currently into</span><span class="vsn-fixation-val" id="vsnInto">all nighters 🛏</span></div>
+                                <p class="vsn-caption" id="vsnCaption">lost in a three-hour adda about nothing</p>
+                                <div class="vsn-fixation-row"><span class="vsn-fixation-label">obsessing over</span><span class="vsn-fixation-val" id="vsnFix">Coke Studio Bangla 🎵</span></div>
+                                <div class="vsn-fixation-row"><span class="vsn-fixation-label">currently into</span><span class="vsn-fixation-val" id="vsnInto">endless cups of cha ☕</span></div>
                             </div>
                         </div>
 
@@ -796,6 +854,10 @@ body.sky-night #sky-bg{ background:linear-gradient(160deg, var(--sky-night-a) 0%
                             <div class="live-stat">
                                 <span class="live-stat-label">your local time</span>
                                 <span class="live-stat-val" id="vibeClock">--:--</span>
+                            </div>
+                            <div class="live-stat">
+                                <span class="live-stat-label">Bangladesh time</span>
+                                <span class="live-stat-val" id="vibeDhakaClock">--:--</span>
                             </div>
                             <div class="live-stat">
                                 <span class="live-stat-label">you've been here</span>
@@ -868,7 +930,7 @@ body.sky-night #sky-bg{ background:linear-gradient(160deg, var(--sky-night-a) 0%
 
                             <div class="player-empty" id="playerEmpty">
                                 <i class="fas fa-compact-disc"></i>
-                                no tracks loaded yet — upload your mp3s and drop their filenames into the <code>songs</code> list near the top of the script, then I can wire the covers in too.
+                                no tracks loaded yet — grab a public ID from your <code>dgus0vior</code> Cloudinary media library and drop it into the <code>songs</code> list near the top of the script.
                             </div>
 
                             <audio id="audioEl" preload="metadata"></audio>
@@ -881,7 +943,7 @@ body.sky-night #sky-bg{ background:linear-gradient(160deg, var(--sky-night-a) 0%
     </div>
 </main>
 
-<footer class="site-footer">made by Ash ★ <span id="current-year"></span></footer>
+<footer class="site-footer">made by Ash ✦ <span id="current-year"></span></footer>
 
 <script>
 /* =====================================================================
@@ -890,15 +952,33 @@ body.sky-night #sky-bg{ background:linear-gradient(160deg, var(--sky-night-a) 0%
 const LFM_KEY  = '84e191b366d86d98c1db2a74b5b39ef4';
 const LFM_USER = 'Ashy-geek';
 const LFM_DEFAULT_ART = 'https://lastfm.freetls.fastly.net/i/u/300x300/2a96cbd8b46e442fc41c2b86b821562f.png';
-const DISCORD_URL  = 'https://discord.com/users/codedshit';
-const DISCORD_TAG   = 'codedshit';
+const DISCORD_URL  = 'https://discord.com/users/codedsum';
+const DISCORD_TAG   = 'codedsum';
 const REDUCED_MOTION = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-/* Your playlist. Add a track by uploading an mp3 (and optionally a cover
-   image) next to this file, then add a line here, e.g.:
-   { title: 'Track Name', artist: 'Artist Name', src: 'songs/track.mp3', cover: 'songs/cover.jpg' }
-   `cover` is optional — a music-note icon shows if it's left out. */
-const songs = [];
+/* =====================================================================
+   { title: 'Track Name', artist: 'Artist Name', id: 'songs/track1', cover: 'covers/track1' }
+   ===================================================================== */
+const CLOUD_NAME = 'dgus0vior';
+const songs = [
+   { title: 'Acid ke', artist: 'Stoic bliss', id: 'Acid_Ke_kajk1r', cover: '1effb6eed9521a79cb31005bc0a64291_thvynw' },
+   { title: 'Shonar Bangladesh', artist: 'G series', id: 'Shonar_Bangladesh_t4afdi', cover: 'bd09ec4e9969be8bd154504346e7f401_g3d9hr' },
+   { title: 'Tomar preme', artist: 'cfu36', id: 'Tomar_Preme_qwjhlu', cover: '270183aaba377f63e529d91594d02a4e_ufx1ur' },
+   { title: 'khoka', artist: 'Pritom hasan', id: 'Khoka_nygtde', cover: '64ba908efbd66d7a25add245cf36fc1d_wqnxyp' },
+   { title: 'Dhaka/Maduli', artist: 'cfu36', id: 'Dhaka_Maduli_bfaw0f', cover: 'c896d33d1a286eb6f8776a396ce964ef_bb6omx' }
+];
+
+function cldAudio(publicId){
+    if (!publicId) return '';
+    const clean = publicId.replace(/^\/+/, '').replace(/\.(mp3|wav|ogg|m4a|aac)$/i, '');
+    /* Cloudinary serves audio through the "video" delivery pipeline */
+    return `https://res.cloudinary.com/${CLOUD_NAME}/video/upload/${clean}.mp3`;
+}
+function cldImage(publicId){
+    if (!publicId) return '';
+    const clean = publicId.replace(/^\/+/, '');
+    return `https://res.cloudinary.com/${CLOUD_NAME}/image/upload/f_auto,q_auto/${clean}`;
+}
 
 document.getElementById('current-year').textContent = new Date().getFullYear();
 
@@ -907,19 +987,13 @@ document.getElementById('current-year').textContent = new Date().getFullYear();
    ===================================================================== */
 function enterSite() {
     const overlay = document.getElementById('entry-overlay');
-
     overlay.classList.add('hidden');
-    setTimeout(() => {
-        overlay.style.display = 'none';
-    }, 850);
-
-    if (songs.length) {
-        loadTrack(0, true); 
-    }
+    setTimeout(() => { overlay.style.display = 'none'; }, 850);
+    if (songs.length) loadTrack(0, true);
 }
 
 /* =====================================================================
-   LIVING SKY — time-of-day automation
+   LIVING NIGHT — time-of-day automation
    ===================================================================== */
 function timeSlot(hour){
     if (hour >= 5  && hour < 11) return 'dawn';
@@ -928,15 +1002,15 @@ function timeSlot(hour){
     return 'night';
 }
 const GREETINGS = {
-    dawn:  ['good morning', 'up early, huh'],
-    day:   ['good afternoon', 'hey there'],
-    dusk:  ['good evening', 'golden hour ✦'],
+    dawn:  ['shubho sokal ☀️', 'up before the fajr azan?'],
+    day:   ['ei je, hello', 'hey there'],
+    dusk:  ['shondha bhalo? 🌇', 'golden hour over the river'],
     night: ['still up, huh?', 'night owl hours 🌙']
 };
 const STATUS_MSGS = {
     dawn:  'just woke up, be nice',
-    day:   'probably online',
-    dusk:  'prime scrolling hours',
+    day:   'probably mid load-shedding',
+    dusk:  'prime adda hours',
     night: 'night owl mode 🌙'
 };
 const SUN_ICON = { dawn:'fa-cloud-sun', day:'fa-sun', dusk:'fa-cloud-moon', night:'fa-moon' };
@@ -960,11 +1034,17 @@ setInterval(applySkyTheme, 5 * 60 * 1000);
 function updateClocks(){
     const now = new Date();
     const timeStr = now.toLocaleTimeString([], { hour:'numeric', minute:'2-digit' });
-    const chip = document.getElementById('localTimeChip');
-    const emoji = timeSlot(now.getHours()) === 'night' ? '🌙' : '☀️';
-    if (chip) chip.textContent = emoji + ' ' + timeStr + ' your time';
+    const dhakaStr = now.toLocaleTimeString([], { hour:'numeric', minute:'2-digit', timeZone:'Asia/Dhaka' });
+
+    const localVal = document.getElementById('localTimeVal');
+    const dhakaVal = document.getElementById('dhakaTimeVal');
+    if (localVal) localVal.textContent = timeStr;
+    if (dhakaVal) dhakaVal.textContent = dhakaStr;
+
     const vClock = document.getElementById('vibeClock');
     if (vClock) vClock.textContent = timeStr;
+    const vDhaka = document.getElementById('vibeDhakaClock');
+    if (vDhaka) vDhaka.textContent = dhakaStr;
 }
 updateClocks();
 setInterval(updateClocks, 15000);
@@ -1013,15 +1093,6 @@ initRings(document.getElementById('statRings'));
 /* =====================================================================
    BIRTHDAY / ZODIAC
    ===================================================================== */
-function zodiacFor(month, day){
-    const table = [
-        [1,20,'Capricorn','♑'],[2,19,'Aquarius','♒'],[3,20,'Pisces','♓'],[4,20,'Aries','♈'],
-        [5,21,'Taurus','♉'],[6,21,'Gemini','♊'],[7,22,'Cancer','♋'],[8,23,'Leo','♌'],
-        [9,23,'Virgo','♍'],[10,23,'Libra','♎'],[11,22,'Scorpio','🌸'],[12,22,'Sagittarius','♐'],[12,31,'Capricorn','♑']
-    ];
-    for (const [m,d,name,sym] of table){ if (month < m || (month === m && day <= d)) return {name,sym}; }
-    return {name:'Capricorn', sym:'♑'};
-}
 function nextBirthdayInfo(month, day){
     const now = new Date();
     let target = new Date(now.getFullYear(), month - 1, day);
@@ -1034,8 +1105,6 @@ function nextBirthdayInfo(month, day){
 }
 function initBirthday(){
     const BDAY_MONTH = 11, BDAY_DAY = 1;
-    const z = zodiacFor(BDAY_MONTH, BDAY_DAY);
-    document.getElementById('zodiacTag').textContent = z.sym + ' ' + z.name;
 
     const info = nextBirthdayInfo(BDAY_MONTH, BDAY_DAY);
     const daysEl = document.getElementById('bdayDays');
@@ -1051,10 +1120,10 @@ initBirthday();
    VIBE MOOD ROTATOR
    ===================================================================== */
 const vsnStates = [
-    { emoji:'💫', tag:'chill',      caption:'vibing in the moonlight',        fix:'Hyperpop 🎵',            into:'all nighters 🛏' },
-    { emoji:'🌙', tag:'nighty',     caption:'awake when I shouldn\u2019t be', fix:'You 😘',                 into:'late night cycling 🚲' },
-    { emoji:'⚡', tag:'locked in',  caption:'focused, don\u2019t disturb',    fix:'romcom animes ❤️‍🩹',     into:'lo-fi beats 🎧' },
-    { emoji:'🍃', tag:'soft',       caption:'anime brain',                    fix:'Clannad feels 😢',       into:'nature walks 🌳' }
+    { emoji:'🪔', tag:'adda mode',   caption:'lost in a three-hour adda about nothing',   fix:'new rap drops 🎤',       into:'endless cups of cha ☕' },
+    { emoji:'🌙', tag:'night owl',   caption:'awake past the azan, again',                fix:'lo-fi + rain on a tin roof 🌧️', into:'doom-scrolling reels 📱' },
+    { emoji:'⚡', tag:'locked in',   caption:'load-shedding brain, focus mode',           fix:'romcom animes ❤️‍🩹',           into:'finishing one more episode' },
+    { emoji:'🍃', tag:'soft',        caption:'nostalgia for a monsoon I haven\u2019t had yet', fix:'Clannad feels 😢',        into:'rainy day naps' }
 ];
 let vsnIdx = 0;
 function showVSN(i){
@@ -1165,7 +1234,7 @@ setInterval(fetchNowPlaying, 30000);
 setInterval(fetchRecent, 60000);
 
 /* =====================================================================
-   MP3 PLAYER
+   MP3 PLAYER (Cloudinary)
    ===================================================================== */
 const audioEl = document.getElementById('audioEl');
 let curIdx = 0, isShuffle = false, isRepeat = false;
@@ -1181,14 +1250,14 @@ function initPlayer(){
 function loadTrack(i, autoplay){
     curIdx = ((i % songs.length) + songs.length) % songs.length;
     const s = songs[curIdx];
-    audioEl.src = s.src;
+    audioEl.src = cldAudio(s.id);
     document.getElementById('playerTitle').textContent = s.title || 'Untitled';
     document.getElementById('playerArtist').textContent = s.artist || '';
     document.getElementById('playerIndex').textContent = (curIdx + 1) + ' / ' + songs.length;
 
     const cover = document.getElementById('playerCover');
     const fallback = document.getElementById('playerCoverFallback');
-    if (s.cover){ cover.src = s.cover; cover.style.display = 'block'; fallback.style.display = 'none'; }
+    if (s.cover){ cover.src = cldImage(s.cover); cover.style.display = 'block'; fallback.style.display = 'none'; }
     else { cover.style.display = 'none'; fallback.style.display = 'flex'; }
 
     if (autoplay) audioEl.play().then(() => setPlayerState(true)).catch(() => setPlayerState(false));
@@ -1254,7 +1323,7 @@ audioEl.volume = 0.7;
 initPlayer();
 
 /* =====================================================================
-   COPY DISCORD / NOTE MODAL
+   COPY DISCORD / VISITOR STAMP
    ===================================================================== */
 function showToast(msg){
     const toast = document.getElementById('toast');
@@ -1270,33 +1339,41 @@ function copyDiscord(){
         showToast('add me on Discord: ' + DISCORD_TAG);
     }
 }
-function openNote(){
-    document.getElementById('noteOverlay').classList.add('active');
-    document.getElementById('noteModal').classList.add('active');
-    document.getElementById('noteText').focus();
+
+const BANGLA_WORDS = [
+    { bn:'চা',       translit:'cha',       meaning:'tea — the fuel of every conversation here' },
+    { bn:'আড্ডা',     translit:'adda',      meaning:'the art of hanging out and talking for hours' },
+    { bn:'ভালোবাসা',  translit:'bhalobasha',meaning:'love' },
+    { bn:'দাওয়াত',    translit:'dawat',     meaning:'an invitation, usually involving too much food' },
+    { bn:'রিকশা',     translit:'rickshaw',  meaning:'the most honest way to see a city' },
+    { bn:'মায়া',      translit:'maya',      meaning:'a tender, hard-to-translate kind of attachment' },
+    { bn:'নদী',       translit:'nodi',      meaning:'river — there\u2019s always one nearby' }
+];
+let stampCount = parseInt(localStorage.getItem('visitStampCount') || '0', 10);
+
+function openStamp(){
+    document.getElementById('stampOverlay').classList.add('active');
+    document.getElementById('stampModal').classList.add('active');
+    generateStamp();
 }
-function closeNote(){
-    document.getElementById('noteOverlay').classList.remove('active');
-    document.getElementById('noteModal').classList.remove('active');
-    document.getElementById('noteFeedback').textContent = '';
+function closeStamp(){
+    document.getElementById('stampOverlay').classList.remove('active');
+    document.getElementById('stampModal').classList.remove('active');
 }
-document.getElementById('noteText').addEventListener('input', e => {
-    document.getElementById('noteCount').textContent = e.target.value.length;
-});
-function submitNote(){
-    const val = document.getElementById('noteText').value.trim();
-    const feedback = document.getElementById('noteFeedback');
-    if (!val){ feedback.textContent = 'write something first!'; return; }
-    if (navigator.clipboard){
-        navigator.clipboard.writeText(val).then(() => {
-            feedback.textContent = 'copied! opening Discord — paste it in our DMs 💌';
-            window.open(DISCORD_URL, '_blank', 'noopener');
-            document.getElementById('noteText').value = '';
-            document.getElementById('noteCount').textContent = '0';
-        }).catch(() => { feedback.textContent = 'copy blocked — select & copy manually.'; });
-    } else {
-        feedback.textContent = 'copy not supported — select & copy manually.';
-    }
+function generateStamp(){
+    stampCount += 1;
+    localStorage.setItem('visitStampCount', String(stampCount));
+
+    const w = BANGLA_WORDS[Math.floor(Math.random() * BANGLA_WORDS.length)];
+    document.getElementById('stampWordBn').textContent = w.bn;
+    document.getElementById('stampTranslit').textContent = w.translit;
+    document.getElementById('stampMeaning').textContent = w.meaning;
+    document.getElementById('stampNo').textContent = String(stampCount).padStart(4, '0');
+
+    const disc = document.getElementById('stampDisc');
+    disc.style.animation = 'none';
+    void disc.offsetWidth;
+    disc.style.animation = '';
 }
 
 /* =====================================================================
@@ -1322,8 +1399,9 @@ const FUN_FACTS = [
     'I\u2019ve rewatched Clannad more times than I\u2019d like to admit.',
     'My sleep schedule is basically a myth at this point.',
     'I have never once won an argument about anime rankings.',
-    'This site changes its sky colour depending on when you visit — try coming back at 3am.',
-    'I got banned from guns.lol and honestly, I wear it as a badge of honor.'
+    'This site changes its mood depending on when you visit — try coming back at 3am.',
+    'I got banned from guns.lol and honestly, I wear it as a badge of honor.',
+    'I have never once finished a cup of cha before it went cold.'
 ];
 let konamiIdx = 0;
 document.addEventListener('keydown', e => {
@@ -1352,13 +1430,14 @@ function closeKonami(){ document.getElementById('konami-flash').classList.remove
 })();
 
 /* =====================================================================
-   LIGHT MOTES CANVAS (ambient dust in sunlight)
+   AMBIENT PARTICLES — fireflies / lantern embers
    ===================================================================== */
 (function(){
     const canvas = document.getElementById('motes-canvas');
     const ctx = canvas.getContext('2d');
     let w, h, particles = [];
     let running = !REDUCED_MOTION;
+    const colors = ['227,168,87', '214,41,61'];
 
     function resize(){
         w = canvas.width = window.innerWidth;
@@ -1372,7 +1451,8 @@ function closeKonami(){ document.getElementById('konami-flash').classList.remove
             r: 1 + Math.random() * 2.2,
             speed: 0.15 + Math.random() * 0.35,
             drift: Math.random() * Math.PI * 2,
-            alpha: 0.15 + Math.random() * 0.35
+            alpha: 0.15 + Math.random() * 0.35,
+            color: colors[Math.floor(Math.random() * colors.length)]
         }));
     }
     function draw(){
@@ -1382,7 +1462,7 @@ function closeKonami(){ document.getElementById('konami-flash').classList.remove
             p.x += Math.sin(p.drift + p.y * 0.01) * 0.25;
             if (p.y < -10){ p.y = h + 10; p.x = Math.random() * w; }
             ctx.beginPath();
-            ctx.fillStyle = `rgba(228,160,71,${p.alpha})`;
+            ctx.fillStyle = `rgba(${p.color},${p.alpha})`;
             ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
             ctx.fill();
         });
@@ -1400,4 +1480,3 @@ function closeKonami(){ document.getElementById('konami-flash').classList.remove
 </body>
 </html>
 
- 
