@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>Ash — night owl 🇧🇩</title>
-<meta name="description" content="Ash's personal corner of the internet — a night owl from Noakhali, Bangladesh, obsessed with anime and rap.">
+<title>Ash</title>
+<meta name="description" content="Ash's personal corner of the internet.">
 <meta name="theme-color" content="#07100C">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%AA%94%3C/text%3E%3C/svg%3E">
 
@@ -15,7 +15,7 @@
 
 <style>
 /* =====================================================================
-   0. DESIGN TOKENS — dark, moody, Bangladeshi accent palette
+   0.
    ===================================================================== */
 :root{
     /* sky gradient stops — always dark, hue shifts with time of day */
@@ -436,6 +436,8 @@ body.sky-night #sky-bg{ background:linear-gradient(160deg, var(--void-night-a) 0
 .live-stat-val{ font-family:var(--font-display); font-weight:700; font-size:15px; color:var(--ink); }
 .now-playing-line{ margin-top:16px; padding:12px 14px; border-radius:12px; background:rgba(255,255,255,.02); border:1px solid var(--line); font-size:12.5px; color:var(--ink-soft); display:flex; align-items:center; gap:8px; }
 .now-playing-line i{ color:var(--gold-strong); }
+.discord-wrap{ margin-top:22px; }
+.discord-wrap #discordFrame{ border-radius:var(--radius-md); border:1px solid var(--line); }
 
 /* =====================================================================
    11. MUSIC PANEL
@@ -866,6 +868,15 @@ body.sky-night #sky-bg{ background:linear-gradient(160deg, var(--void-night-a) 0
                         </div>
 
                         <div class="now-playing-line" id="vibeNowPlaying"><i class="fas fa-music"></i> checking what I'm listening to…</div>
+
+                        <div class="discord-wrap">
+                            <div class="section-label">discord</div>
+                            <div class="player-empty" id="discordEmpty">
+                                <i class="fab fa-discord"></i>
+                                paste your server ID into <code>DISCORD_WIDGET_ID</code> near the top of the script to show the live widget here.
+                            </div>
+                            <iframe id="discordFrame" style="display:none;" width="100%" height="300" frameborder="0" sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts" title="Discord widget"></iframe>
+                        </div>
                     </div>
                 </div>
 
@@ -954,6 +965,7 @@ const LFM_USER = 'Ashy-geek';
 const LFM_DEFAULT_ART = 'https://lastfm.freetls.fastly.net/i/u/300x300/2a96cbd8b46e442fc41c2b86b821562f.png';
 const DISCORD_URL  = 'https://discord.com/users/codedsum';
 const DISCORD_TAG   = 'codedsum';
+const DISCORD_WIDGET_ID = ''; // paste your Discord server ID here (Server Settings → Widget) to show the live widget in the Vibe tab
 const REDUCED_MOTION = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 /* =====================================================================
@@ -979,6 +991,9 @@ function cldImage(publicId){
     const clean = publicId.replace(/^\/+/, '');
     return `https://res.cloudinary.com/${CLOUD_NAME}/image/upload/f_auto,q_auto/${clean}`;
 }
+function randomTrackIndex(){
+    return songs.length ? Math.floor(Math.random() * songs.length) : 0;
+}
 
 document.getElementById('current-year').textContent = new Date().getFullYear();
 
@@ -989,7 +1004,7 @@ function enterSite() {
     const overlay = document.getElementById('entry-overlay');
     overlay.classList.add('hidden');
     setTimeout(() => { overlay.style.display = 'none'; }, 850);
-    if (songs.length) loadTrack(0, true);
+    if (songs.length) loadTrack(randomTrackIndex(), true);
 }
 
 /* =====================================================================
@@ -1009,7 +1024,7 @@ const GREETINGS = {
 };
 const STATUS_MSGS = {
     dawn:  'just woke up, be nice',
-    day:   'probably mid load-shedding',
+    day:   'probably online',
     dusk:  'prime adda hours',
     night: 'night owl mode 🌙'
 };
@@ -1143,6 +1158,20 @@ showVSN(0);
 setInterval(() => showVSN((vsnIdx + 1) % vsnStates.length), 6000);
 
 /* =====================================================================
+   DISCORD WIDGET — empty until DISCORD_WIDGET_ID is set above
+   ===================================================================== */
+function initDiscordWidget(){
+    const frame = document.getElementById('discordFrame');
+    const empty = document.getElementById('discordEmpty');
+    if (!frame || !empty) return;
+    if (!DISCORD_WIDGET_ID){ empty.style.display = 'block'; frame.style.display = 'none'; return; }
+    frame.src = `https://discord.com/widget?id=${DISCORD_WIDGET_ID}&theme=dark`;
+    empty.style.display = 'none';
+    frame.style.display = 'block';
+}
+initDiscordWidget();
+
+/* =====================================================================
    LAST.FM — now playing / recent / top artists
    ===================================================================== */
 function timeAgo(unixSeconds){
@@ -1244,7 +1273,7 @@ function initPlayer(){
     const empty = document.getElementById('playerEmpty');
     if (!songs.length){ ui.style.display = 'none'; empty.style.display = 'block'; return; }
     ui.style.display = 'flex'; empty.style.display = 'none';
-    loadTrack(0, true);
+    loadTrack(randomTrackIndex(), true);
 }
 
 function loadTrack(i, autoplay){
@@ -1479,4 +1508,5 @@ function closeKonami(){ document.getElementById('konami-flash').classList.remove
 </script>
 </body>
 </html>
+
 
