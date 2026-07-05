@@ -15,7 +15,7 @@
 
 <style>
 /* =====================================================================
-   0.
+   0. DESIGN TOKENS — dark, moody, Bangladeshi accent palette
    ===================================================================== */
 :root{
     /* sky gradient stops — always dark, hue shifts with time of day */
@@ -1378,7 +1378,12 @@ const BANGLA_WORDS = [
     { bn:'মায়া',      translit:'maya',      meaning:'a tender, hard-to-translate kind of attachment' },
     { bn:'নদী',       translit:'nodi',      meaning:'river — there\u2019s always one nearby' }
 ];
-let stampCount = parseInt(localStorage.getItem('visitStampCount') || '0', 10);
+/* Global stamp count — powered by the free, keyless CounterAPI v1 endpoint
+   (https://counterapi.dev). Everyone who stamps in bumps the same shared
+   number. If the request ever fails (offline, API down), it falls back
+   to a local count so the feature still works. */
+const STAMP_NAMESPACE = 'ash-codedshit-site';
+const STAMP_COUNTER   = 'guestbook-stamps';
 
 function openStamp(){
     document.getElementById('stampOverlay').classList.add('active');
@@ -1389,20 +1394,28 @@ function closeStamp(){
     document.getElementById('stampOverlay').classList.remove('active');
     document.getElementById('stampModal').classList.remove('active');
 }
-function generateStamp(){
-    stampCount += 1;
-    localStorage.setItem('visitStampCount', String(stampCount));
-
+async function generateStamp(){
     const w = BANGLA_WORDS[Math.floor(Math.random() * BANGLA_WORDS.length)];
     document.getElementById('stampWordBn').textContent = w.bn;
     document.getElementById('stampTranslit').textContent = w.translit;
     document.getElementById('stampMeaning').textContent = w.meaning;
-    document.getElementById('stampNo').textContent = String(stampCount).padStart(4, '0');
+    document.getElementById('stampNo').textContent = '····';
 
     const disc = document.getElementById('stampDisc');
     disc.style.animation = 'none';
     void disc.offsetWidth;
     disc.style.animation = '';
+
+    try {
+        const res = await fetch(`https://api.counterapi.dev/v1/${STAMP_NAMESPACE}/${STAMP_COUNTER}/up`);
+        if (!res.ok) throw new Error('counter request failed');
+        const data = await res.json();
+        document.getElementById('stampNo').textContent = String(data.count).padStart(4, '0');
+    } catch (err) {
+        const fallback = parseInt(localStorage.getItem('visitStampCount') || '0', 10) + 1;
+        localStorage.setItem('visitStampCount', String(fallback));
+        document.getElementById('stampNo').textContent = String(fallback).padStart(4, '0');
+    }
 }
 
 /* =====================================================================
@@ -1508,4 +1521,5 @@ function closeKonami(){ document.getElementById('konami-flash').classList.remove
 </script>
 </body>
 </html>
+
 
