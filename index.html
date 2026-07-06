@@ -965,7 +965,7 @@ const LFM_USER = 'Ashy-geek';
 const LFM_DEFAULT_ART = 'https://lastfm.freetls.fastly.net/i/u/300x300/2a96cbd8b46e442fc41c2b86b821562f.png';
 const DISCORD_URL  = 'https://discord.com/users/codedsum';
 const DISCORD_TAG   = 'codedsum';
-const DISCORD_WIDGET_ID = ''; // paste your Discord server ID here (Server Settings → Widget) to show the live widget in the Vibe tab
+const DISCORD_WIDGET_ID = '1517517732432711881'; 
 const REDUCED_MOTION = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 /* =====================================================================
@@ -983,7 +983,6 @@ const songs = [
 function cldAudio(publicId){
     if (!publicId) return '';
     const clean = publicId.replace(/^\/+/, '').replace(/\.(mp3|wav|ogg|m4a|aac)$/i, '');
-    /* Cloudinary serves audio through the "video" delivery pipeline */
     return `https://res.cloudinary.com/${CLOUD_NAME}/video/upload/${clean}.mp3`;
 }
 function cldImage(publicId){
@@ -1158,7 +1157,7 @@ showVSN(0);
 setInterval(() => showVSN((vsnIdx + 1) % vsnStates.length), 6000);
 
 /* =====================================================================
-   DISCORD WIDGET — empty until DISCORD_WIDGET_ID is set above
+   DISCORD WIDGET — 
    ===================================================================== */
 function initDiscordWidget(){
     const frame = document.getElementById('discordFrame');
