@@ -131,33 +131,47 @@ body.sky-night #sky-bg{ background:linear-gradient(160deg, var(--void-night-a) 0
    ===================================================================== */
 #entry-overlay{
     position:fixed; inset:0; z-index:9999; cursor:pointer;
-    display:flex; flex-direction:column; align-items:center; justify-content:center; gap:16px;
+    display:flex; flex-direction:column; align-items:center; justify-content:center; gap:14px;
     background:
-        radial-gradient(circle at 50% 38%, rgba(214,41,61,.22), transparent 46%),
+        radial-gradient(circle at 50% 38%, rgba(214,41,61,.24), transparent 46%),
+        radial-gradient(circle at 80% 82%, rgba(14,138,91,.14), transparent 50%),
         linear-gradient(180deg, #0A0F0C 0%, #050705 100%);
     transition:opacity .8s ease, visibility .8s ease;
+    padding:24px;
 }
 #entry-overlay.hidden{ opacity:0; visibility:hidden; pointer-events:none; }
+@media (hover:hover) and (pointer:fine){ #entry-overlay{ cursor:none; } }
 
 .entry-disc{
     position:relative; width:86px; height:86px; border-radius:50%;
     background:radial-gradient(circle at 35% 30%, #FF9A82, var(--red) 55%, #700F1B 100%);
     box-shadow:0 0 70px 20px rgba(214,41,61,.4), inset 0 0 0 4px rgba(255,255,255,.06);
     animation:discPulse 3.2s ease-in-out infinite;
-    margin-bottom:4px;
+    margin-bottom:10px;
 }
 .entry-disc::after{
     content:''; position:absolute; inset:-16px; border-radius:50%;
     border:1.5px dashed rgba(227,168,87,.4);
     animation:spin 24s linear infinite;
 }
+.entry-disc::before{
+    content:''; position:absolute; inset:-32px; border-radius:50%;
+    border:1px solid rgba(14,138,91,.32);
+    animation:spin 40s linear infinite reverse;
+}
 @keyframes discPulse{ 0%,100%{ transform:scale(1); } 50%{ transform:scale(1.08); } }
 .entry-bn{ font-family:var(--font-display); font-weight:700; font-size:clamp(1.7rem,5.5vw,2.3rem); color:var(--ink); letter-spacing:.3px; }
-.entry-title{ font-family:var(--font-body); font-weight:500; font-size:clamp(.92rem,3vw,1.02rem); color:var(--ink-soft); text-align:center; max-width:280px; }
-.entry-sub{ font-family:var(--font-mono); font-size:11px; letter-spacing:3px; text-transform:uppercase; color:var(--gold-strong); margin-top:6px; }
+.entry-title{ font-family:var(--font-body); font-weight:500; font-size:clamp(.92rem,3vw,1.02rem); color:var(--ink-soft); text-align:center; max-width:300px; }
+.entry-flagline{
+    font-family:var(--font-mono); font-size:11.5px; letter-spacing:.4px; color:var(--ink-faint);
+    display:flex; align-items:center; gap:7px; margin-top:-2px;
+}
+.entry-flagline .entry-arrow{ color:var(--gold-strong); }
+.entry-sub{ font-family:var(--font-mono); font-size:11px; letter-spacing:3px; text-transform:uppercase; color:var(--gold-strong); margin-top:10px; }
 .entry-sub i{ margin-left:6px; animation:bob 1.6s ease-in-out infinite; display:inline-block; }
+.entry-sub-bn{ font-family:var(--font-body); font-weight:500; font-size:13px; color:var(--ink-faint); margin-top:-6px; letter-spacing:.2px; }
 @keyframes bob{ 0%,100%{ transform:translateY(0); } 50%{ transform:translateY(4px); } }
-@media (prefers-reduced-motion:reduce){ .entry-disc,.entry-disc::after,.entry-sub i{ animation:none !important; } }
+@media (prefers-reduced-motion:reduce){ .entry-disc,.entry-disc::after,.entry-disc::before,.entry-sub i{ animation:none !important; } }
 
 /* =====================================================================
    3. LAYOUT SHELL
@@ -373,34 +387,8 @@ body.sky-night #sky-bg{ background:linear-gradient(160deg, var(--void-night-a) 0
 .bday-sub{ font-family:var(--font-mono); font-size:11px; color:var(--ink-faint); }
 
 /* =====================================================================
-   9. CONFESSION PLAQUE
+   9. (removed — confession plaque)
    ===================================================================== */
-.confession{
-    position:relative; margin-top:8px; padding:30px 26px 26px;
-    border-radius:var(--radius-md); background:var(--paper-strong);
-    border:1px solid var(--red-soft); overflow:hidden;
-    box-shadow:0 18px 40px -18px rgba(214,41,61,.3);
-}
-.confession::before{
-    content:''; position:absolute; inset:-40%; pointer-events:none; z-index:0;
-    background:radial-gradient(circle at 30% 20%, rgba(227,168,87,.14), transparent 55%),
-               radial-gradient(circle at 80% 90%, rgba(214,41,61,.14), transparent 55%);
-    animation:candleFlicker 5s ease-in-out infinite;
-}
-@keyframes candleFlicker{ 0%,100%{ opacity:.7; } 50%{ opacity:1; } }
-@media (prefers-reduced-motion:reduce){ .confession::before{ animation:none; } }
-.confession-mark{
-    position:relative; z-index:1; font-family:var(--font-quote); font-size:56px; line-height:.4;
-    color:var(--red); opacity:.6; margin-bottom:6px;
-}
-.confession-eyebrow{
-    position:relative; z-index:1; font-family:var(--font-mono); font-size:10.5px; letter-spacing:2.5px;
-    text-transform:uppercase; color:var(--ink-faint); margin-bottom:10px;
-}
-.confession-text{
-    position:relative; z-index:1; font-family:var(--font-quote); font-style:italic; font-size:18px;
-    line-height:1.65; color:var(--ink); max-width:560px;
-}
 
 .intel-footer{
     margin-top:20px; padding-top:18px; border-top:1px solid var(--line);
@@ -438,6 +426,15 @@ body.sky-night #sky-bg{ background:linear-gradient(160deg, var(--void-night-a) 0
 .now-playing-line i{ color:var(--gold-strong); }
 .discord-wrap{ margin-top:22px; }
 .discord-wrap #discordFrame{ border-radius:var(--radius-md); border:1px solid var(--line); }
+.discord-join-btn{
+    display:flex; align-items:center; gap:10px; padding:12px 16px; border-radius:14px;
+    background:linear-gradient(120deg, rgba(88,101,242,.16), rgba(88,101,242,.05));
+    border:1px solid rgba(88,101,242,.35); color:var(--ink); font-family:var(--font-display); font-weight:600; font-size:13.5px;
+    margin-bottom:12px; transition:transform .25s cubic-bezier(.2,.9,.3,1.3), border-color .25s ease; cursor:pointer;
+}
+.discord-join-btn i{ color:#5865F2; font-size:16px; }
+.discord-join-btn:hover{ transform:translateY(-2px); border-color:#5865F2; }
+.discord-member-count{ margin-left:auto; font-family:var(--font-mono); font-size:10.5px; color:var(--ink-faint); }
 
 /* =====================================================================
    11. MUSIC PANEL
@@ -506,45 +503,50 @@ body.sky-night #sky-bg{ background:linear-gradient(160deg, var(--void-night-a) 0
 .player-empty code{ background:rgba(255,255,255,.06); padding:2px 6px; border-radius:6px; font-family:var(--font-mono); font-size:11px; color:var(--ink-soft); }
 
 /* =====================================================================
-   12. STAMP MODAL (replaces "leave a note")
+   12. BANGLA WORD CARD (replaces visitor stamp counter)
    ===================================================================== */
-.stamp-overlay{ position:fixed; inset:0; z-index:1000; background:rgba(3,5,4,.62); backdrop-filter:blur(7px); opacity:0; pointer-events:none; transition:opacity .3s ease; }
-.stamp-overlay.active{ opacity:1; pointer-events:all; }
-.stamp-modal{
+.word-overlay{ position:fixed; inset:0; z-index:1000; background:rgba(3,5,4,.62); backdrop-filter:blur(7px); opacity:0; pointer-events:none; transition:opacity .3s ease; }
+.word-overlay.active{ opacity:1; pointer-events:all; }
+.word-modal{
     position:fixed; top:50%; left:50%; transform:translate(-50%,-48%) scale(.94); z-index:1001;
     width:90%; max-width:380px; padding:32px 26px 26px; border-radius:22px; text-align:center; overflow:hidden;
     background:linear-gradient(165deg, #16211A, #0D1610);
     box-shadow:var(--shadow-lg); border:1px solid var(--line-strong);
     opacity:0; pointer-events:none; transition:all .4s cubic-bezier(.2,.9,.3,1.15);
 }
-.stamp-modal.active{ opacity:1; pointer-events:all; transform:translate(-50%,-50%) scale(1); }
-.stamp-modal::before{
+.word-modal.active{ opacity:1; pointer-events:all; transform:translate(-50%,-50%) scale(1); }
+.word-modal::before{
     content:''; position:absolute; top:0; left:0; right:0; height:5px;
     background:repeating-linear-gradient(115deg, var(--gold) 0 10px, var(--red) 10px 20px, var(--green) 20px 30px, transparent 30px 34px);
 }
-.stamp-close{ position:absolute; top:16px; right:18px; color:var(--ink-faint); font-size:16px; cursor:pointer; transition:color .2s, transform .2s; }
-.stamp-close:hover{ color:var(--red); transform:scale(1.15) rotate(90deg); }
-.stamp-eyebrow{ font-family:var(--font-mono); font-size:10.5px; letter-spacing:3px; text-transform:uppercase; color:var(--ink-faint); margin-bottom:6px; }
-.stamp-title{ font-family:var(--font-display); font-weight:800; font-size:19px; color:var(--ink); margin-bottom:20px; }
+.word-close{ position:absolute; top:16px; right:18px; color:var(--ink-faint); font-size:16px; cursor:pointer; transition:color .2s, transform .2s; }
+.word-close:hover{ color:var(--red); transform:scale(1.15) rotate(90deg); }
+.word-eyebrow{ font-family:var(--font-mono); font-size:10.5px; letter-spacing:3px; text-transform:uppercase; color:var(--ink-faint); margin-bottom:6px; }
+.word-title{ font-family:var(--font-display); font-weight:800; font-size:19px; color:var(--ink); margin-bottom:20px; }
 
-.stamp-disc{
+.word-disc{
     width:106px; height:106px; margin:0 auto 20px; border-radius:50%;
     border:3px dashed var(--red); display:flex; flex-direction:column; align-items:center; justify-content:center;
     color:var(--red); transform:rotate(-8deg); background:rgba(214,41,61,.05);
-    animation:stampThud .5s cubic-bezier(.2,.8,.3,1.3);
+    animation:wordDiscIn .5s cubic-bezier(.2,.8,.3,1.3);
 }
-@keyframes stampThud{ 0%{ transform:rotate(-8deg) scale(2.2); opacity:0; } 60%{ opacity:1; } 100%{ transform:rotate(-8deg) scale(1); opacity:1; } }
-@media (prefers-reduced-motion:reduce){ .stamp-disc{ animation:none; } }
-.stamp-disc-word{ font-family:var(--font-display); font-weight:800; font-size:22px; line-height:1.1; }
-.stamp-disc-no{ font-family:var(--font-mono); font-size:8.5px; letter-spacing:1.5px; margin-top:4px; }
+@keyframes wordDiscIn{ 0%{ transform:rotate(-8deg) scale(2.2); opacity:0; } 60%{ opacity:1; } 100%{ transform:rotate(-8deg) scale(1); opacity:1; } }
+@media (prefers-reduced-motion:reduce){ .word-disc{ animation:none; } }
+.word-disc-bn{ font-family:var(--font-display); font-weight:800; font-size:22px; line-height:1.1; }
+.word-disc-label{ font-family:var(--font-mono); font-size:8.5px; letter-spacing:1.5px; margin-top:4px; }
 
-.stamp-word-row{ margin-bottom:4px; }
-.stamp-bn{ font-family:var(--font-display); font-weight:700; font-size:23px; color:var(--ink); }
-.stamp-translit{ font-family:var(--font-mono); font-size:11px; color:var(--gold-strong); letter-spacing:.5px; margin-top:4px; }
-.stamp-meaning{ font-family:var(--font-quote); font-style:italic; font-size:15px; color:var(--ink-soft); margin-top:8px; line-height:1.5; }
+.word-row{ margin-bottom:4px; }
+.word-bn{ font-family:var(--font-display); font-weight:700; font-size:23px; color:var(--ink); }
+.word-translit{ font-family:var(--font-mono); font-size:11px; color:var(--gold-strong); letter-spacing:.5px; margin-top:4px; }
+.word-meaning{ font-family:var(--font-quote); font-style:italic; font-size:15px; color:var(--ink-soft); margin-top:8px; line-height:1.5; }
 
-.stamp-visitor{ margin-top:20px; padding-top:16px; border-top:1px solid var(--line); font-family:var(--font-mono); font-size:11px; color:var(--ink-faint); }
-.stamp-visitor strong{ color:var(--gold-strong); }
+.word-next{
+    margin-top:20px; display:inline-flex; align-items:center; gap:8px;
+    padding:10px 18px; border-radius:999px; font-family:var(--font-display); font-weight:600; font-size:12.5px;
+    color:var(--on-accent); background:linear-gradient(120deg, var(--gold), var(--red)); cursor:pointer;
+    transition:transform .3s cubic-bezier(.2,.9,.3,1.3);
+}
+.word-next:hover{ transform:translateY(-2px); }
 
 /* toast */
 #toast{
@@ -571,14 +573,24 @@ body.sky-night #sky-bg{ background:linear-gradient(160deg, var(--void-night-a) 0
    14. CURSOR + RIPPLE
    ===================================================================== */
 #cursor-dot{
-    position:fixed; top:0; left:0; width:22px; height:22px; border-radius:50%;
-    background:radial-gradient(circle, rgba(227,168,87,.5), rgba(214,41,61,.15) 70%, transparent 100%);
-    transform:translate(-50%,-50%); pointer-events:none; z-index:99999; transition:width .2s, height .2s, opacity .2s;
+    position:fixed; top:0; left:0; width:6px; height:6px; border-radius:50%;
+    background:var(--gold-strong); transform:translate(-50%,-50%);
+    pointer-events:none; z-index:99999; transition:background .25s ease, width .2s ease, height .2s ease;
     display:none;
 }
-@media (hover:hover) and (pointer:fine){ #cursor-dot{ display:block; } }
-#cursor-dot.hovering{ width:34px; height:34px; }
-#cursor-dot.clicked{ width:14px; height:14px; }
+#cursor-ring{
+    position:fixed; top:0; left:0; width:32px; height:32px; border-radius:50%;
+    border:1.5px solid rgba(227,168,87,.55);
+    transform:translate(-50%,-50%);
+    pointer-events:none; z-index:99998; opacity:.9;
+    transition:width .28s cubic-bezier(.2,.9,.3,1.2), height .28s cubic-bezier(.2,.9,.3,1.2), border-color .25s ease, background .25s ease;
+    display:none;
+}
+@media (hover:hover) and (pointer:fine){ #cursor-dot,#cursor-ring{ display:block; } }
+#cursor-dot.hovering{ background:var(--red); width:9px; height:9px; }
+#cursor-ring.hovering{ width:50px; height:50px; border-color:var(--red); background:rgba(214,41,61,.06); }
+#cursor-dot.clicked{ width:4px; height:4px; }
+#cursor-ring.clicked{ width:22px; height:22px; }
 
 .ripple-burst{
     position:fixed; pointer-events:none; z-index:99997; border-radius:50%; transform:translate(-50%,-50%);
@@ -601,7 +613,6 @@ body.sky-night #sky-bg{ background:linear-gradient(160deg, var(--void-night-a) 0
 @media (max-width:400px){
     .avatar-wrap{ width:96px; height:96px; }
     .avatar-orb span{ font-size:34px; }
-    .confession-text{ font-size:16.5px; }
 }
 </style>
 </head>
@@ -613,13 +624,15 @@ body.sky-night #sky-bg{ background:linear-gradient(160deg, var(--void-night-a) 0
 <div class="cloud cloud-b"></div>
 <div class="cloud cloud-c"></div>
 <canvas id="motes-canvas"></canvas>
+<div id="cursor-ring"></div>
 <div id="cursor-dot"></div>
 
 <div id="entry-overlay" onclick="enterSite()">
     <div class="entry-disc"></div>
     <div class="entry-bn">স্বাগতম</div>
-    <div class="entry-title">welcome</div>
-    <div class="entry-sub">tap to step in <i class="fas fa-chevron-down"></i></div>
+    <div class="entry-title">Welcome!!</div>
+    <div class="entry-sub">Tap to step in <i class="fas fa-chevron-down"></i></div>
+    <div class="entry-sub-bn">প্রবেশ করতে ট্যাপ করুন</div>
 </div>
 
 <div id="konami-flash" onclick="closeKonami()">
@@ -628,24 +641,24 @@ body.sky-night #sky-bg{ background:linear-gradient(160deg, var(--void-night-a) 0
     <div class="kf-hint">tap anywhere to close</div>
 </div>
 
-<div class="stamp-overlay" id="stampOverlay" onclick="closeStamp()"></div>
-<div class="stamp-modal" id="stampModal" role="dialog" aria-label="Visitor stamp">
-    <button class="stamp-close" onclick="closeStamp()" aria-label="Close"><i class="fas fa-times"></i></button>
-    <div class="stamp-eyebrow">visitor log</div>
-    <div class="stamp-title">you've been stamped</div>
+<div class="word-overlay" id="wordOverlay" onclick="closeBanglaWord()"></div>
+<div class="word-modal" id="wordModal" role="dialog" aria-label="Bangla word of the moment">
+    <button class="word-close" onclick="closeBanglaWord()" aria-label="Close"><i class="fas fa-times"></i></button>
+    <div class="word-eyebrow">bangla, for the road</div>
+    <div class="word-title">a word from home</div>
 
-    <div class="stamp-disc" id="stampDisc">
-        <span class="stamp-disc-word">প্রবেশ</span>
-        <span class="stamp-disc-no">ENTRY APPROVED</span>
+    <div class="word-disc" id="wordDisc">
+        <span class="word-disc-bn">শব্দ</span>
+        <span class="word-disc-label">VOCABULARY</span>
     </div>
 
-    <div class="stamp-word-row">
-        <div class="stamp-bn" id="stampWordBn">চা</div>
-        <div class="stamp-translit" id="stampTranslit">cha</div>
-        <div class="stamp-meaning" id="stampMeaning">tea — the fuel of every conversation here</div>
+    <div class="word-row">
+        <div class="word-bn" id="wordBn">চা</div>
+        <div class="word-translit" id="wordTranslit">cha</div>
+        <div class="word-meaning" id="wordMeaning">tea — the fuel of every conversation here</div>
     </div>
 
-    <div class="stamp-visitor">you're visitor <strong id="stampNo">0001</strong> to Ash's corner of the internet</div>
+    <div class="word-next" onclick="generateBanglaWord()"><i class="fas fa-rotate"></i> another word</div>
 </div>
 
 <div id="toast"></div>
@@ -682,7 +695,7 @@ body.sky-night #sky-bg{ background:linear-gradient(160deg, var(--void-night-a) 0
                 <span class="badge">🚫 banned from guns.lol</span>
             </div>
 
-            <button class="stamp-btn" onclick="openStamp()"><i class="fas fa-stamp"></i> stamp your visit</button>
+            <button class="stamp-btn" onclick="openBanglaWord()"><i class="fas fa-language"></i> learn a bangla word</button>
 
             <div class="local-time-chip" id="localTimeChip">
                 <div class="ltc-row">🕯️ <span id="localTimeVal">--:--</span> your time</div>
@@ -706,7 +719,7 @@ body.sky-night #sky-bg{ background:linear-gradient(160deg, var(--void-night-a) 0
                         <div class="panel-eyebrow"><i class="fas fa-satellite-dish"></i> about</div>
                         <div class="panel-title">Intel</div>
 
-                        <p class="about-text">i dont fw queers 🫩</p>
+                        <p class="about-text">dunno what to say</p>
 
                         <div class="ring-grid" id="statRings">
                             <div class="ring-tile tile-hero">
@@ -809,16 +822,9 @@ body.sky-night #sky-bg{ background:linear-gradient(160deg, var(--void-night-a) 0
                             <div class="tag-row"><span class="tag-chip">trying to sleep</span></div>
                         </div>
 
-                        <!-- ============ CONFESSION PLAQUE ============ -->
-                        <div class="confession">
-                            <div class="confession-mark">"</div>
-                            <div class="confession-eyebrow"><i class="fas fa-candle-holder" style="margin-right:6px;color:var(--red);"></i>something I don't say out loud</div>
-                            <p class="confession-text">This may seem foolish of me, but every night I cry not because I'm sad. It's because I think of myself dying, wondering where I will go Heaven or Hell? Or even eternal sleep. The mere thought of it makes me scared, I really want help 😞.</p>
-                        </div>
-
                         <div class="intel-footer">
                             <i class="fas fa-heart" style="color:var(--red);"></i>
-                            Want in? <span class="inline-link" onclick="openStamp()">get your stamp</span> or add me on <span class="inline-link" onclick="copyDiscord()">Discord</span>.
+                            Want in? <span class="inline-link" onclick="openBanglaWord()">learn a Bangla word</span> or <span class="inline-link" onclick="copyDiscord()">add me on Discord</span>.
                         </div>
                     </div>
                 </div>
@@ -871,9 +877,13 @@ body.sky-night #sky-bg{ background:linear-gradient(160deg, var(--void-night-a) 0
 
                         <div class="discord-wrap">
                             <div class="section-label">discord</div>
-                            <div class="player-empty" id="discordEmpty">
+                            <a class="discord-join-btn" href="https://discord.gg/zUNM558v29" target="_blank" rel="noopener">
+                                <i class="fab fa-discord"></i> join the server
+                                <span class="discord-member-count" id="discordMemberCount"></span>
+                            </a>
+                            <div class="player-empty" id="discordEmpty" style="display:none;">
                                 <i class="fab fa-discord"></i>
-                                paste your server ID into <code>DISCORD_WIDGET_ID</code> near the top of the script to show the live widget here.
+                                live preview is off for this server right now — tap "join the server" above instead.
                             </div>
                             <iframe id="discordFrame" style="display:none;" width="100%" height="300" frameborder="0" sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts" title="Discord widget"></iframe>
                         </div>
@@ -965,7 +975,8 @@ const LFM_USER = 'Ashy-geek';
 const LFM_DEFAULT_ART = 'https://lastfm.freetls.fastly.net/i/u/300x300/2a96cbd8b46e442fc41c2b86b821562f.png';
 const DISCORD_URL  = 'https://discord.com/users/codedsum';
 const DISCORD_TAG   = 'codedsum';
-const DISCORD_WIDGET_ID = '1517517732432711881'; 
+const DISCORD_WIDGET_ID = '1493873227712303184';
+const DISCORD_INVITE = 'https://discord.gg/zUNM558v29';
 const REDUCED_MOTION = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 /* =====================================================================
@@ -1157,16 +1168,28 @@ showVSN(0);
 setInterval(() => showVSN((vsnIdx + 1) % vsnStates.length), 6000);
 
 /* =====================================================================
-   DISCORD WIDGET — 
+   DISCORD WIDGET — checks if the server widget is enabled before
+   showing the live iframe; the "join the server" button always works
+   regardless, since it's a plain invite link.
    ===================================================================== */
-function initDiscordWidget(){
+async function initDiscordWidget(){
     const frame = document.getElementById('discordFrame');
     const empty = document.getElementById('discordEmpty');
+    const memberEl = document.getElementById('discordMemberCount');
     if (!frame || !empty) return;
     if (!DISCORD_WIDGET_ID){ empty.style.display = 'block'; frame.style.display = 'none'; return; }
-    frame.src = `https://discord.com/widget?id=${DISCORD_WIDGET_ID}&theme=dark`;
-    empty.style.display = 'none';
-    frame.style.display = 'block';
+    try{
+        const res = await fetch(`https://discord.com/api/guilds/${DISCORD_WIDGET_ID}/widget.json`);
+        if (!res.ok) throw new Error('widget disabled');
+        const data = await res.json();
+        frame.src = `https://discord.com/widget?id=${DISCORD_WIDGET_ID}&theme=dark`;
+        empty.style.display = 'none';
+        frame.style.display = 'block';
+        if (memberEl && typeof data.presence_count === 'number') memberEl.textContent = data.presence_count + ' online';
+    }catch(err){
+        empty.style.display = 'block';
+        frame.style.display = 'none';
+    }
 }
 initDiscordWidget();
 
@@ -1351,7 +1374,7 @@ audioEl.volume = 0.7;
 initPlayer();
 
 /* =====================================================================
-   COPY DISCORD / VISITOR STAMP
+   COPY DISCORD / BANGLA WORD CARD
    ===================================================================== */
 function showToast(msg){
     const toast = document.getElementById('toast');
@@ -1375,46 +1398,31 @@ const BANGLA_WORDS = [
     { bn:'দাওয়াত',    translit:'dawat',     meaning:'an invitation, usually involving too much food' },
     { bn:'রিকশা',     translit:'rickshaw',  meaning:'the most honest way to see a city' },
     { bn:'মায়া',      translit:'maya',      meaning:'a tender, hard-to-translate kind of attachment' },
-    { bn:'নদী',       translit:'nodi',      meaning:'river — there\u2019s always one nearby' }
+    { bn:'নদী',       translit:'nodi',      meaning:'river — there\u2019s always one nearby' },
+    { bn:'স্বপ্ন',      translit:'shopno',    meaning:'dream' },
+    { bn:'বন্ধু',      translit:'bondhu',    meaning:'friend' },
+    { bn:'শান্তি',     translit:'shanti',    meaning:'peace, the quiet kind' }
 ];
-/* Global stamp count — powered by the free, keyless CounterAPI v1 endpoint
-   (https://counterapi.dev). Everyone who stamps in bumps the same shared
-   number. If the request ever fails (offline, API down), it falls back
-   to a local count so the feature still works. */
-const STAMP_NAMESPACE = 'ash-codedshit-site';
-const STAMP_COUNTER   = 'guestbook-stamps';
 
-function openStamp(){
-    document.getElementById('stampOverlay').classList.add('active');
-    document.getElementById('stampModal').classList.add('active');
-    generateStamp();
+function openBanglaWord(){
+    document.getElementById('wordOverlay').classList.add('active');
+    document.getElementById('wordModal').classList.add('active');
+    generateBanglaWord();
 }
-function closeStamp(){
-    document.getElementById('stampOverlay').classList.remove('active');
-    document.getElementById('stampModal').classList.remove('active');
+function closeBanglaWord(){
+    document.getElementById('wordOverlay').classList.remove('active');
+    document.getElementById('wordModal').classList.remove('active');
 }
-async function generateStamp(){
+function generateBanglaWord(){
     const w = BANGLA_WORDS[Math.floor(Math.random() * BANGLA_WORDS.length)];
-    document.getElementById('stampWordBn').textContent = w.bn;
-    document.getElementById('stampTranslit').textContent = w.translit;
-    document.getElementById('stampMeaning').textContent = w.meaning;
-    document.getElementById('stampNo').textContent = '····';
+    document.getElementById('wordBn').textContent = w.bn;
+    document.getElementById('wordTranslit').textContent = w.translit;
+    document.getElementById('wordMeaning').textContent = w.meaning;
 
-    const disc = document.getElementById('stampDisc');
+    const disc = document.getElementById('wordDisc');
     disc.style.animation = 'none';
     void disc.offsetWidth;
     disc.style.animation = '';
-
-    try {
-        const res = await fetch(`https://api.counterapi.dev/v1/${STAMP_NAMESPACE}/${STAMP_COUNTER}/up`);
-        if (!res.ok) throw new Error('counter request failed');
-        const data = await res.json();
-        document.getElementById('stampNo').textContent = String(data.count).padStart(4, '0');
-    } catch (err) {
-        const fallback = parseInt(localStorage.getItem('visitStampCount') || '0', 10) + 1;
-        localStorage.setItem('visitStampCount', String(fallback));
-        document.getElementById('stampNo').textContent = String(fallback).padStart(4, '0');
-    }
 }
 
 /* =====================================================================
@@ -1462,12 +1470,30 @@ function closeKonami(){ document.getElementById('konami-flash').classList.remove
     const isFine = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
     if (!isFine) return;
     const dot = document.getElementById('cursor-dot');
-    document.addEventListener('mousemove', e => { dot.style.left = e.clientX + 'px'; dot.style.top = e.clientY + 'px'; });
-    document.addEventListener('mousedown', () => dot.classList.add('clicked'));
-    document.addEventListener('mouseup', () => dot.classList.remove('clicked'));
+    const ring = document.getElementById('cursor-ring');
+    let mouseX = window.innerWidth / 2, mouseY = window.innerHeight / 2;
+    let ringX = mouseX, ringY = mouseY;
+    let seen = false;
+
+    document.addEventListener('mousemove', e => {
+        mouseX = e.clientX; mouseY = e.clientY;
+        dot.style.left = mouseX + 'px'; dot.style.top = mouseY + 'px';
+        if (!seen){ seen = true; ringX = mouseX; ringY = mouseY; }
+    });
+    document.addEventListener('mousedown', () => { dot.classList.add('clicked'); ring.classList.add('clicked'); });
+    document.addEventListener('mouseup', () => { dot.classList.remove('clicked'); ring.classList.remove('clicked'); });
     const hoverTargets = 'a, button, .tab-btn, .social-btn, .badge, .tag-chip, .inline-link, .glass';
-    document.addEventListener('mouseover', e => { if (e.target.closest(hoverTargets)) dot.classList.add('hovering'); });
-    document.addEventListener('mouseout', e => { if (e.target.closest(hoverTargets)) dot.classList.remove('hovering'); });
+    document.addEventListener('mouseover', e => { if (e.target.closest(hoverTargets)){ dot.classList.add('hovering'); ring.classList.add('hovering'); } });
+    document.addEventListener('mouseout', e => { if (e.target.closest(hoverTargets)){ dot.classList.remove('hovering'); ring.classList.remove('hovering'); } });
+
+    function tick(){
+        ringX += (mouseX - ringX) * 0.18;
+        ringY += (mouseY - ringY) * 0.18;
+        ring.style.left = ringX + 'px';
+        ring.style.top = ringY + 'px';
+        requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
 })();
 
 /* =====================================================================
@@ -1520,4 +1546,5 @@ function closeKonami(){ document.getElementById('konami-flash').classList.remove
 </script>
 </body>
 </html>
+
 
