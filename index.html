@@ -5,52 +5,58 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Ash</title>
 <meta name="description" content="Ash's personal corner of the internet.">
-<meta name="theme-color" content="#121210">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%96%8B%EF%B8%8F%3C/text%3E%3C/svg%3E">
+<meta name="theme-color" content="#07100C">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%AA%94%3C/text%3E%3C/svg%3E">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,500&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+Da+2:wght@500;600;700;800&family=Hind+Siliguri:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
 <style>
 /* =====================================================================
-   0. DESIGN TOKENS — modern classic: ink charcoal, aged brass, hairlines
+   0. DESIGN TOKENS — dark, moody, Bangladeshi accent palette
    ===================================================================== */
 :root{
-    --void-dawn-a:#1C160F;  --void-dawn-b:#151109;  --void-dawn-c:#0D0A06;
-    --void-day-a:#141410;   --void-day-b:#101009;   --void-day-c:#0B0B08;
-    --void-dusk-a:#1D130F;  --void-dusk-b:#160E0B;  --void-dusk-c:#0D0908;
-    --void-night-a:#0C0D10; --void-night-b:#0A0A0C; --void-night-c:#06070A;
+    /* sky gradient stops — always dark, hue shifts with time of day */
+    --void-dawn-a:#2A1220;  --void-dawn-b:#3B1B1E;  --void-dawn-c:#170D12;
+    --void-day-a:#0E1F1A;   --void-day-b:#0B1714;   --void-day-c:#081210;
+    --void-dusk-a:#3A140F;  --void-dusk-b:#591C16;  --void-dusk-c:#170A0C;
+    --void-night-a:#070B12; --void-night-b:#0A0E16; --void-night-c:#05070B;
 
-    --paper:#121210;
-    --paper-strong:#1A1913;
-    --ink:#ECE6D8;
-    --ink-soft:rgba(236,230,216,.68);
-    --ink-faint:rgba(236,230,216,.42);
-    --on-accent:#1A1207;
+    --paper:#0B120E;
+    --paper-strong:#141F19;
+    --ink:#EDE6D6;
+    --ink-soft:rgba(237,230,214,.68);
+    --ink-faint:rgba(237,230,214,.42);
+    --on-accent:#1B0D07;
 
-    --brass:#B8935A;
-    --brass-strong:#D9AE72;
-    --brass-soft:rgba(184,147,90,.16);
-    --wine:#7A3434;
-    --wine-soft:rgba(122,52,52,.20);
+    --gold:#E3A857;
+    --gold-strong:#F0BE72;
+    --gold-soft:rgba(227,168,87,.16);
+    --red:#D6293D;
+    --red-soft:rgba(214,41,61,.18);
+    --green:#0E8A5B;
+    --green-soft:rgba(14,138,91,.18);
+    --teal:#3E8E89;
+    --teal-soft:rgba(62,142,137,.18);
 
-    --line:rgba(236,230,216,.10);
-    --line-strong:rgba(236,230,216,.20);
-    --glass:rgba(22,21,16,.70);
-    --glass-strong:rgba(26,25,19,.9);
+    --line:rgba(237,230,214,.10);
+    --line-strong:rgba(237,230,214,.18);
+    --glass:rgba(19,29,23,.68);
+    --glass-strong:rgba(24,36,29,.88);
 
-    --shadow-sm:0 8px 20px -12px rgba(0,0,0,.55);
-    --shadow-md:0 20px 44px -20px rgba(0,0,0,.6);
-    --shadow-lg:0 28px 64px -26px rgba(0,0,0,.7);
+    --shadow-sm:0 8px 24px -12px rgba(0,0,0,.55);
+    --shadow-md:0 20px 48px -20px rgba(0,0,0,.65);
+    --shadow-lg:0 30px 70px -28px rgba(0,0,0,.75);
 
-    --radius-lg:14px;
-    --radius-md:10px;
-    --radius-sm:6px;
+    --radius-lg:26px;
+    --radius-md:18px;
+    --radius-sm:12px;
 
-    --font-display:'Fraunces', Georgia, serif;
-    --font-body:'Inter', system-ui, sans-serif;
+    --font-display:'Baloo Da 2', system-ui, sans-serif;
+    --font-body:'Hind Siliguri', system-ui, sans-serif;
+    --font-quote:'Instrument Serif', Georgia, serif;
     --font-mono:'IBM Plex Mono', monospace;
 }
 
@@ -65,72 +71,107 @@ html,body{
     overflow-x:hidden;
     scroll-behavior:smooth;
 }
-body{ position:relative; transition:background 1.2s ease; }
+body{ position:relative; transition:background 1s ease; }
 img{ max-width:100%; display:block; }
 button{ font:inherit; background:none; border:none; color:inherit; }
 a{ color:inherit; text-decoration:none; }
 ul{ list-style:none; }
 
-:focus-visible{ outline:2px solid var(--brass-strong); outline-offset:3px; border-radius:4px; }
+:focus-visible{ outline:2px solid var(--gold-strong); outline-offset:3px; border-radius:6px; }
 
 ::-webkit-scrollbar{ width:8px; }
 ::-webkit-scrollbar-track{ background:transparent; }
-::-webkit-scrollbar-thumb{ background:var(--brass); border-radius:10px; }
+::-webkit-scrollbar-thumb{ background:linear-gradient(var(--gold),var(--red)); border-radius:10px; }
 
 @media (hover:hover) and (pointer:fine){ html,body{ cursor:none; } }
 
 /* =====================================================================
-   1. AMBIENT BACKGROUND — quiet time-of-day gradient, no ornament
+   1. LIVING NIGHT — background, ambient glow, fireflies/lanterns
    ===================================================================== */
 #sky-bg{
-    position:fixed; inset:0; z-index:-4; pointer-events:none;
-    background:linear-gradient(165deg, var(--void-day-a) 0%, var(--void-day-b) 55%, var(--void-day-c) 100%);
-    transition:background 1.6s ease;
+    position:fixed; inset:0; z-index:-5; pointer-events:none;
+    background:linear-gradient(160deg, var(--void-day-a) 0%, var(--void-day-b) 55%, var(--void-day-c) 100%);
+    transition:background 1.4s ease;
 }
-body.sky-dawn  #sky-bg{ background:linear-gradient(165deg, var(--void-dawn-a) 0%, var(--void-dawn-b) 55%, var(--void-dawn-c) 100%); }
-body.sky-day   #sky-bg{ background:linear-gradient(165deg, var(--void-day-a) 0%, var(--void-day-b) 55%, var(--void-day-c) 100%); }
-body.sky-dusk  #sky-bg{ background:linear-gradient(165deg, var(--void-dusk-a) 0%, var(--void-dusk-b) 55%, var(--void-dusk-c) 100%); }
-body.sky-night #sky-bg{ background:linear-gradient(165deg, var(--void-night-a) 0%, var(--void-night-b) 55%, var(--void-night-c) 100%); }
+body.sky-dawn  #sky-bg{ background:linear-gradient(160deg, var(--void-dawn-a) 0%, var(--void-dawn-b) 55%, var(--void-dawn-c) 100%); }
+body.sky-day   #sky-bg{ background:linear-gradient(160deg, var(--void-day-a) 0%, var(--void-day-b) 55%, var(--void-day-c) 100%); }
+body.sky-dusk  #sky-bg{ background:linear-gradient(160deg, var(--void-dusk-a) 0%, var(--void-dusk-b) 55%, var(--void-dusk-c) 100%); }
+body.sky-night #sky-bg{ background:linear-gradient(160deg, var(--void-night-a) 0%, var(--void-night-b) 55%, var(--void-night-c) 100%); }
 
-#motes-canvas{ position:fixed; inset:0; z-index:-2; pointer-events:none; width:100%; height:100%; opacity:.6; }
+#sunbeams{
+    position:fixed; inset:-20%; z-index:-4; pointer-events:none; opacity:.14;
+    background:repeating-conic-gradient(from 0deg at 20% 10%, rgba(227,168,87,.7) 0deg 4deg, transparent 4deg 14deg);
+    mix-blend-mode:soft-light;
+    animation:beamSpin 260s linear infinite;
+}
+@keyframes beamSpin{ to{ transform:rotate(360deg); } }
 
-@media (prefers-reduced-motion:reduce){ #motes-canvas{ display:none; } }
+.cloud{
+    position:fixed; z-index:-3; pointer-events:none; border-radius:50%;
+    filter:blur(60px); opacity:.30;
+    animation:cloudDrift linear infinite;
+}
+.cloud-a{ width:46vw; height:46vw; top:-10vw; left:-14vw; background:radial-gradient(circle, var(--red) 0%, transparent 70%); animation-duration:85s; }
+.cloud-b{ width:34vw; height:34vw; top:40vh; right:-14vw; animation-duration:110s; animation-direction:reverse; background:radial-gradient(circle, var(--gold) 0%, transparent 70%); }
+.cloud-c{ width:30vw; height:30vw; bottom:-12vh; left:10vw; animation-duration:95s; background:radial-gradient(circle, var(--green) 0%, transparent 70%); }
+@keyframes cloudDrift{
+    0%{ transform:translateX(0) translateY(0); }
+    50%{ transform:translateX(4vw) translateY(2vh); }
+    100%{ transform:translateX(0) translateY(0); }
+}
+
+#motes-canvas{ position:fixed; inset:0; z-index:-2; pointer-events:none; width:100%; height:100%; }
+
+@media (prefers-reduced-motion:reduce){
+    #sunbeams,.cloud{ animation:none !important; }
+}
 
 /* =====================================================================
-   2. ENTRY OVERLAY — monogram plate, time-based greeting, no disc
+   2. ENTRY OVERLAY — flag-sun disc in the dark, no blue/yellow gradient
    ===================================================================== */
 #entry-overlay{
     position:fixed; inset:0; z-index:9999; cursor:pointer;
-    display:flex; flex-direction:column; align-items:center; justify-content:center; gap:16px;
+    display:flex; flex-direction:column; align-items:center; justify-content:center; gap:14px;
     background:
-        radial-gradient(circle at 50% 32%, rgba(184,147,90,.10), transparent 46%),
-        linear-gradient(180deg, #0F0F0C 0%, #070706 100%);
+        radial-gradient(circle at 50% 38%, rgba(214,41,61,.24), transparent 46%),
+        radial-gradient(circle at 80% 82%, rgba(14,138,91,.14), transparent 50%),
+        linear-gradient(180deg, #0A0F0C 0%, #050705 100%);
     transition:opacity .8s ease, visibility .8s ease;
     padding:24px;
 }
 #entry-overlay.hidden{ opacity:0; visibility:hidden; pointer-events:none; }
 @media (hover:hover) and (pointer:fine){ #entry-overlay{ cursor:none; } }
 
-.entry-mark{
-    position:relative; width:88px; height:88px;
-    display:flex; align-items:center; justify-content:center;
-    border:1px solid var(--line-strong);
-    background:linear-gradient(160deg, rgba(184,147,90,.10), transparent 75%);
-    margin-bottom:6px;
+.entry-disc{
+    position:relative; width:86px; height:86px; border-radius:50%;
+    background:radial-gradient(circle at 35% 30%, #FF9A82, var(--red) 55%, #700F1B 100%);
+    box-shadow:0 0 70px 20px rgba(214,41,61,.4), inset 0 0 0 4px rgba(255,255,255,.06);
+    animation:discPulse 3.2s ease-in-out infinite;
+    margin-bottom:10px;
 }
-.entry-mark::before{ content:''; position:absolute; inset:7px; border:1px solid var(--brass-soft); }
-.entry-mark span{ font-family:var(--font-display); font-style:italic; font-weight:600; font-size:36px; color:var(--brass-strong); }
-
-.entry-greeting{ font-family:var(--font-display); font-style:italic; font-weight:500; font-size:clamp(1.7rem,5.5vw,2.3rem); color:var(--ink); text-align:center; }
-.entry-sub{ font-family:var(--font-body); font-weight:400; font-size:clamp(.9rem,3vw,1rem); color:var(--ink-soft); text-align:center; max-width:300px; }
-
-.entry-prompt{
-    margin-top:12px; display:flex; align-items:center; gap:10px;
-    font-family:var(--font-mono); font-size:11px; letter-spacing:3px; text-transform:uppercase; color:var(--brass-strong);
+.entry-disc::after{
+    content:''; position:absolute; inset:-16px; border-radius:50%;
+    border:1.5px dashed rgba(227,168,87,.4);
+    animation:spin 24s linear infinite;
 }
-.entry-prompt-line{ width:24px; height:1px; background:var(--brass); animation:lineGrow 2.2s ease-in-out infinite; }
-@keyframes lineGrow{ 0%,100%{ opacity:.35; transform:scaleX(.6); } 50%{ opacity:1; transform:scaleX(1); } }
-@media (prefers-reduced-motion:reduce){ .entry-prompt-line{ animation:none; } }
+.entry-disc::before{
+    content:''; position:absolute; inset:-32px; border-radius:50%;
+    border:1px solid rgba(14,138,91,.32);
+    animation:spin 40s linear infinite reverse;
+}
+@keyframes discPulse{ 0%,100%{ transform:scale(1); } 50%{ transform:scale(1.08); } }
+.entry-bn{ font-family:var(--font-display); font-weight:700; font-size:clamp(1.7rem,5.5vw,2.3rem); color:var(--ink); letter-spacing:.3px; }
+.entry-title{ font-family:var(--font-body); font-weight:500; font-size:clamp(.92rem,3vw,1.02rem); color:var(--ink-soft); text-align:center; max-width:300px; }
+.entry-flagline{
+    font-family:var(--font-mono); font-size:11.5px; letter-spacing:.4px; color:var(--ink-faint);
+    display:flex; align-items:center; gap:7px; margin-top:-2px;
+}
+.entry-flagline .entry-arrow{ color:var(--gold-strong); }
+.entry-sub{ font-family:var(--font-mono); font-size:11px; letter-spacing:3px; text-transform:uppercase; color:var(--gold-strong); margin-top:10px; }
+.entry-sub i{ margin-left:6px; animation:bob 1.6s ease-in-out infinite; display:inline-block; }
+.entry-sub-bn{ font-family:var(--font-body); font-weight:500; font-size:13px; color:var(--ink-faint); margin-top:-6px; letter-spacing:.2px; }
+@keyframes bob{ 0%,100%{ transform:translateY(0); } 50%{ transform:translateY(4px); } }
+@media (prefers-reduced-motion:reduce){ .entry-disc,.entry-disc::after,.entry-disc::before,.entry-sub i{ animation:none !important; } }
 
 /* =====================================================================
    3. LAYOUT SHELL
@@ -146,31 +187,32 @@ body.sky-night #sky-bg{ background:linear-gradient(165deg, var(--void-night-a) 0
 @media (min-width:820px){
     #app-shell{ max-width:960px; padding:48px 32px 90px; }
     .layout-grid{
-        display:grid; grid-template-columns:300px 1fr;
+        display:grid; grid-template-columns:320px 1fr;
         align-items:start; gap:36px;
     }
 }
 @media (min-width:1180px){
-    #app-shell{ max-width:1100px; }
-    .layout-grid{ grid-template-columns:320px 1fr; gap:44px; }
+    #app-shell{ max-width:1120px; }
+    .layout-grid{ grid-template-columns:340px 1fr; gap:46px; }
 }
 
 /* =====================================================================
-   4. GLASS SURFACE
+   4. GLASS SURFACE + KANTHA STITCH EDGE (signature motif)
    ===================================================================== */
 .glass{
     background:var(--glass);
-    backdrop-filter:blur(20px) saturate(130%);
-    -webkit-backdrop-filter:blur(20px) saturate(130%);
+    backdrop-filter:blur(22px) saturate(140%);
+    -webkit-backdrop-filter:blur(22px) saturate(140%);
     border:1px solid var(--line-strong);
     border-radius:var(--radius-lg);
-    box-shadow:var(--shadow-md), inset 0 1px 0 rgba(255,255,255,.03);
+    box-shadow:var(--shadow-md), inset 0 1px 0 rgba(255,255,255,.04);
     position:relative; overflow:hidden;
 }
 .glass::before{
     content:''; position:absolute; inset:0; pointer-events:none;
-    background:radial-gradient(ellipse at top left, rgba(184,147,90,.06) 0%, transparent 55%);
+    background:radial-gradient(ellipse at top left, rgba(227,168,87,.07) 0%, transparent 55%);
 }
+/* stripe removed per request */
 
 /* =====================================================================
    5. PROFILE CARD
@@ -181,165 +223,235 @@ body.sky-night #sky-bg{ background:linear-gradient(165deg, var(--void-night-a) 0
 }
 @media (min-width:820px){ .profile-card{ position:sticky; top:36px; } }
 
-.avatar-wrap{ position:relative; width:104px; height:104px; margin:2px 0 2px; }
+.greeting-eyebrow{
+    font-family:var(--font-mono); font-size:11px; letter-spacing:3px; text-transform:uppercase;
+    color:var(--gold-strong); display:flex; align-items:center; gap:6px;
+}
+
+.avatar-wrap{ position:relative; width:110px; height:110px; margin:4px 0 2px; }
 .avatar-orb{
     width:100%; height:100%; border-radius:50%;
-    background:conic-gradient(from 200deg, var(--brass), var(--wine), var(--brass-strong), var(--brass));
+    background:conic-gradient(from 200deg, var(--red), var(--gold), var(--green), var(--teal), var(--red));
     display:flex; align-items:center; justify-content:center;
-    box-shadow:0 14px 30px -12px rgba(0,0,0,.55), inset 0 0 0 5px rgba(18,18,16,.6);
+    box-shadow:0 14px 34px -10px rgba(214,41,61,.45), inset 0 0 0 5px rgba(11,18,14,.55);
     animation:breathe 6s ease-in-out infinite;
 }
 .profile-pic{ width:100%; height:100%; border-radius:50%; object-fit:cover; }
-@keyframes breathe{ 0%,100%{ transform:scale(1); } 50%{ transform:scale(1.03); } }
-@media (prefers-reduced-motion:reduce){ .avatar-orb{ animation:none !important; } }
+.avatar-orb span{
+    font-family:var(--font-display); font-weight:800; font-size:40px; color:var(--paper);
+    text-shadow:0 2px 10px rgba(0,0,0,.3);
+}
+@keyframes breathe{ 0%,100%{ transform:scale(1); } 50%{ transform:scale(1.035); } }
+.avatar-orbit{ position:absolute; inset:-14px; animation:spin 14s linear infinite; }
+.avatar-orbit span{ position:absolute; top:0; left:50%; transform:translate(-50%,-50%); font-size:16px; animation:counterspin 14s linear infinite; }
+@keyframes spin{ to{ transform:rotate(360deg); } }
+@keyframes counterspin{ to{ transform:translate(-50%,-50%) rotate(-360deg); } }
+@media (prefers-reduced-motion:reduce){ .avatar-orb,.avatar-orbit,.avatar-orbit span{ animation:none !important; } }
 
 .header-name{
-    font-family:var(--font-display); font-weight:600; font-size:clamp(1.9rem,5vw,2.4rem);
-    color:var(--ink); letter-spacing:.2px;
+    font-family:var(--font-display); font-weight:800; font-size:clamp(1.9rem,5vw,2.5rem);
+    color:var(--ink); position:relative; background:linear-gradient(100deg, var(--ink) 40%, var(--gold-strong) 50%, var(--ink) 60%);
+    background-size:300% 100%; -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent;
+    transition:background-position 1.1s ease; background-position:0% 0%;
 }
+.header-name:hover{ background-position:100% 0%; }
 
 .status-line{ display:flex; align-items:center; gap:7px; font-size:12.5px; color:var(--ink-soft); font-family:var(--font-mono); flex-wrap:wrap; justify-content:center; }
-.status-dot{ width:7px; height:7px; border-radius:50%; background:#4FAE6E; box-shadow:0 0 8px rgba(79,174,110,.6); animation:pulse 1.8s ease-in-out infinite; flex-shrink:0; }
+.status-dot{ width:7px; height:7px; border-radius:50%; background:#3FCE86; box-shadow:0 0 8px rgba(63,206,134,.6); animation:pulse 1.8s ease-in-out infinite; }
 @keyframes pulse{ 0%,100%{ transform:scale(1); opacity:.7; } 50%{ transform:scale(1.4); opacity:1; } }
-@media (prefers-reduced-motion:reduce){ .status-dot{ animation:none; } }
 
-.bio-typewriter{
-    font-family:var(--font-mono); font-size:13.5px; line-height:1.6; color:var(--ink-soft);
-    max-width:280px; min-height:42px; display:flex; align-items:center; justify-content:center;
-}
-.bio-cursor{ color:var(--brass-strong); animation:blink 1s step-end infinite; margin-left:1px; }
-@keyframes blink{ 0%,100%{ opacity:1; } 50%{ opacity:0; } }
-@media (prefers-reduced-motion:reduce){ .bio-cursor{ animation:none; } }
+.tagline{ font-family:var(--font-quote); font-style:italic; font-size:17px; color:var(--ink-soft); max-width:280px; line-height:1.5; }
 
-.social-row{ display:flex; gap:10px; margin-top:2px; }
+.social-row{ display:flex; gap:10px; margin-top:4px; }
 .social-btn{
-    width:42px; height:42px; border-radius:var(--radius-sm); display:flex; align-items:center; justify-content:center;
+    width:42px; height:42px; border-radius:14px; display:flex; align-items:center; justify-content:center;
     background:var(--paper-strong); border:1px solid var(--line); color:var(--ink-soft); font-size:16px;
     box-shadow:var(--shadow-sm); transition:transform .3s cubic-bezier(.2,.9,.3,1.3), color .3s, border-color .3s;
     cursor:pointer;
 }
-.social-btn:hover{ transform:translateY(-4px); color:var(--brass-strong); border-color:var(--brass-soft); }
+.social-btn:hover{ transform:translateY(-4px) scale(1.06); color:var(--gold-strong); border-color:var(--gold-soft); }
 
-.id-badges{ display:flex; flex-wrap:wrap; gap:8px; justify-content:center; margin-top:4px; }
-.id-badge{
-    font-family:var(--font-mono); font-size:10.5px; letter-spacing:.6px; text-transform:uppercase; color:var(--ink-soft);
+.badge-row{ display:flex; flex-wrap:wrap; gap:8px; justify-content:center; margin-top:6px; }
+.badge{
+    font-family:var(--font-mono); font-size:10.5px; letter-spacing:.4px; color:var(--ink-soft);
     background:rgba(255,255,255,.03); border:1px solid var(--line); border-radius:999px; padding:6px 12px;
     transition:transform .25s ease, color .25s ease;
 }
-.id-badge:hover{ transform:translateY(-2px); color:var(--brass-strong); }
+.badge:hover{ transform:translateY(-2px); color:var(--gold-strong); }
 
-.now-btn{
+.stamp-btn{
     margin-top:8px; display:inline-flex; align-items:center; gap:8px;
-    padding:11px 22px; border-radius:999px; font-family:var(--font-display); font-weight:600; font-size:13.5px;
-    color:var(--on-accent); background:linear-gradient(120deg, var(--brass), var(--brass-strong));
-    box-shadow:0 10px 22px -8px rgba(0,0,0,.5); cursor:pointer;
+    padding:11px 20px; border-radius:999px; font-family:var(--font-display); font-weight:600; font-size:13.5px;
+    color:var(--on-accent); background:linear-gradient(120deg, var(--gold), var(--red));
+    box-shadow:0 10px 24px -8px rgba(214,41,61,.45); cursor:pointer;
     transition:transform .3s cubic-bezier(.2,.9,.3,1.3), box-shadow .3s;
 }
-.now-btn:hover{ transform:translateY(-3px); box-shadow:0 14px 28px -8px rgba(0,0,0,.6); }
+.stamp-btn:hover{ transform:translateY(-3px); box-shadow:0 14px 30px -8px rgba(214,41,61,.55); }
+
+.local-time-chip{
+    font-family:var(--font-mono); font-size:11px; color:var(--ink-faint); letter-spacing:.4px;
+    border-top:1px solid var(--line); padding-top:12px; margin-top:6px; width:100%;
+    display:flex; flex-direction:column; gap:5px;
+}
+.ltc-row{ display:flex; align-items:center; justify-content:center; gap:6px; }
 
 /* =====================================================================
-   6. SIDE TABS + PANELS
+   6. TAB BAR + PANELS
    ===================================================================== */
-.content-col{ width:100%; display:flex; flex-direction:row; align-items:stretch; gap:0; }
+.content-col{ width:100%; display:flex; flex-direction:column; gap:18px; }
 
-.side-tabs{
-    display:flex; flex-direction:column; width:58px; flex-shrink:0;
-    border:1px solid var(--line-strong); border-right:none;
-    border-radius:var(--radius-lg) 0 0 var(--radius-lg);
-    background:rgba(255,255,255,.015); overflow:hidden;
+.tab-bar{
+    display:flex; gap:6px; padding:6px; border-radius:18px;
+    background:rgba(255,255,255,.02); border:1px solid var(--line); box-shadow:var(--shadow-sm);
+    backdrop-filter:blur(14px);
 }
-.side-tab{
-    flex:1; display:flex; align-items:center; justify-content:center;
-    writing-mode:vertical-rl; transform:rotate(180deg);
-    font-family:var(--font-mono); font-weight:500; font-size:11px; letter-spacing:2.5px; text-transform:uppercase;
-    color:var(--ink-faint); cursor:pointer; padding:16px 0;
-    border-bottom:1px solid var(--line); border-left:2px solid transparent;
-    transition:color .3s ease, background .3s ease, border-color .3s ease;
+.tab-btn{
+    flex:1; padding:11px 8px; border-radius:14px; cursor:pointer;
+    font-family:var(--font-display); font-weight:600; font-size:12.5px; letter-spacing:.4px;
+    color:var(--ink-soft); display:flex; align-items:center; justify-content:center; gap:7px;
+    transition:all .35s cubic-bezier(.2,.9,.3,1.2);
 }
-.side-tab:last-child{ border-bottom:none; }
-.side-tab:hover{ color:var(--ink-soft); }
-.side-tab.active{ color:var(--brass-strong); background:var(--brass-soft); border-left-color:var(--brass); }
-
-.tab-panels{ flex:1; min-width:0; }
+.tab-btn:hover{ color:var(--ink); }
+.tab-btn.active{ color:var(--on-accent); background:linear-gradient(120deg, var(--gold), var(--red)); box-shadow:0 8px 20px -8px rgba(214,41,61,.5); }
 
 .tab-panel{ display:none; flex-direction:column; gap:18px; }
 .tab-panel.active{ display:flex; animation:panelIn .5s cubic-bezier(.2,.9,.3,1.15); }
-@keyframes panelIn{ from{ opacity:0; transform:translateY(10px); } to{ opacity:1; transform:translateY(0); } }
-@media (prefers-reduced-motion:reduce){ .tab-panel.active{ animation:none; } }
+@keyframes panelIn{ from{ opacity:0; transform:translateY(12px); } to{ opacity:1; transform:translateY(0); } }
 
-.panel-card{ padding:26px 24px; border-radius:0 var(--radius-lg) var(--radius-lg) 0; }
-@media (max-width:559px){ .panel-card{ border-radius:0 var(--radius-md) var(--radius-md) 0; } }
+.panel-card{ padding:26px 24px; }
 .panel-eyebrow{
-    font-family:var(--font-mono); font-size:11px; letter-spacing:3px; text-transform:uppercase; color:var(--brass-strong);
+    font-family:var(--font-mono); font-size:11px; letter-spacing:3px; text-transform:uppercase; color:var(--gold-strong);
     display:flex; align-items:center; gap:8px; margin-bottom:6px;
 }
-.panel-title{ font-family:var(--font-display); font-weight:600; font-size:clamp(1.3rem,3vw,1.6rem); color:var(--ink); margin-bottom:14px; }
-.panel-intro{ font-size:14.5px; line-height:1.75; color:var(--ink-soft); margin-bottom:22px; }
+.panel-title{ font-family:var(--font-display); font-weight:800; font-size:clamp(1.3rem,3vw,1.6rem); color:var(--ink); margin-bottom:14px; }
+.about-text{ font-size:14.5px; line-height:1.75; color:var(--ink-soft); margin-bottom:22px; }
 
 /* =====================================================================
-   7. STAT BARS — ledger-style list, replaces circular rings
+   7. STAT RINGS — bento layout (hero + 3), not a flat uniform grid
    ===================================================================== */
-.stat-list{ display:flex; flex-direction:column; gap:18px; margin-bottom:26px; }
-.stat-row{ display:flex; flex-direction:column; gap:6px; }
-.stat-head{ display:flex; justify-content:space-between; align-items:baseline; }
-.stat-label{ font-family:var(--font-display); font-weight:600; font-size:14.5px; color:var(--ink); }
-.stat-val{ font-family:var(--font-mono); font-size:12px; color:var(--brass-strong); }
-.stat-track{ height:4px; border-radius:2px; background:var(--line); overflow:hidden; }
-.stat-fill{ height:100%; border-radius:2px; background:linear-gradient(90deg,var(--brass),var(--brass-strong)); width:0%; transition:width 1.1s cubic-bezier(.16,.84,.44,1); }
-.stat-caption{ font-family:var(--font-mono); font-size:11px; color:var(--ink-faint); }
+.ring-grid{
+    display:grid; gap:12px; margin-bottom:26px;
+    grid-template-columns:repeat(2,1fr);
+    grid-template-areas:"hero hero" "b c" "d d";
+}
+@media (min-width:600px){
+    .ring-grid{ grid-template-columns:1.3fr 1fr 1fr 1fr; grid-template-areas:"hero b c d"; }
+}
+.ring-tile{
+    display:flex; align-items:center; gap:12px; padding:14px;
+    background:rgba(255,255,255,.02); border:1px solid var(--line); border-radius:16px;
+    transition:transform .25s ease, border-color .25s ease;
+}
+.ring-tile:hover{ transform:translateY(-2px); border-color:var(--gold-soft); }
+.ring-tile.tile-hero{ grid-area:hero; background:linear-gradient(120deg, var(--red-soft), transparent 75%); border-color:rgba(214,41,61,.28); }
+.ring-tile.tile-d{ grid-area:d; background:linear-gradient(120deg, var(--green-soft), transparent 75%); border-color:rgba(14,138,91,.28); }
+.ring-tile.tile-b{ grid-area:b; flex-direction:column; text-align:center; }
+.ring-tile.tile-c{ grid-area:c; flex-direction:column; text-align:center; }
+
+.ring-svg-wrap{ position:relative; width:70px; height:70px; flex-shrink:0; }
+.tile-hero .ring-svg-wrap,.tile-d .ring-svg-wrap{ width:88px; height:88px; }
+.ring-svg{ width:100%; height:100%; transform:rotate(-90deg); }
+.ring-track{ fill:none; stroke:rgba(237,230,214,.09); stroke-width:8; }
+.ring-fill{ fill:none; stroke-width:8; stroke-linecap:round; }
+.ring-center{ position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:0; }
+.ring-emoji{ font-size:17px; }
+.ring-pct{ font-family:var(--font-mono); font-size:10px; color:var(--ink-soft); margin-top:1px; }
+.ring-label{ font-size:11px; color:var(--ink-faint); text-align:center; font-family:var(--font-mono); letter-spacing:.2px; margin-top:2px; }
+
+.ring-hero-text{ display:flex; flex-direction:column; gap:2px; min-width:0; }
+.ring-hero-title{ font-family:var(--font-display); font-weight:700; font-size:15.5px; color:var(--ink); }
+.ring-hero-sub{ font-family:var(--font-mono); font-size:10.5px; color:var(--ink-faint); line-height:1.4; }
 
 /* =====================================================================
-   8. INFO BLOCKS / TAGS
+   8. INFO BLOCKS / TAGS / BIRTHDAY
    ===================================================================== */
 .info-block{ margin-bottom:22px; }
 .info-block:last-of-type{ margin-bottom:0; }
 .info-block-title{
-    font-family:var(--font-mono); font-weight:500; font-size:11px; letter-spacing:2px; text-transform:uppercase;
-    color:var(--ink-faint); margin-bottom:8px;
+    display:flex; align-items:center; gap:8px; font-family:var(--font-display); font-weight:700;
+    font-size:13.5px; color:var(--ink); margin-bottom:10px;
 }
-.info-text{ font-size:14px; line-height:1.7; color:var(--ink-soft); }
+.info-block-title i{ color:var(--gold-strong); font-size:12px; }
 .tag-row{ display:flex; flex-wrap:wrap; gap:8px; }
 .tag-chip{
     font-family:var(--font-mono); font-size:11.5px; color:var(--ink-soft);
-    background:rgba(255,255,255,.03); border:1px solid var(--line); border-radius:var(--radius-sm); padding:6px 11px;
+    background:rgba(255,255,255,.03); border:1px solid var(--line); border-radius:10px; padding:6px 11px;
     transition:transform .25s ease, border-color .25s ease, color .25s ease;
 }
-.tag-chip:hover{ transform:translateY(-2px); border-color:var(--brass-soft); color:var(--brass-strong); }
+.tag-chip:hover{ transform:translateY(-2px); border-color:var(--gold-soft); color:var(--gold-strong); }
 
-.divider{ height:1px; background:var(--line); position:relative; margin:4px 0; }
-.divider::after{ content:'◆'; position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); font-size:6px; color:var(--brass); background:var(--paper-strong); padding:0 6px; }
+.bday-row{ display:flex; align-items:center; gap:18px; flex-wrap:wrap; }
+.bday-ring-wrap{ position:relative; width:78px; height:78px; flex-shrink:0; }
+.bday-facts{ display:flex; flex-direction:column; gap:6px; }
+.bday-days{ font-family:var(--font-display); font-weight:700; font-size:15px; color:var(--ink); }
+.bday-sub{ font-family:var(--font-mono); font-size:11px; color:var(--ink-faint); }
 
 /* =====================================================================
-   9. NOW PANEL
+   9. (removed — confession plaque)
    ===================================================================== */
-.now-panel-header{ display:flex; align-items:center; gap:8px; margin-bottom:4px; }
-.now-live-dot{ width:6px; height:6px; border-radius:50%; background:var(--brass-strong); box-shadow:0 0 8px rgba(217,174,114,.6); animation:pulse 1.8s ease-in-out infinite; margin-left:auto; }
-@media (prefers-reduced-motion:reduce){ .now-live-dot{ animation:none; } }
 
-.now-statement{ font-family:var(--font-display); font-style:italic; font-size:17px; color:var(--ink); line-height:1.6; margin:14px 0 20px; }
-
-.clock-row{ display:flex; gap:24px; flex-wrap:wrap; margin-bottom:20px; }
-.clock-item{ display:flex; flex-direction:column; gap:4px; }
-.clock-label{ font-family:var(--font-mono); font-size:10px; letter-spacing:1.5px; text-transform:uppercase; color:var(--ink-faint); }
-.clock-val{ font-family:var(--font-display); font-weight:600; font-size:19px; color:var(--ink); }
-
-.now-playing-line{ padding:12px 14px; border-radius:var(--radius-sm); background:rgba(255,255,255,.02); border:1px solid var(--line); font-size:12.5px; color:var(--ink-soft); display:flex; align-items:center; gap:8px; }
-.now-playing-line i{ color:var(--brass-strong); }
+.intel-footer{
+    margin-top:20px; padding-top:18px; border-top:1px solid var(--line);
+    font-size:12.5px; color:var(--ink-soft); display:flex; align-items:center; gap:6px; flex-wrap:wrap;
+}
+.inline-link{ color:var(--gold-strong); font-weight:600; cursor:pointer; text-decoration:underline; text-decoration-color:var(--gold-soft); text-underline-offset:2px; }
+.inline-link:hover{ color:var(--red); }
 
 /* =====================================================================
-   10. MUSIC PANEL
+   10. VIBE PANEL
+   ===================================================================== */
+.vibe-header{ display:flex; align-items:center; gap:8px; margin-bottom:18px; }
+.vibe-live-dot{ width:6px; height:6px; border-radius:50%; background:var(--red); box-shadow:0 0 8px rgba(214,41,61,.7); animation:pulse 1.6s ease-in-out infinite; margin-left:auto; }
+
+.vsn-grid{ display:flex; align-items:center; gap:18px; margin-bottom:16px; }
+.vsn-orb{
+    width:74px; height:74px; border-radius:50%; flex-shrink:0; display:flex; align-items:center; justify-content:center;
+    background:radial-gradient(circle at 35% 30%, rgba(255,255,255,.05), var(--gold-soft) 75%); border:1px solid var(--line);
+    font-size:32px; box-shadow:var(--shadow-sm);
+}
+.vsn-mood-tag{ text-align:center; font-family:var(--font-mono); font-size:10.5px; color:var(--ink-faint); margin-top:6px; text-transform:uppercase; letter-spacing:1px; }
+.vsn-info-col{ flex:1; min-width:0; }
+.vsn-caption{ font-family:var(--font-quote); font-style:italic; font-size:16px; color:var(--ink); margin-bottom:10px; }
+.vsn-fixation-row{ display:flex; justify-content:space-between; gap:10px; font-size:12.5px; padding:4px 0; }
+.vsn-fixation-label{ color:var(--ink-faint); font-family:var(--font-mono); font-size:10.5px; letter-spacing:.3px; }
+.vsn-fixation-val{ color:var(--ink-soft); font-weight:600; text-align:right; }
+.vsn-tags-row{ display:flex; flex-wrap:wrap; gap:8px; margin-top:4px; }
+
+.vibe-divider{ height:1px; background:var(--line); margin:18px 0; }
+.live-stat-row{ display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap; }
+.live-stat{ display:flex; flex-direction:column; gap:4px; }
+.live-stat-label{ font-family:var(--font-mono); font-size:10px; letter-spacing:1.5px; text-transform:uppercase; color:var(--ink-faint); }
+.live-stat-val{ font-family:var(--font-display); font-weight:700; font-size:15px; color:var(--ink); }
+.now-playing-line{ margin-top:16px; padding:12px 14px; border-radius:12px; background:rgba(255,255,255,.02); border:1px solid var(--line); font-size:12.5px; color:var(--ink-soft); display:flex; align-items:center; gap:8px; }
+.now-playing-line i{ color:var(--gold-strong); }
+.discord-wrap{ margin-top:22px; }
+.discord-wrap #discordFrame{ border-radius:var(--radius-md); border:1px solid var(--line); }
+.discord-join-btn{
+    display:flex; align-items:center; gap:10px; padding:12px 16px; border-radius:14px;
+    background:linear-gradient(120deg, rgba(88,101,242,.16), rgba(88,101,242,.05));
+    border:1px solid rgba(88,101,242,.35); color:var(--ink); font-family:var(--font-display); font-weight:600; font-size:13.5px;
+    margin-bottom:12px; transition:transform .25s cubic-bezier(.2,.9,.3,1.3), border-color .25s ease; cursor:pointer;
+}
+.discord-join-btn i{ color:#5865F2; font-size:16px; }
+.discord-join-btn:hover{ transform:translateY(-2px); border-color:#5865F2; }
+.discord-member-count{ margin-left:auto; font-family:var(--font-mono); font-size:10.5px; color:var(--ink-faint); }
+
+/* =====================================================================
+   11. MUSIC PANEL
    ===================================================================== */
 .lfm-hero{ display:flex; align-items:center; gap:16px; margin-bottom:22px; }
-.lfm-art-wrap{ position:relative; width:70px; height:70px; border-radius:var(--radius-md); overflow:hidden; box-shadow:var(--shadow-sm); flex-shrink:0; }
-.lfm-art{ width:100%; height:100%; object-fit:cover; }
+.lfm-art-wrap{ position:relative; width:72px; height:72px; border-radius:16px; overflow:hidden; box-shadow:var(--shadow-sm); flex-shrink:0; }
+.lfm-art{ width:100%; height:100%; object-fit:cover; transition:transform 8s linear; }
+.lfm-art.spinning{ animation:artSpin 8s linear infinite; }
+@keyframes artSpin{ to{ transform:rotate(360deg); } }
 .lfm-text{ flex:1; min-width:0; }
 .lfm-track-row{ display:flex; align-items:center; gap:8px; }
-.lfm-track{ font-family:var(--font-display); font-weight:600; font-size:15px; color:var(--ink); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.lfm-track{ font-family:var(--font-display); font-weight:700; font-size:15px; color:var(--ink); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
 .lfm-artist{ font-size:12.5px; color:var(--ink-soft); margin-top:2px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
 .lfm-status{ font-family:var(--font-mono); font-size:10.5px; color:var(--ink-faint); margin-top:4px; letter-spacing:.4px; }
 .eq-bars{ display:flex; align-items:flex-end; gap:2.5px; height:13px; opacity:0; transition:opacity .3s; }
 .eq-bars.active{ opacity:1; }
-.eq-bar{ width:3px; background:var(--brass-strong); border-radius:2px; animation:eqBounce 1s ease-in-out infinite; }
+.eq-bar{ width:3px; background:linear-gradient(var(--gold),var(--red)); border-radius:2px; animation:eqBounce 1s ease-in-out infinite; }
 .eq-bar:nth-child(1){ animation-delay:0s; } .eq-bar:nth-child(2){ animation-delay:.15s; }
 .eq-bar:nth-child(3){ animation-delay:.3s; } .eq-bar:nth-child(4){ animation-delay:.45s; }
 @keyframes eqBounce{ 0%,100%{ height:4px; } 50%{ height:13px; } }
@@ -347,7 +459,7 @@ body.sky-night #sky-bg{ background:linear-gradient(165deg, var(--void-night-a) 0
 .section-label{ font-family:var(--font-mono); font-size:10.5px; letter-spacing:2px; text-transform:uppercase; color:var(--ink-faint); margin-bottom:10px; }
 .recent-row{ display:flex; align-items:center; gap:12px; padding:9px 0; border-bottom:1px solid var(--line); }
 .recent-row:last-child{ border-bottom:none; }
-.recent-art{ width:38px; height:38px; border-radius:var(--radius-sm); object-fit:cover; flex-shrink:0; background:var(--brass-soft); }
+.recent-art{ width:38px; height:38px; border-radius:9px; object-fit:cover; flex-shrink:0; background:var(--green-soft); }
 .recent-text{ flex:1; min-width:0; }
 .recent-track{ font-size:13px; font-weight:600; color:var(--ink); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
 .recent-artist{ font-size:11.5px; color:var(--ink-faint); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
@@ -355,38 +467,86 @@ body.sky-night #sky-bg{ background:linear-gradient(165deg, var(--void-night-a) 0
 
 .top-artists-row{ display:flex; flex-wrap:wrap; gap:8px; margin-top:24px; }
 .artist-chip{ display:flex; align-items:center; gap:6px; font-size:11.5px; padding:6px 12px; border-radius:999px; background:rgba(255,255,255,.02); border:1px solid var(--line); color:var(--ink-soft); }
-.artist-chip .rank{ font-family:var(--font-mono); color:var(--brass-strong); font-weight:700; }
-
-.player-card{ margin-top:26px; padding-top:22px; border-top:1px solid var(--line); }
-.player-empty{ text-align:center; padding:26px 10px; color:var(--ink-faint); font-size:12.5px; line-height:1.7; }
-.player-empty i{ font-size:22px; color:var(--brass-soft); margin-bottom:10px; display:block; }
+.artist-chip .rank{ font-family:var(--font-mono); color:var(--gold-strong); font-weight:700; }
 
 /* =====================================================================
-   11. "NOW" MODAL — replaces the word-of-the-day feature
+   11b. MP3 PLAYER (Cloudinary powered)
    ===================================================================== */
-.now-overlay{ position:fixed; inset:0; z-index:1000; background:rgba(4,4,3,.62); backdrop-filter:blur(7px); opacity:0; pointer-events:none; transition:opacity .3s ease; }
-.now-overlay.active{ opacity:1; pointer-events:all; }
-.now-modal{
-    position:fixed; top:50%; left:50%; transform:translate(-50%,-48%) scale(.96); z-index:1001;
-    width:90%; max-width:380px; padding:30px 26px 26px; border-radius:var(--radius-lg); text-align:center; overflow:hidden;
-    background:linear-gradient(165deg, #191811, #100F0A);
+.player-card{ margin-top:26px; padding-top:22px; border-top:1px solid var(--line); }
+.player{ display:flex; flex-direction:column; gap:14px; }
+.player-top{ display:flex; align-items:center; gap:14px; }
+.player-cover-wrap{ position:relative; width:60px; height:60px; border-radius:14px; overflow:hidden; flex-shrink:0; box-shadow:var(--shadow-sm); background:linear-gradient(135deg,var(--gold-soft),var(--green-soft)); }
+.player-cover{ width:100%; height:100%; object-fit:cover; }
+.player-cover-fallback{ position:absolute; inset:0; display:flex; align-items:center; justify-content:center; font-size:20px; color:var(--gold-strong); }
+.player-info{ flex:1; min-width:0; }
+.player-title{ font-family:var(--font-display); font-weight:700; font-size:14px; color:var(--ink); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.player-artist{ font-size:11.5px; color:var(--ink-soft); margin-top:1px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.player-index{ font-family:var(--font-mono); font-size:10px; color:var(--ink-faint); margin-top:2px; }
+
+.progress-wrap{ position:relative; height:5px; border-radius:4px; background:var(--line); cursor:pointer; }
+.progress-fill{ position:absolute; top:0; left:0; height:100%; border-radius:4px; background:linear-gradient(90deg,var(--gold),var(--red)); width:0%; }
+.player-times{ display:flex; justify-content:space-between; font-family:var(--font-mono); font-size:10px; color:var(--ink-faint); margin-top:-6px; }
+
+.player-controls{ display:flex; align-items:center; justify-content:center; gap:12px; }
+.pctrl{ width:36px; height:36px; border-radius:50%; display:flex; align-items:center; justify-content:center; color:var(--ink-soft); background:rgba(255,255,255,.03); border:1px solid var(--line); cursor:pointer; transition:transform .25s ease, color .25s, border-color .25s; font-size:12.5px; }
+.pctrl:hover{ color:var(--gold-strong); transform:translateY(-2px); }
+.pctrl.play-btn{ width:46px; height:46px; font-size:15px; color:var(--on-accent); background:linear-gradient(120deg,var(--gold),var(--red)); border:none; box-shadow:0 10px 22px -8px rgba(214,41,61,.45); }
+.pctrl.active-toggle{ color:var(--gold-strong); border-color:var(--gold-soft); background:var(--gold-soft); }
+
+.player-vol{ display:flex; align-items:center; gap:8px; color:var(--ink-faint); font-size:12px; }
+.player-vol input[type=range]{ flex:1; -webkit-appearance:none; appearance:none; height:4px; border-radius:4px; background:var(--line); }
+.player-vol input[type=range]::-webkit-slider-thumb{ -webkit-appearance:none; width:13px; height:13px; border-radius:50%; background:var(--gold-strong); cursor:pointer; }
+.player-vol input[type=range]::-moz-range-thumb{ width:13px; height:13px; border-radius:50%; background:var(--gold-strong); border:none; cursor:pointer; }
+
+.player-empty{ text-align:center; padding:26px 10px; color:var(--ink-faint); font-size:12.5px; line-height:1.7; }
+.player-empty i{ font-size:22px; color:var(--gold-soft); margin-bottom:10px; display:block; }
+.player-empty code{ background:rgba(255,255,255,.06); padding:2px 6px; border-radius:6px; font-family:var(--font-mono); font-size:11px; color:var(--ink-soft); }
+
+/* =====================================================================
+   12. BANGLA WORD CARD (replaces visitor stamp counter)
+   ===================================================================== */
+.word-overlay{ position:fixed; inset:0; z-index:1000; background:rgba(3,5,4,.62); backdrop-filter:blur(7px); opacity:0; pointer-events:none; transition:opacity .3s ease; }
+.word-overlay.active{ opacity:1; pointer-events:all; }
+.word-modal{
+    position:fixed; top:50%; left:50%; transform:translate(-50%,-48%) scale(.94); z-index:1001;
+    width:90%; max-width:380px; padding:32px 26px 26px; border-radius:22px; text-align:center; overflow:hidden;
+    background:linear-gradient(165deg, #16211A, #0D1610);
     box-shadow:var(--shadow-lg); border:1px solid var(--line-strong);
     opacity:0; pointer-events:none; transition:all .4s cubic-bezier(.2,.9,.3,1.15);
 }
-.now-modal.active{ opacity:1; pointer-events:all; transform:translate(-50%,-50%) scale(1); }
-.now-modal::before{ content:''; position:absolute; top:0; left:0; right:0; height:2px; background:var(--brass); }
-.now-close{ position:absolute; top:16px; right:18px; color:var(--ink-faint); font-size:15px; cursor:pointer; transition:color .2s, transform .2s; }
-.now-close:hover{ color:var(--brass-strong); transform:rotate(90deg); }
-.now-eyebrow{ font-family:var(--font-mono); font-size:10.5px; letter-spacing:3px; text-transform:uppercase; color:var(--ink-faint); margin-bottom:6px; }
-.now-title{ font-family:var(--font-display); font-weight:600; font-size:19px; color:var(--ink); margin-bottom:22px; }
-.now-entry{ font-family:var(--font-display); font-style:italic; font-size:18px; color:var(--ink); line-height:1.6; min-height:60px; display:flex; align-items:center; justify-content:center; }
-.now-next{
-    margin-top:22px; display:inline-flex; align-items:center; gap:8px;
-    padding:10px 20px; border-radius:999px; font-family:var(--font-display); font-weight:600; font-size:12.5px;
-    color:var(--on-accent); background:linear-gradient(120deg, var(--brass), var(--brass-strong)); cursor:pointer;
+.word-modal.active{ opacity:1; pointer-events:all; transform:translate(-50%,-50%) scale(1); }
+.word-modal::before{
+    content:''; position:absolute; top:0; left:0; right:0; height:5px;
+    background:repeating-linear-gradient(115deg, var(--gold) 0 10px, var(--red) 10px 20px, var(--green) 20px 30px, transparent 30px 34px);
+}
+.word-close{ position:absolute; top:16px; right:18px; color:var(--ink-faint); font-size:16px; cursor:pointer; transition:color .2s, transform .2s; }
+.word-close:hover{ color:var(--red); transform:scale(1.15) rotate(90deg); }
+.word-eyebrow{ font-family:var(--font-mono); font-size:10.5px; letter-spacing:3px; text-transform:uppercase; color:var(--ink-faint); margin-bottom:6px; }
+.word-title{ font-family:var(--font-display); font-weight:800; font-size:19px; color:var(--ink); margin-bottom:20px; }
+
+.word-disc{
+    width:106px; height:106px; margin:0 auto 20px; border-radius:50%;
+    border:3px dashed var(--red); display:flex; flex-direction:column; align-items:center; justify-content:center;
+    color:var(--red); transform:rotate(-8deg); background:rgba(214,41,61,.05);
+    animation:wordDiscIn .5s cubic-bezier(.2,.8,.3,1.3);
+}
+@keyframes wordDiscIn{ 0%{ transform:rotate(-8deg) scale(2.2); opacity:0; } 60%{ opacity:1; } 100%{ transform:rotate(-8deg) scale(1); opacity:1; } }
+@media (prefers-reduced-motion:reduce){ .word-disc{ animation:none; } }
+.word-disc-bn{ font-family:var(--font-display); font-weight:800; font-size:22px; line-height:1.1; }
+.word-disc-label{ font-family:var(--font-mono); font-size:8.5px; letter-spacing:1.5px; margin-top:4px; }
+
+.word-row{ margin-bottom:4px; }
+.word-bn{ font-family:var(--font-display); font-weight:700; font-size:23px; color:var(--ink); }
+.word-translit{ font-family:var(--font-mono); font-size:11px; color:var(--gold-strong); letter-spacing:.5px; margin-top:4px; }
+.word-meaning{ font-family:var(--font-quote); font-style:italic; font-size:15px; color:var(--ink-soft); margin-top:8px; line-height:1.5; }
+
+.word-next{
+    margin-top:20px; display:inline-flex; align-items:center; gap:8px;
+    padding:10px 18px; border-radius:999px; font-family:var(--font-display); font-weight:600; font-size:12.5px;
+    color:var(--on-accent); background:linear-gradient(120deg, var(--gold), var(--red)); cursor:pointer;
     transition:transform .3s cubic-bezier(.2,.9,.3,1.3);
 }
-.now-next:hover{ transform:translateY(-2px); }
+.word-next:hover{ transform:translateY(-2px); }
 
 /* toast */
 #toast{
@@ -398,37 +558,49 @@ body.sky-night #sky-bg{ background:linear-gradient(165deg, var(--void-night-a) 0
 #toast.show{ opacity:1; transform:translate(-50%,0); }
 
 /* =====================================================================
-   12. CURSOR + RIPPLE
+   13. KONAMI SECRET
+   ===================================================================== */
+#konami-flash{
+    position:fixed; inset:0; z-index:9998; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:12px;
+    background:rgba(6,9,7,.92); backdrop-filter:blur(14px); opacity:0; pointer-events:none; transition:opacity .3s ease; text-align:center; padding:0 24px;
+}
+#konami-flash.active{ opacity:1; pointer-events:all; }
+.kf-text{ font-family:var(--font-display); font-weight:800; font-size:24px; background:linear-gradient(120deg,var(--gold),var(--red)); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; }
+.kf-fact{ font-family:var(--font-quote); font-style:italic; font-size:16px; color:var(--ink-soft); max-width:340px; }
+.kf-hint{ font-family:var(--font-mono); font-size:10px; letter-spacing:2px; text-transform:uppercase; color:var(--ink-faint); }
+
+/* =====================================================================
+   14. CURSOR + RIPPLE
    ===================================================================== */
 #cursor-dot{
-    position:fixed; top:0; left:0; width:5px; height:5px; border-radius:50%;
-    background:var(--brass-strong); transform:translate(-50%,-50%);
+    position:fixed; top:0; left:0; width:6px; height:6px; border-radius:50%;
+    background:var(--gold-strong); transform:translate(-50%,-50%);
     pointer-events:none; z-index:99999; transition:background .25s ease, width .2s ease, height .2s ease;
     display:none;
 }
 #cursor-ring{
-    position:fixed; top:0; left:0; width:26px; height:26px; border-radius:50%;
-    border:1px solid rgba(184,147,90,.55);
+    position:fixed; top:0; left:0; width:32px; height:32px; border-radius:50%;
+    border:1.5px solid rgba(227,168,87,.55);
     transform:translate(-50%,-50%);
     pointer-events:none; z-index:99998; opacity:.9;
     transition:width .28s cubic-bezier(.2,.9,.3,1.2), height .28s cubic-bezier(.2,.9,.3,1.2), border-color .25s ease, background .25s ease;
     display:none;
 }
 @media (hover:hover) and (pointer:fine){ #cursor-dot,#cursor-ring{ display:block; } }
-#cursor-dot.hovering{ background:var(--wine); width:7px; height:7px; }
-#cursor-ring.hovering{ width:42px; height:42px; border-color:var(--wine); background:rgba(122,52,52,.08); }
+#cursor-dot.hovering{ background:var(--red); width:9px; height:9px; }
+#cursor-ring.hovering{ width:50px; height:50px; border-color:var(--red); background:rgba(214,41,61,.06); }
 #cursor-dot.clicked{ width:4px; height:4px; }
-#cursor-ring.clicked{ width:18px; height:18px; }
+#cursor-ring.clicked{ width:22px; height:22px; }
 
 .ripple-burst{
     position:fixed; pointer-events:none; z-index:99997; border-radius:50%; transform:translate(-50%,-50%);
-    border:1px solid rgba(184,147,90,.5); width:0; height:0; animation:ripplePop .55s cubic-bezier(.2,.8,.4,1) forwards;
+    border:2px solid rgba(227,168,87,.55); width:0; height:0; animation:ripplePop .55s cubic-bezier(.2,.8,.4,1) forwards;
 }
-@keyframes ripplePop{ 0%{ width:0; height:0; opacity:1; } 100%{ width:64px; height:64px; opacity:0; } }
-@media (prefers-reduced-motion:reduce){ .ripple-burst{ display:none; } }
+.ripple-burst.alt{ border-color:rgba(214,41,61,.55); }
+@keyframes ripplePop{ 0%{ width:0; height:0; opacity:1; } 100%{ width:80px; height:80px; opacity:0; } }
 
 /* =====================================================================
-   13. FOOTER
+   15. FOOTER
    ===================================================================== */
 .site-footer{
     position:relative; z-index:1; text-align:center; font-family:var(--font-mono); font-size:11px;
@@ -436,37 +608,57 @@ body.sky-night #sky-bg{ background:linear-gradient(165deg, var(--void-night-a) 0
 }
 
 /* =====================================================================
-   14. RESPONSIVE FINE-TUNING
+   16. RESPONSIVE FINE-TUNING
    ===================================================================== */
 @media (max-width:400px){
-    .avatar-wrap{ width:92px; height:92px; }
-    .side-tabs{ width:46px; }
-    .side-tab{ font-size:10px; letter-spacing:1.8px; }
-    .clock-row{ gap:16px; }
+    .avatar-wrap{ width:96px; height:96px; }
+    .avatar-orb span{ font-size:34px; }
 }
 </style>
 </head>
 <body class="sky-day">
 
 <div id="sky-bg"></div>
+<div id="sunbeams"></div>
+<div class="cloud cloud-a"></div>
+<div class="cloud cloud-b"></div>
+<div class="cloud cloud-c"></div>
 <canvas id="motes-canvas"></canvas>
 <div id="cursor-ring"></div>
 <div id="cursor-dot"></div>
 
 <div id="entry-overlay" onclick="enterSite()">
-    <div class="entry-mark"><span>A</span></div>
-    <div class="entry-greeting" id="entryGreeting">Good day.</div>
-    <div class="entry-sub">This is Ash's corner of the internet.</div>
-    <div class="entry-prompt"><span class="entry-prompt-line"></span>Click to enter<span class="entry-prompt-line"></span></div>
+    <div class="entry-disc"></div>
+    <div class="entry-bn">স্বাগতম</div>
+    <div class="entry-title">Welcome!!</div>
+    <div class="entry-sub">Tap to step in <i class="fas fa-chevron-down"></i></div>
+    <div class="entry-sub-bn">প্রবেশ করতে ট্যাপ করুন</div>
 </div>
 
-<div class="now-overlay" id="nowOverlay" onclick="closeNow()"></div>
-<div class="now-modal" id="nowModal" role="dialog" aria-label="What I'm up to">
-    <button class="now-close" onclick="closeNow()" aria-label="Close"><i class="fas fa-times"></i></button>
-    <div class="now-eyebrow">status</div>
-    <div class="now-title">What I'm up to</div>
-    <p class="now-entry" id="nowEntry">—</p>
-    <button class="now-next" onclick="shuffleNow()"><i class="fas fa-rotate"></i> Another</button>
+<div id="konami-flash" onclick="closeKonami()">
+    <div class="kf-text">✦ secret found ✦</div>
+    <p class="kf-fact" id="kfFact"></p>
+    <div class="kf-hint">tap anywhere to close</div>
+</div>
+
+<div class="word-overlay" id="wordOverlay" onclick="closeBanglaWord()"></div>
+<div class="word-modal" id="wordModal" role="dialog" aria-label="Bangla word of the moment">
+    <button class="word-close" onclick="closeBanglaWord()" aria-label="Close"><i class="fas fa-times"></i></button>
+    <div class="word-eyebrow">bangla, for the road</div>
+    <div class="word-title">a word from home</div>
+
+    <div class="word-disc" id="wordDisc">
+        <span class="word-disc-bn">শব্দ</span>
+        <span class="word-disc-label">VOCABULARY</span>
+    </div>
+
+    <div class="word-row">
+        <div class="word-bn" id="wordBn">চা</div>
+        <div class="word-translit" id="wordTranslit">cha</div>
+        <div class="word-meaning" id="wordMeaning">tea — the fuel of every conversation here</div>
+    </div>
+
+    <div class="word-next" onclick="generateBanglaWord()"><i class="fas fa-rotate"></i> another word</div>
 </div>
 
 <div id="toast"></div>
@@ -476,111 +668,225 @@ body.sky-night #sky-bg{ background:linear-gradient(165deg, var(--void-night-a) 0
 
         <!-- ===================== PROFILE CARD ===================== -->
         <aside class="profile-card glass">
+            <div class="greeting-eyebrow"><i class="fas fa-moon"></i><span id="greetingText">good day</span></div>
+
             <div class="avatar-wrap">
+                <div class="avatar-orbit"><span>🌙</span></div>
                 <div class="avatar-orb">
-                    <img src="63d5e817c7e2c9ac82af4eb7221d95c6.jpg" alt="Ash" class="profile-pic">
+                    <img src="63d5e817c7e2c9ac82af4eb7221d95c6.jpg" alt="Profile Picture" class="profile-pic">
                 </div>
             </div>
 
-            <h1 class="header-name">Ash</h1>
-            <div class="status-line"><span class="status-dot"></span>Probably online&nbsp;·&nbsp;he/him&nbsp;·&nbsp;Finland</div>
-
-            <p class="bio-typewriter"><span id="typewriterText"></span><span class="bio-cursor">|</span></p>
+            <h1 class="header-name" data-text="Ash">Ash</h1>
+            <div class="status-line"><span class="status-dot"></span><span id="statusText">probably online</span>&nbsp;·&nbsp;he/him&nbsp;·&nbsp;Finland</div>
+            <p class="tagline">I suck at socializing 😵‍💫</p>
 
             <div class="social-row">
                 <a class="social-btn" href="https://discord.com/users/codedsum" target="_blank" rel="noopener" aria-label="Discord"><i class="fab fa-discord"></i></a>
                 <a class="social-btn" href="https://github.com/codedshit" target="_blank" rel="noopener" aria-label="GitHub"><i class="fab fa-github"></i></a>
-                <a class="social-btn" href="https://anilist.co/user/Klxxy/" target="_blank" rel="noopener" aria-label="AniList"><i class="fas fa-clapperboard"></i></a>
+                <a class="social-btn" href="https://anilist.co/user/Klxxy/" target="_blank" rel="noopener" aria-label="AniList"><i class="fas fa-leaf"></i></a>
+                <button class="social-btn" onclick="copyDiscord()" aria-label="Copy Discord username"><i class="fas fa-copy"></i></button>
             </div>
 
-            <div class="id-badges">
-                <span class="id-badge">Developer</span>
-                <span class="id-badge">Night owl</span>
-                <span class="id-badge">Rap</span>
-                <span class="id-badge">Cyclist</span>
+            <div class="badge-row">
+                <span class="badge">🎤 rap addict</span>
+                <span class="badge">🌙 night owl</span>
+                <span class="badge">🎌 anime brain</span>
+                <span class="badge">🚫 banned from guns.lol</span>
             </div>
 
-            <button class="now-btn" onclick="openNow()"><i class="fas fa-signal"></i> What I'm up to</button>
+            <button class="stamp-btn" onclick="openBanglaWord()"><i class="fas fa-language"></i> learn a bangla word</button>
+
+            <div class="local-time-chip" id="localTimeChip">
+                <div class="ltc-row">🕯️ <span id="localTimeVal">--:--</span> your time</div>
+                <div class="ltc-row">🇧🇩 <span id="dhakaTimeVal">--:--</span> Bangladesh time</div>
+            </div>
         </aside>
 
-        <!-- ===================== SIDE TABS + PANELS ===================== -->
+        <!-- ===================== TABS + PANELS ===================== -->
         <div class="content-col">
-            <nav class="side-tabs">
-                <button class="side-tab active" data-tab="intel" onclick="switchTab('intel')"><span>Intel</span></button>
-                <button class="side-tab" data-tab="now" onclick="switchTab('now')"><span>Now</span></button>
-                <button class="side-tab" data-tab="music" onclick="switchTab('music')"><span>Music</span></button>
-                <button class="side-tab" data-tab="projects" onclick="switchTab('projects')"><span>Projects</span></button>
+            <nav class="tab-bar">
+                <button class="tab-btn active" data-tab="intel" onclick="switchTab('intel')"><i class="fas fa-satellite-dish"></i> Intel</button>
+                <button class="tab-btn" data-tab="vibe" onclick="switchTab('vibe')"><i class="fas fa-bolt"></i> Vibe</button>
+                <button class="tab-btn" data-tab="music" onclick="switchTab('music')"><i class="fas fa-music"></i> Music</button>
             </nav>
 
             <div class="tab-panels">
 
-                <!-- ============ INTEL ============ -->
+                <!-- ============ INTEL / BIO ============ -->
                 <div class="tab-panel active" id="tab-intel">
                     <div class="panel-card glass">
-                        <div class="panel-eyebrow"><i class="fas fa-folder"></i> about</div>
+                        <div class="panel-eyebrow"><i class="fas fa-satellite-dish"></i> about</div>
                         <div class="panel-title">Intel</div>
-                        <p class="panel-intro">A developer who builds small, single-file corners of the internet — and redesigns them more often than is strictly necessary.</p>
 
-                        <div class="stat-list" id="statBars">
-                            <div class="stat-row">
-                                <div class="stat-head"><span class="stat-label">Anime</span><span class="stat-val">84%</span></div>
-                                <div class="stat-track"><div class="stat-fill" data-pct="84"></div></div>
-                                <div class="stat-caption">Currently rewatching Clannad.</div>
+                        <p class="about-text">dunno what to say</p>
+
+                        <div class="ring-grid" id="statRings">
+                            <div class="ring-tile tile-hero">
+                                <div class="ring-svg-wrap">
+                                    <svg class="ring-svg" viewBox="0 0 78 78">
+                                        <circle class="ring-track" cx="39" cy="39" r="33"></circle>
+                                        <circle class="ring-fill" cx="39" cy="39" r="33" data-pct="84" style="stroke:var(--red)"></circle>
+                                    </svg>
+                                    <div class="ring-center"><span class="ring-emoji">🎌</span><span class="ring-pct">84%</span></div>
+                                </div>
+                                <div class="ring-hero-text">
+                                    <span class="ring-hero-title">anime lover</span>
+                                    <span class="ring-hero-sub">certified, no cure needed</span>
+                                </div>
                             </div>
-                            <div class="stat-row">
-                                <div class="stat-head"><span class="stat-label">Music</span><span class="stat-val">78%</span></div>
-                                <div class="stat-track"><div class="stat-fill" data-pct="78"></div></div>
-                                <div class="stat-caption">Rap, almost exclusively.</div>
+                            <div class="ring-tile tile-b">
+                                <div class="ring-svg-wrap">
+                                    <svg class="ring-svg" viewBox="0 0 78 78">
+                                        <circle class="ring-track" cx="39" cy="39" r="33"></circle>
+                                        <circle class="ring-fill" cx="39" cy="39" r="33" data-pct="78" style="stroke:var(--gold)"></circle>
+                                    </svg>
+                                    <div class="ring-center"><span class="ring-emoji">🎵</span><span class="ring-pct">78%</span></div>
+                                </div>
+                                <div class="ring-label">music addict</div>
                             </div>
-                            <div class="stat-row">
-                                <div class="stat-head"><span class="stat-label">Cycling</span><span class="stat-val">25%</span></div>
-                                <div class="stat-track"><div class="stat-fill" data-pct="25"></div></div>
-                                <div class="stat-caption">Weather permitting.</div>
+                            <div class="ring-tile tile-c">
+                                <div class="ring-svg-wrap">
+                                    <svg class="ring-svg" viewBox="0 0 78 78">
+                                        <circle class="ring-track" cx="39" cy="39" r="33"></circle>
+                                        <circle class="ring-fill" cx="39" cy="39" r="33" data-pct="25" style="stroke:var(--teal)"></circle>
+                                    </svg>
+                                    <div class="ring-center"><span class="ring-emoji">🚲</span><span class="ring-pct">25%</span></div>
+                                </div>
+                                <div class="ring-label">cycling</div>
                             </div>
-                            <div class="stat-row">
-                                <div class="stat-head"><span class="stat-label">Sleep</span><span class="stat-val">18%</span></div>
-                                <div class="stat-track"><div class="stat-fill" data-pct="18"></div></div>
-                                <div class="stat-caption">Schedule: negotiable.</div>
+                            <div class="ring-tile tile-d">
+                                <div class="ring-svg-wrap">
+                                    <svg class="ring-svg" viewBox="0 0 78 78">
+                                        <circle class="ring-track" cx="39" cy="39" r="33"></circle>
+                                        <circle class="ring-fill" cx="39" cy="39" r="33" data-pct="18" style="stroke:var(--green)"></circle>
+                                    </svg>
+                                    <div class="ring-center"><span class="ring-emoji">🌙</span><span class="ring-pct">18%</span></div>
+                                </div>
+                                <div class="ring-hero-text">
+                                    <span class="ring-hero-title">sleeping</span>
+                                    <span class="ring-hero-sub">schedule: theoretical</span>
+                                </div>
                             </div>
                         </div>
 
                         <div class="info-block">
-                            <div class="info-block-title">Origin</div>
-                            <p class="info-text">Originally from Bangladesh — now based in Finland.</p>
+                            <div class="info-block-title"><i class="fas fa-location-dot"></i> Origin</div>
+                            <div class="tag-row">
+                                <span class="tag-chip">From Bangladesh, Noakhali 🇧🇩</span>
+                                <span class="tag-chip">Currently in Finland</span>
+                            </div>
                         </div>
 
                         <div class="info-block">
-                            <div class="info-block-title">Birthday</div>
-                            <div class="stat-row">
-                                <div class="stat-head"><span class="stat-val" id="bdayDays" style="color:var(--ink-soft);">counting…</span><span class="stat-val">Nov 1</span></div>
-                                <div class="stat-track"><div class="stat-fill" id="bdayFill" data-pct="0"></div></div>
+                            <div class="info-block-title"><i class="fas fa-cake-candles"></i> Birthday</div>
+                            <div class="bday-row">
+                                <div class="bday-ring-wrap">
+                                    <svg class="ring-svg" viewBox="0 0 78 78">
+                                        <circle class="ring-track" cx="39" cy="39" r="33"></circle>
+                                        <circle class="ring-fill" id="bdayRing" cx="39" cy="39" r="33" data-pct="0" style="stroke:url(#bdayGrad)"></circle>
+                                        <defs>
+                                            <linearGradient id="bdayGrad" x1="0" y1="0" x2="1" y2="1">
+                                                <stop offset="0" stop-color="var(--gold)"></stop>
+                                                <stop offset="1" stop-color="var(--red)"></stop>
+                                            </linearGradient>
+                                        </defs>
+                                    </svg>
+                                    <div class="ring-center"><span class="ring-emoji">🎂</span></div>
+                                </div>
+                                <div class="bday-facts">
+                                    <div class="bday-days" id="bdayDays">counting…</div>
+                                    <div class="bday-sub">Nov 1</div>
+                                </div>
                             </div>
+                        </div>
+
+                        <div class="info-block">
+                            <div class="info-block-title"><i class="fas fa-tv"></i> Best written animes</div>
+                            <div class="tag-row">
+                                <span class="tag-chip">Dr. Stone</span>
+                                <span class="tag-chip">Clannad</span>
+                                <span class="tag-chip">Cyberpunk Edgerunners</span>
+                                <span class="tag-chip">HM: Kabaneri of the Iron Fortress</span>
+                                <span class="tag-chip">HM: Terror in Resonance</span>
+                            </div>
+                        </div>
+
+                        <div class="info-block">
+                            <div class="info-block-title"><i class="fas fa-headphones-alt"></i> Favorite artists</div>
+                            <div class="tag-row"><span class="tag-chip">can't decide</span></div>
+                        </div>
+
+                        <div class="info-block">
+                            <div class="info-block-title"><i class="fas fa-bolt"></i> Current status</div>
+                            <div class="tag-row"><span class="tag-chip">trying to sleep</span></div>
+                        </div>
+
+                        <div class="intel-footer">
+                            <i class="fas fa-heart" style="color:var(--red);"></i>
+                            Want in? <span class="inline-link" onclick="openBanglaWord()">learn a Bangla word</span> or <span class="inline-link" onclick="copyDiscord()">add me on Discord</span>.
                         </div>
                     </div>
                 </div>
 
-                <!-- ============ NOW ============ -->
-                <div class="tab-panel" id="tab-now">
+                <!-- ============ VIBE ============ -->
+                <div class="tab-panel" id="tab-vibe">
                     <div class="panel-card glass">
-                        <div class="now-panel-header">
-                            <span class="panel-eyebrow" style="margin:0;"><i class="fas fa-satellite-dish"></i> right now</span>
-                            <div class="now-live-dot"></div>
+                        <div class="vibe-header">
+                            <i class="fas fa-satellite-dish" style="color:var(--gold-strong); font-size:13px;"></i>
+                            <span class="panel-eyebrow" style="margin:0;">right now</span>
+                            <div class="vibe-live-dot"></div>
                         </div>
 
-                        <p class="now-statement">Awake later than planned, working on this site.</p>
-
-                        <div class="clock-row">
-                            <div class="clock-item">
-                                <span class="clock-label">your time</span>
-                                <span class="clock-val" id="localClock">--:--</span>
+                        <div class="vsn-grid">
+                            <div style="display:flex;flex-direction:column;align-items:center;">
+                                <div class="vsn-orb"><span id="vsnEmoji">🪔</span></div>
+                                <div class="vsn-mood-tag" id="vsnMoodTag">adda mode</div>
                             </div>
-                            <div class="clock-item">
-                                <span class="clock-label">Finland time</span>
-                                <span class="clock-val" id="finlandClock">--:--</span>
+                            <div class="vsn-info-col">
+                                <p class="vsn-caption" id="vsnCaption">lost in a three-hour adda about nothing</p>
+                                <div class="vsn-fixation-row"><span class="vsn-fixation-label">obsessing over</span><span class="vsn-fixation-val" id="vsnFix">Coke Studio Bangla 🎵</span></div>
+                                <div class="vsn-fixation-row"><span class="vsn-fixation-label">currently into</span><span class="vsn-fixation-val" id="vsnInto">endless cups of cha ☕</span></div>
+                            </div>
+                        </div>
+
+                        <div class="vsn-tags-row">
+                            <span class="tag-chip">night owl</span>
+                            <span class="tag-chip">a little unwell</span>
+                            <span class="tag-chip">anti-social</span>
+                        </div>
+
+                        <div class="vibe-divider"></div>
+
+                        <div class="live-stat-row">
+                            <div class="live-stat">
+                                <span class="live-stat-label">your local time</span>
+                                <span class="live-stat-val" id="vibeClock">--:--</span>
+                            </div>
+                            <div class="live-stat">
+                                <span class="live-stat-label">Bangladesh time</span>
+                                <span class="live-stat-val" id="vibeDhakaClock">--:--</span>
+                            </div>
+                            <div class="live-stat">
+                                <span class="live-stat-label">you've been here</span>
+                                <span class="live-stat-val" id="sessionTimer">0:00</span>
                             </div>
                         </div>
 
                         <div class="now-playing-line" id="vibeNowPlaying"><i class="fas fa-music"></i> checking what I'm listening to…</div>
+
+                        <div class="discord-wrap">
+                            <div class="section-label">discord</div>
+                            <a class="discord-join-btn" href="https://discord.gg/zUNM558v29" target="_blank" rel="noopener">
+                                <i class="fab fa-discord"></i> join the server
+                                <span class="discord-member-count" id="discordMemberCount"></span>
+                            </a>
+                            <div class="player-empty" id="discordEmpty" style="display:none;">
+                                <i class="fab fa-discord"></i>
+                                live preview is off for this server right now — tap "join the server" above instead.
+                            </div>
+                            <iframe id="discordFrame" style="display:none;" width="100%" height="300" frameborder="0" sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts" title="Discord widget"></iframe>
+                        </div>
                     </div>
                 </div>
 
@@ -610,32 +916,46 @@ body.sky-night #sky-bg{ background:linear-gradient(165deg, var(--void-night-a) 0
 
                         <div class="player-card">
                             <div class="section-label">playlist</div>
+
+                            <div class="player" id="playerUI" style="display:none;">
+                                <div class="player-top">
+                                    <div class="player-cover-wrap">
+                                        <img class="player-cover" id="playerCover" src="" alt="" style="display:none;">
+                                        <div class="player-cover-fallback" id="playerCoverFallback"><i class="fas fa-music"></i></div>
+                                    </div>
+                                    <div class="player-info">
+                                        <div class="player-title" id="playerTitle">—</div>
+                                        <div class="player-artist" id="playerArtist"></div>
+                                        <div class="player-index" id="playerIndex">1 / 1</div>
+                                    </div>
+                                    <div class="eq-bars" id="playerEq"><div class="eq-bar"></div><div class="eq-bar"></div><div class="eq-bar"></div><div class="eq-bar"></div></div>
+                                </div>
+
+                                <div class="progress-wrap" id="progWrap"><div class="progress-fill" id="progFill"></div></div>
+                                <div class="player-times"><span id="curTime">0:00</span><span id="durTime">0:00</span></div>
+
+                                <div class="player-controls">
+                                    <button class="pctrl" onclick="playerPrev()" aria-label="Previous track"><i class="fas fa-step-backward"></i></button>
+                                    <button class="pctrl" id="shuffleBtn" onclick="playerShuffleToggle()" aria-label="Toggle shuffle"><i class="fas fa-random"></i></button>
+                                    <button class="pctrl play-btn" id="playBtn" onclick="playerToggle()" aria-label="Play or pause"><i class="fas fa-play"></i></button>
+                                    <button class="pctrl" id="repeatBtn" onclick="playerRepeatToggle()" aria-label="Toggle repeat"><i class="fas fa-redo"></i></button>
+                                    <button class="pctrl" onclick="playerNext()" aria-label="Next track"><i class="fas fa-step-forward"></i></button>
+                                </div>
+
+                                <div class="player-vol">
+                                    <i class="fas fa-volume-down"></i>
+                                    <input type="range" id="volSlider" min="0" max="100" value="70" aria-label="Volume">
+                                    <i class="fas fa-volume-up"></i>
+                                </div>
+                            </div>
+
                             <div class="player-empty" id="playerEmpty">
                                 <i class="fas fa-compact-disc"></i>
-                                No tracks queued right now — more songs are on the way.
+                                no tracks loaded yet — grab a public ID from your <code>dgus0vior</code> Cloudinary media library and drop it into the <code>songs</code> list near the top of the script.
                             </div>
+
                             <audio id="audioEl" preload="metadata"></audio>
                         </div>
-                    </div>
-                </div>
-
-                <!-- ============ PROJECTS ============ -->
-                <div class="tab-panel" id="tab-projects">
-                    <div class="panel-card glass">
-                        <div class="panel-eyebrow"><i class="fas fa-diagram-project"></i> index</div>
-                        <div class="panel-title">Projects</div>
-                        <p class="panel-intro">Personal builds and experiments — mostly single-file, mostly for the sake of building.</p>
-
-                        <div class="info-block">
-                            <div class="info-block-title">This site</div>
-                            <p class="info-text">A living project, rebuilt and redesigned every so often.</p>
-                            <div class="tag-row" style="margin-top:10px;">
-                                <a class="tag-chip" href="https://github.com/codedshit" target="_blank" rel="noopener"><i class="fab fa-github"></i>&nbsp; View on GitHub</a>
-                            </div>
-                        </div>
-
-                        <div class="divider" style="margin:22px 0;"></div>
-                        <p class="info-text" style="color:var(--ink-faint); font-size:12.5px;">More to come.</p>
                     </div>
                 </div>
 
@@ -644,7 +964,7 @@ body.sky-night #sky-bg{ background:linear-gradient(165deg, var(--void-night-a) 0
     </div>
 </main>
 
-<footer class="site-footer">made by Ash · <span id="current-year"></span></footer>
+<footer class="site-footer">made by Ash ✦ <span id="current-year"></span></footer>
 
 <script>
 /* =====================================================================
@@ -653,11 +973,24 @@ body.sky-night #sky-bg{ background:linear-gradient(165deg, var(--void-night-a) 0
 const LFM_KEY  = '84e191b366d86d98c1db2a74b5b39ef4';
 const LFM_USER = 'Ashy-geek';
 const LFM_DEFAULT_ART = 'https://lastfm.freetls.fastly.net/i/u/300x300/2a96cbd8b46e442fc41c2b86b821562f.png';
+const DISCORD_URL  = 'https://discord.com/users/codedsum';
+const DISCORD_TAG   = 'codedsum';
+const DISCORD_WIDGET_ID = '1493873227712303184';
+const DISCORD_INVITE = 'https://discord.gg/zUNM558v29';
 const REDUCED_MOTION = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-/* Cloudinary helpers kept for when new tracks are added later */
+/* =====================================================================
+   { title: 'Track Name', artist: 'Artist Name', id: 'songs/track1', cover: 'covers/track1' }
+   ===================================================================== */
 const CLOUD_NAME = 'dgus0vior';
-const songs = [];
+const songs = [
+   { title: 'Acid ke', artist: 'Stoic bliss', id: 'Acid_Ke_kajk1r', cover: '1effb6eed9521a79cb31005bc0a64291_thvynw' },
+   { title: 'Shonar Bangladesh', artist: 'G series', id: 'Shonar_Bangladesh_t4afdi', cover: 'bd09ec4e9969be8bd154504346e7f401_g3d9hr' },
+   { title: 'Tomar preme', artist: 'cfu36', id: 'Tomar_Preme_qwjhlu', cover: '270183aaba377f63e529d91594d02a4e_ufx1ur' },
+   { title: 'khoka', artist: 'Pritom hasan', id: 'Khoka_nygtde', cover: '64ba908efbd66d7a25add245cf36fc1d_wqnxyp' },
+   { title: 'Dhaka/Maduli', artist: 'cfu36', id: 'Dhaka_Maduli_bfaw0f', cover: 'c896d33d1a286eb6f8776a396ce964ef_bb6omx' }
+];
+
 function cldAudio(publicId){
     if (!publicId) return '';
     const clean = publicId.replace(/^\/+/, '').replace(/\.(mp3|wav|ogg|m4a|aac)$/i, '');
@@ -668,29 +1001,24 @@ function cldImage(publicId){
     const clean = publicId.replace(/^\/+/, '');
     return `https://res.cloudinary.com/${CLOUD_NAME}/image/upload/f_auto,q_auto/${clean}`;
 }
+function randomTrackIndex(){
+    return songs.length ? Math.floor(Math.random() * songs.length) : 0;
+}
 
 document.getElementById('current-year').textContent = new Date().getFullYear();
 
 /* =====================================================================
-   ENTRY OVERLAY — time-based greeting
+   ENTRY OVERLAY
    ===================================================================== */
-function getGreeting(){
-    const h = new Date().getHours();
-    if (h >= 5  && h < 12) return 'Good morning.';
-    if (h >= 12 && h < 17) return 'Good afternoon.';
-    if (h >= 17 && h < 22) return 'Good evening.';
-    return 'Good night.';
-}
-document.getElementById('entryGreeting').textContent = getGreeting();
-
 function enterSite() {
     const overlay = document.getElementById('entry-overlay');
     overlay.classList.add('hidden');
     setTimeout(() => { overlay.style.display = 'none'; }, 850);
+    if (songs.length) loadTrack(randomTrackIndex(), true);
 }
 
 /* =====================================================================
-   AMBIENT TIME-OF-DAY BACKGROUND (visual only, no copy changes)
+   LIVING NIGHT — time-of-day automation
    ===================================================================== */
 function timeSlot(hour){
     if (hour >= 5  && hour < 11) return 'dawn';
@@ -698,53 +1026,97 @@ function timeSlot(hour){
     if (hour >= 17 && hour < 21) return 'dusk';
     return 'night';
 }
+const GREETINGS = {
+    dawn:  ['shubho sokal ☀️', 'up before the fajr azan?'],
+    day:   ['ei je, hello', 'hey there'],
+    dusk:  ['shondha bhalo? 🌇', 'golden hour over the river'],
+    night: ['still up, huh?', 'night owl hours 🌙']
+};
+const STATUS_MSGS = {
+    dawn:  'just woke up, be nice',
+    day:   'probably online',
+    dusk:  'prime adda hours',
+    night: 'night owl mode 🌙'
+};
+const SUN_ICON = { dawn:'fa-cloud-sun', day:'fa-sun', dusk:'fa-cloud-moon', night:'fa-moon' };
+
 function applySkyTheme(){
-    document.body.className = 'sky-' + timeSlot(new Date().getHours());
+    const now = new Date();
+    const slot = timeSlot(now.getHours());
+    document.body.className = 'sky-' + slot;
+
+    const greetArr = GREETINGS[slot];
+    const greeting = greetArr[Math.floor(Math.random() * greetArr.length)];
+    document.getElementById('greetingText').textContent = greeting;
+    document.getElementById('statusText').textContent = STATUS_MSGS[slot];
+
+    const icon = document.querySelector('.greeting-eyebrow i');
+    if (icon) icon.className = 'fas ' + SUN_ICON[slot];
 }
 applySkyTheme();
 setInterval(applySkyTheme, 5 * 60 * 1000);
 
-/* =====================================================================
-   CLOCKS — visitor's local time + Finland time
-   ===================================================================== */
 function updateClocks(){
     const now = new Date();
-    const localStr = now.toLocaleTimeString([], { hour:'numeric', minute:'2-digit' });
-    const finlandStr = now.toLocaleTimeString([], { hour:'numeric', minute:'2-digit', timeZone:'Europe/Helsinki' });
-    const localEl = document.getElementById('localClock');
-    const finEl = document.getElementById('finlandClock');
-    if (localEl) localEl.textContent = localStr;
-    if (finEl) finEl.textContent = finlandStr;
+    const timeStr = now.toLocaleTimeString([], { hour:'numeric', minute:'2-digit' });
+    const dhakaStr = now.toLocaleTimeString([], { hour:'numeric', minute:'2-digit', timeZone:'Asia/Dhaka' });
+
+    const localVal = document.getElementById('localTimeVal');
+    const dhakaVal = document.getElementById('dhakaTimeVal');
+    if (localVal) localVal.textContent = timeStr;
+    if (dhakaVal) dhakaVal.textContent = dhakaStr;
+
+    const vClock = document.getElementById('vibeClock');
+    if (vClock) vClock.textContent = timeStr;
+    const vDhaka = document.getElementById('vibeDhakaClock');
+    if (vDhaka) vDhaka.textContent = dhakaStr;
 }
 updateClocks();
 setInterval(updateClocks, 15000);
 
 /* =====================================================================
+   SESSION TIMER
+   ===================================================================== */
+const sessionStart = Date.now();
+function updateSessionTimer(){
+    const secs = Math.floor((Date.now() - sessionStart) / 1000);
+    const m = Math.floor(secs / 60);
+    const s = secs % 60;
+    const el = document.getElementById('sessionTimer');
+    if (el) el.textContent = m + ':' + String(s).padStart(2, '0');
+}
+setInterval(updateSessionTimer, 1000);
+
+/* =====================================================================
    TAB SWITCHING
    ===================================================================== */
 function switchTab(tab){
-    document.querySelectorAll('.side-tab').forEach(btn => btn.classList.toggle('active', btn.dataset.tab === tab));
+    document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.toggle('active', btn.dataset.tab === tab));
     document.querySelectorAll('.tab-panel').forEach(panel => panel.classList.toggle('active', panel.id === 'tab-' + tab));
-    if (tab === 'intel') initStatBars();
+    if (tab === 'intel') initRings(document.getElementById('statRings'));
 }
 
 /* =====================================================================
-   STAT BARS
+   STAT RINGS
    ===================================================================== */
-function initStatBars(){
-    document.querySelectorAll('.stat-fill').forEach(fill => {
-        const pct = parseFloat(fill.dataset.pct) || 0;
-        fill.style.width = '0%';
+function initRings(container){
+    if (!container) return;
+    container.querySelectorAll('.ring-fill').forEach(circle => {
+        const pct = parseFloat(circle.dataset.pct) || 0;
+        const r = parseFloat(circle.getAttribute('r'));
+        const c = 2 * Math.PI * r;
+        circle.style.strokeDasharray = c;
+        circle.style.strokeDashoffset = c;
         requestAnimationFrame(() => {
-            fill.style.transition = REDUCED_MOTION ? 'none' : 'width 1.1s cubic-bezier(.16,.84,.44,1)';
-            fill.style.width = pct + '%';
+            circle.style.transition = REDUCED_MOTION ? 'none' : 'stroke-dashoffset 1.3s cubic-bezier(.16,.84,.44,1)';
+            circle.style.strokeDashoffset = c * (1 - pct / 100);
         });
     });
 }
-initStatBars();
+initRings(document.getElementById('statRings'));
 
 /* =====================================================================
-   BIRTHDAY PROGRESS
+   BIRTHDAY / ZODIAC
    ===================================================================== */
 function nextBirthdayInfo(month, day){
     const now = new Date();
@@ -757,165 +1129,69 @@ function nextBirthdayInfo(month, day){
     return { daysLeft, pct: Math.max(0, Math.min(100, (elapsed / total) * 100)) };
 }
 function initBirthday(){
-    const info = nextBirthdayInfo(11, 1);
+    const BDAY_MONTH = 11, BDAY_DAY = 1;
+
+    const info = nextBirthdayInfo(BDAY_MONTH, BDAY_DAY);
     const daysEl = document.getElementById('bdayDays');
-    daysEl.textContent = info.daysLeft === 0 ? "it's today" : info.daysLeft + ' days to go';
-    const fill = document.getElementById('bdayFill');
-    fill.dataset.pct = info.pct.toFixed(1);
-    fill.style.width = '0%';
-    requestAnimationFrame(() => {
-        fill.style.transition = REDUCED_MOTION ? 'none' : 'width 1.1s cubic-bezier(.16,.84,.44,1)';
-        fill.style.width = info.pct + '%';
-    });
+    daysEl.textContent = info.daysLeft === 0 ? "🎉 it's today!!" : info.daysLeft + ' days until my next birthday';
+
+    const ring = document.getElementById('bdayRing');
+    ring.dataset.pct = info.pct.toFixed(1);
+    initRings(ring.closest('.bday-ring-wrap').parentElement.parentElement);
 }
 initBirthday();
 
 /* =====================================================================
-   TYPEWRITER BIO
+   VIBE MOOD ROTATOR
    ===================================================================== */
-const BIO_LINES = [
-    "Hey there, how are you? Not like I care or something.",
-    "Give me a quick add on Discord to talk with me."
+const vsnStates = [
+    { emoji:'🪔', tag:'adda mode',   caption:'lost in a three-hour adda about nothing',   fix:'new rap drops 🎤',       into:'endless cups of cha ☕' },
+    { emoji:'🌙', tag:'night owl',   caption:'awake past the azan, again',                fix:'lo-fi + rain on a tin roof 🌧️', into:'doom-scrolling reels 📱' },
+    { emoji:'⚡', tag:'locked in',   caption:'load-shedding brain, focus mode',           fix:'romcom animes ❤️‍🩹',           into:'finishing one more episode' },
+    { emoji:'🍃', tag:'soft',        caption:'nostalgia for a monsoon I haven\u2019t had yet', fix:'Clannad feels 😢',        into:'rainy day naps' }
 ];
-function typewriterLoop(){
-    const el = document.getElementById('typewriterText');
-    if (!el) return;
-    if (REDUCED_MOTION){ el.textContent = BIO_LINES[0]; return; }
-
-    let lineIdx = 0, charIdx = 0, deleting = false;
-    function tick(){
-        const line = BIO_LINES[lineIdx];
-        if (!deleting){
-            charIdx++;
-            el.textContent = line.slice(0, charIdx);
-            if (charIdx === line.length){ deleting = true; setTimeout(tick, 1900); return; }
-            setTimeout(tick, 34);
-        } else {
-            charIdx--;
-            el.textContent = line.slice(0, charIdx);
-            if (charIdx === 0){ deleting = false; lineIdx = (lineIdx + 1) % BIO_LINES.length; setTimeout(tick, 400); return; }
-            setTimeout(tick, 18);
-        }
-    }
-    tick();
-}
-typewriterLoop();
-
-/* =====================================================================
-   "WHAT I'M UP TO" — replaces the word-of-the-day feature
-   ===================================================================== */
-const NOW_ENTRIES = [
-    "Redesigning this site. Again.",
-    "Rewatching Clannad for the nth time.",
-    "Deep in a new rap playlist.",
-    "Pushing a small commit somewhere.",
-    "Probably still awake."
-];
-function openNow(){
-    document.getElementById('nowOverlay').classList.add('active');
-    document.getElementById('nowModal').classList.add('active');
-    shuffleNow();
-}
-function closeNow(){
-    document.getElementById('nowOverlay').classList.remove('active');
-    document.getElementById('nowModal').classList.remove('active');
-}
-function shuffleNow(){
-    const entry = NOW_ENTRIES[Math.floor(Math.random() * NOW_ENTRIES.length)];
-    document.getElementById('nowEntry').textContent = entry;
-}
-
-/* =====================================================================
-   CLICK RIPPLE
-   ===================================================================== */
-document.addEventListener('click', e => {
-    if (REDUCED_MOTION) return;
-    const r = document.createElement('div');
-    r.className = 'ripple-burst';
-    r.style.left = e.clientX + 'px';
-    r.style.top = e.clientY + 'px';
-    document.body.appendChild(r);
-    setTimeout(() => r.remove(), 600);
-});
-
-/* =====================================================================
-   CUSTOM CURSOR (desktop only)
-   ===================================================================== */
-(function(){
-    const isFine = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
-    if (!isFine) return;
-    const dot = document.getElementById('cursor-dot');
-    const ring = document.getElementById('cursor-ring');
-    let mouseX = window.innerWidth / 2, mouseY = window.innerHeight / 2;
-    let ringX = mouseX, ringY = mouseY;
-    let seen = false;
-
-    document.addEventListener('mousemove', e => {
-        mouseX = e.clientX; mouseY = e.clientY;
-        dot.style.left = mouseX + 'px'; dot.style.top = mouseY + 'px';
-        if (!seen){ seen = true; ringX = mouseX; ringY = mouseY; }
+let vsnIdx = 0;
+function showVSN(i){
+    vsnIdx = i;
+    const s = vsnStates[i];
+    const ids = ['vsnEmoji','vsnMoodTag','vsnCaption','vsnFix','vsnInto'];
+    const vals = [s.emoji, s.tag, s.caption, s.fix, s.into];
+    ids.forEach((id, idx) => {
+        const el = document.getElementById(id);
+        if (!el) return;
+        el.style.transition = 'opacity .35s ease';
+        el.style.opacity = '0';
+        setTimeout(() => { el.textContent = vals[idx]; el.style.opacity = '1'; }, 220);
     });
-    document.addEventListener('mousedown', () => { dot.classList.add('clicked'); ring.classList.add('clicked'); });
-    document.addEventListener('mouseup', () => { dot.classList.remove('clicked'); ring.classList.remove('clicked'); });
-    const hoverTargets = 'a, button, .side-tab, .social-btn, .id-badge, .tag-chip, .glass';
-    document.addEventListener('mouseover', e => { if (e.target.closest(hoverTargets)){ dot.classList.add('hovering'); ring.classList.add('hovering'); } });
-    document.addEventListener('mouseout', e => { if (e.target.closest(hoverTargets)){ dot.classList.remove('hovering'); ring.classList.remove('hovering'); } });
-
-    function tick(){
-        ringX += (mouseX - ringX) * 0.18;
-        ringY += (mouseY - ringY) * 0.18;
-        ring.style.left = ringX + 'px';
-        ring.style.top = ringY + 'px';
-        requestAnimationFrame(tick);
-    }
-    requestAnimationFrame(tick);
-})();
+}
+showVSN(0);
+setInterval(() => showVSN((vsnIdx + 1) % vsnStates.length), 6000);
 
 /* =====================================================================
-   AMBIENT PARTICLES — quiet brass motes
+   DISCORD WIDGET — checks if the server widget is enabled before
+   showing the live iframe; the "join the server" button always works
+   regardless, since it's a plain invite link.
    ===================================================================== */
-(function(){
-    const canvas = document.getElementById('motes-canvas');
-    const ctx = canvas.getContext('2d');
-    let w, h, particles = [];
-    let running = !REDUCED_MOTION;
-
-    function resize(){
-        w = canvas.width = window.innerWidth;
-        h = canvas.height = window.innerHeight;
+async function initDiscordWidget(){
+    const frame = document.getElementById('discordFrame');
+    const empty = document.getElementById('discordEmpty');
+    const memberEl = document.getElementById('discordMemberCount');
+    if (!frame || !empty) return;
+    if (!DISCORD_WIDGET_ID){ empty.style.display = 'block'; frame.style.display = 'none'; return; }
+    try{
+        const res = await fetch(`https://discord.com/api/guilds/${DISCORD_WIDGET_ID}/widget.json`);
+        if (!res.ok) throw new Error('widget disabled');
+        const data = await res.json();
+        frame.src = `https://discord.com/widget?id=${DISCORD_WIDGET_ID}&theme=dark`;
+        empty.style.display = 'none';
+        frame.style.display = 'block';
+        if (memberEl && typeof data.presence_count === 'number') memberEl.textContent = data.presence_count + ' online';
+    }catch(err){
+        empty.style.display = 'block';
+        frame.style.display = 'none';
     }
-    function makeParticles(){
-        const count = Math.min(30, Math.floor((w * h) / 42000));
-        particles = Array.from({ length: count }, () => ({
-            x: Math.random() * w,
-            y: Math.random() * h,
-            r: 0.8 + Math.random() * 1.6,
-            speed: 0.08 + Math.random() * 0.18,
-            drift: Math.random() * Math.PI * 2,
-            alpha: 0.08 + Math.random() * 0.2
-        }));
-    }
-    function draw(){
-        ctx.clearRect(0, 0, w, h);
-        particles.forEach(p => {
-            p.y -= p.speed;
-            p.x += Math.sin(p.drift + p.y * 0.01) * 0.2;
-            if (p.y < -10){ p.y = h + 10; p.x = Math.random() * w; }
-            ctx.beginPath();
-            ctx.fillStyle = `rgba(184,147,90,${p.alpha})`;
-            ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-            ctx.fill();
-        });
-        if (running) requestAnimationFrame(draw);
-    }
-    resize(); makeParticles();
-    window.addEventListener('resize', () => { resize(); makeParticles(); });
-    document.addEventListener('visibilitychange', () => {
-        running = !document.hidden && !REDUCED_MOTION;
-        if (running) requestAnimationFrame(draw);
-    });
-    if (running) requestAnimationFrame(draw); else draw();
-})();
+}
+initDiscordWidget();
 
 /* =====================================================================
    LAST.FM — now playing / recent / top artists
@@ -943,11 +1219,13 @@ async function fetchNowPlaying(){
         document.getElementById('lfm-track').textContent = name;
         document.getElementById('lfm-artist').textContent = artist;
         document.getElementById('lfm-art').src = art;
-        document.getElementById('lfm-status').textContent = isLive ? 'live scrobbling' : 'offline · last played';
+        document.getElementById('lfm-status').textContent = isLive ? '▶ live scrobbling' : '◉ offline · last played';
+
+        document.getElementById('lfm-art').classList.toggle('spinning', isLive);
         document.getElementById('lfm-eq').classList.toggle('active', isLive);
 
         const vnp = document.getElementById('vibeNowPlaying');
-        if (vnp) vnp.innerHTML = '<i class="fas fa-music"></i> ' + (isLive ? 'listening to ' : 'last played ') + '<strong>' + escapeHtml(name) + '</strong> — ' + escapeHtml(artist);
+        if (vnp) vnp.innerHTML = '<i class="fas fa-music"></i> ' + (isLive ? 'listening to ' : 'last played ') + '<strong>' + name + '</strong> — ' + artist;
     }catch(err){
         document.getElementById('lfm-track').textContent = 'connection lost';
         document.getElementById('lfm-artist').textContent = '';
@@ -1007,7 +1285,96 @@ setInterval(fetchNowPlaying, 30000);
 setInterval(fetchRecent, 60000);
 
 /* =====================================================================
-   TOAST
+   MP3 PLAYER (Cloudinary)
+   ===================================================================== */
+const audioEl = document.getElementById('audioEl');
+let curIdx = 0, isShuffle = false, isRepeat = false;
+
+function initPlayer(){
+    const ui = document.getElementById('playerUI');
+    const empty = document.getElementById('playerEmpty');
+    if (!songs.length){ ui.style.display = 'none'; empty.style.display = 'block'; return; }
+    ui.style.display = 'flex'; empty.style.display = 'none';
+    loadTrack(randomTrackIndex(), true);
+}
+
+function loadTrack(i, autoplay){
+    curIdx = ((i % songs.length) + songs.length) % songs.length;
+    const s = songs[curIdx];
+    audioEl.src = cldAudio(s.id);
+    document.getElementById('playerTitle').textContent = s.title || 'Untitled';
+    document.getElementById('playerArtist').textContent = s.artist || '';
+    document.getElementById('playerIndex').textContent = (curIdx + 1) + ' / ' + songs.length;
+
+    const cover = document.getElementById('playerCover');
+    const fallback = document.getElementById('playerCoverFallback');
+    if (s.cover){ cover.src = cldImage(s.cover); cover.style.display = 'block'; fallback.style.display = 'none'; }
+    else { cover.style.display = 'none'; fallback.style.display = 'flex'; }
+
+    if (autoplay) audioEl.play().then(() => setPlayerState(true)).catch(() => setPlayerState(false));
+    else setPlayerState(false);
+}
+
+function setPlayerState(playing){
+    const btn = document.getElementById('playBtn');
+    btn.innerHTML = playing ? '<i class="fas fa-pause"></i>' : '<i class="fas fa-play"></i>';
+    document.getElementById('playerEq').classList.toggle('active', playing);
+}
+
+function playerToggle(){
+    if (!songs.length) return;
+    if (audioEl.paused) audioEl.play().then(() => setPlayerState(true)).catch(() => {});
+    else { audioEl.pause(); setPlayerState(false); }
+}
+function playerNext(){
+    if (!songs.length) return;
+    const wasPlaying = !audioEl.paused;
+    const next = isShuffle ? Math.floor(Math.random() * songs.length) : curIdx + 1;
+    loadTrack(next, wasPlaying);
+}
+function playerPrev(){
+    if (!songs.length) return;
+    const wasPlaying = !audioEl.paused;
+    loadTrack(curIdx - 1, wasPlaying);
+}
+function playerShuffleToggle(){
+    isShuffle = !isShuffle;
+    document.getElementById('shuffleBtn').classList.toggle('active-toggle', isShuffle);
+    showToast(isShuffle ? 'shuffle on' : 'shuffle off');
+}
+function playerRepeatToggle(){
+    isRepeat = !isRepeat;
+    document.getElementById('repeatBtn').classList.toggle('active-toggle', isRepeat);
+    showToast(isRepeat ? 'repeat on' : 'repeat off');
+}
+function formatTime(sec){
+    if (!isFinite(sec)) return '0:00';
+    const m = Math.floor(sec / 60), s = Math.floor(sec % 60);
+    return m + ':' + String(s).padStart(2, '0');
+}
+audioEl.addEventListener('timeupdate', () => {
+    const pct = audioEl.duration ? (audioEl.currentTime / audioEl.duration) * 100 : 0;
+    document.getElementById('progFill').style.width = pct + '%';
+    document.getElementById('curTime').textContent = formatTime(audioEl.currentTime);
+});
+audioEl.addEventListener('loadedmetadata', () => {
+    document.getElementById('durTime').textContent = formatTime(audioEl.duration);
+});
+audioEl.addEventListener('ended', () => {
+    if (isRepeat){ audioEl.currentTime = 0; audioEl.play(); }
+    else playerNext();
+});
+document.getElementById('progWrap').addEventListener('click', e => {
+    if (!audioEl.duration) return;
+    const r = e.currentTarget.getBoundingClientRect();
+    audioEl.currentTime = ((e.clientX - r.left) / r.width) * audioEl.duration;
+});
+document.getElementById('volSlider').addEventListener('input', e => { audioEl.volume = e.target.value / 100; });
+audioEl.volume = 0.7;
+initPlayer();
+
+/* =====================================================================
+   COPY DISCORD / BANGLA WORD CARD
    ===================================================================== */
 function showToast(msg){
     const toast = document.getElementById('toast');
@@ -1016,7 +1383,168 @@ function showToast(msg){
     clearTimeout(toast._t);
     toast._t = setTimeout(() => toast.classList.remove('show'), 2400);
 }
+function copyDiscord(){
+    if (navigator.clipboard){
+        navigator.clipboard.writeText(DISCORD_TAG).then(() => showToast('copied "' + DISCORD_TAG + '" ✔')).catch(() => showToast('couldn\u2019t copy — add me manually: ' + DISCORD_TAG));
+    } else {
+        showToast('add me on Discord: ' + DISCORD_TAG);
+    }
+}
+
+const BANGLA_WORDS = [
+    { bn:'চা',       translit:'cha',       meaning:'tea — the fuel of every conversation here' },
+    { bn:'আড্ডা',     translit:'adda',      meaning:'the art of hanging out and talking for hours' },
+    { bn:'ভালোবাসা',  translit:'bhalobasha',meaning:'love' },
+    { bn:'দাওয়াত',    translit:'dawat',     meaning:'an invitation, usually involving too much food' },
+    { bn:'রিকশা',     translit:'rickshaw',  meaning:'the most honest way to see a city' },
+    { bn:'মায়া',      translit:'maya',      meaning:'a tender, hard-to-translate kind of attachment' },
+    { bn:'নদী',       translit:'nodi',      meaning:'river — there\u2019s always one nearby' },
+    { bn:'স্বপ্ন',      translit:'shopno',    meaning:'dream' },
+    { bn:'বন্ধু',      translit:'bondhu',    meaning:'friend' },
+    { bn:'শান্তি',     translit:'shanti',    meaning:'peace, the quiet kind' }
+];
+
+function openBanglaWord(){
+    document.getElementById('wordOverlay').classList.add('active');
+    document.getElementById('wordModal').classList.add('active');
+    generateBanglaWord();
+}
+function closeBanglaWord(){
+    document.getElementById('wordOverlay').classList.remove('active');
+    document.getElementById('wordModal').classList.remove('active');
+}
+function generateBanglaWord(){
+    const w = BANGLA_WORDS[Math.floor(Math.random() * BANGLA_WORDS.length)];
+    document.getElementById('wordBn').textContent = w.bn;
+    document.getElementById('wordTranslit').textContent = w.translit;
+    document.getElementById('wordMeaning').textContent = w.meaning;
+
+    const disc = document.getElementById('wordDisc');
+    disc.style.animation = 'none';
+    void disc.offsetWidth;
+    disc.style.animation = '';
+}
+
+/* =====================================================================
+   CLICK RIPPLE
+   ===================================================================== */
+let rippleToggle = false;
+document.addEventListener('click', e => {
+    if (REDUCED_MOTION) return;
+    const r = document.createElement('div');
+    r.className = 'ripple-burst' + (rippleToggle ? ' alt' : '');
+    rippleToggle = !rippleToggle;
+    r.style.left = e.clientX + 'px';
+    r.style.top = e.clientY + 'px';
+    document.body.appendChild(r);
+    setTimeout(() => r.remove(), 600);
+});
+
+/* =====================================================================
+   KONAMI EASTER EGG
+   ===================================================================== */
+const KONAMI = ['ArrowUp','ArrowUp','ArrowDown','ArrowDown','ArrowLeft','ArrowRight','ArrowLeft','ArrowRight','b','a'];
+const FUN_FACTS = [
+    'I\u2019ve rewatched Clannad more times than I\u2019d like to admit.',
+    'My sleep schedule is basically a myth at this point.',
+    'I have never once won an argument about anime rankings.',
+    'This site changes its mood depending on when you visit — try coming back at 3am.',
+    'I got banned from guns.lol and honestly, I wear it as a badge of honor.',
+    'I have never once finished a cup of cha before it went cold.'
+];
+let konamiIdx = 0;
+document.addEventListener('keydown', e => {
+    konamiIdx = (e.key === KONAMI[konamiIdx]) ? konamiIdx + 1 : (e.key === KONAMI[0] ? 1 : 0);
+    if (konamiIdx === KONAMI.length){
+        konamiIdx = 0;
+        document.getElementById('kfFact').textContent = FUN_FACTS[Math.floor(Math.random() * FUN_FACTS.length)];
+        document.getElementById('konami-flash').classList.add('active');
+    }
+});
+function closeKonami(){ document.getElementById('konami-flash').classList.remove('active'); }
+
+/* =====================================================================
+   CUSTOM CURSOR (desktop only)
+   ===================================================================== */
+(function(){
+    const isFine = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+    if (!isFine) return;
+    const dot = document.getElementById('cursor-dot');
+    const ring = document.getElementById('cursor-ring');
+    let mouseX = window.innerWidth / 2, mouseY = window.innerHeight / 2;
+    let ringX = mouseX, ringY = mouseY;
+    let seen = false;
+
+    document.addEventListener('mousemove', e => {
+        mouseX = e.clientX; mouseY = e.clientY;
+        dot.style.left = mouseX + 'px'; dot.style.top = mouseY + 'px';
+        if (!seen){ seen = true; ringX = mouseX; ringY = mouseY; }
+    });
+    document.addEventListener('mousedown', () => { dot.classList.add('clicked'); ring.classList.add('clicked'); });
+    document.addEventListener('mouseup', () => { dot.classList.remove('clicked'); ring.classList.remove('clicked'); });
+    const hoverTargets = 'a, button, .tab-btn, .social-btn, .badge, .tag-chip, .inline-link, .glass';
+    document.addEventListener('mouseover', e => { if (e.target.closest(hoverTargets)){ dot.classList.add('hovering'); ring.classList.add('hovering'); } });
+    document.addEventListener('mouseout', e => { if (e.target.closest(hoverTargets)){ dot.classList.remove('hovering'); ring.classList.remove('hovering'); } });
+
+    function tick(){
+        ringX += (mouseX - ringX) * 0.18;
+        ringY += (mouseY - ringY) * 0.18;
+        ring.style.left = ringX + 'px';
+        ring.style.top = ringY + 'px';
+        requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+})();
+
+/* =====================================================================
+   AMBIENT PARTICLES — fireflies / lantern embers
+   ===================================================================== */
+(function(){
+    const canvas = document.getElementById('motes-canvas');
+    const ctx = canvas.getContext('2d');
+    let w, h, particles = [];
+    let running = !REDUCED_MOTION;
+    const colors = ['227,168,87', '214,41,61'];
+
+    function resize(){
+        w = canvas.width = window.innerWidth;
+        h = canvas.height = window.innerHeight;
+    }
+    function makeParticles(){
+        const count = Math.min(50, Math.floor((w * h) / 26000));
+        particles = Array.from({ length: count }, () => ({
+            x: Math.random() * w,
+            y: Math.random() * h,
+            r: 1 + Math.random() * 2.2,
+            speed: 0.15 + Math.random() * 0.35,
+            drift: Math.random() * Math.PI * 2,
+            alpha: 0.15 + Math.random() * 0.35,
+            color: colors[Math.floor(Math.random() * colors.length)]
+        }));
+    }
+    function draw(){
+        ctx.clearRect(0, 0, w, h);
+        particles.forEach(p => {
+            p.y -= p.speed;
+            p.x += Math.sin(p.drift + p.y * 0.01) * 0.25;
+            if (p.y < -10){ p.y = h + 10; p.x = Math.random() * w; }
+            ctx.beginPath();
+            ctx.fillStyle = `rgba(${p.color},${p.alpha})`;
+            ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+            ctx.fill();
+        });
+        if (running) requestAnimationFrame(draw);
+    }
+    resize(); makeParticles();
+    window.addEventListener('resize', () => { resize(); makeParticles(); });
+    document.addEventListener('visibilitychange', () => {
+        running = !document.hidden && !REDUCED_MOTION;
+        if (running) requestAnimationFrame(draw);
+    });
+    if (running) requestAnimationFrame(draw); else draw();
+})();
 </script>
 </body>
 </html>
+
 
