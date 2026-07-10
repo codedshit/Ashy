@@ -18,33 +18,33 @@
    0. DESIGN TOKENS — dark, moody accent palette
    ===================================================================== */
 :root{
-    /* sky gradient stops — always dark, hue shifts with time of day */
-    --void-dawn-a:#2A1220;  --void-dawn-b:#3B1B1E;  --void-dawn-c:#170D12;
-    --void-day-a:#0E1F1A;   --void-day-b:#0B1714;   --void-day-c:#081210;
-    --void-dusk-a:#3A140F;  --void-dusk-b:#591C16;  --void-dusk-c:#170A0C;
-    --void-night-a:#070B12; --void-night-b:#0A0E16; --void-night-c:#05070B;
+    /* sky gradient stops — always dark, cool and rain-heavy, hue barely shifts with time of day */
+    --void-dawn-a:#1A1B2C;  --void-dawn-b:#231A26;  --void-dawn-c:#100E17;
+    --void-day-a:#131A22;   --void-day-b:#0F151C;   --void-day-c:#0A0E13;
+    --void-dusk-a:#1D1520;  --void-dusk-b:#271521;  --void-dusk-c:#110D15;
+    --void-night-a:#090B13; --void-night-b:#0B0D15; --void-night-c:#05060A;
 
-    --paper:#0B120E;
-    --paper-strong:#141F19;
-    --ink:#EDE6D6;
-    --ink-soft:rgba(237,230,214,.68);
-    --ink-faint:rgba(237,230,214,.42);
-    --on-accent:#1B0D07;
+    --paper:#0A0D12;
+    --paper-strong:#131A22;
+    --ink:#E5E7EC;
+    --ink-soft:rgba(229,231,236,.66);
+    --ink-faint:rgba(229,231,236,.40);
+    --on-accent:#0B0E13;
 
-    --gold:#E3A857;
-    --gold-strong:#F0BE72;
-    --gold-soft:rgba(227,168,87,.16);
-    --red:#D6293D;
-    --red-soft:rgba(214,41,61,.18);
-    --green:#0E8A5B;
-    --green-soft:rgba(14,138,91,.18);
-    --teal:#3E8E89;
-    --teal-soft:rgba(62,142,137,.18);
+    --gold:#B5654A;
+    --gold-strong:#C9805F;
+    --gold-soft:rgba(181,101,74,.16);
+    --red:#A22C3E;
+    --red-soft:rgba(162,44,62,.20);
+    --green:#3C6E71;
+    --green-soft:rgba(60,110,113,.18);
+    --teal:#4A6FA5;
+    --teal-soft:rgba(74,111,165,.18);
 
-    --line:rgba(237,230,214,.10);
-    --line-strong:rgba(237,230,214,.18);
-    --glass:rgba(19,29,23,.68);
-    --glass-strong:rgba(24,36,29,.88);
+    --line:rgba(229,231,236,.09);
+    --line-strong:rgba(229,231,236,.16);
+    --glass:rgba(15,20,26,.68);
+    --glass-strong:rgba(19,25,32,.88);
 
     --shadow-sm:0 8px 24px -12px rgba(0,0,0,.55);
     --shadow-md:0 20px 48px -20px rgba(0,0,0,.65);
@@ -86,7 +86,7 @@ ul{ list-style:none; }
 @media (hover:hover) and (pointer:fine){ html,body{ cursor:none; } }
 
 /* =====================================================================
-   1. LIVING NIGHT — background, ambient glow, fireflies/lanterns
+   1. LIVING NIGHT — background, ambient glow, falling rain
    ===================================================================== */
 #sky-bg{
     position:fixed; inset:0; z-index:-5; pointer-events:none;
@@ -130,20 +130,28 @@ body.sky-night #sky-bg{ background:linear-gradient(160deg, var(--void-night-a) 0
    2. ENTRY OVERLAY — flag-sun disc in the dark, no blue/yellow gradient
    ===================================================================== */
 #entry-overlay{
-    position:fixed; inset:0; z-index:9999; cursor:pointer;
+    position:fixed; inset:0; z-index:9999; cursor:pointer; overflow:hidden;
     display:flex; flex-direction:column; align-items:center; justify-content:center; gap:14px;
     background:
-        radial-gradient(circle at 50% 38%, rgba(214,41,61,.24), transparent 46%),
-        radial-gradient(circle at 80% 82%, rgba(14,138,91,.14), transparent 50%),
-        linear-gradient(180deg, #0A0F0C 0%, #050705 100%);
+        radial-gradient(circle at 50% 30%, rgba(74,111,165,.16), transparent 55%),
+        radial-gradient(circle at 80% 85%, rgba(162,44,62,.12), transparent 55%),
+        linear-gradient(180deg, #090B10 0%, #050609 100%);
     transition:opacity .8s ease, visibility .8s ease;
     padding:24px;
 }
 #entry-overlay.hidden{ opacity:0; visibility:hidden; pointer-events:none; }
 @media (hover:hover) and (pointer:fine){ #entry-overlay{ cursor:none; } }
 
-.entry-name{ font-family:var(--font-display); font-weight:800; font-size:clamp(2.2rem,7vw,3rem); color:var(--ink); letter-spacing:.3px; }
-.entry-title{ font-family:var(--font-body); font-weight:500; font-size:clamp(.92rem,3vw,1.02rem); color:var(--ink-soft); text-align:center; max-width:300px; }
+.entry-rain{ position:absolute; inset:0; overflow:hidden; pointer-events:none; z-index:0; }
+.rain-drop{
+    position:absolute; top:-15%; width:1px;
+    background:linear-gradient(to bottom, transparent, rgba(197,209,224,.55), transparent);
+    animation:rainFall linear infinite;
+}
+@keyframes rainFall{ to{ transform:translateY(130vh); } }
+@media (prefers-reduced-motion:reduce){ .rain-drop{ animation:none !important; display:none; } }
+
+.entry-content{ position:relative; z-index:1; display:flex; flex-direction:column; align-items:center; gap:14px; }
 .entry-sub{ font-family:var(--font-mono); font-size:11px; letter-spacing:3px; text-transform:uppercase; color:var(--gold-strong); margin-top:10px; }
 .entry-sub i{ margin-left:6px; animation:bob 1.6s ease-in-out infinite; display:inline-block; }
 @keyframes bob{ 0%,100%{ transform:translateY(0); } 50%{ transform:translateY(4px); } }
@@ -199,6 +207,11 @@ body.sky-night #sky-bg{ background:linear-gradient(160deg, var(--void-night-a) 0
 }
 @media (min-width:820px){ .profile-card{ position:sticky; top:36px; } }
 
+.profile-meta{
+    font-family:var(--font-mono); font-size:11px; letter-spacing:1.5px; text-transform:uppercase;
+    color:var(--ink-faint);
+}
+
 .greeting-eyebrow{
     font-family:var(--font-mono); font-size:11px; letter-spacing:3px; text-transform:uppercase;
     color:var(--gold-strong); display:flex; align-items:center; gap:6px;
@@ -233,10 +246,13 @@ body.sky-night #sky-bg{ background:linear-gradient(160deg, var(--void-night-a) 0
 .header-name:hover{ background-position:100% 0%; }
 
 .status-line{ display:flex; align-items:center; gap:7px; font-size:12.5px; color:var(--ink-soft); font-family:var(--font-mono); flex-wrap:wrap; justify-content:center; }
-.status-dot{ width:7px; height:7px; border-radius:50%; background:#3FCE86; box-shadow:0 0 8px rgba(63,206,134,.6); animation:pulse 1.8s ease-in-out infinite; }
+.status-dot{ width:7px; height:7px; border-radius:50%; background:var(--teal); box-shadow:0 0 8px rgba(74,111,165,.6); animation:pulse 1.8s ease-in-out infinite; }
 @keyframes pulse{ 0%,100%{ transform:scale(1); opacity:.7; } 50%{ transform:scale(1.4); opacity:1; } }
 
-.tagline{ font-family:var(--font-quote); font-style:italic; font-size:17px; color:var(--ink-soft); max-width:280px; line-height:1.5; }
+.tagline{ font-family:var(--font-quote); font-style:italic; font-size:17px; color:var(--ink-soft); max-width:300px; min-height:52px; line-height:1.5; }
+.tagline-cursor{ display:inline-block; margin-left:2px; color:var(--gold-strong); animation:caretBlink 1s step-end infinite; }
+@keyframes caretBlink{ 50%{ opacity:0; } }
+@media (prefers-reduced-motion:reduce){ .tagline-cursor{ animation:none; } }
 
 .social-row{ display:flex; gap:10px; margin-top:4px; }
 .social-btn{
@@ -391,18 +407,6 @@ body.sky-night #sky-bg{ background:linear-gradient(160deg, var(--void-night-a) 0
 .live-stat-val{ font-family:var(--font-display); font-weight:700; font-size:15px; color:var(--ink); }
 .now-playing-line{ margin-top:16px; padding:12px 14px; border-radius:12px; background:rgba(255,255,255,.02); border:1px solid var(--line); font-size:12.5px; color:var(--ink-soft); display:flex; align-items:center; gap:8px; }
 .now-playing-line i{ color:var(--gold-strong); }
-.discord-wrap{ margin-top:22px; }
-.discord-wrap #discordFrame{ border-radius:var(--radius-md); border:1px solid var(--line); }
-.discord-join-btn{
-    display:flex; align-items:center; gap:10px; padding:12px 16px; border-radius:14px;
-    background:linear-gradient(120deg, rgba(88,101,242,.16), rgba(88,101,242,.05));
-    border:1px solid rgba(88,101,242,.35); color:var(--ink); font-family:var(--font-display); font-weight:600; font-size:13.5px;
-    margin-bottom:12px; transition:transform .25s cubic-bezier(.2,.9,.3,1.3), border-color .25s ease; cursor:pointer;
-}
-.discord-join-btn i{ color:#5865F2; font-size:16px; }
-.discord-join-btn:hover{ transform:translateY(-2px); border-color:#5865F2; }
-.discord-member-count{ margin-left:auto; font-family:var(--font-mono); font-size:10.5px; color:var(--ink-faint); }
-
 /* =====================================================================
    11. MUSIC PANEL
    ===================================================================== */
@@ -549,9 +553,10 @@ body.sky-night #sky-bg{ background:linear-gradient(160deg, var(--void-night-a) 0
 <div id="cursor-dot"></div>
 
 <div id="entry-overlay" onclick="enterSite()">
-    <div class="entry-name">Ash</div>
-    <div class="entry-title">Welcome to site 🌝</div>
-    <div class="entry-sub">Tap to enter <i class="fas fa-chevron-down"></i></div>
+    <div class="entry-rain" id="entryRain" aria-hidden="true"></div>
+    <div class="entry-content">
+        <div class="entry-sub">Tap to enter <i class="fas fa-chevron-down"></i></div>
+    </div>
 </div>
 
 <div id="konami-flash" onclick="closeKonami()">
@@ -567,6 +572,7 @@ body.sky-night #sky-bg{ background:linear-gradient(160deg, var(--void-night-a) 0
 
         <!-- ===================== PROFILE CARD ===================== -->
         <aside class="profile-card glass">
+            <div class="profile-meta">He/Him · Finland</div>
             <div class="greeting-eyebrow"><i class="fas fa-moon"></i><span id="greetingText">good day</span></div>
 
             <div class="avatar-wrap">
@@ -577,8 +583,8 @@ body.sky-night #sky-bg{ background:linear-gradient(160deg, var(--void-night-a) 0
             </div>
 
             <h1 class="header-name" data-text="Ash">Ash</h1>
-            <div class="status-line"><span class="status-dot"></span><span id="statusText">probably online</span>&nbsp;·&nbsp;he/him&nbsp;·&nbsp;Finland</div>
-            <p class="tagline">I suck at socializing 😵‍💫</p>
+            <div class="status-line"><span class="status-dot"></span><span>probably online</span></div>
+            <p class="tagline"><span id="taglineText"></span><span class="tagline-cursor" aria-hidden="true">|</span></p>
 
             <div class="social-row">
                 <a class="social-btn" href="https://discord.com/users/codedsum" target="_blank" rel="noopener" aria-label="Discord"><i class="fab fa-discord"></i></a>
@@ -765,19 +771,6 @@ body.sky-night #sky-bg{ background:linear-gradient(160deg, var(--void-night-a) 0
                         </div>
 
                         <div class="now-playing-line" id="vibeNowPlaying"><i class="fas fa-music"></i> checking what I'm listening to…</div>
-
-                        <div class="discord-wrap">
-                            <div class="section-label">discord</div>
-                            <a class="discord-join-btn" href="https://discord.gg/zUNM558v29" target="_blank" rel="noopener">
-                                <i class="fab fa-discord"></i> join the server
-                                <span class="discord-member-count" id="discordMemberCount"></span>
-                            </a>
-                            <div class="player-empty" id="discordEmpty" style="display:none;">
-                                <i class="fab fa-discord"></i>
-                                live preview is off for this server right now — tap "join the server" above instead.
-                            </div>
-                            <iframe id="discordFrame" style="display:none;" width="100%" height="300" frameborder="0" sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts" title="Discord widget"></iframe>
-                        </div>
                     </div>
                 </div>
 
@@ -864,10 +857,7 @@ body.sky-night #sky-bg{ background:linear-gradient(160deg, var(--void-night-a) 0
 const LFM_KEY  = '84e191b366d86d98c1db2a74b5b39ef4';
 const LFM_USER = 'Ashy-geek';
 const LFM_DEFAULT_ART = 'https://lastfm.freetls.fastly.net/i/u/300x300/2a96cbd8b46e442fc41c2b86b821562f.png';
-const DISCORD_URL  = 'https://discord.com/users/codedsum';
 const DISCORD_TAG   = 'codedsum';
-const DISCORD_WIDGET_ID = '1493873227712303184';
-const DISCORD_INVITE = 'https://discord.gg/zUNM558v29';
 const REDUCED_MOTION = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 /* =====================================================================
@@ -875,7 +865,7 @@ const REDUCED_MOTION = window.matchMedia('(prefers-reduced-motion: reduce)').mat
    ===================================================================== */
 const CLOUD_NAME = 'dgus0vior';
 const songs = [
-   { title: 'why do i clench my fists?', artist: 'ridgeclub', id: 'do_i_clench_my_fists_nnpglh', cover: '270183aaba377f63e529d91594d02a4e_ufx1ur' }
+   { title: 'do i clench my fists?', artist: 'ridgeclub', id: 'do_i_clench_my_fists_nnpglh', cover: '270183aaba377f63e529d91594d02a4e_ufx1ur' }
    ];
 
 function cldAudio(publicId){
@@ -904,6 +894,59 @@ function enterSite() {
     if (songs.length) loadTrack(randomTrackIndex(), true);
 }
 
+/* rain on the entry screen */
+(function(){
+    const container = document.getElementById('entryRain');
+    if (!container || REDUCED_MOTION) return;
+    const count = window.innerWidth < 600 ? 55 : 95;
+    const frag = document.createDocumentFragment();
+    for (let i = 0; i < count; i++){
+        const d = document.createElement('div');
+        d.className = 'rain-drop';
+        d.style.left = (Math.random() * 100) + '%';
+        d.style.height = (40 + Math.random() * 90) + 'px';
+        d.style.animationDuration = (0.6 + Math.random() * 0.8) + 's';
+        d.style.animationDelay = -(Math.random() * 2) + 's';
+        d.style.opacity = 0.15 + Math.random() * 0.4;
+        frag.appendChild(d);
+    }
+    container.appendChild(frag);
+})();
+
+/* typewriter tagline */
+const TAGLINES = [
+    'Hey!! Howdy?',
+    'Give me a quick add on Discord, I\u2019ll add you back',
+    'Feel free to stalk me'
+];
+function typewriterLoop(el, lines){
+    if (!el) return;
+    if (REDUCED_MOTION){ el.textContent = lines[0]; return; }
+    let li = 0;
+    const typeSpeed = 42, deleteSpeed = 22, minHold = 1600, betweenPause = 500;
+
+    function typeLine(){
+        const text = lines[li];
+        let ci = 0;
+        (function typeChar(){
+            el.textContent = text.slice(0, ci);
+            if (ci < text.length){ ci++; setTimeout(typeChar, typeSpeed); }
+            else { setTimeout(deleteLine, Math.max(minHold, text.length * 95)); }
+        })();
+    }
+    function deleteLine(){
+        const text = lines[li];
+        let ci = text.length;
+        (function delChar(){
+            el.textContent = text.slice(0, ci);
+            if (ci > 0){ ci--; setTimeout(delChar, deleteSpeed); }
+            else { li = (li + 1) % lines.length; setTimeout(typeLine, betweenPause); }
+        })();
+    }
+    typeLine();
+}
+typewriterLoop(document.getElementById('taglineText'), TAGLINES);
+
 /* =====================================================================
    LIVING NIGHT — time-of-day automation
    ===================================================================== */
@@ -919,12 +962,6 @@ const GREETINGS = {
     dusk:  ['good evening 🌇', 'golden hour'],
     night: ['still up, huh?', 'night owl hours 🌙']
 };
-const STATUS_MSGS = {
-    dawn:  'just woke up, be nice',
-    day:   'probably online',
-    dusk:  'winding down',
-    night: 'night owl mode 🌙'
-};
 const SUN_ICON = { dawn:'fa-cloud-sun', day:'fa-sun', dusk:'fa-cloud-moon', night:'fa-moon' };
 
 function applySkyTheme(){
@@ -935,7 +972,6 @@ function applySkyTheme(){
     const greetArr = GREETINGS[slot];
     const greeting = greetArr[Math.floor(Math.random() * greetArr.length)];
     document.getElementById('greetingText').textContent = greeting;
-    document.getElementById('statusText').textContent = STATUS_MSGS[slot];
 
     const icon = document.querySelector('.greeting-eyebrow i');
     if (icon) icon.className = 'fas ' + SUN_ICON[slot];
@@ -1048,32 +1084,6 @@ function showVSN(i){
 }
 showVSN(0);
 setInterval(() => showVSN((vsnIdx + 1) % vsnStates.length), 6000);
-
-/* =====================================================================
-   DISCORD WIDGET — checks if the server widget is enabled before
-   showing the live iframe; the "join the server" button always works
-   regardless, since it's a plain invite link.
-   ===================================================================== */
-async function initDiscordWidget(){
-    const frame = document.getElementById('discordFrame');
-    const empty = document.getElementById('discordEmpty');
-    const memberEl = document.getElementById('discordMemberCount');
-    if (!frame || !empty) return;
-    if (!DISCORD_WIDGET_ID){ empty.style.display = 'block'; frame.style.display = 'none'; return; }
-    try{
-        const res = await fetch(`https://discord.com/api/guilds/${DISCORD_WIDGET_ID}/widget.json`);
-        if (!res.ok) throw new Error('widget disabled');
-        const data = await res.json();
-        frame.src = `https://discord.com/widget?id=${DISCORD_WIDGET_ID}&theme=dark`;
-        empty.style.display = 'none';
-        frame.style.display = 'block';
-        if (memberEl && typeof data.presence_count === 'number') memberEl.textContent = data.presence_count + ' online';
-    }catch(err){
-        empty.style.display = 'block';
-        frame.style.display = 'none';
-    }
-}
-initDiscordWidget();
 
 /* =====================================================================
    LAST.FM — now playing / recent / top artists
@@ -1345,42 +1355,44 @@ function closeKonami(){ document.getElementById('konami-flash').classList.remove
 })();
 
 /* =====================================================================
-   AMBIENT PARTICLES — fireflies / lantern embers
+   AMBIENT PARTICLES — quiet, steady rain
    ===================================================================== */
 (function(){
     const canvas = document.getElementById('motes-canvas');
     const ctx = canvas.getContext('2d');
     let w, h, particles = [];
     let running = !REDUCED_MOTION;
-    const colors = ['227,168,87', '214,41,61'];
 
     function resize(){
         w = canvas.width = window.innerWidth;
         h = canvas.height = window.innerHeight;
     }
     function makeParticles(){
-        const count = Math.min(50, Math.floor((w * h) / 26000));
+        const count = Math.min(110, Math.floor((w * h) / 15000));
         particles = Array.from({ length: count }, () => ({
             x: Math.random() * w,
             y: Math.random() * h,
-            r: 1 + Math.random() * 2.2,
-            speed: 0.15 + Math.random() * 0.35,
-            drift: Math.random() * Math.PI * 2,
-            alpha: 0.15 + Math.random() * 0.35,
-            color: colors[Math.floor(Math.random() * colors.length)]
+            len: 10 + Math.random() * 20,
+            speed: 3.5 + Math.random() * 5,
+            drift: 0.5 + Math.random() * 0.6,
+            alpha: 0.06 + Math.random() * 0.20
         }));
     }
     function draw(){
         ctx.clearRect(0, 0, w, h);
+        ctx.strokeStyle = 'rgba(198,210,224,1)';
+        ctx.lineWidth = 1;
         particles.forEach(p => {
-            p.y -= p.speed;
-            p.x += Math.sin(p.drift + p.y * 0.01) * 0.25;
-            if (p.y < -10){ p.y = h + 10; p.x = Math.random() * w; }
+            ctx.globalAlpha = p.alpha;
             ctx.beginPath();
-            ctx.fillStyle = `rgba(${p.color},${p.alpha})`;
-            ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-            ctx.fill();
+            ctx.moveTo(p.x, p.y);
+            ctx.lineTo(p.x - p.drift * 4, p.y + p.len);
+            ctx.stroke();
+            p.y += p.speed;
+            p.x -= p.drift;
+            if (p.y > h + 20){ p.y = -20; p.x = Math.random() * w; }
         });
+        ctx.globalAlpha = 1;
         if (running) requestAnimationFrame(draw);
     }
     resize(); makeParticles();
@@ -1394,5 +1406,6 @@ function closeKonami(){ document.getElementById('konami-flash').classList.remove
 </script>
 </body>
 </html>
+
 
 
