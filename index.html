@@ -615,7 +615,7 @@ body.sky-night #sky-bg{ background:linear-gradient(160deg, var(--void-night-a) 0
                 </div>
             </div>
 
-            <h1 class="header-name" data-text="Ash">Ash)</h1>
+            <h1 class="header-name" data-text="Ash">Ash</h1>
             <div class="status-line"><span class="status-dot"></span><span>offline – anxious</span></div>
             <p class="tagline"><span id="taglineText"></span><span class="tagline-cursor" aria-hidden="true">|</span></p>
 
@@ -654,7 +654,7 @@ body.sky-night #sky-bg{ background:linear-gradient(160deg, var(--void-night-a) 0
                     <!-- ============ INTEL / BIO ============ -->
                     <div class="tab-panel active" id="tab-intel">
                         <div class="panel-card glass">
-                            <div class="panel-eyebrow"><i class="fas fa-satellite-dish"></i> about</div>
+                            <div class="panel-eyebrow"><i class="fas fa-satellite-dish"></i>about</div>
                             <div class="panel-title">Intel</div>
 
                             <p class="about-text">Tormented.</p>
@@ -689,7 +689,7 @@ body.sky-night #sky-bg{ background:linear-gradient(160deg, var(--void-night-a) 0
                             </div>
 
                             <div class="info-block">
-                                <div class="info-block-title"><i class="fas fa-location-dot"></i> Location</div>
+                                <div class="info-block-title"><i class="fas fa-location-dot"></i>Location</div>
                                 <div class="tag-row">
                                     <span class="tag-chip copyable" id="coordChip" onclick="copyCoords()" title="click to copy">41°36′28.4″N, 71°21′41.2″W</span>
                                 </div>
@@ -866,17 +866,6 @@ const MY_TIMEZONE = 'Europe/Helsinki';
 const REDUCED_MOTION = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 /* ---- BACKGROUND VIDEO ------------------------------------------------
-   To add a background video:
-   1. Put the video file in your repo, e.g. a "videos" folder next to
-      index.html — for example videos/bg.mp4
-   2. Set BG_VIDEO_SRC below to that path: 'videos/bg.mp4'
-   3. Optional: tweak BG_VIDEO_OPACITY (0–1). Lower = more subtle, lets
-      the stars/aurora/snow read more clearly on top of it.
-   Leave BG_VIDEO_SRC as '' to keep just the animated stars/aurora/snow
-   with no video (the default look).
-   Tip: an .mp4 (H.264) around 1080p, a few seconds long, muted, and
-   loop-friendly (first/last frame close) works best and keeps file size
-   reasonable for a repo.
 ------------------------------------------------------------------------ */
 const BG_VIDEO_SRC = ''; // e.g. 'videos/bg.mp4'
 const BG_VIDEO_OPACITY = 0.55;
