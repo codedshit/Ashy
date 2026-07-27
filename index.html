@@ -15,12 +15,7 @@
 
 <style>
 /* =====================================================================
-   CUSTOM FONTS — drop these 3 files into a /fonts folder in your repo,
-   next to index.html, using these exact filenames (or edit the src paths
-   below to match whatever you name them):
-     fonts/Duality.otf
-     fonts/NightcoreDemo.ttf
-     fonts/MatchaMint.ttf
+   fonts
    ===================================================================== */
 @font-face{
     font-family:'Duality';
@@ -231,9 +226,7 @@ body.sky-night #sky-bg{ background:linear-gradient(160deg, var(--void-night-a) 0
     color:var(--violet-strong); display:flex; align-items:center; gap:6px;
 }
 
-/* avatar — static, no spin, no colored ring. Glow only, so a Discord
-   profile frame (PNG/GIF, transparent center) can be dropped on top later
-   without fighting a colored ring underneath it. */
+/* avatar — */
 .avatar-wrap{ position:relative; width:112px; height:112px; margin:4px 0 2px; }
 .avatar-ring{
     position:absolute; inset:0; border-radius:50%; padding:4px;
@@ -247,10 +240,7 @@ body.sky-night #sky-bg{ background:linear-gradient(160deg, var(--void-night-a) 0
     font-family:var(--font-display); font-weight:800; font-size:38px; color:var(--ink);
     background:linear-gradient(135deg,var(--violet-soft),var(--rose-soft));
 }
-/* Discord profile frame slot — add later like this:
-   <div class="avatar-frame"><img src="frame.png" alt=""></div>
-   dropped right after .avatar-ring inside .avatar-wrap. Sized slightly
-   larger than the avatar so the frame decoration overhangs the edge. */
+/* Discord profile frame slot  */
 .avatar-frame{ position:absolute; inset:-14%; pointer-events:none; z-index:2; }
 .avatar-frame img{ width:100%; height:100%; object-fit:contain; }
 
@@ -309,8 +299,6 @@ body.sky-night #sky-bg{ background:linear-gradient(160deg, var(--void-night-a) 0
    ===================================================================== */
 .content-col{ width:100%; display:flex; flex-direction:column; gap:18px; }
 
-/* Floating tab bar — sits above the panel card with its own gap + glow,
-   instead of merging into the card's top edge. */
 .tab-shell{ display:flex; flex-direction:column; gap:16px; width:100%; }
 
 .tab-rail{
@@ -627,7 +615,7 @@ body.sky-night #sky-bg{ background:linear-gradient(160deg, var(--void-night-a) 0
                 </div>
             </div>
 
-            <h1 class="header-name" data-text="Ash">Ash</h1>
+            <h1 class="header-name" data-text="Ash">Ash)</h1>
             <div class="status-line"><span class="status-dot"></span><span>offline – anxious</span></div>
             <p class="tagline"><span id="taglineText"></span><span class="tagline-cursor" aria-hidden="true">|</span></p>
 
