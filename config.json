@@ -1,0 +1,19 @@
+{
+  "theme": {
+    "violet": "#5B2A9E",
+    "violetStrong": "#7C4DCE",
+    "rose": "#2E1854",
+    "roseStrong": "#402070"
+  },
+  "backgroundVideo": {
+    "src": "",
+    "opacity": 0.55
+  },
+  "identity": {
+    "name": "Ash",
+    "taglines": [],
+    "avatar": ""
+  },
+  "songs": []
+}
+
