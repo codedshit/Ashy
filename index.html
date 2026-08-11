@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>Ash // Edgerunner</title>
+<title>Ash // Edgerunner lover</title>
 <meta name="description" content="Ash's personal corner of Night City.">
 <meta name="theme-color" content="#07070B">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%E2%9A%A1%3C/text%3E%3C/svg%3E">
@@ -94,9 +94,6 @@ ul{ list-style:none; }
 /* =====================================================================
    1. AMBIENT SKY — twinkling stars + slow aurora drift + falling snow
    ===================================================================== */
-/* Background video — sits behind the sky gradient + stars/aurora/snow,
-   which keep layering on top of it. See the BG_VIDEO_SRC config near the
-   top of the <script> at the bottom of this file for how to turn it on. */
 #bg-video{
     position:fixed; inset:0; z-index:-7; pointer-events:none;
     width:100%; height:100%; object-fit:cover;
@@ -588,7 +585,7 @@ body.sky-night #sky-bg{ background:linear-gradient(160deg, var(--void-night-a) 0
 
 <div id="entry-overlay" onclick="enterSite()">
     <div class="entry-content">
-        <div class="entry-eyebrow">// NIGHT CITY ACCESS TERMINAL</div>
+        <div class="entry-eyebrow">No happy endings in Night City</div>
         <div class="entry-comic" id="entryComic" data-glitch=""><span id="entryComicText"></span></div>
     </div>
 </div>
@@ -642,7 +639,7 @@ body.sky-night #sky-bg{ background:linear-gradient(160deg, var(--void-night-a) 0
         <div class="content-col">
             <div class="tab-shell">
                 <nav class="tab-rail">
-                    <button class="tab-btn active" data-tab="intel" onclick="switchTab('intel')"><i class="fas fa-satellite-dish"></i> <span>Dossier</span></button>
+                    <button class="tab-btn active" data-tab="intel" onclick="switchTab('intel')"><i class="fas fa-satellite-dish"></i> <span>Bio</span></button>
                     <button class="tab-btn" data-tab="vibe" onclick="switchTab('vibe')"><i class="fas fa-bolt"></i> <span>Status</span></button>
                     <button class="tab-btn" data-tab="music" onclick="switchTab('music')"><i class="fas fa-music"></i> <span>Audio</span></button>
                     <button class="tab-btn" data-tab="roblox" onclick="switchTab('roblox')"><i class="fas fa-cube"></i> <span>Roblox</span></button>
@@ -653,8 +650,8 @@ body.sky-night #sky-bg{ background:linear-gradient(160deg, var(--void-night-a) 0
                     <!-- ============ INTEL / BIO ============ -->
                     <div class="tab-panel active" id="tab-intel">
                         <div class="panel-card glass">
-                            <div class="panel-eyebrow"><i class="fas fa-satellite-dish"></i>ripperdoc file // about</div>
-                            <div class="panel-title">Dossier</div>
+                            <div class="panel-eyebrow"><i class="fas fa-satellite-dish"></i>Intel // about me</div>
+                            <div class="panel-title">Intel</div>
 
                             <p class="about-text">Tormented.</p>
 
@@ -937,25 +934,14 @@ const AVATAR_FRAME_SRC = ''; // e.g. 'https://cdn.discordapp.com/avatar-decorati
 })();
 
 /* ---- ROBLOX TAB ---------------------------------------------------------
-   Fill this in to turn the Roblox tab on. Roblox blocks live status/presence
-   checks from browser JS (no public CORS-enabled endpoint), so `status` is
-   set by hand — just update it whenever your status changes. The avatar
-   image below IS live though, since it's loaded as a plain <img>, not fetched.
-   ---------------------------------------------------------------------------
-   userId       — your numeric Roblox user ID (find it in your profile URL)
-   username     — how your name shows on the card
-   profileUrl   — leave blank to auto-build from userId
-   status       — 'online' | 'in-game' | 'offline'
-   statusNote   — short free-text under the status (e.g. "grinding Blox Fruits")
-   favoriteGame — optional, leave '' to hide that row
 --------------------------------------------------------------------------- */
 const ROBLOX = {
-    userId: '',
-    username: '',
+    userId: '4468232678',
+    username: 'softcooki5',
     profileUrl: '',
-    status: 'offline',
-    statusNote: '',
-    favoriteGame: ''
+    status: 'might be online who knows',
+    statusNote: 'boo!',
+    favoriteGame: 'Death Note'
 };
 
 (function initRoblox(){
@@ -1070,8 +1056,8 @@ function timeSlot(hour){
     return 'night';
 }
 const GREETINGS = {
-    dawn:  ['good morning ☀️', 'up early?'],
-    day:   ['hey there', 'hello!'],
+    dawn:  ['good morning choom! ☀️', 'up early?'],
+    day:   ['hey there choom', 'hello!'],
     dusk:  ['good evening 🌇', 'golden hour'],
     night: ['still up, huh?', 'night owl hours 🌙']
 };
