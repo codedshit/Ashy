@@ -885,10 +885,7 @@ body.sky-night #sky-bg{ background:linear-gradient(160deg, var(--void-night-a) 0
                                 <a class="pctrl" id="rblxProfileBtn" href="#" target="_blank" rel="noopener" style="width:auto; padding:0 18px; height:42px; border-radius:6px; margin-top:6px; display:inline-flex; gap:8px; color:var(--on-accent); background:linear-gradient(120deg,var(--violet),var(--rose)); border:none; font-family:var(--font-display); font-weight:700; font-size:12.5px; letter-spacing:.4px;">
                                     <i class="fas fa-arrow-up-right-from-square"></i> view profile
                                 </a>
-
-                                <p style="font-family:var(--font-mono); font-size:10.5px; color:var(--ink-faint); margin-top:16px; line-height:1.6;">
-                                    Roblox blocks live status checks from browsers, so this is updated manually — see <code>ROBLOX</code> in the script config.
-                                </p>
+                               
                             </div>
 
                             <div class="player-empty" id="robloxEmpty">
@@ -923,7 +920,7 @@ const BG_VIDEO_SRC = ''; // e.g. 'videos/bg.mp4'
 const BG_VIDEO_OPACITY = 0.55;
 
 (function initBgVideo(){
-    if (!BG_VIDEO_SRC || REDUCED_MOTION) return;
+    if (!BG_VIDEO_SRC) return;
     const vid = document.getElementById('bg-video');
     if (!vid) return;
     vid.src = BG_VIDEO_SRC;
@@ -955,7 +952,7 @@ const ROBLOX = {
     username: 'softcooki5',
     profileUrl: '',
     status: 'offline',
-    statusNote: 'boo!',
+    statusNote: 'dont talk with me if you are an racist, support 🍇 and pdf',
     favoriteGame: 'Death Note'
 };
 
@@ -966,7 +963,14 @@ const ROBLOX = {
     document.getElementById('robloxEmpty').style.display = 'none';
     document.getElementById('robloxLoaded').style.display = 'block';
 
-    document.getElementById('rblxAvatarImg').src = `https://www.roblox.com/headshot-thumbnail/image?userId=${ROBLOX.userId}&width=420&height=420&format=png`;
+    fetch(`https://thumbnails.roblox.com/v1/users/avatar-headshot?userIds=${ROBLOX.userId}&size=420x420&format=Png&isCircular=false`)
+    .then(r => r.json())
+    .then(data => {
+        if (data.data?.[0]?.imageUrl) {
+            document.getElementById('rblxAvatarImg').src = data.data[0].imageUrl;
+        }
+    })
+    .catch(() => {});
     document.getElementById('rblxUsername').textContent = ROBLOX.username || 'Roblox User';
 
     const dot = document.getElementById('rblxStatusDot');
