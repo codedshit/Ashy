@@ -963,14 +963,26 @@ const ROBLOX = {
     document.getElementById('robloxEmpty').style.display = 'none';
     document.getElementById('robloxLoaded').style.display = 'block';
 
-    fetch(`https://thumbnails.roblox.com/v1/users/avatar-headshot?userIds=${ROBLOX.userId}&size=420x420&format=Png&isCircular=false`)
-    .then(r => r.json())
+    const avatarImg = document.getElementById('rblxAvatarImg');
+
+fetch(`https://thumbnails.roblox.com/v1/users/avatar-headshot?userIds=${ROBLOX.userId}&size=420x420&format=Png&isCircular=false`)
+    .then(response => {
+        if (!response.ok) throw new Error('Roblox thumbnail API failed');
+        return response.json();
+    })
     .then(data => {
-        if (data.data?.[0]?.imageUrl) {
-            document.getElementById('rblxAvatarImg').src = data.data[0].imageUrl;
+        const imageUrl = data.data?.[0]?.imageUrl;
+
+        if (imageUrl) {
+            avatarImg.src = imageUrl;
+        } else {
+            avatarImg.src = `https://tr.rbxcdn.com/30DAY-AvatarHeadshot-${ROBLOX.userId}-420-420-Headshot/Png/noFilter`;
         }
     })
-    .catch(() => {});
+    .catch(() => {
+        avatarImg.src = `https://tr.rbxcdn.com/30DAY-AvatarHeadshot-${ROBLOX.userId}-420-420-Headshot/Png/noFilter`;
+    });
+   
     document.getElementById('rblxUsername').textContent = ROBLOX.username || 'Roblox User';
 
     const dot = document.getElementById('rblxStatusDot');
