@@ -157,6 +157,20 @@ body.sky-night #sky-bg{ background:linear-gradient(160deg, var(--void-night-a) 0
 @keyframes glitchShiftB{ 0%,86%,100%{ transform:translate(0,0); clip-path:inset(70% 0 0 0);} 89%{ transform:translate(3px,-1px); clip-path:inset(10% 0 60% 0);} 93%{ transform:translate(-2px,1px); clip-path:inset(45% 0 20% 0);} }
 @keyframes entryFlicker{ 0%,92%,100%{ opacity:1; } 93%{ opacity:.7; } 95%{ opacity:1; } 96%{ opacity:.55; } 97%{ opacity:1; } }
 @media (prefers-reduced-motion:reduce){ .entry-comic{ animation:none !important; } .entry-comic::before,.entry-comic::after{ display:none; } }
+.entry-hint{
+    font-family:var(--font-mono);
+    font-size:11px;
+    letter-spacing:3px;
+    text-transform:uppercase;
+    color:var(--ink-faint);
+    margin-top:4px;
+    animation:entryHintPulse 1.8s ease-in-out infinite;
+}
+
+@keyframes entryHintPulse{
+    0%,100%{ opacity:.45; }
+    50%{ opacity:1; }
+}
 
 /* =====================================================================
    3. LAYOUT SHELL
@@ -587,6 +601,7 @@ body.sky-night #sky-bg{ background:linear-gradient(160deg, var(--void-night-a) 0
     <div class="entry-content">
         <div class="entry-eyebrow">No happy endings in Night City</div>
         <div class="entry-comic" id="entryComic" data-glitch=""><span id="entryComicText"></span></div>
+<div class="entry-hint">Click to enter</div>
     </div>
 </div>
 
@@ -939,7 +954,7 @@ const ROBLOX = {
     userId: '4468232678',
     username: 'softcooki5',
     profileUrl: '',
-    status: 'might be online who knows',
+    status: 'offline',
     statusNote: 'boo!',
     favoriteGame: 'Death Note'
 };
