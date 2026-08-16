@@ -122,18 +122,6 @@ ul{ list-style:none; }
 }
 body.has-bg-video #bg-tint{ background:rgba(6,6,7,.72); }
 
-#audio-toggle{
-    position:fixed; bottom:22px; right:22px; z-index:1100;
-    width:44px; height:44px; border-radius:50%;
-    background:var(--panel-strong); border:1px solid var(--line-strong);
-    backdrop-filter:blur(9px) saturate(115%); -webkit-backdrop-filter:blur(9px) saturate(115%);
-    display:flex; align-items:center; justify-content:center;
-    color:var(--ink-soft); font-size:16px; cursor:pointer; box-shadow:var(--shadow-sm);
-    transition:color .2s ease, transform .2s ease;
-}
-#audio-toggle:hover{ color:var(--accent-strong); transform:translateY(-2px); }
-#audio-toggle.hidden{ display:none; }
-
 /* =====================================================================
    3. ENTRY OVERLAY — translucent, main page visible but not scrollable
    ===================================================================== */
@@ -490,11 +478,6 @@ body.has-bg-video #bg-tint{ background:rgba(6,6,7,.72); }
 
 <video id="bg-video" autoplay muted loop playsinline></video>
 <div id="bg-tint"></div>
-<audio id="bg-audio" loop preload="none"></audio>
-
-<button id="audio-toggle" aria-label="Toggle background music">
-    <i class="fas fa-volume-high" id="audio-toggle-icon"></i>
-</button>
 
 <div id="entry-overlay" onclick="enterSite()">
     <div class="entry-text"><span id="entryText"></span><span class="entry-caret" aria-hidden="true"></span></div>
@@ -510,7 +493,7 @@ body.has-bg-video #bg-tint{ background:rgba(6,6,7,.72); }
             <aside class="profile-card card spinning" id="profileCard">
                 <div class="spin-catcher" id="spinCatcher"></div>
 
-                <div class="profile-meta">He/Him</div>
+                <div class="profile-meta">He/Him - Proud Muslim</div>
                 <div class="greeting-line"><i class="fas fa-circle" style="font-size:6px;"></i><span id="greetingText">good day</span></div>
 
                 <div class="avatar-wrap">
@@ -559,7 +542,7 @@ body.has-bg-video #bg-tint{ background:rgba(6,6,7,.72); }
                             <div class="panel-eyebrow">about me</div>
                             <div class="panel-title">Bio</div>
 
-                            <p class="about-text">Tormented.</p>
+                            <p class="about-text">I got true friends, Loving Family, i got style and i have personality. (Not a jerk Btw)</p>
 
                             <div id="statBlocks">
                                 <div class="stat-block" data-pct="60">
@@ -705,52 +688,25 @@ const COORDS = '41°36′28.4″N, 71°21′41.2″W';
 const MY_TIMEZONE = 'Europe/Helsinki';
 const REDUCED_MOTION = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-/* ---- DISCORD PRESENCE (Lanyard) -------------------------------------------
-   Pulls live status (online/idle/dnd/offline) + your custom status text
-   from Lanyard. Requires you to be a member of the Lanyard Discord server
-   (discord.gg/lanyard) for your presence to be tracked.
+/* ---- DISCORD PRESENCE (Lanyard) ------------------------------------------
 --------------------------------------------------------------------------- */
 const DISCORD_ID = '1301191057656119386';
 
-/* ---- AVATAR FRAME ---------------------------------------------------------
-   Like a Discord profile frame laid over your pfp. Stays completely hidden
-   until you set a path here — drop the frame image in the repo (e.g. a
-   transparent PNG) and point this at it.
+/* ---- AVATAR FRAME --------------------------------------------------------
 --------------------------------------------------------------------------- */
-const AVATAR_FRAME_SRC = ''; // e.g. 'frames/frame.png'
+const AVATAR_FRAME_SRC = ''; 
 
-/* ---- PLAYLIST (Cloudinary) ------------------------------------------------
-   One object per track you've uploaded to Cloudinary — an mp3 and a cover
-   image. Add as many as you want. If there's more than one track, the
-   playlist shuffles automatically and reshuffles after every full pass.
-   Leave the array empty to show a "no tracks yet" placeholder.
+/* ---- PLAYLIST (Cloudinary) -----------------------------------------------
 --------------------------------------------------------------------------- */
+const CLOUDINARY_CLOUD_NAME = 'dgus0vior';
 const TRACKS = [
-    // {
-    //     title:  'Track Name',
-    //     artist: 'Artist Name',
-    //     src:    'https://res.cloudinary.com/your-cloud-name/video/upload/v123456789/track.mp3',
-    //     cover:  'https://res.cloudinary.com/your-cloud-name/image/upload/v123456789/cover.jpg'
-    // },
+    { title: 'Little Angel', artist: 'Onokami', id: 'mt7cjbv0eyk3tyq8epvw', cover: 'kiiennufvy3vgjjl1i2a' }
 ];
 
-/* ---- BACKGROUND VIDEO ---------------------------------------------------
-   Drop a video file next to index.html (or link a URL) and set BG_VIDEO_SRC.
-   Leave it as '' to keep the plain dark background — nothing else needs
-   to change.
+/* ---- BACKGROUND VIDEO -------------------------------------------
 --------------------------------------------------------------------------- */
-const BG_VIDEO_SRC = ''; // e.g. 'videos/bg.mp4'
+const BG_VIDEO_SRC = ''; 
 const BG_VIDEO_OPACITY = 0.5;
-
-/* ---- BACKGROUND MUSIC ----------------------------------------------------
-   Drop an audio file next to index.html and set BG_AUDIO_SRC — same idea
-   as the video above. Leave it as '' for no site music.
-   Browsers block audio from autoplaying with sound until the visitor
-   interacts with the page, so it starts the moment they click "Click to
-   enter". A small speaker button (bottom-right) lets them mute it.
---------------------------------------------------------------------------- */
-const BG_AUDIO_SRC = ''; // e.g. 'audio/candy.mp3'
-const BG_AUDIO_VOLUME = 0.4;
 
 (function initBgVideo(){
     if (!BG_VIDEO_SRC) return;
@@ -762,28 +718,8 @@ const BG_AUDIO_VOLUME = 0.4;
     document.body.classList.add('has-bg-video');
 })();
 
-/* background audio: wired up, actually starts playing inside enterSite() below
-   since browsers require a user gesture before audio can play with sound */
-const bgAudio = document.getElementById('bg-audio');
-const audioToggleBtn = document.getElementById('audio-toggle');
-const audioToggleIcon = document.getElementById('audio-toggle-icon');
-if (BG_AUDIO_SRC && bgAudio){
-    bgAudio.src = BG_AUDIO_SRC;
-    bgAudio.volume = BG_AUDIO_VOLUME;
-} else if (audioToggleBtn){
-    audioToggleBtn.classList.add('hidden');
-}
-if (audioToggleBtn){
-    audioToggleBtn.addEventListener('click', () => {
-        if (!bgAudio) return;
-        bgAudio.muted = !bgAudio.muted;
-        audioToggleIcon.className = bgAudio.muted ? 'fas fa-volume-xmark' : 'fas fa-volume-high';
-    });
-}
-
 document.getElementById('current-year').textContent = new Date().getFullYear();
 
-/* avatar frame — stays hidden unless AVATAR_FRAME_SRC is set */
 (function initAvatarFrame(){
     if (!AVATAR_FRAME_SRC) return;
     const frame = document.getElementById('avatarFrame');
@@ -793,7 +729,7 @@ document.getElementById('current-year').textContent = new Date().getFullYear();
 })();
 
 /* =====================================================================
-   ENTRY OVERLAY — typewriter "Click to enter", blocks scroll until clicked
+   ENTRY OVERLAY — 
    ===================================================================== */
 document.body.classList.add('no-scroll');
 
@@ -802,9 +738,7 @@ function enterSite() {
     overlay.classList.add('hidden');
     document.body.classList.remove('no-scroll');
     setTimeout(() => { overlay.style.display = 'none'; }, 750);
-    if (BG_AUDIO_SRC && bgAudio){
-        bgAudio.play().catch(() => { /* ignore — user can still hit the speaker button */ });
-    }
+    if (typeof startPlaylistOnEntry === 'function') startPlaylistOnEntry();
 }
 
 function typeOnce(el, text, speed){
@@ -908,15 +842,6 @@ setInterval(updateClocks, 15000);
 
 /* =====================================================================
    DISCORD PRESENCE (Lanyard) — live status + custom status text
-   -----------------------------------------------------------------------
-   Heads up: Lanyard only reports your CURRENT status, it doesn't keep any
-   history. So "last online X ago" while offline is tracked locally, in
-   each visitor's own browser (localStorage) — it remembers the last time
-   *that browser* saw you online. A visitor's very first look at the site
-   while you're offline won't have anything to compare against yet, so
-   it'll just say "Offline" with no duration until it's seen you online at
-   least once. There's no way around this without running your own
-   always-on backend that logs Lanyard's status changes over time.
    ===================================================================== */
 const DISCORD_STATUS_META = {
     online:  { label:'Online',           color:'var(--green-strong)' },
@@ -1121,6 +1046,8 @@ function formatTime(sec){
     return m + ':' + String(s).padStart(2, '0');
 }
 
+let startPlaylistOnEntry = null;
+
 (function initPlayer(){
     const widget   = document.getElementById('playerWidget');
     const audioEl  = document.getElementById('playerAudio');
@@ -1155,8 +1082,10 @@ function formatTime(sec){
         if (!t) return;
         titleEl.textContent = t.title || 'Untitled';
         artistEl.textContent = t.artist || '';
-        coverEl.src = t.cover || LFM_DEFAULT_ART;
-        audioEl.src = t.src;
+        coverEl.src = t.cover
+            ? `https://res.cloudinary.com/${CLOUDINARY_CLOUD_NAME}/image/upload/${t.cover}.jpg`
+            : LFM_DEFAULT_ART;
+        audioEl.src = `https://res.cloudinary.com/${CLOUDINARY_CLOUD_NAME}/video/upload/${t.id}.mp3`;
         barFill.style.width = '0%';
         curEl.textContent = '0:00';
         durEl.textContent = '0:00';
@@ -1164,6 +1093,7 @@ function formatTime(sec){
 
     function play(){ audioEl.play().then(() => setPlayIcon(true)).catch(() => setPlayIcon(false)); }
     function pause(){ audioEl.pause(); setPlayIcon(false); }
+    startPlaylistOnEntry = play;
 
     function goTo(i, autoplay){
         idx = (i + order.length) % order.length;
