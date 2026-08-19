@@ -4,16 +4,16 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Ash</title>
-<meta name="description" content="Ash's own site">
+<meta name="description" content="Ash's corner of the internet.">
 <meta name="theme-color" content="#0a0a0b">
 
 <!-- FAVICONS -->
-<link rel="icon" id="faviconMain" type="image/png" href="favicon/favicon-32.png?v=2">
-<link rel="icon" id="faviconSvg" type="image/svg+xml" href="favicon/favicon.svg?v=2">
-<link rel="apple-touch-icon" id="faviconApple" href="favicon/apple-touch-icon.png?v=2">
-<link rel="manifest" href="favicon/site.webmanifest?v=2">
-<link rel="mask-icon" href="favicon/favicon.svg?v=2" color="#B5895A">
-    
+<link rel="icon" id="faviconMain" type="image/png" href="favicon/favicon-32.png">
+<link rel="icon" id="faviconSvg" type="image/svg+xml" href="favicon/favicon.svg">
+<link rel="apple-touch-icon" id="faviconApple" href="favicon/apple-touch-icon.png">
+<link rel="manifest" href="favicon/site.webmanifest">
+<link rel="mask-icon" href="favicon/favicon.svg" color="#B5895A">
+
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
 <style>
@@ -911,27 +911,50 @@ const TRACKS = [
     { title: 'Little Angel', artist: 'Onokami', id: 'mt7cjbv0eyk3tyq8epvw', cover: 'kiiennufvy3vgjjl1i2a' }
 ];
 
-/* BACKGROUND VIDEO */
+/* BACKGROUND VIDEO — desktop/wide vs. phone/narrow get separate clips so
+   object-fit:cover never crops off the important part of the frame.
+   Leave BG_VIDEO_SRC_MOBILE empty to just reuse BG_VIDEO_SRC everywhere. */
 const BG_VIDEO_SRC = '';
+const BG_VIDEO_SRC_MOBILE = 'videos/bg-mobile.mp4';
 const BG_VIDEO_OPACITY = 0.5;
+const BG_VIDEO_BREAKPOINT = 820; // px — matches the layout breakpoint used elsewhere on the site
 
 /* FAVICONS */
-const FAVICON_SRC          = '';
+const FAVICON_SRC          = 'font/favicon-32.png';
 const APPLE_TOUCH_ICON_SRC = '';
 const FAVICON_STATUS_BADGE = true;
 
-/* VISITOR COUNTER — CounterAPI.dev (v1) namespace/key "ashy-geek" */
+/* VISITOR COUNTER — Abacus (abacus.jasoncameron.dev), namespace/key "ashy-geek" */
 const VISITOR_NAMESPACE = 'ashy-geek';
 const VISITOR_KEY = 'ashy-geek';
 
 (function initBgVideo(){
-    if (!BG_VIDEO_SRC) return;
     const vid = document.getElementById('bg-video');
     if (!vid) return;
-    vid.src = BG_VIDEO_SRC;
+
+    const desktopSrc = BG_VIDEO_SRC;
+    const mobileSrc  = BG_VIDEO_SRC_MOBILE || BG_VIDEO_SRC; // falls back to the desktop clip if no phone-specific one is set
+    if (!desktopSrc && !mobileSrc) return;
+
+    const mq = window.matchMedia(`(min-width:${BG_VIDEO_BREAKPOINT}px)`);
+    let currentSrc = '';
+
+    function applySrc(){
+        const wantSrc = mq.matches ? desktopSrc : mobileSrc;
+        if (!wantSrc || wantSrc === currentSrc) return; // avoid restarting the loop on trivial resizes
+        currentSrc = wantSrc;
+        vid.src = wantSrc;
+        vid.play().catch(() => {}); // autoplay may be blocked until the entry overlay is tapped — fine, it'll start then
+    }
+
     vid.style.opacity = BG_VIDEO_OPACITY;
     vid.style.display = 'block';
     document.body.classList.add('has-bg-video');
+    applySrc();
+
+    // re-picks the right clip on resize / phone rotation / desktop window resize past the breakpoint
+    if (mq.addEventListener) mq.addEventListener('change', applySrc);
+    else mq.addListener(applySrc); // older Safari
 })();
 
 document.getElementById('current-year').textContent = new Date().getFullYear();
@@ -1880,3 +1903,4 @@ setInterval(fetchRecent, 60000);
 </script>
 </body>
 </html>
+
