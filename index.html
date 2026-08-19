@@ -107,7 +107,7 @@ ul{ list-style:none; }
 #bg-video{
     position:fixed; inset:0; z-index:-3; pointer-events:none;
     width:100%; height:100%; object-fit:cover;
-    display:none;
+    display:block;
 }
 #bg-tint{
     position:fixed; inset:0; z-index:-2; pointer-events:none;
@@ -621,7 +621,14 @@ body.has-bg-video #bg-tint{ background:rgba(6,6,7,.55); }
 <div id="scrollProgress"></div>
 <div id="cursorGlow"></div>
 
-<video id="bg-video" autoplay muted loop playsinline></video>
+<video autoplay loop muted playsinline id="bg-video" class="bg-video">
+  <!-- Desktop Video (loads on screens 769px wide and up) -->
+  <source src="videos/bg-desktop.mp4" type="video/mp4" media="(min-width: 769px)" />
+  
+  <!-- Mobile Video (loads on screens 768px wide and below) -->
+  <source src="videos/bg-mobile.mp4" type="video/mp4" media="(max-width: 768px)" />
+</video>
+
 <div id="bg-tint"></div>
 
 <div id="entry-overlay" onclick="enterSite()">
