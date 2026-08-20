@@ -170,8 +170,7 @@ body.has-bg-video #bg-tint{ background:rgba(6,6,7,.55); }
     .layout-grid{ grid-template-columns:320px 1fr; gap:42px; }
 }
 
-/* 5. CARD SURFACE — ULTRA-GLASS. Very transparent dark tint + heavy blur +
-   saturation so a background video reads clearly THROUGH every card. */
+/* 5. CARD SURFACE */
 .card{
     background:var(--panel);
     backdrop-filter:blur(var(--panel-blur)) saturate(180%);
@@ -202,8 +201,7 @@ body.has-bg-video #bg-tint{ background:rgba(6,6,7,.55); }
 .profile-card{
     width:100%; padding:34px 26px 28px;
     display:flex; flex-direction:column; align-items:center; text-align:center; gap:14px;
-    /* background intentionally inherited from .card (var(--panel)) — stays in sync with every other card */
-    isolation:isolate;
+    /* background inherited from .card — same panel/blur as every other card, no isolation layer */
     opacity:0; transform:translateY(14px) scale(.985);
     animation:profileCardIn .7s cubic-bezier(.16,1,.3,1) .05s forwards;
 }
@@ -320,6 +318,7 @@ body.has-bg-video #bg-tint{ background:rgba(6,6,7,.55); }
 .tab-btn:hover{ color:var(--ink); transform:translateY(-1px); }
 .tab-btn:active{ transform:translateY(0); }
 .tab-btn[data-tab="intel"].active{ color:var(--ink); background:var(--brown); box-shadow:0 6px 18px -8px var(--brown-strong); }
+.tab-btn[data-tab="anime"].active{ color:var(--ink); background:var(--yellow); box-shadow:0 6px 18px -8px var(--yellow-strong); }
 .tab-btn[data-tab="vibe"].active{ color:var(--ink); background:var(--blue); box-shadow:0 6px 18px -8px var(--blue-strong); }
 .tab-btn[data-tab="music"].active{ color:var(--ink); background:var(--green); box-shadow:0 6px 18px -8px var(--green-strong); }
 
@@ -334,6 +333,7 @@ body.has-bg-video #bg-tint{ background:rgba(6,6,7,.55); }
     display:flex; align-items:center; gap:8px; margin-bottom:6px;
 }
 #tab-intel .panel-eyebrow{ color:var(--brown-strong); }
+#tab-anime .panel-eyebrow{ color:var(--yellow-strong); }
 #tab-vibe  .panel-eyebrow{ color:var(--blue-strong); }
 #tab-music .panel-eyebrow{ color:var(--green-strong); }
 .panel-title{ font-family:var(--font-display); font-weight:400; font-size:clamp(1.6rem,3vw,2rem); color:var(--ink); margin-bottom:14px; }
@@ -378,9 +378,7 @@ body.has-bg-video #bg-tint{ background:rgba(6,6,7,.55); }
 .bday-line{ font-family:var(--font-accent); font-size:14px; color:var(--ink); margin-bottom:8px; }
 .bday-date{ font-family:var(--font-accent); font-size:12px; color:var(--ink-faint); margin-top:6px; }
 
-/* =====================================================================
-   10. STATUS PANEL — redesigned gamer/dev dashboard
-   ===================================================================== */
+/* 10. STATUS PANEL — redesigned gamer/dev dashboard */
 .st-hero{
     display:flex; align-items:center; gap:16px; margin-bottom:20px;
     padding:16px; border-radius:var(--radius-md);
@@ -462,21 +460,19 @@ body.has-bg-video #bg-tint{ background:rgba(6,6,7,.55); }
 .st-sp-bar{ flex:1; height:4px; border-radius:99px; background:rgba(255,255,255,.12); overflow:hidden; }
 .st-sp-bar-fill{ height:100%; width:0%; border-radius:99px; background:#1DB954; transition:width 1s linear; }
 
-/* idle / offline terminal fallback */
-.st-idle{
-    display:none; margin-bottom:16px; border-radius:var(--radius-md); overflow:hidden;
-    border:1px solid var(--line-strong); background:rgba(5,5,6,.55);
-    font-family:'JandaManateeSolid', ui-monospace, monospace;
+/* social status fallback card (shown when no game/music is active) */
+.st-social{
+    display:none; align-items:center; gap:14px; margin-bottom:16px;
+    padding:14px 16px; border-radius:var(--radius-md);
+    background:rgba(255,255,255,.03); border:1px solid var(--line);
 }
-.st-idle.show{ display:block; }
-.st-idle-bar{ display:flex; align-items:center; gap:6px; padding:8px 12px; background:rgba(255,255,255,.04); border-bottom:1px solid var(--line); }
-.st-idle-dot{ width:9px; height:9px; border-radius:50%; }
-.st-idle-dot.r{ background:#f04747; } .st-idle-dot.y{ background:#f0b232; } .st-idle-dot.g{ background:#57d977; }
-.st-idle-bar-title{ margin-left:6px; font-size:10px; letter-spacing:1px; text-transform:uppercase; color:var(--ink-faint); }
-.st-idle-body{ padding:16px 14px; font-size:12.5px; line-height:1.85; color:var(--ink-soft); }
-.st-idle-body .prompt{ color:var(--green-strong); }
-.st-idle-body .comment{ color:var(--ink-faint); }
-.st-idle-cursor{ display:inline-block; width:7px; height:14px; background:var(--green-strong); vertical-align:middle; animation:caretBlink 1s step-end infinite; }
+.st-social.show{ display:flex; }
+.st-social-avatar{ width:52px; height:52px; border-radius:50%; object-fit:cover; flex-shrink:0; border:1px solid var(--line-strong); background:var(--panel-strong); }
+.st-social-info{ flex:1; min-width:0; }
+.st-social-name{ font-family:var(--font-accent); font-size:15px; color:var(--ink); }
+.st-social-username{ font-size:12px; color:var(--ink-faint); margin-top:1px; }
+.st-social-lastonline{ font-family:var(--font-accent); font-size:11.5px; color:var(--ink-soft); margin-top:6px; display:flex; align-items:center; gap:5px; }
+.st-social-lastonline i{ color:var(--accent-strong); font-size:9px; }
 
 .panel-divider{ height:1px; background:var(--line); margin:18px 0; }
 .live-stat-row{ display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap; }
@@ -484,7 +480,26 @@ body.has-bg-video #bg-tint{ background:rgba(6,6,7,.55); }
 .live-stat-label{ font-family:var(--font-accent); font-size:11px; letter-spacing:1.5px; text-transform:uppercase; color:var(--ink-faint); }
 .live-stat-val{ font-family:var(--font-accent); font-size:15px; color:var(--ink); }
 
+/* 10b. ANIME PANEL (AniList) */
+.anime-stat-row{ display:flex; flex-wrap:wrap; gap:18px 26px; margin-bottom:22px; }
+.anime-stat{ display:flex; flex-direction:column; gap:2px; }
+.anime-stat-val{ font-family:var(--font-accent); font-size:20px; color:var(--ink); }
+.anime-stat-label{ font-family:var(--font-accent); font-size:10px; letter-spacing:1.2px; text-transform:uppercase; color:var(--ink-faint); }
+.anime-grid{ display:grid; grid-template-columns:repeat(auto-fill,minmax(96px,1fr)); gap:12px; }
+.anime-tile{ position:relative; display:block; border-radius:var(--radius-sm); overflow:hidden; aspect-ratio:2/3; background:var(--panel-strong); border:1px solid var(--line); box-shadow:var(--shadow-sm); }
+.anime-tile img{ width:100%; height:100%; object-fit:cover; display:block; transition:transform .35s ease; }
+.anime-tile:hover img{ transform:scale(1.07); }
+.anime-tile-title{ position:absolute; left:0; right:0; bottom:0; padding:16px 7px 6px; font-family:var(--font-accent); font-size:10.5px; line-height:1.25; color:var(--ink); background:linear-gradient(0deg, rgba(0,0,0,.88), transparent); }
+.anime-tile-progress{ position:absolute; top:6px; right:6px; font-family:var(--font-accent); font-size:9.5px; padding:2px 6px; border-radius:99px; background:rgba(5,5,6,.72); color:var(--yellow-strong); border:1px solid var(--yellow-soft); }
+.anime-viewall{ display:inline-flex; align-items:center; gap:6px; margin-top:18px; font-family:var(--font-accent); font-size:12px; color:var(--yellow-strong); }
+.anime-viewall:hover{ text-decoration:underline; }
+
 /* 11. AUDIO PANEL */
+.lfm-stat-grid{ display:grid; grid-template-columns:repeat(2,1fr); gap:16px 20px; }
+@media (min-width:480px){ .lfm-stat-grid{ grid-template-columns:repeat(4,1fr); } }
+.lfm-stat{ display:flex; flex-direction:column; gap:2px; }
+.lfm-stat-val{ font-family:var(--font-accent); font-size:20px; color:var(--ink); }
+.lfm-stat-label{ font-family:var(--font-accent); font-size:10px; letter-spacing:1.2px; text-transform:uppercase; color:var(--ink-faint); }
 .lfm-hero{ display:flex; align-items:center; gap:16px; margin-bottom:22px; }
 .lfm-art-wrap{ position:relative; width:70px; height:70px; border-radius:var(--radius-sm); overflow:hidden; box-shadow:var(--shadow-sm); flex-shrink:0; border:1px solid var(--line); }
 .lfm-art{ width:100%; height:100%; object-fit:cover; }
@@ -521,9 +536,7 @@ body.has-bg-video #bg-tint{ background:rgba(6,6,7,.55); }
 #toast.show{ opacity:1; transform:translate(-50%,0); }
 #toast i{ color:var(--accent-strong); }
 
-/* =====================================================================
-   11b. AUDIO VISUALIZER + PLAYLIST WIDGET
-   ===================================================================== */
+/* 11b. AUDIO VISUALIZER + PLAYLIST WIDGET */
 .viz-wrap{
     position:relative; width:100%; height:64px; margin:4px 0 18px;
     border-radius:var(--radius-sm); overflow:hidden;
@@ -575,9 +588,7 @@ body.has-bg-video #bg-tint{ background:rgba(6,6,7,.55); }
     .avatar-fallback{ font-size:38px; }
 }
 
-/* 14. SCROLL REVEAL — cards and blocks fade + rise into place as they
-   scroll into view (or the moment a tab switches them into the DOM
-   flow), instead of a top progress bar. */
+/* 14. SCROLL REVEAL */
 .reveal-on-scroll{
     opacity:0; transform:translateY(26px) scale(.98);
     transition:opacity .65s cubic-bezier(.16,1,.3,1), transform .65s cubic-bezier(.16,1,.3,1);
@@ -596,27 +607,7 @@ body.has-bg-video #bg-tint{ background:rgba(6,6,7,.55); }
 .mini-chip.clickable:hover{ border-color:var(--accent-soft); color:var(--ink-soft); }
 .mini-chip.id-badge{ color:var(--accent-strong); border-color:var(--accent-soft); background:var(--accent-soft); font-weight:700; }
 
-/* 17b. CUSTOM CURSOR (ring + dot) */
-body.custom-cursor-on, body.custom-cursor-on *{ cursor:none !important; }
-#customCursorDot, #customCursorRing{
-    position:fixed; top:0; left:0; z-index:10000; pointer-events:none;
-    border-radius:50%; opacity:0; transition:opacity .25s ease, width .18s ease, height .18s ease;
-    will-change:transform;
-}
-#customCursorDot{
-    width:6px; height:6px; background:var(--accent-strong);
-    transform:translate(-50%,-50%);
-    box-shadow:0 0 8px var(--accent-strong);
-}
-#customCursorRing{
-    width:34px; height:34px; border:1.5px solid var(--accent-soft);
-    background:rgba(255,255,255,.02);
-    transform:translate(-50%,-50%);
-}
-body.custom-cursor-on #customCursorDot,
-body.custom-cursor-on #customCursorRing{ opacity:1; }
-#customCursorRing.is-down{ width:26px; height:26px; border-color:var(--accent-strong); }
-#customCursorRing.is-hover{ width:52px; height:52px; background:rgba(255,255,255,.05); }
+/* 17b. CUSTOM CURSOR — no built-in glow/ring, drop your own file in via CUSTOM_CURSOR_IMAGE below */
 
 /* 17c. CURSOR SPARKLE TRAIL */
 #cursorTrail{
@@ -640,9 +631,7 @@ body.custom-cursor-on #customCursorRing{ opacity:1; }
 @keyframes premiumShimmer{ 0%{ background-position:0% 0; } 100%{ background-position:220% 0; } }
 @media (prefers-reduced-motion:reduce){ .premium-badge{ animation:none; } }
 
-/* 17e. CARD SHEEN SWEEP — a slow light streak that glides across each
-   card every so often, purely decorative, layered under the interactive
-   cursor sheen so it never interferes with the tilt/hover glow above. */
+/* 17e. CARD SHEEN SWEEP */
 .card .card-sweep{
     content:''; position:absolute; inset:0; z-index:0; pointer-events:none;
     border-radius:inherit; overflow:hidden;
@@ -691,8 +680,6 @@ body.custom-cursor-on #customCursorRing{ opacity:1; }
 </head>
 <body>
 
-<div id="customCursorRing"></div>
-<div id="customCursorDot"></div>
 <canvas id="cursorTrail"></canvas>
 
 <video autoplay loop muted playsinline id="bg-video" class="bg-video">
@@ -719,7 +706,7 @@ body.custom-cursor-on #customCursorRing{ opacity:1; }
 
         <!-- ===================== PROFILE CARD ===================== -->
         <div class="profile-card-stage">
-            <aside class="profile-card card" id="profileCard" data-tilt-max="11">
+            <aside class="profile-card card" id="profileCard" data-tilt-max="18">
                 <div class="card-sheen" aria-hidden="true"></div>
 
                 <div class="profile-meta">He/Him - Proud Muslim</div>
@@ -766,6 +753,7 @@ body.custom-cursor-on #customCursorRing{ opacity:1; }
             <div class="tab-shell">
                 <nav class="tab-rail">
                     <button class="tab-btn active" data-tab="intel" onclick="switchTab('intel')"><span>Bio</span></button>
+                    <button class="tab-btn" data-tab="anime" onclick="switchTab('anime')"><span>Anime</span></button>
                     <button class="tab-btn" data-tab="vibe" onclick="switchTab('vibe')"><span>Status</span></button>
                     <button class="tab-btn" data-tab="music" onclick="switchTab('music')"><span>Audio</span></button>
                 </nav>
@@ -781,40 +769,47 @@ body.custom-cursor-on #customCursorRing{ opacity:1; }
 
                             <p class="about-text">The worst part about kissing a 10/10 is how cold the mirror gets.</p>
 
-                            <div id="statBlocks">
-                                <div class="stat-block reveal-on-scroll" data-reveal-index="1" data-pct="60">
-                                    <div class="stat-top"><span class="stat-label">petrified</span><span class="stat-pct">60%</span></div>
-                                    <div class="loadbar" data-bar><div class="loadbar-fill"></div></div>
-                                    <div class="stat-note">Dont expect anything from me</div>
-                                </div>
-                                <div class="stat-block reveal-on-scroll" data-reveal-index="2" data-pct="40">
-                                    <div class="stat-top"><span class="stat-label">sleeping</span><span class="stat-pct">40%</span></div>
-                                    <div class="loadbar" data-bar><div class="loadbar-fill"></div></div>
-                                    <div class="stat-note">sleeping is the key</div>
-                                </div>
+                            <div class="info-block reveal-on-scroll" data-reveal-index="1">
+                                <div class="info-block-title"><i class="fas fa-user"></i> About Me</div>
+                                <p class="about-text" style="margin-bottom:10px;">Hey, I&rsquo;m Ash, as you probably already know. I&rsquo;m originally from Bangladesh, but I currently live in Finland. I don&rsquo;t go outside much because, unfortunately, dealing with racism has become a pretty regular part of life here.</p>
+                                <p class="about-text" style="margin-bottom:0;">Other than that, I&rsquo;m usually online, talking to people, and being way too obsessed with anime. And yes, this site is absolutely Vibecoded &#128557;</p>
                             </div>
 
-                            <div class="info-block reveal-on-scroll" data-reveal-index="3">
-                                <div class="info-block-title"><i class="fas fa-location-dot"></i>Location</div>
-                                <div class="tag-row">
-                                    <span class="tag-chip copyable" id="coordChip" onclick="copyCoords()" title="click to copy">41&deg;36&prime;28.4&Prime;N, 71&deg;21&prime;41.2&Prime;W</span>
-                                </div>
-                            </div>
-
-                            <div class="info-block reveal-on-scroll" data-reveal-index="4">
+                            <div class="info-block reveal-on-scroll" data-reveal-index="2">
                                 <div class="info-block-title"><i class="fas fa-cake-candles"></i>Birthday</div>
                                 <div class="bday-line" id="bdayDays">counting&hellip;</div>
                                 <div class="loadbar" id="bdayBar" data-bar><div class="loadbar-fill"></div></div>
                                 <div class="bday-date">Nov 1</div>
                             </div>
 
-                            <div class="info-block reveal-on-scroll" data-reveal-index="5">
+                            <div class="info-block reveal-on-scroll" data-reveal-index="3">
                                 <div class="info-block-title"><i class="fas fa-tv"></i> Best written anime</div>
                                 <div class="tag-row">
                                     <span class="tag-chip tag-chip-featured">Cyberpunk Edgerunners</span>
                                     <span class="tag-chip tag-chip-featured">Clannad</span>
                                 </div>
                             </div>
+                        </div>
+                    </div>
+
+                    <!-- ============ ANIME (AniList) ============ -->
+                    <div class="tab-panel" id="tab-anime">
+                        <div class="panel-card card reveal-on-scroll" data-reveal-index="0">
+                            <div class="card-sheen" aria-hidden="true"></div>
+                            <div class="panel-eyebrow"><i class="fas fa-clapperboard"></i> anilist</div>
+                            <div class="panel-title">Anime</div>
+
+                            <div class="anime-stat-row" id="animeStatRow">
+                                <div class="anime-stat"><span class="anime-stat-val" id="animeStatCount">&mdash;</span><span class="anime-stat-label">Anime</span></div>
+                                <div class="anime-stat"><span class="anime-stat-val" id="animeStatScore">&mdash;</span><span class="anime-stat-label">Mean Score</span></div>
+                                <div class="anime-stat"><span class="anime-stat-val" id="animeStatEps">&mdash;</span><span class="anime-stat-label">Episodes</span></div>
+                                <div class="anime-stat"><span class="anime-stat-val" id="animeStatDays">&mdash;</span><span class="anime-stat-label">Days Watched</span></div>
+                            </div>
+
+                            <div class="section-label" id="animeListLabel">currently watching</div>
+                            <div class="anime-grid" id="animeGrid"><p style="font-size:12px;color:var(--ink-faint);">loading&hellip;</p></div>
+
+                            <a class="anime-viewall" href="https://anilist.co/user/Klxxy/animelist" target="_blank" rel="noopener">view full list on AniList <i class="fas fa-arrow-up-right-from-square"></i></a>
                         </div>
                     </div>
 
@@ -871,16 +866,13 @@ body.custom-cursor-on #customCursorRing{ opacity:1; }
                                 </div>
                             </div>
 
-                            <!-- IDLE / OFFLINE TERMINAL FALLBACK -->
-                            <div class="st-idle" id="stIdle">
-                                <div class="st-idle-bar">
-                                    <span class="st-idle-dot r"></span><span class="st-idle-dot y"></span><span class="st-idle-dot g"></span>
-                                    <span class="st-idle-bar-title">@ash-system — idle</span>
-                                </div>
-                                <div class="st-idle-body">
-                                    <div><span class="comment"># no active game or music detected</span></div>
-                                    <div><span class="prompt">ash@void</span>:~$ status --now</div>
-                                    <div id="stIdleLine">&gt; system idle · probably asleep or overthinking<span class="st-idle-cursor"></span></div>
+                            <!-- SOCIAL STATUS FALLBACK (shown when no game/music is active) -->
+                            <div class="st-social" id="stSocial">
+                                <img class="st-social-avatar" id="stSocialAvatar" src="pfp.png" alt="Avatar">
+                                <div class="st-social-info">
+                                    <div class="st-social-name">Ash</div>
+                                    <div class="st-social-username">@codedsum</div>
+                                    <div class="st-social-lastonline" id="stSocialLastOnline">last online recently</div>
                                 </div>
                             </div>
 
@@ -942,6 +934,17 @@ body.custom-cursor-on #customCursorRing{ opacity:1; }
                             <audio id="playerAudio" preload="metadata" crossorigin="anonymous"></audio>
                         </div>
 
+                        <div class="panel-card card reveal-on-scroll" data-reveal-index="0">
+                            <div class="card-sheen" aria-hidden="true"></div>
+                            <div class="panel-eyebrow"><i class="fab fa-lastfm"></i> last.fm stats</div>
+                            <div class="lfm-stat-grid">
+                                <div class="lfm-stat"><span class="lfm-stat-val" id="lfmStatScrobbles">&mdash;</span><span class="lfm-stat-label">Scrobbles</span></div>
+                                <div class="lfm-stat"><span class="lfm-stat-val" id="lfmStatArtists">&mdash;</span><span class="lfm-stat-label">Artists</span></div>
+                                <div class="lfm-stat"><span class="lfm-stat-val" id="lfmStatMonth">&mdash;</span><span class="lfm-stat-label">This Month</span></div>
+                                <div class="lfm-stat"><span class="lfm-stat-val" id="lfmStatYear">&mdash;</span><span class="lfm-stat-label">This Year</span></div>
+                            </div>
+                        </div>
+
                         <div class="panel-card card reveal-on-scroll" data-reveal-index="1">
                             <div class="card-sheen" aria-hidden="true"></div>
                             <div class="panel-eyebrow"><i class="fab fa-lastfm"></i> now playing</div>
@@ -976,13 +979,11 @@ body.custom-cursor-on #customCursorRing{ opacity:1; }
 <footer class="site-footer">&copy; Ash <span id="current-year"></span></footer>
 
 <script>
-/* =====================================================================
-   CONFIG
-   ===================================================================== */
+/* CONFIG */
 const LFM_KEY  = '84e191b366d86d98c1db2a74b5b39ef4';
 const LFM_USER = 'Ashy-geek';
+const ANILIST_USERNAME = 'Klxxy';
 const LFM_DEFAULT_ART = 'https://lastfm.freetls.fastly.net/i/u/300x300/2a96cbd8b46e442fc41c2b86b821562f.png';
-const COORDS = '41°36′28.4″N, 71°21′41.2″W';
 const MY_TIMEZONE = 'Europe/Helsinki';
 const REDUCED_MOTION = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 const IS_COARSE = window.matchMedia('(pointer: coarse)').matches;
@@ -990,8 +991,7 @@ const IS_COARSE = window.matchMedia('(pointer: coarse)').matches;
 /* DISCORD PRESENCE (Lanyard) */
 const DISCORD_ID = '1301191057656119386';
 
-/* AVATAR DECORATION — the single animated ring worn on the pfp.
-   --deco-scale is tuned in CSS (1.22) so profiledeco.gif fits flush. */
+/* AVATAR DECORATION */
 const AVATAR_DECORATION_SRC = 'profiledeco.gif';
 
 /* PLAYLIST (Cloudinary) */
@@ -1002,9 +1002,7 @@ const TRACKS = [
     { title: 'Daddy dj', artist: '-', id: 'qtfpbcqfqzavjfxfsnaq', cover: 'ebk4fuyegjzsu2qc5zka' }
 ];
 
-/* BACKGROUND VIDEO — desktop/wide vs. phone/narrow get separate clips so
-   object-fit:cover never crops off the important part of the frame.
-   Leave BG_VIDEO_SRC_MOBILE empty to just reuse BG_VIDEO_SRC everywhere. */
+/* BACKGROUND VIDEO */
 const BG_VIDEO_SRC = 'videos/bg-mobile.mp4';
 const BG_VIDEO_SRC_MOBILE = 'videos/bg-mobile.mp4';
 const BG_VIDEO_OPACITY = 0.7;
@@ -1013,33 +1011,27 @@ const BG_VIDEO_BREAKPOINT = 820; // px — matches the layout breakpoint used el
 /* FAVICONS */
 const FAVICON_SRC          = 'favicon/favicon-32.png';
 const APPLE_TOUCH_ICON_SRC = '';
-const FAVICON_STATUS_BADGE = true;
+const FAVICON_STATUS_BADGE = false;
 
 /* VISITOR COUNTER — Abacus (abacus.jasoncameron.dev), namespace/key "ashy-geek" */
 const VISITOR_NAMESPACE = 'ashy-geek';
 const VISITOR_KEY = 'ashy-geek';
 
-/* CUSTOM CURSOR — replaces the system pointer with a ring+dot, plus a
-   fading sparkle trail. Auto-disabled on touch devices and when the
-   visitor has "reduce motion" turned on (same rule every other motion
-   effect on this site follows). */
-const CUSTOM_CURSOR_ENABLED = true;
+/* CUSTOM CURSOR — set to any image path (.png, .gif, .cur, etc.) */
+const CUSTOM_CURSOR_IMAGE  = ''; // e.g. 'cursor/my-cursor.png'
+const CUSTOM_CURSOR_HOTSPOT_X = 0;
+const CUSTOM_CURSOR_HOTSPOT_Y = 0;
+
+/* CURSOR SPARKLE TRAIL */
 const CURSOR_TRAIL_ENABLED  = true;
 const CURSOR_TRAIL_COLOR    = null; // null = uses --accent-strong automatically
 
-/* PREMIUM POLISH — small "paid tier" flourishes: a badge chip next to
-   the display name, and a light sweep that occasionally glides across
-   each card. Flip either to false to go back to the plain look. */
+/* PREMIUM POLISH */
 const PREMIUM_BADGE_ENABLED = true;
 const PREMIUM_BADGE_TEXT    = 'fuck off!';
 const CARD_SHEEN_SWEEP_ENABLED = true;
 
-/* SYNCED LYRICS — when Spotify is playing (via the Discord presence
-   above), fetches time-synced lyrics from LRCLIB (lrclib.net), a free
-   community lyrics database with no API key required, and highlights
-   the current line as the track progresses. Falls back to plain
-   (unsynced) lyrics if no synced version exists, and hides itself
-   entirely when nothing is playing or no lyrics are found. */
+/* SYNCED LYRICS (LRCLIB) */
 const LYRICS_ENABLED = true;
 
 (function initBgVideo(){
@@ -1071,8 +1063,7 @@ const LYRICS_ENABLED = true;
     else mq.addListener(applySrc); // older Safari
 })();
 
-/* Guarded utility: runs fn and swallows/logs any error instead of letting it
-   kill every script statement that comes after it in this file. */
+/* runs fn, catches/logs errors so one failure doesn't break the rest of the script */
 function safeRun(fn){ try{ fn(); }catch(e){ console.error(e); } }
 
 safeRun(() => {
@@ -1089,9 +1080,7 @@ safeRun(() => {
     deco.style.display = 'block';
 })();
 
-/* =====================================================================
-   WEB AUDIO — UI SOUND BLIPS (synthetic click / hover)
-   ===================================================================== */
+/* WEB AUDIO — UI SOUND BLIPS (synthetic click / hover) */
 const SFX = (function(){
     let ctx = null;
     function ensure(){
@@ -1132,9 +1121,7 @@ const SFX = (function(){
     document.querySelectorAll('.social-btn, .mini-chip.clickable, .player-btn').forEach(el => el.addEventListener('click', () => SFX.click()));
 })();
 
-/* =====================================================================
-   3D MOUSE-TILT + DYNAMIC SHEEN  (profileCard + all .card)
-   ===================================================================== */
+/* 3D MOUSE-TILT + DYNAMIC SHEEN  (profileCard + all .card) */
 (function initTilt(){
     if (REDUCED_MOTION || IS_COARSE) return;
     const cards = document.querySelectorAll('.card');
@@ -1182,9 +1169,7 @@ const SFX = (function(){
     });
 })();
 
-/* =====================================================================
-   FAVICONS
-   ===================================================================== */
+/* FAVICONS */
 function buildGlyphFavicon(letter, dotColor){
     const c = document.createElement('canvas');
     c.width = 64; c.height = 64;
@@ -1231,12 +1216,7 @@ function updateFaviconStatus(color){
 }
 safeRun(initFavicons);
 
-/* =====================================================================
-   SCROLL REVEAL — sections/cards fade + rise into place as they enter
-   the viewport, instead of a top progress bar. Re-usable: anything with
-   class="reveal-on-scroll" gets picked up automatically, so new cards
-   added later inherit the effect for free.
-   ===================================================================== */
+/* SCROLL REVEAL — sections/cards fade + rise into place as they enter */
 (function initScrollReveal(){
     const targets = document.querySelectorAll('.reveal-on-scroll');
     if (!targets.length) return;
@@ -1260,53 +1240,13 @@ safeRun(initFavicons);
     targets.forEach(el => io.observe(el));
 })();
 
-/* =====================================================================
-   CUSTOM CURSOR — ring + dot replacing the system pointer
-   ===================================================================== */
+/* CUSTOM CURSOR — applies CUSTOM_CURSOR_IMAGE as the real system cursor */
 (function initCustomCursor(){
-    if (!CUSTOM_CURSOR_ENABLED || REDUCED_MOTION || IS_COARSE) return;
-    const dot = document.getElementById('customCursorDot');
-    const ring = document.getElementById('customCursorRing');
-    if (!dot || !ring) return;
-
-    document.body.classList.add('custom-cursor-on');
-
-    let tx = 0, ty = 0;          // instant target (dot follows this directly)
-    let rx = 0, ry = 0;          // eased ring position
-    let raf = null;
-
-    function render(){
-        rx += (tx - rx) * 0.22;
-        ry += (ty - ry) * 0.22;
-        dot.style.transform = `translate(${tx}px, ${ty}px) translate(-50%,-50%)`;
-        ring.style.transform = `translate(${rx}px, ${ry}px) translate(-50%,-50%)`;
-        raf = requestAnimationFrame(render);
-    }
-    raf = requestAnimationFrame(render);
-
-    window.addEventListener('pointermove', e => {
-        tx = e.clientX; ty = e.clientY;
-        dot.style.opacity = '1'; ring.style.opacity = '1';
-    }, { passive:true });
-
-    document.addEventListener('mousedown', () => ring.classList.add('is-down'));
-    document.addEventListener('mouseup',   () => ring.classList.remove('is-down'));
-
-    // grows the ring over links, buttons, and anything else clickable
-    const HOVER_SELECTOR = 'a, button, .card, .social-btn, .tab-btn, .mini-chip.clickable, .player-btn, [role="button"]';
-    document.addEventListener('pointerover', e => {
-        if (e.target.closest(HOVER_SELECTOR)) ring.classList.add('is-hover');
-    }, { passive:true });
-    document.addEventListener('pointerout', e => {
-        if (e.target.closest(HOVER_SELECTOR)) ring.classList.remove('is-hover');
-    }, { passive:true });
-
-    document.addEventListener('mouseleave', () => { dot.style.opacity = '0'; ring.style.opacity = '0'; });
+    if (!CUSTOM_CURSOR_IMAGE || IS_COARSE) return;
+    document.body.style.cursor = `url('${CUSTOM_CURSOR_IMAGE}') ${CUSTOM_CURSOR_HOTSPOT_X} ${CUSTOM_CURSOR_HOTSPOT_Y}, auto`;
 })();
 
-/* =====================================================================
-   CURSOR SPARKLE TRAIL — lightweight canvas particle trail
-   ===================================================================== */
+/* CURSOR SPARKLE TRAIL — lightweight canvas particle trail */
 (function initCursorTrail(){
     if (!CURSOR_TRAIL_ENABLED || REDUCED_MOTION || IS_COARSE) return;
     const canvas = document.getElementById('cursorTrail');
@@ -1367,9 +1307,7 @@ safeRun(initFavicons);
     requestAnimationFrame(draw);
 })();
 
-/* =====================================================================
-   CARD SWEEP — injects the decorative light-sweep layer into every card
-   ===================================================================== */
+/* CARD SWEEP — injects the decorative light-sweep layer into every card */
 safeRun(function initCardSweep(){
     if (!CARD_SHEEN_SWEEP_ENABLED || REDUCED_MOTION) return;
     document.querySelectorAll('.card').forEach((card, i) => {
@@ -1381,9 +1319,7 @@ safeRun(function initCardSweep(){
     });
 });
 
-/* =====================================================================
-   PREMIUM BADGE
-   ===================================================================== */
+/* PREMIUM BADGE */
 safeRun(function initPremiumBadge(){
     if (!PREMIUM_BADGE_ENABLED) return;
     const badge = document.getElementById('premiumBadge');
@@ -1393,9 +1329,7 @@ safeRun(function initPremiumBadge(){
     badge.style.display = 'inline-flex';
 });
 
-/* =====================================================================
-   TOAST
-   ===================================================================== */
+/* TOAST */
 function showToast(msg, icon){
     const toast = document.getElementById('toast');
     toast.innerHTML = (icon ? '<i class="fas ' + icon + '"></i>' : '') + '<span>' + msg + '</span>';
@@ -1418,9 +1352,7 @@ function shareProfile(){
     }
 }
 
-/* =====================================================================
-   VISITOR COUNTER — 
-   ===================================================================== */
+/* VISITOR COUNTER */
 let VISITOR_ID_RAW = null;
 function formatVisitorLabel(n){
     return '<i class="fa-solid fa-eye"></i> ' + Number(n).toLocaleString('en-US');
@@ -1464,9 +1396,7 @@ function copyVisitorId(){
 }
 initVisitorCounter();
 
-/* =====================================================================
-   KONAMI CODE EASTER EGG
-   ===================================================================== */
+/* KONAMI CODE EASTER EGG */
 (function initKonami(){
     const seq = ['ArrowUp','ArrowUp','ArrowDown','ArrowDown','ArrowLeft','ArrowRight','ArrowLeft','ArrowRight','b','a'];
     let pos = 0;
@@ -1493,9 +1423,7 @@ function triggerEasterEgg(){
     }
 }
 
-/* =====================================================================
-   ENTRY OVERLAY — reveal + kick off audio, particles, sound engine
-   ===================================================================== */
+/* ENTRY OVERLAY — reveal + kick off audio, particles, sound engine */
 document.body.classList.add('no-scroll');
 let entered = false;
 function enterSite(){
@@ -1553,9 +1481,7 @@ const TAGLINES = [
 ];
 safeRun(() => typewriterLoop(document.getElementById('taglineText'), TAGLINES));
 
-/* =====================================================================
-   GREETING + CLOCKS
-   ===================================================================== */
+/* GREETING + CLOCKS */
 function timeSlot(hour){
     if (hour >= 5  && hour < 11) return 'dawn';
     if (hour >= 11 && hour < 17) return 'day';
@@ -1594,9 +1520,7 @@ function updateClocks(){
 safeRun(updateClocks);
 setInterval(() => safeRun(updateClocks), 15000);
 
-/* =====================================================================
-   DISCORD PRESENCE — LANYARD WEBSOCKET (real-time) + dashboard render
-   ===================================================================== */
+/* DISCORD PRESENCE — LANYARD WEBSOCKET (real-time) + dashboard render */
 const DISCORD_STATUS_META = {
     online:  { label:'Online',           color:'#57d977' },
     idle:    { label:'Idle',             color:'#f0b232' },
@@ -1758,18 +1682,26 @@ function renderPresence(d){
         activityStartTs = null;
     }
 
-    /* IDLE / OFFLINE FALLBACK — show when no game AND no spotify */
-    const idle = document.getElementById('stIdle');
+    /* SOCIAL STATUS FALLBACK — show when no game AND no spotify */
+    const social = document.getElementById('stSocial');
     const hasActivity = act || (d.listening_to_spotify && d.spotify);
     if (!hasActivity){
-        idle.classList.add('show');
-        const line = document.getElementById('stIdleLine');
-        line.innerHTML = (status === 'offline'
-            ? '&gt; host unreachable \u00b7 last seen ' + escapeHtml(localStorage.getItem(LAST_ONLINE_KEY) ? formatLastSeen(Date.now() - parseInt(localStorage.getItem(LAST_ONLINE_KEY),10)) : 'a while ago')
-            : '&gt; system idle \u00b7 no game or music running')
-            + '<span class="st-idle-cursor"></span>';
+        social.classList.add('show');
+        const avatarEl = document.getElementById('stSocialAvatar');
+        if (avatarEl && d.discord_user && d.discord_user.id && d.discord_user.avatar){
+            const av = d.discord_user.avatar;
+            const ext = av.startsWith('a_') ? 'gif' : 'png';
+            avatarEl.src = `https://cdn.discordapp.com/avatars/${d.discord_user.id}/${av}.${ext}?size=128`;
+        }
+        const lastOnlineEl = document.getElementById('stSocialLastOnline');
+        if (lastOnlineEl){
+            const stored = localStorage.getItem(LAST_ONLINE_KEY);
+            lastOnlineEl.innerHTML = status !== 'offline'
+                ? '<i class="fas fa-circle"></i> online now'
+                : '<i class="fas fa-circle"></i> last online ' + escapeHtml(stored ? formatLastSeen(Date.now() - parseInt(stored, 10)) : 'a while ago');
+        }
     } else {
-        idle.classList.remove('show');
+        social.classList.remove('show');
     }
 }
 
@@ -1794,11 +1726,7 @@ function updateSpotifyProgress(){
 /* 1s ticker for live timers */
 setInterval(() => { safeRun(updateActivityElapsed); safeRun(updateSpotifyProgress); }, 1000);
 
-/* =====================================================================
-   SYNCED LYRICS — LRCLIB (free, no API key)
-   Uses the same spotifyTimes {start,end} the progress bar above already
-   tracks, so the highlighted line stays in sync with zero extra polling.
-   ===================================================================== */
+/* SYNCED LYRICS — LRCLIB (free, no API key) */
 let lyricsLines = null;        // [{ time:seconds|null, text }] — time is null for plain/unsynced lyrics
 let lyricsIsSynced = false;
 let lyricsActiveIndex = -1;
@@ -1941,20 +1869,7 @@ async function loadLyricsFor(song, artist){
     fallbackFetch();
 })();
 
-/* =====================================================================
-   COPY COORDINATES
-   ===================================================================== */
-function copyCoords(){
-    if (navigator.clipboard){
-        navigator.clipboard.writeText(COORDS).then(() => showToast('copied coordinates', 'fa-location-dot')).catch(() => showToast('couldn\u2019t copy', 'fa-location-dot'));
-    } else {
-        showToast(COORDS, 'fa-location-dot');
-    }
-}
-
-/* =====================================================================
-   SESSION TIMER
-   ===================================================================== */
+/* SESSION TIMER */
 const sessionStart = Date.now();
 setInterval(() => {
     const secs = Math.floor((Date.now() - sessionStart) / 1000);
@@ -1963,9 +1878,7 @@ setInterval(() => {
     if (el) el.textContent = m + ':' + String(s).padStart(2, '0');
 }, 1000);
 
-/* =====================================================================
-   TAB SWITCHING (keyboard 1/2/3)
-   ===================================================================== */
+/* TAB SWITCHING (keyboard 1/2/3) */
 function switchTab(tab){
     document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.toggle('active', btn.dataset.tab === tab));
     document.querySelectorAll('.tab-panel').forEach(panel => panel.classList.toggle('active', panel.id === 'tab-' + tab));
@@ -1974,26 +1887,17 @@ function switchTab(tab){
 document.addEventListener('keydown', e => {
     const tag = document.activeElement && document.activeElement.tagName;
     if (tag === 'INPUT' || tag === 'TEXTAREA') return;
-    const map = { '1':'intel', '2':'vibe', '3':'music' };
+    const map = { '1':'intel', '2':'anime', '3':'vibe', '4':'music' };
     if (map[e.key]){ switchTab(map[e.key]); SFX.tab(); }
 });
 
-/* =====================================================================
-   LOADING BARS
-   ===================================================================== */
+/* LOADING BARS */
 function renderBar(container, pct){
     if (!container) return;
     const fill = container.querySelector('.loadbar-fill');
     if (!fill) return;
     fill.style.width = Math.max(0, Math.min(100, pct)) + '%';
 }
-function initStatBlocks(){
-    document.querySelectorAll('#statBlocks .stat-block').forEach(block => {
-        const pct = parseFloat(block.dataset.pct) || 0;
-        renderBar(block.querySelector('[data-bar]'), pct);
-    });
-}
-safeRun(initStatBlocks);
 
 /* BIRTHDAY */
 function nextBirthdayDetail(month, day){
@@ -2021,9 +1925,7 @@ function initBirthday(){
 safeRun(initBirthday);
 setInterval(() => safeRun(initBirthday), 60000);
 
-/* =====================================================================
-   PLAYLIST WIDGET + AUDIO VISUALIZER
-   ===================================================================== */
+/* PLAYLIST WIDGET + AUDIO VISUALIZER */
 function shuffleArray(arr){
     const a = arr.slice();
     for (let i = a.length - 1; i > 0; i--){ const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; }
@@ -2191,9 +2093,7 @@ window.addEventListener('resize', resizeViz);
     });
 })();
 
-/* =====================================================================
-   LAST.FM — now playing / recent / weekly rotation
-   ===================================================================== */
+/* LAST.FM — now playing / recent / weekly rotation */
 function timeAgo(unixSeconds){
     const diff = Math.max(0, Date.now() / 1000 - unixSeconds);
     if (diff < 60) return 'just now';
@@ -2265,9 +2165,85 @@ async function fetchTopArtists(){
         wrap.innerHTML = '<p style="font-size:12px;color:var(--ink-faint);">couldn\u2019t load this week\u2019s rotation.</p>';
     }
 }
-fetchNowPlaying(); fetchRecent(); fetchTopArtists();
+fetchNowPlaying(); fetchRecent(); fetchTopArtists(); fetchLfmStats();
 setInterval(fetchNowPlaying, 30000);
 setInterval(fetchRecent, 60000);
+
+/* LAST.FM — lifetime/monthly/yearly stats shown above "now playing" */
+async function fetchLfmStats(){
+    const ids = ['lfmStatScrobbles','lfmStatArtists','lfmStatMonth','lfmStatYear'];
+    try{
+        const infoRes = await fetch(`https://ws.audioscrobbler.com/2.0/?method=user.getinfo&user=${LFM_USER}&api_key=${LFM_KEY}&format=json`);
+        const info = await infoRes.json();
+        const u = info?.user;
+        if (u){
+            document.getElementById('lfmStatScrobbles').textContent = Number(u.playcount || 0).toLocaleString();
+            document.getElementById('lfmStatArtists').textContent = Number(u.artist_count || 0).toLocaleString();
+        }
+        const now = new Date();
+        const monthStart = Math.floor(new Date(now.getFullYear(), now.getMonth(), 1).getTime() / 1000);
+        const yearStart = Math.floor(new Date(now.getFullYear(), 0, 1).getTime() / 1000);
+        const nowUts = Math.floor(Date.now() / 1000);
+        const [monthRes, yearRes] = await Promise.all([
+            fetch(`https://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=${LFM_USER}&api_key=${LFM_KEY}&format=json&from=${monthStart}&to=${nowUts}&limit=1`),
+            fetch(`https://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=${LFM_USER}&api_key=${LFM_KEY}&format=json&from=${yearStart}&to=${nowUts}&limit=1`)
+        ]);
+        const monthData = await monthRes.json();
+        const yearData = await yearRes.json();
+        document.getElementById('lfmStatMonth').textContent = Number(monthData?.recenttracks?.['@attr']?.total || 0).toLocaleString();
+        document.getElementById('lfmStatYear').textContent = Number(yearData?.recenttracks?.['@attr']?.total || 0).toLocaleString();
+    }catch(err){
+        ids.forEach(id => { const el = document.getElementById(id); if (el) el.textContent = '\u2014'; });
+    }
+}
+
+/* ANILIST — profile stats + currently-watching grid (falls back to favorites) */
+async function fetchAniList(){
+    const grid = document.getElementById('animeGrid');
+    const label = document.getElementById('animeListLabel');
+    if (!grid) return;
+    const query = `query($name:String){
+        User(name:$name){ statistics{ anime{ count meanScore episodesWatched minutesWatched } } favourites{ anime{ nodes{ title{ romaji english } coverImage{ large } siteUrl episodes } } } }
+        current: MediaListCollection(userName:$name, type:ANIME, status:CURRENT){ lists{ entries{ progress media{ title{ romaji english } coverImage{ large } siteUrl episodes } } } }
+    }`;
+    try{
+        const res = await fetch('https://graphql.anilist.co', {
+            method: 'POST',
+            headers: { 'Content-Type':'application/json', 'Accept':'application/json' },
+            body: JSON.stringify({ query, variables:{ name: ANILIST_USERNAME } })
+        });
+        const json = await res.json();
+        const data = json.data;
+        const stats = data?.User?.statistics?.anime;
+        if (stats){
+            document.getElementById('animeStatCount').textContent = stats.count ?? '\u2014';
+            document.getElementById('animeStatScore').textContent = stats.meanScore ? stats.meanScore.toFixed(1) : '\u2014';
+            document.getElementById('animeStatEps').textContent = Number(stats.episodesWatched || 0).toLocaleString();
+            document.getElementById('animeStatDays').textContent = stats.minutesWatched ? Math.round(stats.minutesWatched / 1440) : '\u2014';
+        }
+        let entries = (data?.current?.lists || []).flatMap(l => l.entries || []);
+        let showProgress = true;
+        if (!entries.length){
+            entries = (data?.User?.favourites?.anime?.nodes || []).map(m => ({ media:m, progress:null }));
+            showProgress = false;
+            if (label) label.textContent = 'favorite anime';
+        }
+        if (!entries.length){ grid.innerHTML = '<p style="font-size:12px;color:var(--ink-faint);">nothing to show right now.</p>'; return; }
+        grid.innerHTML = entries.slice(0, 10).map(e => {
+            const m = e.media;
+            const title = m.title.english || m.title.romaji;
+            const badge = (showProgress && e.progress) ? `<span class="anime-tile-progress">${e.progress}${m.episodes ? '/' + m.episodes : ''}</span>` : '';
+            return `<a class="anime-tile" href="${m.siteUrl}" target="_blank" rel="noopener">
+                <img src="${m.coverImage.large}" alt="${escapeHtml(title)}" loading="lazy">
+                ${badge}
+                <span class="anime-tile-title">${escapeHtml(title)}</span>
+            </a>`;
+        }).join('');
+    }catch(err){
+        grid.innerHTML = '<p style="font-size:12px;color:var(--ink-faint);">couldn\u2019t load AniList data.</p>';
+    }
+}
+fetchAniList();
 </script>
 </body>
 </html>
