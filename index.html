@@ -846,6 +846,54 @@ html.custom-cursor-active *{ cursor:none !important; }
     if (themeMeta) themeMeta.setAttribute('content', base);
 })();
 </script>
+
+    <script>
+/* Minimal entry-overlay logic so onclick="enterSite()" works.
+   Safe: does not depend on optional globals (SFX, startPlaylistOnEntry). */
+(function(){
+  // start with page locked while overlay is visible
+  document.body.classList.add('no-scroll');
+
+  let entered = false;
+  window.enterSite = function enterSite(){
+    if (entered) return;
+    entered = true;
+    const overlay = document.getElementById('entry-overlay');
+    if (!overlay) return;
+    overlay.classList.add('hidden');
+    document.body.classList.remove('no-scroll');
+    // remove from layout after transition finishes
+    setTimeout(() => { overlay.style.display = 'none'; }, 750);
+    // If the optional audio/sfx or playlist functions exist, call them:
+    try { if (window.SFX && typeof SFX.resume === 'function') SFX.resume(); } catch(e) {}
+    try { if (window.SFX && typeof SFX.tab === 'function') SFX.tab(); } catch(e) {}
+    try { if (typeof startPlaylistOnEntry === 'function') startPlaylistOnEntry(); } catch(e) {}
+  };
+
+  function typeOnce(el, text, speed){
+    if (!el) return;
+    // respect reduced motion setting
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion:reduce)').matches){
+      el.textContent = text;
+      return;
+    }
+    let i = 0;
+    (function step(){
+      el.textContent = text.slice(0, i);
+      if (i < text.length){ i++; setTimeout(step, speed || 55); }
+    })();
+  }
+
+  // When DOM is ready, start typing the prompt
+  if (document.readyState === 'complete' || document.readyState === 'interactive'){
+    typeOnce(document.getElementById('entryText'), 'Click to enter');
+  } else {
+    document.addEventListener('DOMContentLoaded', function(){
+      typeOnce(document.getElementById('entryText'), 'Click to enter');
+    });
+  }
+})();
+    </script>
 </head>
 <body>
 
