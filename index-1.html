@@ -1,0 +1,2696 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Ash</title>
+<meta name="description" content="tuffest bio ever.">
+<meta name="theme-color" content="#0a0a0b">
+
+<!-- Favicon -->
+<link rel="icon" id="faviconMain" type="image/png" href="favicon/favicon-32.png">
+
+<!-- Banner — the "favicon" for link previews (Discord/Twitter/etc embeds) -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="Ash">
+<meta property="og:description" content="tuffest bio ever.">
+<meta property="og:image" id="bannerOg" content="banner/banner.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Ash">
+<meta name="twitter:image" id="bannerTwitter" content="banner/banner.png">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+<!-- Font preloads -->
+<link rel="preload" href="fonts/Ngaco.otf" as="font" type="font/otf" crossorigin>
+<link rel="preload" href="fonts/JandaManateeSolid.ttf" as="font" type="font/ttf" crossorigin>
+<link rel="preload" href="fonts/JandaManateeBubble.ttf" as="font" type="font/ttf" crossorigin>
+<link rel="preload" href="fonts/OldNewspaper.ttf" as="font" type="font/ttf" crossorigin>
+
+<style>
+/* 0. FONTS */
+@font-face{
+    font-family:'Ngaco';
+    src:url('fonts/Ngaco.otf') format('opentype'), url('fonts/Ngaco.ttf') format('truetype');
+    font-display:block;
+}
+@font-face{
+    font-family:'JandaManateeSolid';
+    src:url('fonts/JandaManateeSolid.ttf') format('truetype');
+    font-display:block;
+}
+@font-face{
+    font-family:'JandaManateeBubble';
+    src:url('fonts/JandaManateeBubble.ttf') format('truetype');
+    font-display:block;
+}
+/* Old newspaper font — Bio tab "About Me" box */
+@font-face{
+    font-family:'OldNewspaper';
+    src:url('fonts/OldNewspaper.ttf') format('truetype');
+    font-display:block;
+}
+
+/* 1. DESIGN TOKENS */
+:root{
+    --bg:#0a0a0c;
+    --bg-strong:#050506;
+
+    --ink:#ECECE8;
+    --ink-soft:rgba(236,236,232,.68);
+    --ink-faint:rgba(236,236,232,.42);
+    --on-accent:#0e0d0a;
+
+    /* default accent (buttons, carets, generic highlights) — dark warm gold/brown */
+    --accent:#B5895A;
+    --accent-strong:#D1A879;
+    --accent-soft:rgba(181,137,90,.18);
+
+    /* extra dark hues sprinkled around the UI */
+    --blue:#3E5C78;        --blue-strong:#6E93B3;  --blue-soft:rgba(62,92,120,.22);
+    --green:#42604B;       --green-strong:#74A481; --green-soft:rgba(66,96,75,.22);
+    --red:#7A3F3F;         --red-strong:#B06B6B;   --red-soft:rgba(122,63,63,.22);
+    --brown:#6B4E32;       --brown-strong:#A17E51; --brown-soft:rgba(107,78,50,.22);
+    --yellow:#8A7A3E;      --yellow-strong:#CBB25E; --yellow-soft:rgba(138,122,62,.22);
+
+    --line:rgba(236,236,232,.10);
+    --line-strong:rgba(236,236,232,.18);
+
+    /* Full-glass panel system */
+    --panel:rgba(10,10,12,0);
+    --panel-strong:rgba(10,10,12,.10);
+    --panel-blur:28px;
+    --glass-border:rgba(255,255,255,.14);
+
+    --shadow-sm:0 8px 20px -12px rgba(0,0,0,.6);
+    --shadow-md:0 20px 44px -20px rgba(0,0,0,.7);
+    --shadow-glass:0 24px 60px -30px rgba(0,0,0,.85), inset 0 1px 0 rgba(255,255,255,.06);
+
+    --radius-lg:28px;
+    --radius-md:20px;
+    --radius-sm:16px;
+
+    --font-display:'Ngaco', cursive;
+    --font-accent:'JandaManateeSolid', cursive;
+    --font-body:'JandaManateeBubble', cursive;
+    --font-newspaper:'OldNewspaper', 'Times New Roman', serif;
+}
+
+*,*::before,*::after{ box-sizing:border-box; margin:0; padding:0; }
+
+html{ -webkit-text-size-adjust:100%; background:var(--bg); }
+html,body{
+    min-height:100vh;
+    font-family:var(--font-body);
+    color:var(--ink);
+    background:transparent;
+    overflow-x:hidden;
+    scroll-behavior:smooth;
+}
+body{ position:relative; }
+body.no-scroll{ overflow:hidden; height:100vh; }
+img{ max-width:100%; display:block; }
+button{ font:inherit; background:none; border:none; color:inherit; }
+a{ color:inherit; text-decoration:none; }
+ul{ list-style:none; }
+
+:focus-visible{ outline:1.5px solid var(--accent-strong); outline-offset:3px; border-radius:6px; }
+
+::-webkit-scrollbar{ width:8px; }
+::-webkit-scrollbar-track{ background:transparent; }
+::-webkit-scrollbar-thumb{ background:rgba(236,236,232,.16); border-radius:4px; }
+::-webkit-scrollbar-thumb:hover{ background:rgba(236,236,232,.28); }
+
+/* 2. BACKGROUND */
+#bg-video{
+    position:fixed; inset:0; z-index:-3; pointer-events:none;
+    width:100%; height:100%; object-fit:cover;
+    display:block !important;
+}
+#bg-tint{
+    position:fixed; inset:0; z-index:-2; pointer-events:none;
+    background:
+        radial-gradient(ellipse 65% 50% at 15% 10%, var(--accent-soft) 0%, transparent 62%),
+        radial-gradient(ellipse 60% 55% at 88% 92%, var(--accent-soft) 0%, transparent 65%),
+        radial-gradient(ellipse 80% 60% at 50% 50%, rgba(0,0,0,0) 0%, rgba(0,0,0,.35) 100%),
+        var(--bg);
+}
+body.has-bg-video #bg-tint{ background:rgba(6,6,7,.6); }
+
+/* 2b. FILM GRAIN */
+#bg-grain{
+    position:fixed; inset:0; z-index:2; pointer-events:none;
+    opacity:.05; mix-blend-mode:overlay;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    animation:grainShift 9s steps(8) infinite;
+}
+@keyframes grainShift{
+    0%,100%{ transform:translate(0,0); }
+    10%{ transform:translate(-2%,-3%); }
+    30%{ transform:translate(3%,2%); }
+    50%{ transform:translate(-3%,3%); }
+    70%{ transform:translate(2%,-2%); }
+    90%{ transform:translate(-2%,2%); }
+}
+@media (prefers-reduced-motion:reduce){ #bg-grain{ animation:none; } }
+
+/* 3. ENTRY OVERLAY */
+#entry-overlay{
+    position:fixed; inset:0; z-index:9999; cursor:pointer;
+    display:flex; align-items:center; justify-content:center;
+    background:rgba(6,6,7,.72);
+    backdrop-filter:blur(7px) saturate(105%);
+    -webkit-backdrop-filter:blur(7px) saturate(105%);
+    transition:opacity .7s ease, visibility .7s ease, backdrop-filter .7s ease;
+    padding:24px; text-align:center;
+}
+#entry-overlay.hidden{ opacity:0; visibility:hidden; pointer-events:none; backdrop-filter:blur(0); -webkit-backdrop-filter:blur(0); }
+
+.entry-inner{ display:flex; flex-direction:column; align-items:center; gap:14px; }
+.entry-text{
+    font-family:var(--font-display);
+    font-size:clamp(2rem,8vw,3.4rem);
+    color:var(--ink);
+    letter-spacing:.5px;
+    min-height:1.3em;
+    display:inline-flex; align-items:center; justify-content:center;
+}
+.entry-sub{ font-family:var(--font-accent); font-size:12px; letter-spacing:2px; text-transform:uppercase; color:var(--ink-faint); }
+.entry-caret{
+    display:inline-block; margin-left:3px; width:2px; height:.9em;
+    background:var(--accent-strong);
+    animation:caretBlink 1s step-end infinite;
+}
+@keyframes caretBlink{ 50%{ opacity:0; } }
+@media (prefers-reduced-motion:reduce){ .entry-caret{ animation:none; } }
+
+/* 4. LAYOUT SHELL */
+#app-shell{
+    position:relative; z-index:1;
+    max-width:460px; margin:0 auto;
+    padding:26px 18px 60px;
+    display:flex; flex-direction:column; align-items:center; gap:22px;
+}
+.layout-grid{ width:100%; display:flex; flex-direction:column; gap:22px; }
+
+@media (min-width:820px){
+    #app-shell{ max-width:980px; padding:48px 32px 80px; }
+    .layout-grid{
+        display:grid; grid-template-columns:300px 1fr;
+        align-items:start; gap:32px;
+    }
+}
+@media (min-width:1180px){
+    #app-shell{ max-width:1120px; }
+    .layout-grid{ grid-template-columns:320px 1fr; gap:42px; }
+}
+
+/* 5. CARD SURFACE — fully transparent: no fill, no border, no blur, no glow.
+   Only the text and interactive elements inside should read as "present". */
+.card{
+    background:transparent;
+    border:none;
+    border-radius:var(--radius-lg);
+    box-shadow:none;
+    position:relative; overflow:visible;
+    /* compositor layer fix */
+    transform:translateZ(0);
+}
+
+/* dynamic sheen effect retired along with the glass panel look — kept hidden
+   rather than deleted so initCardSheen() has no missing-element errors */
+.card .card-sheen{ display:none; }
+
+/* signature corner brackets — retired with the card borders */
+.card-corner{
+    display:none;
+}
+.card-corner.tl{ top:10px; left:10px; border-top:2px solid; border-left:2px solid; border-radius:6px 0 0 0; }
+.card-corner.tr{ top:10px; right:10px; border-top:2px solid; border-right:2px solid; border-radius:0 6px 0 0; }
+.card-corner.bl{ bottom:10px; left:10px; border-bottom:2px solid; border-left:2px solid; border-radius:0 0 0 6px; }
+.card-corner.br{ bottom:10px; right:10px; border-bottom:2px solid; border-right:2px solid; border-radius:0 0 6px 0; }
+.profile-card:hover .card-corner{ opacity:1; }
+
+/* 6. PROFILE CARD */
+.profile-card-stage{ width:100%; }
+.profile-card{
+    width:100%; padding:34px 26px 28px;
+    display:flex; flex-direction:column; align-items:center; text-align:center; gap:14px;
+    opacity:0; transform:translateY(14px) scale(.985);
+    animation:profileCardIn .7s cubic-bezier(.16,1,.3,1) .05s forwards;
+}
+@keyframes profileCardIn{ to{ opacity:1; transform:translateY(0) scale(1); } }
+@media (prefers-reduced-motion:reduce){ .profile-card{ animation:none; opacity:1; transform:none; } }
+@media (min-width:820px){ .profile-card-stage{ position:sticky; top:36px; } }
+
+.profile-card > *:not(.card-sheen):not(.card-corner){ position:relative; z-index:2; }
+
+.profile-meta{
+    font-family:var(--font-accent); font-size:12px; letter-spacing:1.5px; text-transform:uppercase;
+    color:var(--ink-faint);
+}
+.greeting-line{
+    font-family:var(--font-accent); font-size:12px; letter-spacing:1.5px; text-transform:uppercase;
+    color:var(--accent-strong); display:flex; align-items:center; gap:6px;
+}
+
+/* AVATAR STACK */
+.avatar-wrap{
+    position:relative; width:128px; height:128px; margin:6px 0 2px;
+    --deco-scale:1.22;
+}
+.avatar-halo{
+    position:absolute; left:50%; top:50%; z-index:0;
+    width:150%; height:150%; transform:translate(-50%,-50%);
+    border-radius:50%; pointer-events:none;
+    background:radial-gradient(circle, var(--accent-soft) 0%, transparent 68%);
+    animation:haloPulse 4.5s ease-in-out infinite;
+}
+@keyframes haloPulse{ 0%,100%{ opacity:.55; transform:translate(-50%,-50%) scale(.94); } 50%{ opacity:1; transform:translate(-50%,-50%) scale(1.04); } }
+@media (prefers-reduced-motion:reduce){ .avatar-halo{ animation:none; } }
+/* avatar image */
+.avatar-ring{
+    position:absolute; inset:0; z-index:1; border-radius:50%; padding:0;
+    border:none; background:transparent; box-shadow:none;
+}
+.avatar-ring-inner{ width:100%; height:100%; border-radius:50%; overflow:hidden; background:var(--bg-strong); }
+.profile-pic{ width:100%; height:100%; border-radius:50%; object-fit:cover; }
+.avatar-fallback{
+    width:100%; height:100%; display:none; align-items:center; justify-content:center;
+    font-family:var(--font-display); font-size:44px; color:var(--ink);
+    background:var(--panel-strong);
+}
+/* avatar decoration */
+.avatar-decoration{
+    position:absolute; left:50%; top:50%; z-index:3;
+    width:calc(100% * var(--deco-scale)); height:calc(100% * var(--deco-scale));
+    max-width:none; max-height:none;
+    transform:translate(-50%,-50%);
+    object-fit:contain; pointer-events:none; display:none;
+}
+
+.header-name{
+    font-family:var(--font-display); font-weight:400; font-size:clamp(2.1rem,6vw,2.8rem);
+    color:var(--ink); letter-spacing:.5px;
+}
+
+.status-line{ display:flex; align-items:center; gap:7px; font-size:13px; color:var(--ink-soft); font-family:var(--font-body); flex-wrap:wrap; justify-content:center; }
+.status-dot{ width:6px; height:6px; border-radius:50%; background:var(--ink-faint); transition:background .3s ease; flex-shrink:0; }
+.discord-custom-status{ font-family:var(--font-body); font-size:13px; color:var(--ink-faint); text-align:center; max-width:280px; display:none; }
+
+.tagline{ font-family:var(--font-body); font-size:16px; color:var(--ink-soft); max-width:300px; min-height:44px; line-height:1.6; }
+.tagline-cursor{ display:inline-block; margin-left:2px; color:var(--accent-strong); animation:caretBlink 1s step-end infinite; }
+@media (prefers-reduced-motion:reduce){ .tagline-cursor{ animation:none; } }
+
+.social-row{ display:flex; gap:10px; margin-top:4px; flex-wrap:wrap; justify-content:center; }
+.social-btn{
+    width:40px; height:40px; border-radius:var(--radius-sm); display:flex; align-items:center; justify-content:center;
+    background:var(--panel-strong); border:1px solid var(--line); color:var(--ink-soft); font-size:15px;
+    box-shadow:var(--shadow-sm); transition:color .25s ease, border-color .25s ease, transform .25s ease;
+}
+.social-btn:hover{ transform:translateY(-2px); }
+.social-btn img{ width:17px; height:17px; object-fit:contain; }
+.social-btn.discord:hover{ color:var(--blue-strong); border-color:var(--blue-soft); }
+.social-btn.github:hover{ color:var(--brown-strong); border-color:var(--brown-soft); }
+.social-btn.anilist:hover{ color:var(--green-strong); border-color:var(--green-soft); }
+.social-btn.spotify:hover{ color:var(--green-strong); border-color:var(--green-soft); }
+
+.local-time-chip{
+    font-family:var(--font-accent); font-size:12px; color:var(--ink-faint); letter-spacing:.3px;
+    border-top:1px solid var(--line); padding-top:12px; margin-top:6px; width:100%;
+    display:flex; flex-direction:column; gap:7px;
+}
+.ltc-row{ display:flex; align-items:center; justify-content:center; gap:6px; }
+.ltc-row i{ color:var(--accent-strong); font-size:10px; }
+
+/* 7. RESPONSIVE SECTION NAV + PANELS
+   Mobile: a floating toggle opens a glassy off-canvas drawer on the left.
+   Desktop: the same nav sits as a collapsible bar above the main card. */
+.content-col{ width:100%; display:flex; flex-direction:column; gap:18px;
+    opacity:0; transform:translateY(14px); animation:profileCardIn .7s cubic-bezier(.16,1,.3,1) .16s forwards; }
+.tab-shell{ display:flex; flex-direction:column; gap:16px; width:100%; }
+@media (prefers-reduced-motion:reduce){ .content-col{ animation:none; opacity:1; transform:none; } }
+
+.nav-toggle{
+    position:fixed; top:18px; left:18px; z-index:1002;
+    display:flex; align-items:center; justify-content:center; gap:8px;
+    width:44px; height:44px; border-radius:var(--radius-sm); cursor:pointer;
+    background:var(--panel-strong); backdrop-filter:blur(var(--panel-blur)) saturate(120%);
+    -webkit-backdrop-filter:blur(var(--panel-blur)) saturate(120%);
+    border:1px solid var(--glass-border); box-shadow:var(--shadow-glass);
+    color:var(--ink-soft); font-size:16px;
+    transition:color .2s ease, border-color .2s ease, transform .2s ease;
+}
+.nav-toggle:hover{ color:var(--ink); border-color:var(--accent-soft); transform:translateY(-1px); }
+.nav-toggle:active{ transform:translateY(0) scale(.95); }
+.nav-toggle-label{ display:none; }
+
+.nav-overlay{
+    position:fixed; inset:0; z-index:999;
+    background:rgba(5,5,6,.6);
+    opacity:0; visibility:hidden; pointer-events:none;
+    transition:opacity .3s ease, visibility .3s ease;
+}
+.nav-overlay.show{ opacity:1; visibility:visible; pointer-events:auto; }
+
+.site-nav{
+    display:flex; flex-direction:column; gap:4px;
+    position:fixed; top:0; left:0; z-index:1001;
+    height:100vh; width:min(78vw, 280px);
+    padding:82px 14px 24px;
+    background:var(--panel-strong); backdrop-filter:blur(var(--panel-blur)) saturate(120%);
+    -webkit-backdrop-filter:blur(var(--panel-blur)) saturate(120%);
+    border-right:1px solid var(--glass-border);
+    border-radius:0 var(--radius-lg) var(--radius-lg) 0;
+    box-shadow:var(--shadow-glass);
+    transform:translateX(-105%);
+    transition:transform .38s cubic-bezier(.16,1,.3,1);
+    overflow-y:auto;
+}
+.site-nav.nav-open{ transform:translateX(0); }
+@media (prefers-reduced-motion:reduce){ .site-nav{ transition:none; } }
+
+.tab-btn{
+    width:100%; padding:12px 14px; border-radius:var(--radius-sm); cursor:pointer; white-space:nowrap;
+    font-family:var(--font-accent); font-size:14px; letter-spacing:.3px;
+    color:var(--ink-faint); display:flex; align-items:center; justify-content:flex-start; gap:11px;
+    border:1px solid transparent;
+    transition:color .2s ease, background .2s ease, border-color .2s ease, box-shadow .2s ease, transform .15s ease;
+}
+.tab-btn i, .tab-btn img.tab-icon{ font-size:13px; opacity:.85; width:15px; text-align:center; flex-shrink:0; }
+.tab-btn img.tab-icon{ height:14px; object-fit:contain; }
+.tab-btn:hover{ color:var(--ink); background:rgba(255,255,255,.04); }
+.tab-btn:active{ transform:translateX(1px); }
+.tab-btn.active{
+    color:var(--ink); background:var(--accent-soft); border-color:var(--glass-border);
+    box-shadow:0 0 0 1px var(--accent-soft), 0 0 18px -6px var(--accent-strong);
+}
+
+/* Desktop — the nav becomes a horizontal bar above the card, still
+   collapsible via the same toggle button (now inline, not floating). */
+@media (min-width:820px){
+    .nav-overlay{ display:none; }
+    .nav-toggle{
+        position:static; width:auto; height:auto; padding:10px 18px; margin-bottom:14px;
+        border-radius:var(--radius-sm);
+    }
+    .nav-toggle-label{
+        display:inline; font-family:var(--font-accent); font-size:12px; letter-spacing:1.2px; text-transform:uppercase;
+    }
+    .site-nav{
+        position:static; height:auto; width:100%; padding:14px 16px; margin-bottom:4px;
+        flex-direction:row; flex-wrap:wrap; justify-content:center; gap:8px;
+        border:1px solid var(--glass-border); border-radius:var(--radius-lg);
+        transform:none; overflow:visible;
+        max-height:600px; opacity:1;
+        transition:max-height .35s ease, opacity .3s ease, padding .3s ease, margin .3s ease, border-color .3s ease;
+    }
+    .site-nav:not(.nav-open){
+        max-height:0; opacity:0; padding-top:0; padding-bottom:0; margin-bottom:0;
+        border-color:transparent; overflow:hidden; pointer-events:none;
+    }
+    .tab-btn{ width:auto; padding:10px 18px; }
+}
+
+.tab-panels{ flex:1; min-width:0; display:flex; flex-direction:column; }
+.tab-panel{ display:none; flex-direction:column; gap:18px; }
+.tab-panel.active{ display:flex; animation:panelIn .35s ease; }
+@keyframes panelIn{ from{ opacity:0; transform:translateY(8px); } to{ opacity:1; transform:translateY(0); } }
+
+.panel-card{ padding:28px 24px 26px; }
+.panel-eyebrow{
+    font-family:var(--font-accent); font-size:11px; letter-spacing:2px; text-transform:uppercase; color:var(--accent-strong);
+    display:inline-flex; align-items:center; gap:7px; margin-bottom:12px;
+    padding:5px 12px 5px 10px; border-radius:99px;
+    background:var(--accent-soft); border:1px solid var(--accent-soft);
+}
+.panel-eyebrow i{ font-size:10px; }
+/* tab accent color */
+.panel-title{
+    font-family:var(--font-display); font-weight:400; font-size:clamp(1.6rem,3vw,2rem); color:var(--ink);
+    margin-bottom:16px; padding-bottom:14px; border-bottom:1px solid var(--line);
+}
+.about-text{ font-size:15px; line-height:1.75; color:var(--ink-soft); margin-bottom:22px; }
+
+/* "About Me" text block — no box, just clean typography floating on the page */
+.newspaper-box{
+    position:relative;
+    padding:14px 0 0;
+}
+.newspaper-box::before{
+    content:'\201C';
+    position:absolute; top:-20px; left:-4px;
+    font-family:var(--font-display); font-size:64px; line-height:1;
+    color:var(--accent-soft); pointer-events:none;
+}
+.newspaper-text{
+    position:relative; z-index:1;
+    font-family:var(--font-newspaper); font-size:17px; line-height:1.85;
+    color:var(--ink-soft); letter-spacing:.2px;
+}
+.newspaper-text strong{ color:var(--ink); font-weight:700; }
+
+/* 8. LOADING BARS */
+.stat-block{ margin-bottom:20px; }
+.stat-block:last-of-type{ margin-bottom:0; }
+.stat-top{ display:flex; align-items:baseline; justify-content:space-between; gap:10px; margin-bottom:6px; }
+.stat-label{ font-family:var(--font-accent); font-size:16px; color:var(--ink); }
+.stat-pct{ font-family:var(--font-accent); font-size:13px; color:var(--accent-strong); }
+.loadbar{
+    height:8px; border-radius:99px; background:rgba(255,255,255,.06);
+    overflow:hidden; position:relative; border:1px solid var(--line);
+}
+.loadbar-fill{
+    height:100%; width:0%; border-radius:99px;
+    background:linear-gradient(90deg, var(--accent), var(--accent-strong));
+    box-shadow:0 0 10px -1px var(--accent-soft);
+    transition:width .8s cubic-bezier(.4,0,.2,1);
+}
+.stat-note{ font-size:13px; color:var(--ink-faint); margin-top:6px; }
+
+/* 9. INFO BLOCKS / TAGS / BIRTHDAY */
+.info-block{ margin-bottom:22px; }
+.info-block:last-of-type{ margin-bottom:0; }
+.info-block-title{
+    display:flex; align-items:center; gap:8px; font-family:var(--font-accent); font-size:15px;
+    color:var(--ink); margin-bottom:10px;
+}
+.info-block-title i{ color:var(--accent-strong); font-size:11px; }
+.tag-row{ display:flex; flex-wrap:wrap; gap:8px; }
+.tag-chip{
+    font-family:var(--font-accent); font-size:12px; color:var(--ink-soft);
+    background:rgba(255,255,255,.03); border:1px solid var(--line); border-radius:99px; padding:7px 13px;
+    transition:border-color .2s ease, color .2s ease, background .2s ease;
+}
+.tag-chip:hover{ border-color:var(--accent-soft); color:var(--accent-strong); background:var(--accent-soft); }
+.tag-chip.copyable{ cursor:pointer; }
+.tag-chip-featured{ color:var(--ink); border-color:var(--red-soft); background:var(--red-soft); }
+.tag-chip-featured:hover{ border-color:var(--red-soft); color:var(--ink); background:var(--red-soft); }
+
+.bday-line{ font-family:var(--font-accent); font-size:14px; color:var(--ink); margin-bottom:8px; }
+.bday-date{ font-family:var(--font-accent); font-size:12px; color:var(--ink-faint); margin-top:6px; }
+
+/* 10. STATUS PANEL — redesigned gamer/dev dashboard */
+.st-hero{
+    display:flex; align-items:center; gap:16px; margin-bottom:20px;
+}
+.st-hero-avatar-wrap{ position:relative; flex-shrink:0; width:64px; height:64px; }
+.st-hero-avatar{ width:64px; height:64px; border-radius:50%; object-fit:cover; background:var(--panel-strong); border:1px solid var(--line-strong); }
+.st-hero-dot{
+    position:absolute; right:0; bottom:0; width:18px; height:18px; border-radius:50%;
+    border:3px solid #10100f; background:var(--ink-faint);
+    box-shadow:0 0 0 0 rgba(0,0,0,0);
+    transition:background .3s ease, box-shadow .3s ease;
+}
+.st-hero-dot.online{ background:#57d977; box-shadow:0 0 10px 1px rgba(87,217,119,.8); }
+.st-hero-dot.idle{ background:#f0b232; box-shadow:0 0 10px 1px rgba(240,178,50,.8); }
+.st-hero-dot.dnd{ background:#f04747; box-shadow:0 0 10px 1px rgba(240,71,71,.8); }
+.st-hero-dot.offline{ background:#7a7a7a; box-shadow:none; }
+.st-hero-info{ flex:1; min-width:0; }
+.st-hero-name{ font-family:var(--font-display); font-size:22px; color:var(--ink); line-height:1; }
+.st-pill{
+    display:inline-flex; align-items:center; gap:6px; margin-top:7px;
+    font-family:var(--font-accent); font-size:11px; letter-spacing:.6px; text-transform:uppercase;
+    padding:4px 10px; border-radius:99px; border:1px solid transparent;
+    color:var(--ink-faint); background:rgba(255,255,255,.04);
+}
+.st-pill .st-pill-dot{ width:7px; height:7px; border-radius:50%; background:currentColor; animation:pillPulse 2s ease-in-out infinite; }
+@keyframes pillPulse{ 0%,100%{ opacity:1; } 50%{ opacity:.4; } }
+@media (prefers-reduced-motion:reduce){ .st-pill .st-pill-dot{ animation:none; } }
+.st-pill.online{ color:#57d977; border-color:rgba(87,217,119,.35); background:rgba(87,217,119,.10); }
+.st-pill.idle{ color:#f0b232; border-color:rgba(240,178,50,.35); background:rgba(240,178,50,.10); }
+.st-pill.dnd{ color:#f04747; border-color:rgba(240,71,71,.35); background:rgba(240,71,71,.10); }
+.st-pill.offline{ color:#a8a8a8; border-color:rgba(168,168,168,.25); background:rgba(168,168,168,.08); }
+.st-hero-custom{ font-family:var(--font-body); font-size:13.5px; color:var(--ink-soft); margin-top:9px; line-height:1.5; }
+.st-hero-custom .emoji{ margin-right:4px; }
+
+/* activity / game — now just floating text + art, no card */
+.st-activity{
+    display:none; gap:14px; align-items:center;
+    margin-bottom:16px;
+}
+.st-activity.show{ display:flex; }
+.st-act-art-wrap{ position:relative; width:72px; height:72px; flex-shrink:0; }
+.st-act-art{ width:72px; height:72px; border-radius:14px; object-fit:cover; background:var(--panel-strong); border:1px solid var(--line-strong); box-shadow:var(--shadow-sm); }
+.st-act-art-small{ position:absolute; right:-6px; bottom:-6px; width:28px; height:28px; border-radius:8px; object-fit:cover; border:2px solid #12120f; background:var(--panel-strong); display:none; }
+.st-act-info{ flex:1; min-width:0; }
+.st-act-eyebrow{ font-family:var(--font-accent); font-size:10px; letter-spacing:1.5px; text-transform:uppercase; color:var(--accent-strong); display:flex; align-items:center; gap:6px; }
+.st-act-title{ font-family:var(--font-accent); font-size:16px; color:var(--ink); margin-top:4px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.st-act-detail{ font-size:12.5px; color:var(--ink-soft); margin-top:2px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.st-act-state{ font-size:12px; color:var(--ink-faint); margin-top:1px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.st-act-elapsed{ font-family:var(--font-accent); font-size:11px; color:var(--accent-strong); margin-top:6px; letter-spacing:.3px; display:flex; align-items:center; gap:5px; }
+
+/* spotify — floating, no card */
+.st-spotify{
+    display:none; gap:14px; align-items:center;
+    margin-bottom:16px;
+}
+.st-spotify.show{ display:flex; }
+.st-sp-art-wrap{ position:relative; width:72px; height:72px; flex-shrink:0; }
+.st-sp-art{ width:72px; height:72px; border-radius:14px; object-fit:cover; background:var(--panel-strong); box-shadow:var(--shadow-sm); }
+.st-sp-eq{ position:absolute; left:6px; bottom:6px; display:flex; align-items:flex-end; gap:2px; height:16px; }
+.st-sp-eq span{ width:3px; background:#1DB954; border-radius:2px; animation:eqBar .9s ease-in-out infinite; }
+.st-sp-eq span:nth-child(1){ animation-delay:0s; }
+.st-sp-eq span:nth-child(2){ animation-delay:.2s; }
+.st-sp-eq span:nth-child(3){ animation-delay:.4s; }
+.st-sp-eq span:nth-child(4){ animation-delay:.15s; }
+.st-sp-eq span:nth-child(5){ animation-delay:.35s; }
+@keyframes eqBar{ 0%,100%{ height:4px; } 50%{ height:16px; } }
+@media (prefers-reduced-motion:reduce){ .st-sp-eq span{ animation:none; height:9px; } }
+.st-sp-info{ flex:1; min-width:0; }
+.st-sp-eyebrow{ font-family:var(--font-accent); font-size:10px; letter-spacing:1.5px; text-transform:uppercase; color:#1DB954; display:flex; align-items:center; gap:6px; }
+.st-sp-title{ font-family:var(--font-accent); font-size:15px; color:var(--ink); margin-top:4px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.st-sp-artist{ font-size:12.5px; color:var(--ink-soft); margin-top:1px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.st-sp-progress-row{ display:flex; align-items:center; gap:7px; margin-top:9px; }
+.st-sp-time{ font-family:var(--font-accent); font-size:9.5px; color:var(--ink-faint); width:28px; text-align:center; flex-shrink:0; }
+.st-sp-bar{ flex:1; height:4px; border-radius:99px; background:rgba(255,255,255,.12); overflow:hidden; }
+.st-sp-bar-fill{ height:100%; width:0%; border-radius:99px; background:#1DB954; transition:width 1s linear; }
+
+/* merged-into-hero identity bits (used to live in a duplicate second profile card) */
+.st-hero-username{ font-size:12px; color:var(--ink-faint); margin-top:2px; }
+.st-hero-lastonline{
+    font-family:var(--font-accent); font-size:11.5px; color:var(--ink-soft); margin-top:8px;
+    display:none; align-items:center; gap:5px;
+}
+.st-hero-lastonline.show{ display:flex; }
+.st-hero-lastonline i{ color:var(--accent-strong); font-size:9px; }
+
+/* platform presence badges */
+.st-platform-row{ display:flex; gap:7px; margin-top:9px; }
+.st-platform{
+    width:24px; height:24px; border-radius:8px; display:flex; align-items:center; justify-content:center;
+    font-size:11px; color:var(--ink-faint); background:rgba(255,255,255,.03); border:1px solid var(--line);
+    opacity:.4; transition:opacity .3s ease, color .3s ease, border-color .3s ease, background .3s ease;
+}
+.st-platform.active{ opacity:1; color:var(--accent-strong); border-color:var(--accent-soft); background:var(--accent-soft); }
+
+/* quick actions row */
+.st-quick-actions{ display:flex; flex-wrap:wrap; gap:8px; margin-top:16px; }
+.st-quick-action{
+    display:inline-flex; align-items:center; gap:7px; font-family:var(--font-accent); font-size:12px;
+    color:var(--ink-soft); background:rgba(255,255,255,.03); border:1px solid var(--line);
+    border-radius:var(--radius-sm); padding:8px 13px; transition:border-color .2s ease, color .2s ease, transform .15s ease;
+}
+.st-quick-action:hover{ color:var(--ink); border-color:var(--accent-soft); transform:translateY(-1px); }
+.st-quick-action i{ color:var(--accent-strong); font-size:11px; }
+
+.panel-divider{ height:1px; background:var(--line); margin:18px 0; }
+.live-stat-row{ display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap; }
+.live-stat{ display:flex; flex-direction:column; gap:4px; }
+.live-stat-label{ font-family:var(--font-accent); font-size:11px; letter-spacing:1.5px; text-transform:uppercase; color:var(--ink-faint); }
+.live-stat-val{ font-family:var(--font-accent); font-size:15px; color:var(--ink); }
+
+/* 10b. ANIME PANEL (AniList) */
+.anime-stat-row{ display:flex; flex-wrap:wrap; gap:18px 26px; margin-bottom:22px; }
+.anime-stat{ display:flex; flex-direction:column; gap:2px; }
+.anime-stat-val{ font-family:var(--font-accent); font-size:20px; color:var(--ink); }
+.anime-stat-label{ font-family:var(--font-accent); font-size:10px; letter-spacing:1.2px; text-transform:uppercase; color:var(--ink-faint); }
+/* status switcher */
+.anime-status-row{ display:flex; flex-wrap:wrap; gap:8px; margin-bottom:18px; }
+.anime-status-btn{
+    font-family:var(--font-accent); font-size:12px; letter-spacing:.3px; color:var(--ink-faint);
+    background:rgba(255,255,255,.03); border:1px solid var(--line); border-radius:var(--radius-sm);
+    padding:8px 14px; cursor:pointer; transition:color .2s ease, background .25s ease, border-color .25s ease;
+}
+.anime-status-btn:hover{ color:var(--ink); border-color:var(--accent-soft); }
+.anime-status-btn.active{ color:var(--on-accent); background:var(--accent); border-color:var(--accent); }
+.anime-grid{ display:grid; grid-template-columns:repeat(auto-fill,minmax(84px,1fr)); gap:10px; min-height:40px; }
+/* anime grid breakpoints */
+@media (min-width:480px){ .anime-grid{ grid-template-columns:repeat(auto-fill,minmax(100px,1fr)); gap:12px; } }
+@media (min-width:820px){ .anime-grid{ grid-template-columns:repeat(auto-fill,minmax(112px,1fr)); gap:14px; } }
+@media (min-width:1180px){ .anime-grid{ grid-template-columns:repeat(auto-fill,minmax(120px,1fr)); max-width:900px; } }
+.anime-tile{ position:relative; display:block; border-radius:var(--radius-sm); overflow:hidden; aspect-ratio:2/3; background:var(--panel-strong); border:1px solid var(--line); box-shadow:var(--shadow-sm); transition:border-color .25s ease, transform .2s ease; }
+.anime-tile:hover{ border-color:var(--accent-soft); transform:translateY(-2px); }
+.anime-tile img{ width:100%; height:100%; object-fit:cover; display:block; transition:transform .35s ease; }
+.anime-tile:hover img{ transform:scale(1.06); }
+.anime-tile-title{ position:absolute; left:0; right:0; bottom:0; padding:20px 8px 7px; font-family:var(--font-accent); font-size:10.5px; line-height:1.3; color:var(--ink); background:linear-gradient(0deg, rgba(0,0,0,.92), rgba(0,0,0,.5) 60%, transparent); }
+.anime-tile-progress{ position:absolute; top:6px; right:6px; font-family:var(--font-accent); font-size:9.5px; padding:2px 6px; border-radius:99px; background:rgba(5,5,6,.72); color:var(--accent-strong); border:1px solid var(--accent-soft); }
+.anime-tile-score{ position:absolute; top:6px; left:6px; font-family:var(--font-accent); font-size:9.5px; padding:2px 6px; border-radius:99px; background:rgba(5,5,6,.72); color:var(--accent-strong); border:1px solid var(--accent-soft); display:flex; align-items:center; gap:3px; }
+.anime-section-head{ display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom:10px; }
+.anime-section-head .section-label{ margin-bottom:0; }
+.anime-shuffle-btn{
+    width:30px; height:30px; border-radius:var(--radius-sm); display:flex; align-items:center; justify-content:center;
+    color:var(--accent-strong); background:var(--accent-soft); border:1px solid var(--accent-soft); font-size:12px;
+    transition:transform .3s ease;
+}
+.anime-shuffle-btn:hover{ transform:rotate(180deg); }
+.anime-viewall{ display:inline-flex; align-items:center; gap:6px; margin-top:18px; margin-right:16px; font-family:var(--font-accent); font-size:12px; color:var(--accent-strong); cursor:pointer; }
+.anime-viewall:hover{ text-decoration:underline; }
+#animeViewAllIcon{ transition:transform .3s ease; }
+#animeViewAllIcon.open{ transform:rotate(180deg); }
+
+/* 11. AUDIO PANEL */
+.lfm-stat-grid{ display:grid; grid-template-columns:repeat(2,1fr); gap:16px 20px; }
+@media (min-width:480px){ .lfm-stat-grid{ grid-template-columns:repeat(4,1fr); } }
+.lfm-stat{ display:flex; flex-direction:column; gap:2px; }
+.lfm-stat-val{ font-family:var(--font-accent); font-size:20px; color:var(--ink); }
+.lfm-stat-label{ font-family:var(--font-accent); font-size:10px; letter-spacing:1.2px; text-transform:uppercase; color:var(--ink-faint); }
+.lfm-hero{ display:flex; align-items:center; gap:16px; margin-bottom:22px; }
+.lfm-art-wrap{ position:relative; width:70px; height:70px; border-radius:var(--radius-sm); overflow:hidden; box-shadow:var(--shadow-sm); flex-shrink:0; border:1px solid var(--line); }
+.lfm-art{ width:100%; height:100%; object-fit:cover; }
+.lfm-text{ flex:1; min-width:0; }
+.lfm-track-row{ display:flex; align-items:center; gap:8px; }
+.lfm-track{ font-family:var(--font-accent); font-size:17px; color:var(--ink); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.lfm-live-dot{ width:6px; height:6px; border-radius:50%; background:var(--green-strong); flex-shrink:0; display:none; }
+.lfm-live-dot.active{ display:block; }
+.lfm-artist{ font-size:13px; color:var(--ink-soft); margin-top:2px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.lfm-status{ font-family:var(--font-accent); font-size:11px; color:var(--ink-faint); margin-top:4px; letter-spacing:.4px; }
+
+.section-label{ font-family:var(--font-accent); font-size:11px; letter-spacing:2px; text-transform:uppercase; color:var(--ink-faint); margin-bottom:10px; }
+.recent-row{ display:flex; align-items:center; gap:12px; padding:9px 0; border-bottom:1px solid var(--line); }
+.recent-row:last-child{ border-bottom:none; }
+.recent-art{ width:36px; height:36px; border-radius:var(--radius-sm); object-fit:cover; flex-shrink:0; background:var(--panel-strong); border:1px solid var(--line); }
+.recent-text{ flex:1; min-width:0; }
+.recent-track{ font-size:13.5px; font-weight:600; color:var(--ink); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.recent-artist{ font-size:12px; color:var(--ink-faint); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.recent-time{ font-family:var(--font-accent); font-size:10.5px; color:var(--ink-faint); flex-shrink:0; }
+
+.top-artists-row{ display:flex; flex-wrap:wrap; gap:8px; margin-top:24px; }
+.artist-chip{ display:flex; align-items:center; gap:6px; font-size:12px; padding:6px 12px; border-radius:var(--radius-sm); background:var(--accent-soft); border:1px solid var(--accent-soft); color:var(--ink-soft); }
+.artist-chip .rank{ font-family:var(--font-accent); color:var(--accent-strong); font-weight:700; }
+
+/* toast */
+#toast{
+    position:fixed; bottom:26px; left:50%; transform:translate(-50%,20px); z-index:1200;
+    background:var(--panel-strong); color:var(--ink); font-size:13px; font-family:var(--font-accent);
+    padding:11px 18px; border-radius:var(--radius-sm); opacity:0; pointer-events:none; transition:all .3s ease;
+    box-shadow:var(--shadow-md); border:1px solid var(--glass-border);
+    backdrop-filter:blur(16px) saturate(180%); -webkit-backdrop-filter:blur(16px) saturate(180%);
+    display:flex; align-items:center; gap:8px;
+}
+#toast.show{ opacity:1; transform:translate(-50%,0); }
+#toast i{ color:var(--accent-strong); }
+
+/* 11b. AUDIO VISUALIZER + PLAYLIST WIDGET */
+.viz-wrap{
+    position:relative; width:100%; height:64px; margin:4px 0 18px;
+    border-radius:var(--radius-sm); overflow:hidden;
+    background:rgba(0,0,0,.25); border:1px solid var(--line);
+}
+#audioViz{ width:100%; height:100%; display:block; }
+
+.player-widget{ display:flex; gap:18px; align-items:center; }
+.player-cover-wrap{
+    width:100px; height:100px; border-radius:var(--radius-md); overflow:hidden; flex-shrink:0;
+    box-shadow:var(--shadow-md); border:1px solid var(--line-strong); background:var(--panel-strong);
+}
+.player-cover{ width:100%; height:100%; object-fit:cover; }
+.player-info{ flex:1; min-width:0; }
+.player-title{ font-family:var(--font-accent); font-size:16.5px; color:var(--ink); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.player-artist{ font-size:12.5px; color:var(--ink-soft); margin-top:2px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+
+.player-progress-row{ display:flex; align-items:center; gap:8px; margin-top:14px; }
+.player-time{ font-family:var(--font-accent); font-size:10px; color:var(--ink-faint); width:30px; flex-shrink:0; text-align:center; }
+.player-bar{ flex:1; height:4px; border-radius:99px; background:rgba(255,255,255,.08); cursor:pointer; position:relative; }
+.player-bar-fill{ position:absolute; top:0; left:0; bottom:0; width:0%; border-radius:99px; background:linear-gradient(90deg, var(--accent), var(--accent-strong)); pointer-events:none; }
+
+.player-controls{ display:flex; align-items:center; justify-content:center; gap:22px; margin-top:16px; }
+.player-btn{
+    width:34px; height:34px; border-radius:50%; display:flex; align-items:center; justify-content:center;
+    color:var(--ink-soft); font-size:13px; transition:color .2s ease, transform .15s ease, background .2s ease;
+}
+.player-btn:hover{ color:var(--ink); transform:scale(1.08); }
+.player-btn-play{ width:50px; height:50px; background:var(--accent); color:var(--on-accent); font-size:17px; box-shadow:0 10px 24px -10px var(--accent-soft); }
+.player-btn-play:hover{ background:var(--accent-strong); color:var(--on-accent); transform:scale(1.06); }
+
+.player-shuffle-note{
+    font-family:var(--font-accent); font-size:10.5px; color:var(--ink-faint);
+    margin-top:18px; letter-spacing:.4px; display:flex; align-items:center; justify-content:center; gap:6px;
+}
+.player-shuffle-note i{ color:var(--accent-strong); }
+.player-widget.is-empty .player-progress-row,
+.player-widget.is-empty .player-controls{ opacity:.35; pointer-events:none; }
+
+/* 12. FOOTER */
+.site-footer{
+    position:relative; z-index:1; text-align:center; font-family:var(--font-accent); font-size:12px;
+    color:var(--ink-faint); padding:26px 0 40px; letter-spacing:.5px;
+}
+
+/* 13. RESPONSIVE FINE-TUNING */
+@media (max-width:400px){
+    .avatar-wrap{ width:112px; height:112px; }
+    .avatar-fallback{ font-size:38px; }
+}
+
+/* 14. SCROLL REVEAL */
+.reveal-on-scroll{
+    opacity:0; transform:translateY(26px) scale(.98);
+    transition:opacity .65s cubic-bezier(.16,1,.3,1), transform .65s cubic-bezier(.16,1,.3,1);
+}
+.reveal-on-scroll.revealed{ opacity:1; transform:translateY(0) scale(1); }
+
+/* 16. VISITOR BADGE + SHARE BUTTON */
+.mini-chip-row{ display:flex; align-items:center; justify-content:center; gap:8px; flex-wrap:wrap; margin-top:2px; }
+.mini-chip{
+    font-family:var(--font-accent); font-size:11px; letter-spacing:.4px; color:var(--ink-faint);
+    background:rgba(255,255,255,.04); border:1px solid var(--line); border-radius:99px;
+    padding:5px 11px; display:flex; align-items:center; gap:6px; cursor:default;
+}
+.mini-chip i{ color:var(--accent-strong); font-size:10px; }
+.mini-chip.clickable{ cursor:pointer; transition:border-color .2s ease, color .2s ease; }
+.mini-chip.clickable:hover{ border-color:var(--accent-soft); color:var(--ink-soft); }
+.mini-chip.id-badge{ color:var(--accent-strong); border-color:var(--accent-soft); background:var(--accent-soft); font-weight:700; }
+
+/* 17b. CUSTOM CURSOR — a real <img> element tracks the pointer instead of a CSS
+   cursor:url(), because browsers only ever render the first frame of an animated
+   GIF used as a CSS cursor. An <img> plays the GIF properly. No glow/filter/shadow
+   is applied to it — plain image only. */
+html.custom-cursor-active,
+html.custom-cursor-active *{ cursor:none !important; }
+#customCursorImg{
+    position:fixed; top:0; left:0; z-index:10050; pointer-events:none;
+    width:34px; height:34px; display:none;
+    /* intentionally no filter / box-shadow / drop-shadow — no glow around the cursor */
+}
+#customCursorImg.ready{ display:block; }
+
+.heart-sparkle{
+    position:fixed; top:0; left:0; z-index:10000; pointer-events:none;
+    will-change:transform, opacity; line-height:1; user-select:none;
+}
+
+/* 18. EASTER EGG */
+.egg-particle{
+    position:fixed; z-index:10001; pointer-events:none; font-size:20px;
+    animation:eggFall 1.6s ease-in forwards;
+}
+@keyframes eggFall{
+    0%{ transform:translateY(0) rotate(0deg); opacity:1; }
+    100%{ transform:translateY(70vh) rotate(360deg); opacity:0; }
+}
+
+/* 19. TEASER LINK (reused inline "jump to X" style) */
+.comments-teaser-text{ font-size:13px; color:var(--ink-soft); line-height:1.6; }
+.link-inline{
+    display:inline; color:var(--accent-strong); font-family:var(--font-accent); font-size:13px;
+    text-decoration:underline; text-underline-offset:2px; cursor:pointer;
+}
+.link-inline i{ font-size:10px; margin-left:2px; }
+
+/* 20. COMMENTS / GUESTBOOK */
+.comments-section{
+    width:100%; margin-top:8px; padding:28px 24px 26px;
+    background:var(--panel-strong); backdrop-filter:blur(var(--panel-blur)) saturate(120%);
+    -webkit-backdrop-filter:blur(var(--panel-blur)) saturate(120%);
+    border:1px solid var(--glass-border); border-radius:var(--radius-lg); box-shadow:var(--shadow-glass);
+    opacity:0; transform:translateY(14px); animation:profileCardIn .7s cubic-bezier(.16,1,.3,1) .22s forwards;
+}
+@media (prefers-reduced-motion:reduce){ .comments-section{ animation:none; opacity:1; transform:none; } }
+
+.comment-form{ display:flex; flex-direction:column; gap:10px; margin:18px 0 22px; }
+.comment-form input, .comment-form textarea{
+    width:100%; font-family:var(--font-body); font-size:14px; color:var(--ink);
+    background:rgba(255,255,255,.03); border:1px solid var(--line); border-radius:var(--radius-sm);
+    padding:11px 14px; resize:vertical; transition:border-color .2s ease, background .2s ease;
+}
+.comment-form input::placeholder, .comment-form textarea::placeholder{ color:var(--ink-faint); }
+.comment-form input:focus, .comment-form textarea:focus{ outline:none; border-color:var(--accent-soft); background:rgba(255,255,255,.05); }
+.comment-form textarea{ min-height:84px; max-height:220px; }
+.comment-submit{
+    align-self:flex-end; display:inline-flex; align-items:center; gap:8px; cursor:pointer;
+    font-family:var(--font-accent); font-size:13px; letter-spacing:.5px; color:var(--on-accent);
+    background:var(--accent); border-radius:var(--radius-sm); padding:10px 20px;
+    box-shadow:var(--shadow-sm); transition:background .2s ease, transform .15s ease;
+}
+.comment-submit:hover{ background:var(--accent-strong); transform:translateY(-1px); }
+.comment-submit:active{ transform:translateY(0); }
+
+.comment-list{ display:flex; flex-direction:column; gap:14px; }
+.comment-empty{ font-size:13px; color:var(--ink-faint); text-align:center; padding:12px 0; }
+
+.comment-card{
+    padding:16px 18px; border-radius:var(--radius-md);
+    background:rgba(255,255,255,.025); border:1px solid var(--line);
+    transition:border-color .2s ease, background .2s ease;
+    animation:panelIn .3s ease;
+}
+.comment-card:hover{ border-color:var(--line-strong); background:rgba(255,255,255,.04); }
+.comment-head{ display:flex; align-items:baseline; justify-content:space-between; gap:10px; margin-bottom:6px; flex-wrap:wrap; }
+.comment-name{ font-family:var(--font-accent); font-size:13px; color:var(--accent-strong); letter-spacing:.3px; }
+.comment-time{ font-family:var(--font-accent); font-size:10.5px; color:var(--ink-faint); text-transform:uppercase; letter-spacing:1px; }
+.comment-text{ font-family:var(--font-body); font-size:14px; color:var(--ink-soft); line-height:1.55; word-break:break-word; white-space:pre-wrap; }
+
+.comment-actions{ display:flex; align-items:center; gap:10px; margin-top:10px; }
+.comment-vote{
+    display:inline-flex; align-items:center; gap:6px; cursor:pointer;
+    font-family:var(--font-accent); font-size:12.5px; color:var(--ink-faint);
+    padding:5px 11px; border-radius:var(--radius-sm); border:1px solid transparent;
+    transition:color .2s ease, border-color .2s ease, background .2s ease;
+}
+.comment-vote:hover{ color:var(--ink); background:rgba(255,255,255,.04); }
+.comment-vote.active-like{ color:var(--green-strong); border-color:var(--green-soft); background:var(--green-soft); }
+.comment-vote.active-dislike{ color:var(--red-strong); border-color:var(--red-soft); background:var(--red-soft); }
+.comment-vote i{ font-size:11px; }
+</style>
+
+<!-- RANDOM THEME — picks a fresh accent + dark background tint every time the
+     page opens/reloads. Runs inline, before <body> paints, so there's no
+     flash of the default color. See README.md for how this works. -->
+<script>
+(function applyRandomTheme(){
+    function hexToRgb(hex){
+        const h = hex.replace('#','');
+        const n = parseInt(h.length === 3 ? h.split('').map(c => c + c).join('') : h, 16);
+        return [(n >> 16) & 255, (n >> 8) & 255, n & 255];
+    }
+    function toHex(rgb){ return '#' + rgb.map(v => Math.max(0, Math.min(255, Math.round(v))).toString(16).padStart(2,'0')).join(''); }
+    function lighten(rgb, amt){ return rgb.map(v => v + (255 - v) * amt); }
+
+    const THEMES = [
+        { a:'#4A7CD6', bg:'#0a0a0c', bgs:'#050506' },
+        { a:'#3FA9C9', bg:'#08100f', bgs:'#040807' },
+        { a:'#3EC6A0', bg:'#081210', bgs:'#040807' },
+        { a:'#8A6CE0', bg:'#0e0a14', bgs:'#07050a' },
+        { a:'#6C7CE0', bg:'#0a0a14', bgs:'#05050a' },
+        { a:'#D6664A', bg:'#120a08', bgs:'#080504' },
+        { a:'#D9B54A', bg:'#120f08', bgs:'#0a0804' },
+        { a:'#E0598A', bg:'#120810', bgs:'#0a0509' },
+        { a:'#D64A6C', bg:'#12080b', bgs:'#080405' },
+        { a:'#4ACB7A', bg:'#081208', bgs:'#040804' },
+        { a:'#4FB6E0', bg:'#081012', bgs:'#040608' },
+        { a:'#E08A4A', bg:'#120c08', bgs:'#0a0604' }
+    ];
+    const t = THEMES[Math.floor(Math.random() * THEMES.length)];
+    const rgb = hexToRgb(t.a);
+    const strongHex = toHex(lighten(rgb, 0.30));
+
+    const root = document.documentElement.style;
+    root.setProperty('--accent', t.a);
+    root.setProperty('--accent-strong', strongHex);
+    root.setProperty('--accent-soft', `rgba(${rgb[0]},${rgb[1]},${rgb[2]},.20)`);
+    root.setProperty('--bg', t.bg);
+    root.setProperty('--bg-strong', t.bgs);
+
+    const themeMeta = document.querySelector('meta[name="theme-color"]');
+    if (themeMeta) themeMeta.setAttribute('content', t.a);
+})();
+</script>
+</head>
+<body>
+
+<video autoplay loop muted playsinline id="bg-video" class="bg-video">
+  <!-- Desktop Video (loads on screens 769px wide and up) -->
+  <source src="videos/bg-desktop.mp4" type="video/mp4" media="(min-width: 769px)" />
+  
+  <!-- Mobile Video (loads on screens 768px wide and below) -->
+  <source src="videos/bg-mobile.mp4" type="video/mp4" media="(max-width: 768px)" />
+</video>
+
+<div id="bg-tint"></div>
+<div id="bg-grain" aria-hidden="true"></div>
+
+<div id="entry-overlay" onclick="enterSite()">
+    <div class="entry-inner">
+        <div class="entry-text"><span id="entryText"></span><span class="entry-caret" aria-hidden="true"></span></div>
+        <div class="entry-sub">tap anywhere</div>
+    </div>
+</div>
+
+<div id="toast"></div>
+
+<main id="app-shell">
+
+    <!-- ===================== SECTION NAV ===================== -->
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="siteNav">
+        <i class="fas fa-bars" id="navToggleIcon"></i><span class="nav-toggle-label">Menu</span>
+    </button>
+    <div class="nav-overlay" id="navOverlay"></div>
+    <nav class="site-nav" id="siteNav" role="tablist" aria-label="Section navigation">
+        <button class="tab-btn active" data-tab="intel" role="tab" aria-selected="true" onclick="switchTab('intel')"><i class="fas fa-user"></i><span>Bio</span></button>
+        <button class="tab-btn" data-tab="anime" role="tab" aria-selected="false" onclick="switchTab('anime')"><i class="fas fa-clapperboard"></i><span>Anime</span></button>
+        <button class="tab-btn" data-tab="vibe" role="tab" aria-selected="false" onclick="switchTab('vibe')"><i class="fab fa-discord"></i><span>Status</span></button>
+        <button class="tab-btn" data-tab="music" role="tab" aria-selected="false" onclick="switchTab('music')"><i class="fas fa-music"></i><span>Audio</span></button>
+    </nav>
+
+    <div class="layout-grid">
+
+        <!-- ===================== PROFILE CARD ===================== -->
+        <div class="profile-card-stage">
+            <aside class="profile-card card" id="profileCard" data-tilt-max="18">
+                <span class="card-corner tl" aria-hidden="true"></span><span class="card-corner tr" aria-hidden="true"></span>
+                <span class="card-corner bl" aria-hidden="true"></span><span class="card-corner br" aria-hidden="true"></span>
+                <div class="card-sheen" aria-hidden="true"></div>
+
+                <div class="profile-meta">He/Him - Proud Muslim</div>
+                <div class="greeting-line"><i class="fas fa-circle" style="font-size:6px;"></i><span id="greetingText">good day</span></div>
+
+                <div class="avatar-wrap">
+                    <div class="avatar-halo" aria-hidden="true"></div>
+                    <div class="avatar-ring">
+                        <div class="avatar-ring-inner">
+                            <img src="pfp.png" alt="Profile Picture" class="profile-pic" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                            <span class="avatar-fallback">A</span>
+                        </div>
+                    </div>
+                    <!-- avatar decoration -->
+                    <img id="avatarDecoration" class="avatar-decoration" src="" alt="" aria-hidden="true">
+                </div>
+
+                <h1 class="header-name">Ash</h1>
+                <div class="status-line" id="discordStatusLine"><span class="status-dot" id="discordStatusDot"></span><span id="discordStatusText">checking status&hellip;</span></div>
+                <div class="discord-custom-status" id="discordCustomStatus"></div>
+                <p class="tagline"><span id="taglineText"></span><span class="tagline-cursor" aria-hidden="true">|</span></p>
+
+                <!-- Rendered from the LINKS config array (see script) — any entry can
+                     use a FontAwesome icon OR a custom image/GIF URL. -->
+                <div class="social-row" id="socialRow"></div>
+
+                <div class="mini-chip-row">
+                    <span class="mini-chip id-badge clickable" id="visitorChip" onclick="copyVisitorId()"><span id="visitorCount"><i class="fa-solid fa-eye"></i> &hellip;</span></span>
+                    <button class="mini-chip clickable" id="shareChip" onclick="shareProfile()"><i class="fas fa-link"></i> share</button>
+                </div>
+
+                <div class="local-time-chip" id="localTimeChip">
+                    <div class="ltc-row"><i class="fas fa-user-clock"></i> <span id="localTimeVal">--:--</span> your time</div>
+                    <div class="ltc-row"><i class="fas fa-map-pin"></i> <span id="theirTimeVal">--:--</span> my time</div>
+                </div>
+            </aside>
+        </div>
+
+        <!-- ===================== PANELS ===================== -->
+        <div class="content-col">
+            <div class="tab-shell">
+                <div class="tab-panels">
+
+                    <!-- ============ BIO ============ -->
+                    <div class="tab-panel active" id="tab-intel">
+                        <div class="panel-card card reveal-on-scroll" data-reveal-index="0">
+                            <div class="card-sheen" aria-hidden="true"></div>
+                            <div class="panel-eyebrow">about me</div>
+                            <div class="panel-title">Bio</div>
+
+                            <p class="about-text">The worst part about kissing a 10/10 is how cold the mirror gets.</p>
+
+                            <div class="info-block reveal-on-scroll" data-reveal-index="1">
+                                <div class="info-block-title"><i class="fas fa-user"></i> About Me</div>
+                                <div class="newspaper-box">
+                                    <p class="newspaper-text" style="margin-bottom:10px;"><strong>I'm Ash</strong> — originally from Bangladesh, now living in Finland.</p>
+                                    <p class="newspaper-text" style="margin-bottom:10px;">I don't go out much. Racism here made sure of that.</p>
+                                    <p class="newspaper-text" style="margin-bottom:10px;">So I stay in, stay online, and stay way too deep in anime.</p>
+                                    <p class="newspaper-text" style="margin-bottom:0;">And yeah — this whole site? Vibecoded.</p>
+                                </div>
+                            </div>
+
+                            <div class="info-block reveal-on-scroll" data-reveal-index="2">
+                                <div class="info-block-title"><i class="fas fa-cake-candles"></i>Birthday</div>
+                                <div class="bday-line" id="bdayDays">counting&hellip;</div>
+                                <div class="loadbar" id="bdayBar" data-bar><div class="loadbar-fill"></div></div>
+                                <div class="bday-date">Nov 1</div>
+                            </div>
+
+                            <div class="info-block reveal-on-scroll" data-reveal-index="3">
+                                <div class="info-block-title"><i class="fas fa-tv"></i> Best written anime</div>
+                                <div class="tag-row">
+                                    <span class="tag-chip tag-chip-featured">Cyberpunk Edgerunners</span>
+                                    <span class="tag-chip tag-chip-featured">Clannad</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ============ ANIME (AniList) ============ -->
+                    <div class="tab-panel" id="tab-anime">
+                        <div class="panel-card card reveal-on-scroll" data-reveal-index="0">
+                            <div class="card-sheen" aria-hidden="true"></div>
+                            <div class="panel-eyebrow"><i class="fas fa-clapperboard"></i> anilist</div>
+                            <div class="panel-title">Anime</div>
+
+                            <div class="anime-stat-row" id="animeStatRow">
+                                <div class="anime-stat"><span class="anime-stat-val" id="animeStatCount">&mdash;</span><span class="anime-stat-label">Anime</span></div>
+                                <div class="anime-stat"><span class="anime-stat-val" id="animeStatScore">&mdash;</span><span class="anime-stat-label">Mean Score</span></div>
+                                <div class="anime-stat"><span class="anime-stat-val" id="animeStatEps">&mdash;</span><span class="anime-stat-label">Episodes</span></div>
+                                <div class="anime-stat"><span class="anime-stat-val" id="animeStatDays">&mdash;</span><span class="anime-stat-label">Days Watched</span></div>
+                            </div>
+
+                            <!-- status switcher -->
+                            <div class="anime-status-row" id="animeStatusRow" role="tablist">
+                                <button class="anime-status-btn active" data-status="CURRENT" role="tab" aria-selected="true">Watching</button>
+                                <button class="anime-status-btn" data-status="PAUSED" role="tab" aria-selected="false">Paused</button>
+                                <button class="anime-status-btn" data-status="DROPPED" role="tab" aria-selected="false">Dropped</button>
+                                <button class="anime-status-btn" data-status="COMPLETED" role="tab" aria-selected="false">Completed</button>
+                            </div>
+
+                            <div class="anime-section-head">
+                                <div class="section-label" id="animeListLabel">currently watching</div>
+                                <button class="anime-shuffle-btn" id="animeShuffleBtn" title="shuffle 10 new picks" style="display:none"><i class="fas fa-shuffle"></i></button>
+                            </div>
+                            <div class="anime-grid" id="animeGrid"><p style="font-size:12px;color:var(--ink-faint);">loading&hellip;</p></div>
+
+                            <button class="anime-viewall" id="animeViewAllBtn" style="display:none">see all <span id="animeViewAllCount"></span> <i class="fas fa-chevron-down" id="animeViewAllIcon"></i></button>
+                            <a class="anime-viewall" href="https://anilist.co/user/Klxxy/animelist" target="_blank" rel="noopener">view full list on AniList <i class="fas fa-arrow-up-right-from-square"></i></a>
+                        </div>
+                    </div>
+
+                    <!-- ============ STATUS (redesigned dashboard) ============ -->
+                    <div class="tab-panel" id="tab-vibe">
+                        <div class="panel-card card reveal-on-scroll" data-reveal-index="0">
+                            <div class="card-sheen" aria-hidden="true"></div>
+                            <div class="panel-eyebrow"><i class="fab fa-discord"></i> live presence</div>
+
+                            <!-- HERO BADGE -->
+                            <div class="st-hero">
+                                <div class="st-hero-avatar-wrap">
+                                    <img id="stHeroAvatar" class="st-hero-avatar" src="pfp.png" alt="Discord avatar"
+                                         onerror="this.onerror=null;this.style.visibility='hidden';">
+                                    <span class="st-hero-dot offline" id="stHeroDot"></span>
+                                </div>
+                                <div class="st-hero-info">
+                                    <div class="st-hero-name">Ash</div>
+                                    <div class="st-hero-username">@codedsum</div>
+                                    <span class="st-pill offline" id="stPill"><span class="st-pill-dot"></span><span id="stPillText">Connecting</span></span>
+                                    <div class="st-hero-custom" id="stCustom">syncing with Discord&hellip;</div>
+                                    <div class="st-hero-lastonline" id="stHeroLastOnline"></div>
+                                    <div class="st-platform-row" id="stPlatformRow" aria-hidden="true">
+                                        <span class="st-platform" id="stPlatDesktop" title="Active on Desktop"><i class="fas fa-desktop"></i></span>
+                                        <span class="st-platform" id="stPlatMobile" title="Active on Mobile"><i class="fas fa-mobile-screen-button"></i></span>
+                                        <span class="st-platform" id="stPlatWeb" title="Active on Web"><i class="fas fa-globe"></i></span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- ACTIVITY / GAME CARD -->
+                            <div class="st-activity" id="stActivity">
+                                <div class="st-act-art-wrap">
+                                    <img id="stActArt" class="st-act-art" src="" alt="Activity art">
+                                    <img id="stActArtSmall" class="st-act-art-small" src="" alt="">
+                                </div>
+                                <div class="st-act-info">
+                                    <div class="st-act-eyebrow" id="stActEyebrow"><i class="fas fa-gamepad"></i> <span>Playing</span></div>
+                                    <div class="st-act-title" id="stActTitle">&mdash;</div>
+                                    <div class="st-act-detail" id="stActDetail"></div>
+                                    <div class="st-act-state" id="stActState"></div>
+                                    <div class="st-act-elapsed" id="stActElapsed"><i class="fas fa-clock"></i> <span></span></div>
+                                </div>
+                            </div>
+
+                            <!-- SPOTIFY WIDGET -->
+                            <div class="st-spotify" id="stSpotify">
+                                <div class="st-sp-art-wrap">
+                                    <img id="stSpArt" class="st-sp-art" src="" alt="Album art">
+                                    <div class="st-sp-eq" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span></div>
+                                </div>
+                                <div class="st-sp-info">
+                                    <div class="st-sp-eyebrow"><i class="fab fa-spotify"></i> <span>Listening on Spotify</span></div>
+                                    <div class="st-sp-title" id="stSpTitle">&mdash;</div>
+                                    <div class="st-sp-artist" id="stSpArtist"></div>
+                                    <div class="st-sp-progress-row">
+                                        <span class="st-sp-time" id="stSpCur">0:00</span>
+                                        <div class="st-sp-bar"><div class="st-sp-bar-fill" id="stSpFill"></div></div>
+                                        <span class="st-sp-time" id="stSpDur">0:00</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="panel-divider"></div>
+
+                            <div class="live-stat-row">
+                                <div class="live-stat">
+                                    <span class="live-stat-label">your local time</span>
+                                    <span class="live-stat-val" id="vibeClock">--:--</span>
+                                </div>
+                                <div class="live-stat">
+                                    <span class="live-stat-label">you've been here</span>
+                                    <span class="live-stat-val" id="sessionTimer">0:00</span>
+                                </div>
+                                <div class="live-stat">
+                                    <span class="live-stat-label">total visits</span>
+                                    <span class="live-stat-val" id="stVisitorMini">&mdash;</span>
+                                </div>
+                            </div>
+
+                            <div class="panel-divider"></div>
+
+                            <!-- points down at the guestbook section below the tabs -->
+                            <div class="globe-teaser">
+                                <div class="section-label">say something</div>
+                                <p class="comments-teaser-text">Leave a note for everyone to see in the <button class="link-inline" onclick="document.getElementById('commentsSection').scrollIntoView({behavior:'smooth'})">guestbook below <i class="fas fa-arrow-down"></i></button></p>
+                            </div>
+
+                            <!-- quick actions -->
+                            <div class="st-quick-actions" id="stQuickActions"></div>
+                        </div>
+                    </div>
+
+                    <!-- ============ AUDIO ============ -->
+                    <div class="tab-panel" id="tab-music">
+
+                        <!-- Spotify-style playlist widget + live visualizer -->
+                        <div class="panel-card card reveal-on-scroll" data-reveal-index="0" id="playlistCard">
+                            <div class="card-sheen" aria-hidden="true"></div>
+                            <div class="panel-eyebrow"><i class="fas fa-shuffle"></i> playlist</div>
+
+                            <div class="viz-wrap"><canvas id="audioViz"></canvas></div>
+
+                            <div class="player-widget" id="playerWidget">
+                                <div class="player-cover-wrap">
+                                    <img id="playerCover" class="player-cover" src="https://lastfm.freetls.fastly.net/i/u/300x300/2a96cbd8b46e442fc41c2b86b821562f.png" alt="Cover art">
+                                </div>
+                                <div class="player-info">
+                                    <div class="player-title" id="playerTitle">no tracks yet</div>
+                                    <div class="player-artist" id="playerArtist">add tracks in the config</div>
+
+                                    <div class="player-progress-row">
+                                        <span class="player-time" id="playerCurrent">0:00</span>
+                                        <div class="player-bar" id="playerBar"><div class="player-bar-fill" id="playerBarFill"></div></div>
+                                        <span class="player-time" id="playerDuration">0:00</span>
+                                    </div>
+
+                                    <div class="player-controls">
+                                        <button class="player-btn" id="playerPrev" aria-label="Previous track"><i class="fas fa-backward-step"></i></button>
+                                        <button class="player-btn player-btn-play" id="playerPlay" aria-label="Play"><i class="fas fa-play" id="playerPlayIcon"></i></button>
+                                        <button class="player-btn" id="playerNext" aria-label="Next track"><i class="fas fa-forward-step"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="player-shuffle-note" id="playerShuffleNote"></div>
+                            <audio id="playerAudio" preload="metadata" crossorigin="anonymous"></audio>
+                        </div>
+
+                        <div class="panel-card card reveal-on-scroll" data-reveal-index="0">
+                            <div class="card-sheen" aria-hidden="true"></div>
+                            <div class="panel-eyebrow"><i class="fab fa-lastfm"></i> last.fm stats</div>
+                            <div class="lfm-stat-grid">
+                                <div class="lfm-stat"><span class="lfm-stat-val" id="lfmStatScrobbles">&mdash;</span><span class="lfm-stat-label">Scrobbles</span></div>
+                                <div class="lfm-stat"><span class="lfm-stat-val" id="lfmStatArtists">&mdash;</span><span class="lfm-stat-label">Artists</span></div>
+                                <div class="lfm-stat"><span class="lfm-stat-val" id="lfmStatMonth">&mdash;</span><span class="lfm-stat-label">This Month</span></div>
+                                <div class="lfm-stat"><span class="lfm-stat-val" id="lfmStatYear">&mdash;</span><span class="lfm-stat-label">This Year</span></div>
+                            </div>
+                        </div>
+
+                        <div class="panel-card card reveal-on-scroll" data-reveal-index="1">
+                            <div class="card-sheen" aria-hidden="true"></div>
+                            <div class="panel-eyebrow"><i class="fab fa-lastfm"></i> now playing</div>
+                            <div class="lfm-hero">
+                                <div class="lfm-art-wrap">
+                                    <img class="lfm-art" id="lfm-art" src="https://lastfm.freetls.fastly.net/i/u/300x300/2a96cbd8b46e442fc41c2b86b821562f.png" alt="Album art">
+                                </div>
+                                <div class="lfm-text">
+                                    <div class="lfm-track-row">
+                                        <span class="lfm-track" id="lfm-track">loading&hellip;</span>
+                                        <span class="lfm-live-dot" id="lfm-eq"></span>
+                                    </div>
+                                    <div class="lfm-artist" id="lfm-artist"></div>
+                                    <div class="lfm-status" id="lfm-status"></div>
+                                </div>
+                            </div>
+
+                            <div class="section-label">recently played</div>
+                            <div id="recentList"></div>
+
+                            <div class="section-label" style="margin-top:22px;">this week's rotation</div>
+                            <div class="top-artists-row" id="topArtists"></div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===================== GUESTBOOK / COMMENTS ===================== -->
+    <section class="comments-section card reveal-on-scroll" id="commentsSection" data-reveal-index="0">
+        <div class="panel-eyebrow"><i class="fas fa-comments"></i> guestbook</div>
+        <div class="panel-title">Comments</div>
+
+        <form class="comment-form" id="commentForm">
+            <input type="text" id="commentName" maxlength="40" placeholder="Name (optional)" autocomplete="off">
+            <textarea id="commentText" maxlength="500" placeholder="Say something&hellip;" required></textarea>
+            <button type="submit" class="comment-submit"><i class="fas fa-paper-plane"></i> Post</button>
+        </form>
+
+        <div class="comment-list" id="commentList"></div>
+    </section>
+</main>
+
+<footer class="site-footer">&copy; Ash <span id="current-year"></span></footer>
+
+<script>
+/* CONFIG */
+const LFM_KEY  = '84e191b366d86d98c1db2a74b5b39ef4';
+const LFM_USER = 'Ashy-geek';
+const ANILIST_USERNAME = 'Klxxy';
+const LFM_DEFAULT_ART = 'https://lastfm.freetls.fastly.net/i/u/300x300/2a96cbd8b46e442fc41c2b86b821562f.png';
+const MY_TIMEZONE = 'Europe/Helsinki';
+const REDUCED_MOTION = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const IS_COARSE = window.matchMedia('(pointer: coarse)').matches;
+
+/* DISCORD PRESENCE (Lanyard) */
+const DISCORD_ID = '1301191057656119386';
+
+/* AVATAR DECORATION */
+const AVATAR_DECORATION_SRC = 'profiledeco.gif';
+
+/* PLAYLIST */
+const TRACKS = [
+    { title: '315breathe', artist: 'Russ', file: '315breathe.mp3', cover: '315breathe.jpg' },
+    { title: 'Day N Nite', artist: 'Kid Cudi', file: 'DayNite.mp3', cover: 'DayNite.jpg' },
+    { title: 'all i need', artist: 'chasingwhiterabbits & tezvix', file: 'allineed.mp3', cover: 'allineed.jpg' },
+    { title: 'bimbodoll', artist: 'Tila Tsoli', file: 'bimbodoll.mp3', cover: 'bimbodoll.jpg' },
+    { title: 'Cool for the Summer', artist: 'Demi Lovato', file: 'coolforsummer.mp3', cover: 'coolforsummer.jpg' },
+    { title: 'crush', artist: '2hollis', file: 'crush-2hollis.mp3', cover: 'crush-2hollis.jpg' },
+    { title: 'hard to face', artist: 'Teathetruth ft. Theravada', file: 'hardtoface.mp3', cover: 'hardtoface.jpg' },
+    { title: 'kwiktrip', artist: 'Lightris & Sero', file: 'kwiktrip.mp3', cover: 'kwiktrip.jpg' },
+    { title: 'Leave Me Alone', artist: 'Flip Dinero', file: 'leaveme.mp3', cover: 'leaveme.jpg' },
+    { title: 'Without Me', artist: 'Halsey', file: 'withoutme.mp3', cover: 'withoutme.jpg' },
+    { title: 'This is the life', artsit: 'Amy McDonald', file: 'thisisthelife.mp3', cover: 'thisisthelife.jpg' }
+];
+
+/* BACKGROUND VIDEO */
+const BG_VIDEO_SRC = 'videos/bg-mobile.mp4';
+const BG_VIDEO_SRC_MOBILE = 'videos/bg-mobile.mp4';
+const BG_VIDEO_OPACITY = 0.7;
+const BG_VIDEO_BREAKPOINT = 820; // px — matches the layout breakpoint used elsewhere on the site
+
+/* FAVICONS */
+const FAVICON_SRC = 'favicon/favicon-32.png';
+
+/* BANNER — social link-preview image (Discord/Twitter/iMessage embeds), same idea as the favicon */
+const BANNER_SRC = 'banner/banner.png';
+
+/* VISITOR COUNTER */
+const VISITOR_NAMESPACE = 'ashy-geek';
+const VISITOR_KEY = 'ashy-geek';
+
+/* SOCIAL / LINK BUTTONS — each entry takes EITHER a FontAwesome `icon` class
+   OR a custom `img`. For a custom icon, drop the file (png/jpg/jpeg/gif/
+   webp/svg) into the icons/ folder next to this file in the repo, then
+   point `img` at it, e.g. img:'icons/roblox.png'. A full URL works too.
+   Add/remove/reorder entries freely — see README.md for details. */
+const LINKS = [
+    { label:'Discord', href:'https://discord.com/users/codedsum', icon:'fab fa-discord', className:'discord' },
+    { label:'GitHub',   href:'https://github.com/codedshit',      icon:'fab fa-github',   className:'github' },
+    { label:'AniList',  href:'https://anilist.co/user/Klxxy/',    icon:'fas fa-leaf',     className:'anilist' },
+    { label:'Spotify',  href:'https://open.spotify.com/user/31oyzi66p57fkbpncfhkvt2nxi2u?si=mo0CblPkTimLfeh4JG0oLA&utm_source=copy-link', icon:'fab fa-spotify', className:'spotify' },
+    { label:'Roblox',   href:'https://www.roblox.com/users/4468232678/profile', img:'https://icons.iconarchive.com/icons/simpleicons-team/simple/256/roblox-icon.png', className:'roblox' }
+    // { label:'Custom', href:'#', img:'icons/yourfile.png', className:'custom' }
+];
+function renderSocialLinks(){
+    const row = document.getElementById('socialRow');
+    if (!row) return;
+    row.innerHTML = LINKS.map(l => `
+        <a class="social-btn${l.className ? ' ' + l.className : ''}" href="${l.href}" target="_blank" rel="noopener" aria-label="${l.label}">
+            ${l.img ? `<img src="${l.img}" alt="${l.label}" onerror="this.replaceWith(Object.assign(document.createElement('i'),{className:'fas fa-link'}))">` : `<i class="${l.icon}"></i>`}
+        </a>
+    `).join('');
+}
+renderSocialLinks();
+
+/* STATUS TAB — QUICK ACTIONS */
+const STATUS_QUICK_ACTIONS = [
+    { label:'Add on Discord', icon:'fa-brands fa-discord', href:'https://discord.com/users/codedsum' },
+    { label:'Copy Discord ID', icon:'fas fa-copy', action:'copyDiscordId' },
+    { label:'Follow on AniList', icon:'fas fa-leaf', href:'https://anilist.co/user/Klxxy/' }
+];
+
+/* CUSTOM CURSOR */
+const CUSTOM_CURSOR_IMAGE  = 'cursor/Cursoruwu.gif';
+const CUSTOM_CURSOR_HOTSPOT_X = 0;
+const CUSTOM_CURSOR_HOTSPOT_Y = 0;
+
+/* CLICK SOUND */
+const CLICK_SOUND_FILE = 'sfx/cyber.mp3';
+const CLICK_SOUND_VOLUME = 0.65;
+
+(function initBgVideo(){
+    const vid = document.getElementById('bg-video');
+    if (!vid) return;
+
+    const desktopSrc = BG_VIDEO_SRC;
+    const mobileSrc  = BG_VIDEO_SRC_MOBILE || BG_VIDEO_SRC; // falls back to the desktop clip if no phone-specific one is set
+    if (!desktopSrc && !mobileSrc) return;
+
+    const mq = window.matchMedia(`(min-width:${BG_VIDEO_BREAKPOINT}px)`);
+    let currentSrc = '';
+
+    function applySrc(){
+        const wantSrc = mq.matches ? desktopSrc : mobileSrc;
+        if (!wantSrc || wantSrc === currentSrc) return; // avoid restarting the loop on trivial resizes
+        currentSrc = wantSrc;
+        vid.src = wantSrc;
+        vid.play().catch(() => {}); // autoplay may be blocked until the entry overlay is tapped — fine, it'll start then
+    }
+
+    vid.style.opacity = BG_VIDEO_OPACITY;
+    vid.style.display = 'block';
+    document.body.classList.add('has-bg-video');
+    applySrc();
+
+    // re-picks the right clip on resize / phone rotation / desktop window resize past the breakpoint
+    if (mq.addEventListener) mq.addEventListener('change', applySrc);
+    else mq.addListener(applySrc); // older Safari
+})();
+
+/* safely runs fn, catching/logging any error */
+function safeRun(fn){ try{ fn(); }catch(e){ console.error(e); } }
+
+safeRun(() => {
+    const yearEl = document.getElementById('current-year');
+    if (yearEl) yearEl.textContent = new Date().getFullYear();
+});
+
+/* AVATAR DECORATION */
+(function initAvatarDecoration(){
+    if (!AVATAR_DECORATION_SRC) return;
+    const deco = document.getElementById('avatarDecoration');
+    if (!deco) return;
+    deco.src = AVATAR_DECORATION_SRC;
+    deco.style.display = 'block';
+})();
+
+/* WEB AUDIO — UI SOUND BLIPS */
+const SFX = (function(){
+    let ctx = null;
+    function ensure(){
+        if (!ctx){
+            try{ ctx = new (window.AudioContext || window.webkitAudioContext)(); }catch(e){ ctx = null; }
+        }
+        if (ctx && ctx.state === 'suspended') ctx.resume();
+        return ctx;
+    }
+    function blip(freq, dur, type, gainPeak){
+        if (REDUCED_MOTION) return;
+        const ac = ensure();
+        if (!ac) return;
+        const osc = ac.createOscillator();
+        const gain = ac.createGain();
+        osc.type = type || 'sine';
+        osc.frequency.setValueAtTime(freq, ac.currentTime);
+        gain.gain.setValueAtTime(0, ac.currentTime);
+        gain.gain.linearRampToValueAtTime(gainPeak || 0.06, ac.currentTime + 0.008);
+        gain.gain.exponentialRampToValueAtTime(0.0001, ac.currentTime + (dur || 0.12));
+        osc.connect(gain).connect(ac.destination);
+        osc.start();
+        osc.stop(ac.currentTime + (dur || 0.12));
+    }
+
+    /* optional custom click sound file, cloned + replayed each tap */
+    let clickAudio = null;
+    if (CLICK_SOUND_FILE){
+        clickAudio = new Audio(CLICK_SOUND_FILE);
+        clickAudio.preload = 'auto';
+        clickAudio.volume = CLICK_SOUND_VOLUME;
+    }
+    function playClickFile(){
+        if (REDUCED_MOTION || !clickAudio) return false;
+        const node = clickAudio.cloneNode();
+        node.volume = CLICK_SOUND_VOLUME;
+        node.play().catch(() => {}); // ignored — e.g. file missing, or autoplay not yet unlocked
+        return true;
+    }
+
+    return {
+        resume: ensure,
+        hover: () => blip(520, 0.08, 'sine', 0.03),
+        click: () => { if (!playClickFile()) blip(340, 0.11, 'triangle', 0.06); },
+        tab:   () => { blip(300, 0.10, 'triangle', 0.05); setTimeout(() => blip(460, 0.09, 'sine', 0.035), 55); }
+    };
+})();
+
+/* wire hover/click sounds onto interactive elements */
+(function wireUiSounds(){
+    const hoverSel = document.querySelectorAll('.social-btn, .tab-btn, .mini-chip.clickable, .player-btn');
+    hoverSel.forEach(el => el.addEventListener('pointerenter', () => SFX.hover()));
+
+    /* click sound — fires on any click anywhere on the page */
+    document.addEventListener('click', (e) => {
+        if (e.target.closest('.tab-btn')) { SFX.tab(); return; }
+        SFX.click();
+    });
+})();
+
+/* CURSOR-FOLLOW SHEEN (profileCard + all .card) */
+(function initCardSheen(){
+    if (REDUCED_MOTION || IS_COARSE) return;
+    const cards = document.querySelectorAll('.card');
+    cards.forEach(card => {
+        let raf = null, sx = 50, sy = 50, csx = 50, csy = 50;
+        const sheen = card.querySelector('.card-sheen');
+        if (!sheen) return;
+
+        function render(){
+            csx += (sx - csx) * 0.2;
+            csy += (sy - csy) * 0.2;
+            sheen.style.setProperty('--sheen-x', csx.toFixed(1) + '%');
+            sheen.style.setProperty('--sheen-y', csy.toFixed(1) + '%');
+            if (Math.abs(sx - csx) > 0.1 || Math.abs(sy - csy) > 0.1){
+                raf = requestAnimationFrame(render);
+            } else {
+                raf = null;
+            }
+        }
+        function kick(){ if (!raf) raf = requestAnimationFrame(render); }
+
+        card.addEventListener('pointermove', e => {
+            const r = card.getBoundingClientRect();
+            sx = ((e.clientX - r.left) / r.width) * 100;
+            sy = ((e.clientY - r.top) / r.height) * 100;
+            card.classList.add('tilting');
+            kick();
+        });
+        card.addEventListener('pointerleave', () => {
+            sx = 50; sy = 50;
+            card.classList.remove('tilting');
+            kick();
+        });
+    });
+})();
+
+/* FAVICONS — sets the tab icon to FAVICON_SRC */
+function setFavicon(href){
+    const main = document.getElementById('faviconMain');
+    if (main) main.href = href;
+}
+/* BANNER — sets the link-preview image (og:image / twitter:image) to BANNER_SRC */
+function setBanner(href){
+    const og = document.getElementById('bannerOg');
+    const tw = document.getElementById('bannerTwitter');
+    if (og) og.setAttribute('content', href);
+    if (tw) tw.setAttribute('content', href);
+}
+function initFavicons(){
+    if (FAVICON_SRC) setFavicon(FAVICON_SRC);
+    if (BANNER_SRC) setBanner(BANNER_SRC);
+}
+safeRun(initFavicons);
+
+/* SCROLL REVEAL */
+(function initScrollReveal(){
+    const targets = document.querySelectorAll('.reveal-on-scroll');
+    if (!targets.length) return;
+
+    if (REDUCED_MOTION || !('IntersectionObserver' in window)){
+        targets.forEach(el => el.classList.add('revealed'));
+        return;
+    }
+
+    const io = new IntersectionObserver((entries, obs) => {
+        entries.forEach(entry => {
+            if (!entry.isIntersecting) return;
+            const el = entry.target;
+            // small stagger for elements that enter together (e.g. a row of chips)
+            const delay = Math.min(parseInt(el.dataset.revealIndex || 0, 10) * 70, 420);
+            setTimeout(() => el.classList.add('revealed'), delay);
+            obs.unobserve(el);
+        });
+    }, { threshold:0.12, rootMargin:'0px 0px -40px 0px' });
+
+    targets.forEach(el => io.observe(el));
+})();
+
+/* CUSTOM CURSOR + heart sparkle trail */
+(function initCustomCursor(){
+    if (!CUSTOM_CURSOR_IMAGE || IS_COARSE) return;
+
+    /* Real <img> element instead of CSS `cursor:url()` — CSS cursors only ever
+       show an animated GIF's first frame, so the old approach never animated.
+       An <img> tag plays the GIF properly. */
+    const cursorImg = document.createElement('img');
+    cursorImg.id = 'customCursorImg';
+    cursorImg.src = CUSTOM_CURSOR_IMAGE;
+    cursorImg.alt = '';
+    cursorImg.draggable = false;
+    cursorImg.setAttribute('aria-hidden', 'true');
+
+    let cursorReady = false;
+    cursorImg.addEventListener('load', () => {
+        cursorReady = true;
+        cursorImg.classList.add('ready');
+        document.documentElement.classList.add('custom-cursor-active');
+    });
+    cursorImg.addEventListener('error', () => {
+        console.log('[v0] custom cursor image failed to load:', CUSTOM_CURSOR_IMAGE);
+        cursorImg.remove();
+    });
+    document.body.appendChild(cursorImg);
+
+    /* follow the pointer with a light trailing ease, positioned via transform for perf */
+    let mx = -100, my = -100, cx = -100, cy = -100, raf = null;
+    function render(){
+        cx += (mx - cx) * 0.35;
+        cy += (my - cy) * 0.35;
+        cursorImg.style.transform = `translate(${cx - CUSTOM_CURSOR_HOTSPOT_X}px, ${cy - CUSTOM_CURSOR_HOTSPOT_Y}px)`;
+        if (Math.abs(mx - cx) > 0.1 || Math.abs(my - cy) > 0.1){
+            raf = requestAnimationFrame(render);
+        } else {
+            raf = null;
+        }
+    }
+    window.addEventListener('pointermove', (e) => {
+        mx = e.clientX; my = e.clientY;
+        if (cursorReady && !raf) raf = requestAnimationFrame(render);
+    }, { passive:true });
+    window.addEventListener('pointerdown', () => { cx = mx; cy = my; if (cursorReady && !raf) raf = requestAnimationFrame(render); });
+
+    /* heart sparkle trail — no glow anywhere, just the hearts themselves, denser than before */
+    const HEART_COLORS = ['#ff4d6d', '#ff8fa3', '#ff1744', '#ff6b81', '#e0115f'];
+    let lastSpawn = 0;
+    const SPAWN_EVERY_MS = 18; // was 45 — spawns far more often now
+
+    function spawnHeart(x, y){
+        const heart = document.createElement('div');
+        heart.className = 'heart-sparkle';
+        heart.textContent = '\u2764';
+        const size = 6 + Math.random() * 8;
+        const dx = (Math.random() - 0.5) * 46;
+        const dy = -20 - Math.random() * 34;
+        const rot = (Math.random() - 0.5) * 100;
+        const color = HEART_COLORS[Math.floor(Math.random() * HEART_COLORS.length)];
+        const duration = 550 + Math.random() * 400;
+
+        heart.style.left = x + 'px';
+        heart.style.top = y + 'px';
+        heart.style.fontSize = size + 'px';
+        heart.style.color = color;
+        heart.style.transform = 'translate(-50%,-50%) scale(0.4) rotate(0deg)';
+        heart.style.opacity = '1';
+        heart.style.transition = `transform ${duration}ms ease-out, opacity ${duration}ms ease-out`;
+
+        document.body.appendChild(heart);
+        requestAnimationFrame(() => {
+            heart.style.transform = `translate(calc(-50% + ${dx}px), calc(-50% + ${dy}px)) scale(1) rotate(${rot}deg)`;
+            heart.style.opacity = '0';
+        });
+        setTimeout(() => heart.remove(), duration + 50);
+    }
+
+    /* two slightly-offset hearts per tick instead of one — noticeably denser trail */
+    window.addEventListener('pointermove', (e) => {
+        const now = performance.now();
+        if (now - lastSpawn < SPAWN_EVERY_MS) return;
+        lastSpawn = now;
+        spawnHeart(e.clientX, e.clientY);
+        spawnHeart(e.clientX + (Math.random() - 0.5) * 12, e.clientY + (Math.random() - 0.5) * 12);
+    }, { passive:true });
+
+    /* small burst on click/tap for extra flair */
+    window.addEventListener('pointerdown', (e) => {
+        for (let i = 0; i < 6; i++){
+            setTimeout(() => spawnHeart(
+                e.clientX + (Math.random() - 0.5) * 26,
+                e.clientY + (Math.random() - 0.5) * 26
+            ), i * 30);
+        }
+    });
+})();
+
+
+/* TOAST */
+function showToast(msg, icon){
+    const toast = document.getElementById('toast');
+    toast.innerHTML = (icon ? '<i class="fas ' + icon + '"></i>' : '') + '<span>' + msg + '</span>';
+    toast.classList.add('show');
+    clearTimeout(toast._t);
+    toast._t = setTimeout(() => toast.classList.remove('show'), 2400);
+}
+
+/* SHARE / COPY PROFILE LINK */
+function shareProfile(){
+    const url = window.location.href;
+    if (navigator.share){
+        navigator.share({ title: document.title, url }).catch(() => {});
+        return;
+    }
+    if (navigator.clipboard){
+        navigator.clipboard.writeText(url).then(() => showToast('link copied', 'fa-link')).catch(() => showToast(url, 'fa-link'));
+    } else {
+        showToast(url, 'fa-link');
+    }
+}
+
+/* VISITOR COUNTER */
+let VISITOR_ID_RAW = null;
+function formatVisitorLabel(n){
+    return '<i class="fa-solid fa-eye"></i> ' + Number(n).toLocaleString('en-US');
+}
+async function initVisitorCounter(){
+    const el = document.getElementById('visitorCount');
+    if (!el) return;
+
+    // Abacus — free, no-signup, no-auth global hit counter (https://abacus.jasoncameron.dev)
+    // Every real page load hits this endpoint and gets back the true, server-side, global count.
+    async function tryAbacus(){
+        const res = await fetch(`https://abacus.jasoncameron.dev/hit/${VISITOR_NAMESPACE}/${VISITOR_KEY}`);
+        if (!res.ok) throw new Error('abacus http ' + res.status);
+        const data = await res.json();
+        const n = data?.value;
+        if (n == null) throw new Error('abacus no value');
+        return n;
+    }
+
+    let n = null;
+    try{ n = await tryAbacus(); }
+    catch(e1){ console.log('[v0] visitor counter failed:', e1.message); }
+
+    if (n == null){
+        // No fake/local number — just show that the live count couldn't be reached.
+        el.textContent = 'offline';
+        return;
+    }
+
+    VISITOR_ID_RAW = n;
+    el.innerHTML = formatVisitorLabel(n);
+    const mini = document.getElementById('stVisitorMini');
+    if (mini) mini.textContent = Number(n).toLocaleString('en-US');
+}
+function copyVisitorId(){
+    if (VISITOR_ID_RAW == null) return;
+    const label = Number(VISITOR_ID_RAW).toLocaleString('en-US');
+    if (navigator.clipboard){
+        navigator.clipboard.writeText(label).then(() => showToast('copied ' + label, 'fa-eye')).catch(() => showToast(label, 'fa-eye'));
+    } else {
+        showToast(label, 'fa-eye');
+    }
+}
+initVisitorCounter();
+
+/* STATUS TAB — QUICK ACTIONS renderer */
+function copyDiscordId(){
+    if (navigator.clipboard){
+        navigator.clipboard.writeText(DISCORD_ID).then(() => showToast('discord id copied', 'fa-copy')).catch(() => showToast(DISCORD_ID, 'fa-copy'));
+    } else {
+        showToast(DISCORD_ID, 'fa-copy');
+    }
+}
+safeRun(function initStatusQuickActions(){
+    const wrap = document.getElementById('stQuickActions');
+    if (!wrap || !STATUS_QUICK_ACTIONS.length) return;
+    wrap.innerHTML = STATUS_QUICK_ACTIONS.map(a => {
+        const iconTag = `<i class="${a.icon}"></i>`;
+        if (a.href){
+            return `<a class="st-quick-action" href="${a.href}" target="_blank" rel="noopener">${iconTag}<span>${escapeHtml(a.label)}</span></a>`;
+        }
+        return `<button class="st-quick-action" onclick="${a.action}()">${iconTag}<span>${escapeHtml(a.label)}</span></button>`;
+    }).join('');
+});
+
+/* KONAMI CODE EASTER EGG */
+(function initKonami(){
+    const seq = ['ArrowUp','ArrowUp','ArrowDown','ArrowDown','ArrowLeft','ArrowRight','ArrowLeft','ArrowRight','b','a'];
+    let pos = 0;
+    document.addEventListener('keydown', e => {
+        const key = e.key.length === 1 ? e.key.toLowerCase() : e.key;
+        pos = (key === seq[pos]) ? pos + 1 : (key === seq[0] ? 1 : 0);
+        if (pos === seq.length){ pos = 0; triggerEasterEgg(); }
+    });
+})();
+function triggerEasterEgg(){
+    showToast('you found the secret \u2728');
+    if (REDUCED_MOTION) return;
+    const emojis = ['\u2728','\uD83D\uDC7B','\uD83D\uDC96','\uD83C\uDF19','\u2604\uFE0F'];
+    for (let i = 0; i < 26; i++){
+        setTimeout(() => {
+            const p = document.createElement('div');
+            p.className = 'egg-particle';
+            p.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+            p.style.left = Math.random() * 100 + 'vw';
+            p.style.top = '-30px';
+            document.body.appendChild(p);
+            setTimeout(() => p.remove(), 1700);
+        }, i * 45);
+    }
+}
+
+/* ENTRY OVERLAY — reveal + kick off audio, particles, sound engine */
+document.body.classList.add('no-scroll');
+let entered = false;
+function enterSite(){
+    if (entered) return;
+    entered = true;
+    const overlay = document.getElementById('entry-overlay');
+    overlay.classList.add('hidden');
+    document.body.classList.remove('no-scroll');
+    setTimeout(() => { overlay.style.display = 'none'; }, 750);
+    SFX.resume();
+    SFX.tab();
+    if (typeof startPlaylistOnEntry === 'function') startPlaylistOnEntry();
+}
+
+function typeOnce(el, text, speed){
+    if (!el) return;
+    if (REDUCED_MOTION){ el.textContent = text; return; }
+    let i = 0;
+    (function step(){
+        el.textContent = text.slice(0, i);
+        if (i < text.length){ i++; setTimeout(step, speed || 55); }
+    })();
+}
+/* wait for fonts to be ready */
+function whenFontsReady(cb){
+    let fired = false;
+    const run = () => { if (fired) return; fired = true; cb(); };
+    if (document.fonts && document.fonts.ready){
+        document.fonts.ready.then(run).catch(run);
+        // safety net in case a font file 404s and ready never resolves cleanly
+        setTimeout(run, 1200);
+    } else {
+        run();
+    }
+}
+safeRun(() => whenFontsReady(() => typeOnce(document.getElementById('entryText'), 'Click to enter')));
+
+function typewriterLoop(el, lines){
+    if (!el) return;
+    if (REDUCED_MOTION){ el.textContent = lines[0]; return; }
+    let li = 0;
+    const typeSpeed = 46, deleteSpeed = 26, minHold = 1500, betweenPause = 550;
+    function typeLine(){
+        const text = lines[li];
+        let ci = 0;
+        (function typeChar(){
+            el.textContent = text.slice(0, ci);
+            if (ci < text.length){ ci++; setTimeout(typeChar, typeSpeed); }
+            else { setTimeout(deleteLine, Math.max(minHold, text.length * 95)); }
+        })();
+    }
+    function deleteLine(){
+        const text = lines[li];
+        let ci = text.length;
+        (function delChar(){
+            el.textContent = text.slice(0, ci);
+            if (ci > 0){ ci--; setTimeout(delChar, deleteSpeed); }
+            else { li = (li + 1) % lines.length; setTimeout(typeLine, betweenPause); }
+        })();
+    }
+    typeLine();
+}
+const TAGLINES = [
+    'Hey!! Howdy?',
+    'Give me a quick add on Discord, I\u2019ll add you back',
+    'Feel free to stalk me'
+];
+safeRun(() => whenFontsReady(() => typewriterLoop(document.getElementById('taglineText'), TAGLINES)));
+
+/* GREETING + CLOCKS */
+function timeSlot(hour){
+    if (hour >= 5  && hour < 11) return 'dawn';
+    if (hour >= 11 && hour < 17) return 'day';
+    if (hour >= 17 && hour < 21) return 'dusk';
+    return 'night';
+}
+const GREETINGS = {
+    dawn:  ['good morning', 'up early?'],
+    day:   ['hey there', 'hello'],
+    dusk:  ['good evening', 'golden hour'],
+    night: ['still up, huh?', 'night owl hours']
+};
+function applyGreeting(){
+    const el = document.getElementById('greetingText');
+    if (!el) return;
+    const slot = timeSlot(new Date().getHours());
+    const arr = GREETINGS[slot];
+    el.textContent = arr[Math.floor(Math.random() * arr.length)];
+}
+safeRun(applyGreeting);
+setInterval(() => safeRun(applyGreeting), 5 * 60 * 1000);
+
+function updateClocks(){
+    const now = new Date();
+    const timeStr = now.toLocaleTimeString([], { hour:'2-digit', minute:'2-digit', hour12:false });
+    let theirStr = '--:--';
+    try{ theirStr = now.toLocaleTimeString('en-GB', { hour:'2-digit', minute:'2-digit', hour12:false, timeZone: MY_TIMEZONE }); }catch(e){}
+    const localVal = document.getElementById('localTimeVal');
+    if (localVal) localVal.textContent = timeStr;
+    const theirVal = document.getElementById('theirTimeVal');
+    if (theirVal) theirVal.textContent = theirStr;
+    const vClock = document.getElementById('vibeClock');
+    if (vClock) vClock.textContent = timeStr;
+}
+safeRun(updateClocks);
+setInterval(() => safeRun(updateClocks), 15000);
+
+/* DISCORD PRESENCE — LANYARD WEBSOCKET */
+const DISCORD_STATUS_META = {
+    online:  { label:'Online',           color:'#57d977' },
+    idle:    { label:'Idle',             color:'#f0b232' },
+    dnd:     { label:'Do Not Disturb',   color:'#f04747' },
+    offline: { label:'Offline',          color:'#7a7a7a' }
+};
+const LAST_ONLINE_KEY = 'ash_last_online_ts';
+
+function formatLastSeen(ms){
+    const totalMinutes = Math.floor(ms / 60000);
+    const minutes = totalMinutes % 60;
+    const totalHours = Math.floor(totalMinutes / 60);
+    const hours = totalHours % 24;
+    const totalDays = Math.floor(totalHours / 24);
+    const days = totalDays % 7;
+    const totalWeeks = Math.floor(totalDays / 7);
+    const weeks = totalWeeks % 4;
+    const months = Math.floor(totalWeeks / 4);
+    if (totalHours < 1) return minutes + 'm ago';
+    if (totalDays < 1) return hours + 'h ' + minutes + 'm ago';
+    if (totalWeeks < 1) return days + 'd ' + hours + 'h ago';
+    if (months < 1) return weeks + 'w ' + days + 'd ago';
+    return months + 'mo ' + weeks + 'w ago';
+}
+
+function fmtElapsed(ms){
+    const totalSec = Math.max(0, Math.floor(ms / 1000));
+    const h = Math.floor(totalSec / 3600);
+    const m = Math.floor((totalSec % 3600) / 60);
+    const s = totalSec % 60;
+    if (h > 0) return `${h}h ${m}m`;
+    if (m > 0) return `${m}m ${s}s`;
+    return `${s}s`;
+}
+function fmtMs(ms){
+    const totalSec = Math.max(0, Math.floor(ms / 1000));
+    const m = Math.floor(totalSec / 60), s = totalSec % 60;
+    return m + ':' + String(s).padStart(2, '0');
+}
+
+/* Build Discord asset URLs from Lanyard activity.assets */
+function discordAsset(appId, key){
+    if (!key) return '';
+    if (key.startsWith('mp:external/')){
+        return 'https://media.discordapp.net/external/' + key.slice('mp:external/'.length);
+    }
+    if (key.startsWith('spotify:')){
+        return 'https://i.scdn.co/image/' + key.slice('spotify:'.length);
+    }
+    return `https://cdn.discordapp.com/app-assets/${appId}/${key}.png`;
+}
+
+let currentPresence = null;       // last data payload
+let activityStartTs = null;       // for the elapsed timer
+let spotifyTimes = null;          // { start, end }
+
+function setPill(status){
+    const meta = DISCORD_STATUS_META[status] || DISCORD_STATUS_META.offline;
+    const dot = document.getElementById('stHeroDot');
+    const pill = document.getElementById('stPill');
+    const pillText = document.getElementById('stPillText');
+    const legacyDot = document.getElementById('discordStatusDot');
+    const legacyText = document.getElementById('discordStatusText');
+
+    if (dot && pill){
+        ['online','idle','dnd','offline'].forEach(s => { dot.classList.remove(s); pill.classList.remove(s); });
+        dot.classList.add(status);
+        pill.classList.add(status);
+    }
+    if (pillText) pillText.textContent = meta.label;
+
+    if (legacyDot) legacyDot.style.background = meta.color;
+    if (legacyText){
+        if (status !== 'offline'){ legacyText.textContent = meta.label; }
+        else {
+            const stored = localStorage.getItem(LAST_ONLINE_KEY);
+            legacyText.textContent = stored ? 'Offline \u00b7 last online ' + formatLastSeen(Date.now() - parseInt(stored,10)) : 'Offline';
+        }
+    }
+}
+
+function renderPresence(d){
+    currentPresence = d;
+    const status = d.discord_status || 'offline';
+    setPill(status);
+
+    if (status !== 'offline') localStorage.setItem(LAST_ONLINE_KEY, String(Date.now()));
+
+    /* avatar from Discord user id if available */
+    if (d.discord_user && d.discord_user.id){
+        const av = d.discord_user.avatar;
+        if (av){
+            const ext = av.startsWith('a_') ? 'gif' : 'png';
+            const url = `https://cdn.discordapp.com/avatars/${d.discord_user.id}/${av}.${ext}?size=128`;
+            const heroAv = document.getElementById('stHeroAvatar');
+            if (heroAv) heroAv.src = url;
+        }
+    }
+
+    /* custom status */
+    const activities = d.activities || [];
+    const custom = activities.find(a => a.type === 4);
+    const customEl = document.getElementById('stCustom');
+    const legacyCustom = document.getElementById('discordCustomStatus');
+    if (custom && (custom.state || custom.emoji)){
+        let txt = '';
+        if (custom.emoji && custom.emoji.name && !custom.emoji.id) txt += '<span class="emoji">' + custom.emoji.name + '</span>';
+        txt += escapeHtml(custom.state || '');
+        customEl.innerHTML = txt || 'no custom status set';
+        if (legacyCustom){ legacyCustom.textContent = 'Status: \u201c' + (custom.state || '') + '\u201d'; legacyCustom.style.display = custom.state ? 'block' : 'none'; }
+    } else {
+        customEl.textContent = status === 'offline' ? 'currently offline \u2014 back soon' : 'no custom status set';
+        if (legacyCustom){ legacyCustom.style.display = 'none'; }
+    }
+
+    /* SPOTIFY */
+    const sp = document.getElementById('stSpotify');
+    if (d.listening_to_spotify && d.spotify){
+        sp.classList.add('show');
+        document.getElementById('stSpTitle').textContent = d.spotify.song || '—';
+        document.getElementById('stSpArtist').textContent = d.spotify.artist || '';
+        if (d.spotify.album_art_url) document.getElementById('stSpArt').src = d.spotify.album_art_url;
+        spotifyTimes = d.spotify.timestamps || null;
+    } else {
+        sp.classList.remove('show');
+        spotifyTimes = null;
+    }
+
+    /* GAME / RICH ACTIVITY */
+    const act = activities.find(a => a.type === 0);
+    const actEl = document.getElementById('stActivity');
+    if (act){
+        actEl.classList.add('show');
+        const eyebrow = document.getElementById('stActEyebrow');
+        const isEditor = /visual studio code|vscode|code|termux|neovim|vim|jetbrains|intellij/i.test(act.name || '');
+        eyebrow.querySelector('span').textContent = isEditor ? 'Working in' : 'Playing';
+        eyebrow.querySelector('i').className = isEditor ? 'fas fa-code' : 'fas fa-gamepad';
+
+        document.getElementById('stActTitle').textContent = act.name || 'Something';
+        document.getElementById('stActDetail').textContent = act.details || '';
+        document.getElementById('stActState').textContent = act.state || '';
+
+        const bigArt = document.getElementById('stActArt');
+        const smallArt = document.getElementById('stActArtSmall');
+        const largeKey = act.assets && act.assets.large_image;
+        const smallKey = act.assets && act.assets.small_image;
+        if (largeKey){ bigArt.src = discordAsset(act.application_id, largeKey); bigArt.style.display='block'; }
+        else { bigArt.src = 'pfp.png'; }
+        if (smallKey){ smallArt.src = discordAsset(act.application_id, smallKey); smallArt.style.display='block'; }
+        else { smallArt.style.display='none'; }
+
+        activityStartTs = (act.timestamps && act.timestamps.start) ? act.timestamps.start : null;
+        updateActivityElapsed();
+    } else {
+        actEl.classList.remove('show');
+        activityStartTs = null;
+    }
+
+    /* LAST ONLINE */
+    const lastOnlineEl = document.getElementById('stHeroLastOnline');
+    if (lastOnlineEl){
+        const stored = localStorage.getItem(LAST_ONLINE_KEY);
+        if (status !== 'offline'){
+            lastOnlineEl.innerHTML = '<i class="fas fa-circle"></i> online now';
+        } else {
+            lastOnlineEl.innerHTML = '<i class="fas fa-circle"></i> last online ' + escapeHtml(stored ? formatLastSeen(Date.now() - parseInt(stored, 10)) : 'a while ago');
+        }
+        lastOnlineEl.classList.add('show');
+    }
+
+    /* PLATFORM BADGES */
+    const platMap = { stPlatDesktop:'active_on_discord_desktop', stPlatMobile:'active_on_discord_mobile', stPlatWeb:'active_on_discord_web' };
+    Object.keys(platMap).forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.classList.toggle('active', !!d[platMap[id]]);
+    });
+}
+
+function updateActivityElapsed(){
+    const wrap = document.getElementById('stActElapsed');
+    if (!activityStartTs){ if (wrap) wrap.style.display = 'none'; return; }
+    if (wrap){ wrap.style.display = 'flex'; wrap.querySelector('span').textContent = 'for ' + fmtElapsed(Date.now() - activityStartTs); }
+}
+function updateSpotifyProgress(){
+    if (!spotifyTimes || !spotifyTimes.start || !spotifyTimes.end){ return; }
+    const total = spotifyTimes.end - spotifyTimes.start;
+    const elapsed = Math.min(total, Math.max(0, Date.now() - spotifyTimes.start));
+    const pct = total > 0 ? (elapsed / total) * 100 : 0;
+    const fill = document.getElementById('stSpFill');
+    if (fill) fill.style.width = pct + '%';
+    const curEl = document.getElementById('stSpCur');
+    if (curEl) curEl.textContent = fmtMs(elapsed);
+    const durEl = document.getElementById('stSpDur');
+    if (durEl) durEl.textContent = fmtMs(total);
+}
+/* 1s ticker for live timers */
+setInterval(() => { safeRun(updateActivityElapsed); safeRun(updateSpotifyProgress); }, 1000);
+
+/* ---- LANYARD WEBSOCKET ---- */
+(function initLanyardSocket(){
+    let ws = null, heartbeat = null, reconnectDelay = 1000;
+    function fallbackFetch(){
+        fetch(`https://api.lanyard.rest/v1/users/${DISCORD_ID}`)
+            .then(r => r.json())
+            .then(j => { if (j.success) safeRun(() => renderPresence(j.data)); })
+            .catch(() => safeRun(() => setPill('offline')));
+    }
+    function connect(){
+        try{ ws = new WebSocket('wss://api.lanyard.rest/socket'); }
+        catch(e){ fallbackFetch(); return; }
+
+        ws.addEventListener('open', () => { reconnectDelay = 1000; });
+        ws.addEventListener('message', ev => {
+            let msg;
+            try{ msg = JSON.parse(ev.data); }catch(e){ return; }
+            // op 1 = Hello (contains heartbeat_interval)
+            if (msg.op === 1 && msg.d && msg.d.heartbeat_interval){
+                ws.send(JSON.stringify({ op: 2, d: { subscribe_to_id: DISCORD_ID } }));
+                clearInterval(heartbeat);
+                heartbeat = setInterval(() => { if (ws && ws.readyState === 1) ws.send(JSON.stringify({ op: 3 })); }, msg.d.heartbeat_interval);
+            }
+            // op 0 = Event (INIT_STATE / PRESENCE_UPDATE)
+            if (msg.op === 0 && msg.d){ safeRun(() => renderPresence(msg.d)); }
+        });
+        ws.addEventListener('close', () => {
+            clearInterval(heartbeat);
+            setTimeout(connect, reconnectDelay);
+            reconnectDelay = Math.min(reconnectDelay * 1.6, 15000);
+        });
+        ws.addEventListener('error', () => { try{ ws.close(); }catch(e){} });
+    }
+    connect();
+    // safety: one immediate REST fetch so the tab isn't blank pre-socket
+    fallbackFetch();
+})();
+
+/* SESSION TIMER */
+const sessionStart = Date.now();
+setInterval(() => {
+    const secs = Math.floor((Date.now() - sessionStart) / 1000);
+    const m = Math.floor(secs / 60), s = secs % 60;
+    const el = document.getElementById('sessionTimer');
+    if (el) el.textContent = m + ':' + String(s).padStart(2, '0');
+}, 1000);
+
+/* TAB SWITCHING (keyboard 1/2/3/4) */
+function switchTab(tab){
+    document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.toggle('active', btn.dataset.tab === tab));
+    document.querySelectorAll('.tab-panel').forEach(panel => panel.classList.toggle('active', panel.id === 'tab-' + tab));
+    resizeViz();
+}
+document.addEventListener('keydown', e => {
+    const tag = document.activeElement && document.activeElement.tagName;
+    if (tag === 'INPUT' || tag === 'TEXTAREA') return;
+    const map = { '1':'intel', '2':'anime', '3':'vibe', '4':'music' };
+    if (map[e.key]){ switchTab(map[e.key]); SFX.tab(); }
+});
+
+/* SECTION NAV — off-canvas drawer on mobile, collapsible bar on desktop.
+   Desktop defaults open, mobile defaults closed; the same toggle button
+   and class drive both, the CSS just points the transform differently. */
+safeRun(function initSiteNav(){
+    const nav = document.getElementById('siteNav');
+    const toggle = document.getElementById('navToggle');
+    const overlay = document.getElementById('navOverlay');
+    const icon = document.getElementById('navToggleIcon');
+    if (!nav || !toggle || !overlay) return;
+    const desktopQuery = window.matchMedia('(min-width:820px)');
+
+    function setOpen(open){
+        nav.classList.toggle('nav-open', open);
+        overlay.classList.toggle('show', open && !desktopQuery.matches);
+        toggle.setAttribute('aria-expanded', String(open));
+        if (icon) icon.className = open ? 'fas fa-xmark' : 'fas fa-bars';
+    }
+    setOpen(desktopQuery.matches);
+
+    toggle.addEventListener('click', () => setOpen(!nav.classList.contains('nav-open')));
+    overlay.addEventListener('click', () => setOpen(false));
+    nav.querySelectorAll('.tab-btn').forEach(btn => btn.addEventListener('click', () => {
+        if (!desktopQuery.matches) setOpen(false);
+    }));
+    desktopQuery.addEventListener('change', () => setOpen(desktopQuery.matches));
+});
+
+/* LOADING BARS */
+function renderBar(container, pct){
+    if (!container) return;
+    const fill = container.querySelector('.loadbar-fill');
+    if (!fill) return;
+    fill.style.width = Math.max(0, Math.min(100, pct)) + '%';
+}
+
+/* BIRTHDAY */
+function nextBirthdayDetail(month, day){
+    const now = new Date();
+    let target = new Date(now.getFullYear(), month - 1, day);
+    if (target < new Date(now.getFullYear(), now.getMonth(), now.getDate())) target = new Date(now.getFullYear() + 1, month - 1, day);
+    const prev = new Date(target.getFullYear() - 1, month - 1, day);
+    const total = target - prev;
+    const diffMs = target - now;
+    const days = Math.floor(diffMs / 86400000);
+    const hours = Math.floor((diffMs % 86400000) / 3600000);
+    const mins = Math.floor((diffMs % 3600000) / 60000);
+    return { days, hours, mins, pct: Math.max(0, Math.min(100, (diffMs / total) * 100)) };
+}
+function initBirthday(){
+    const BDAY_MONTH = 11, BDAY_DAY = 1;
+    const info = nextBirthdayDetail(BDAY_MONTH, BDAY_DAY);
+    const daysEl = document.getElementById('bdayDays');
+    if (daysEl){
+        if (info.days === 0 && info.hours === 0 && info.mins <= 0){ daysEl.textContent = "it's today"; }
+        else { daysEl.textContent = `${info.days}d ${info.hours}h ${info.mins}m until my birthday`; }
+    }
+    renderBar(document.getElementById('bdayBar'), info.pct);
+}
+safeRun(initBirthday);
+setInterval(() => safeRun(initBirthday), 60000);
+
+/* PLAYLIST WIDGET + AUDIO VISUALIZER */
+function shuffleArray(arr){
+    const a = arr.slice();
+    for (let i = a.length - 1; i > 0; i--){ const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; }
+    return a;
+}
+function formatTime(sec){
+    if (!isFinite(sec) || sec < 0) sec = 0;
+    const m = Math.floor(sec / 60), s = Math.floor(sec % 60);
+    return m + ':' + String(s).padStart(2, '0');
+}
+
+let startPlaylistOnEntry = null;
+let vizAnalyser = null, vizAudioCtx = null, vizSourceBound = false;
+
+/* Canvas visualizer — frequency bars reacting to the player audio */
+function resizeViz(){
+    const canvas = document.getElementById('audioViz');
+    if (!canvas) return;
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    const rect = canvas.getBoundingClientRect();
+    if (rect.width === 0) return;
+    canvas.width = Math.floor(rect.width * dpr);
+    canvas.height = Math.floor(rect.height * dpr);
+}
+window.addEventListener('resize', resizeViz);
+
+(function initVisualizer(){
+    const canvas = document.getElementById('audioViz');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    resizeViz();
+
+    const BARS = 48;
+    let dataArray = null;
+
+    function draw(){
+        requestAnimationFrame(draw);
+        const w = canvas.width, h = canvas.height;
+        ctx.clearRect(0, 0, w, h);
+
+        if (vizAnalyser && dataArray){
+            vizAnalyser.getByteFrequencyData(dataArray);
+        }
+        const gap = 2 * (Math.min(window.devicePixelRatio || 1, 2));
+        const barW = (w - gap * (BARS - 1)) / BARS;
+        for (let i = 0; i < BARS; i++){
+            let v;
+            if (vizAnalyser && dataArray){
+                const idx = Math.floor(i / BARS * dataArray.length * 0.7);
+                v = dataArray[idx] / 255;
+            } else {
+                // gentle idle sine wave when nothing is playing
+                v = 0.12 + 0.10 * Math.abs(Math.sin(Date.now() / 500 + i * 0.4));
+            }
+            const barH = Math.max(2 * (window.devicePixelRatio||1), v * h);
+            const x = i * (barW + gap);
+            const y = h - barH;
+            const grad = ctx.createLinearGradient(0, y, 0, h);
+            grad.addColorStop(0, 'rgba(116,164,129,0.95)');
+            grad.addColorStop(1, 'rgba(62,92,120,0.35)');
+            ctx.fillStyle = grad;
+            const r = Math.min(barW / 2, 3 * (window.devicePixelRatio||1));
+            roundRect(ctx, x, y, barW, barH, r);
+            ctx.fill();
+        }
+    }
+    function roundRect(c, x, y, w, h, r){
+        c.beginPath();
+        c.moveTo(x + r, y);
+        c.arcTo(x + w, y, x + w, y + h, r);
+        c.arcTo(x + w, y + h, x, y + h, r);
+        c.arcTo(x, y + h, x, y, r);
+        c.arcTo(x, y, x + w, y, r);
+        c.closePath();
+    }
+
+    // expose a binder so the player can attach the analyser once audio starts
+    window.__bindViz = function(audioEl){
+        if (vizSourceBound) return;
+        try{
+            vizAudioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            const src = vizAudioCtx.createMediaElementSource(audioEl);
+            vizAnalyser = vizAudioCtx.createAnalyser();
+            vizAnalyser.fftSize = 128;
+            dataArray = new Uint8Array(vizAnalyser.frequencyBinCount);
+            src.connect(vizAnalyser);
+            vizAnalyser.connect(vizAudioCtx.destination);
+            vizSourceBound = true;
+        }catch(e){ console.log('[v0] visualizer bind failed:', e.message); }
+    };
+
+    draw();
+})();
+
+(function initPlayer(){
+    const widget   = document.getElementById('playerWidget');
+    const audioEl  = document.getElementById('playerAudio');
+    const titleEl  = document.getElementById('playerTitle');
+    const artistEl = document.getElementById('playerArtist');
+    const coverEl  = document.getElementById('playerCover');
+    const barFill  = document.getElementById('playerBarFill');
+    const bar      = document.getElementById('playerBar');
+    const curEl    = document.getElementById('playerCurrent');
+    const durEl    = document.getElementById('playerDuration');
+    const playBtn  = document.getElementById('playerPlay');
+    const playIcon = document.getElementById('playerPlayIcon');
+    const prevBtn  = document.getElementById('playerPrev');
+    const nextBtn  = document.getElementById('playerNext');
+    const note     = document.getElementById('playerShuffleNote');
+    if (!widget || !audioEl) return;
+
+    if (!TRACKS.length){
+        widget.classList.add('is-empty');
+        titleEl.textContent = 'no tracks yet';
+        artistEl.textContent = 'add tracks to TRACKS in the config';
+        return;
+    }
+
+    let order = TRACKS.length > 1 ? shuffleArray(TRACKS.map((_, i) => i)) : [0];
+    let idx = 0;
+
+    function setPlayIcon(isPlaying){ playIcon.className = isPlaying ? 'fas fa-pause' : 'fas fa-play'; }
+    function bindVizOnce(){ if (window.__bindViz) window.__bindViz(audioEl); }
+
+    function loadTrack(i){
+        const t = TRACKS[order[i]];
+        if (!t) return;
+        titleEl.textContent = t.title || 'Untitled';
+        artistEl.textContent = t.artist || '';
+        coverEl.onerror = () => { coverEl.onerror = null; coverEl.src = LFM_DEFAULT_ART; };
+        coverEl.src = t.cover ? `covers/${t.cover}` : LFM_DEFAULT_ART;
+        audioEl.src = `audio/${t.file}`;
+        barFill.style.width = '0%';
+        curEl.textContent = '0:00';
+        durEl.textContent = '0:00';
+    }
+
+    function play(){ bindVizOnce(); if (vizAudioCtx && vizAudioCtx.state === 'suspended') vizAudioCtx.resume(); audioEl.play().then(() => setPlayIcon(true)).catch(() => setPlayIcon(false)); }
+    function pause(){ audioEl.pause(); setPlayIcon(false); }
+    startPlaylistOnEntry = play;
+
+    function goTo(i, autoplay){ idx = (i + order.length) % order.length; loadTrack(idx); if (autoplay) play(); }
+
+    loadTrack(0);
+    note.innerHTML = TRACKS.length > 1 ? '<i class="fas fa-shuffle"></i> shuffling ' + TRACKS.length + ' tracks' : '';
+
+    playBtn.addEventListener('click', () => { audioEl.paused ? play() : pause(); });
+    prevBtn.addEventListener('click', () => goTo(idx - 1, true));
+    nextBtn.addEventListener('click', () => goTo(idx + 1, true));
+
+    audioEl.addEventListener('timeupdate', () => {
+        const pct = audioEl.duration ? (audioEl.currentTime / audioEl.duration) * 100 : 0;
+        barFill.style.width = pct + '%';
+        curEl.textContent = formatTime(audioEl.currentTime);
+    });
+    audioEl.addEventListener('loadedmetadata', () => { durEl.textContent = formatTime(audioEl.duration); });
+    audioEl.addEventListener('ended', () => {
+        if (idx === order.length - 1 && TRACKS.length > 1){ order = shuffleArray(TRACKS.map((_, i) => i)); }
+        goTo(idx + 1, true);
+    });
+
+    bar.addEventListener('click', (e) => {
+        const rect = bar.getBoundingClientRect();
+        const pct = Math.min(1, Math.max(0, (e.clientX - rect.left) / rect.width));
+        if (audioEl.duration) audioEl.currentTime = pct * audioEl.duration;
+    });
+})();
+
+/* LAST.FM — now playing / recent / weekly rotation */
+function timeAgo(unixSeconds){
+    const diff = Math.max(0, Date.now() / 1000 - unixSeconds);
+    if (diff < 60) return 'just now';
+    if (diff < 3600) return Math.floor(diff / 60) + 'm ago';
+    if (diff < 86400) return Math.floor(diff / 3600) + 'h ago';
+    return Math.floor(diff / 86400) + 'd ago';
+}
+function escapeHtml(str){
+    const div = document.createElement('div');
+    div.textContent = str == null ? '' : String(str);
+    return div.innerHTML;
+}
+
+async function fetchNowPlaying(){
+    try{
+        const res = await fetch(`https://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=${LFM_USER}&api_key=${LFM_KEY}&format=json&limit=1`);
+        const data = await res.json();
+        const track = data?.recenttracks?.track?.[0];
+        if (!track) throw new Error('no track');
+        const isLive = track['@attr']?.nowplaying === 'true';
+        const name = track.name || 'Unknown Track';
+        const artist = track.artist?.['#text'] || 'Unknown Artist';
+        const art = (track.image?.find(i => i.size === 'large')?.['#text'] || '').trim() || LFM_DEFAULT_ART;
+        document.getElementById('lfm-track').textContent = name;
+        document.getElementById('lfm-artist').textContent = artist;
+        document.getElementById('lfm-art').src = art;
+        document.getElementById('lfm-status').textContent = isLive ? 'live scrobbling' : 'offline \u00b7 last played';
+        document.getElementById('lfm-eq').classList.toggle('active', isLive);
+    }catch(err){
+        document.getElementById('lfm-track').textContent = 'connection lost';
+        document.getElementById('lfm-artist').textContent = '';
+        document.getElementById('lfm-status').textContent = 'couldn\u2019t reach last.fm';
+    }
+}
+async function fetchRecent(){
+    const list = document.getElementById('recentList');
+    if (!list) return;
+    try{
+        const res = await fetch(`https://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=${LFM_USER}&api_key=${LFM_KEY}&format=json&limit=8`);
+        const data = await res.json();
+        const tracks = (data?.recenttracks?.track || []).filter(t => t['@attr']?.nowplaying !== 'true');
+        if (!tracks.length){ list.innerHTML = '<p style="font-size:12px;color:var(--ink-faint);">nothing scrobbled recently.</p>'; return; }
+        list.innerHTML = tracks.map(t => {
+            const art = (t.image?.find(i => i.size === 'medium')?.['#text'] || '').trim() || LFM_DEFAULT_ART;
+            const when = t.date?.uts ? timeAgo(t.date.uts) : '';
+            return `<div class="recent-row">
+                <img class="recent-art" src="${art}" alt="" loading="lazy">
+                <div class="recent-text">
+                    <div class="recent-track">${escapeHtml(t.name || 'Unknown')}</div>
+                    <div class="recent-artist">${escapeHtml(t.artist?.['#text'] || 'Unknown Artist')}</div>
+                </div>
+                <div class="recent-time">${when}</div>
+            </div>`;
+        }).join('');
+    }catch(err){
+        list.innerHTML = '<p style="font-size:12px;color:var(--ink-faint);">couldn\u2019t load recent tracks.</p>';
+    }
+}
+async function fetchTopArtists(){
+    const wrap = document.getElementById('topArtists');
+    if (!wrap) return;
+    try{
+        const res = await fetch(`https://ws.audioscrobbler.com/2.0/?method=user.gettopartists&user=${LFM_USER}&api_key=${LFM_KEY}&format=json&period=7day&limit=6`);
+        const data = await res.json();
+        const artists = data?.topartists?.artist || [];
+        if (!artists.length){ wrap.innerHTML = '<p style="font-size:12px;color:var(--ink-faint);">not enough scrobbles yet this week.</p>'; return; }
+        wrap.innerHTML = artists.map((a, i) => `<span class="artist-chip"><span class="rank">#${i+1}</span> ${escapeHtml(a.name)}</span>`).join('');
+    }catch(err){
+        wrap.innerHTML = '<p style="font-size:12px;color:var(--ink-faint);">couldn\u2019t load this week\u2019s rotation.</p>';
+    }
+}
+fetchNowPlaying(); fetchRecent(); fetchTopArtists(); fetchLfmStats();
+setInterval(fetchNowPlaying, 30000);
+setInterval(fetchRecent, 60000);
+
+/* LAST.FM — lifetime/monthly/yearly stats shown above "now playing" */
+async function fetchLfmStats(){
+    const ids = ['lfmStatScrobbles','lfmStatArtists','lfmStatMonth','lfmStatYear'];
+    try{
+        const infoRes = await fetch(`https://ws.audioscrobbler.com/2.0/?method=user.getinfo&user=${LFM_USER}&api_key=${LFM_KEY}&format=json`);
+        const info = await infoRes.json();
+        const u = info?.user;
+        if (u){
+            document.getElementById('lfmStatScrobbles').textContent = Number(u.playcount || 0).toLocaleString();
+            document.getElementById('lfmStatArtists').textContent = Number(u.artist_count || 0).toLocaleString();
+        }
+        const now = new Date();
+        const monthStart = Math.floor(new Date(now.getFullYear(), now.getMonth(), 1).getTime() / 1000);
+        const yearStart = Math.floor(new Date(now.getFullYear(), 0, 1).getTime() / 1000);
+        const nowUts = Math.floor(Date.now() / 1000);
+        const [monthRes, yearRes] = await Promise.all([
+            fetch(`https://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=${LFM_USER}&api_key=${LFM_KEY}&format=json&from=${monthStart}&to=${nowUts}&limit=1`),
+            fetch(`https://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=${LFM_USER}&api_key=${LFM_KEY}&format=json&from=${yearStart}&to=${nowUts}&limit=1`)
+        ]);
+        const monthData = await monthRes.json();
+        const yearData = await yearRes.json();
+        document.getElementById('lfmStatMonth').textContent = Number(monthData?.recenttracks?.['@attr']?.total || 0).toLocaleString();
+        document.getElementById('lfmStatYear').textContent = Number(yearData?.recenttracks?.['@attr']?.total || 0).toLocaleString();
+    }catch(err){
+        ids.forEach(id => { const el = document.getElementById(id); if (el) el.textContent = '\u2014'; });
+    }
+}
+
+/* ANILIST — profile stats + status-switching anime grid */
+let ANIME_LISTS = { CURRENT: [], PAUSED: [], DROPPED: [], COMPLETED: [] };
+let ANIME_ACTIVE_STATUS = 'CURRENT';
+let ANIME_VIEW_ALL = false;
+const ANIME_STATUS_LABELS = {
+    CURRENT: 'currently watching',
+    PAUSED: 'on hold',
+    DROPPED: 'dropped',
+    COMPLETED: 'completed'
+};
+function animeShowsProgress(status){ return status === 'CURRENT' || status === 'PAUSED'; }
+
+function shuffleArrayCopy(arr){
+    const a = arr.slice();
+    for (let i = a.length - 1; i > 0; i--){
+        const j = Math.floor(Math.random() * (i + 1));
+        [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+}
+
+function renderAnimeTile(e, showProgress){
+    const m = e.media;
+    const title = m.title.english || m.title.romaji;
+    const progressBadge = (showProgress && e.progress) ? `<span class="anime-tile-progress">${e.progress}${m.episodes ? '/' + m.episodes : ''}</span>` : '';
+    const scoreBadge = e.score ? `<span class="anime-tile-score"><i class="fas fa-star"></i>${e.score}</span>` : '';
+    return `<a class="anime-tile" href="${m.siteUrl}" target="_blank" rel="noopener">
+        <img src="${m.coverImage.large}" alt="${escapeHtml(title)}" loading="lazy">
+        ${scoreBadge}${progressBadge}
+        <span class="anime-tile-title">${escapeHtml(title)}</span>
+    </a>`;
+}
+
+function renderAnimeGrid(entries, showProgress){
+    const grid = document.getElementById('animeGrid');
+    if (!grid) return;
+    if (!entries.length){ grid.innerHTML = '<p style="font-size:12px;color:var(--ink-faint);">nothing to show right now.</p>'; return; }
+    grid.innerHTML = entries.map(e => renderAnimeTile(e, showProgress)).join('');
+}
+
+/* renders the currently active status from cache */
+function renderActiveAnimeStatus(){
+    const label = document.getElementById('animeListLabel');
+    const viewAllBtn = document.getElementById('animeViewAllBtn');
+    const viewAllCount = document.getElementById('animeViewAllCount');
+    const viewAllIcon = document.getElementById('animeViewAllIcon');
+    const shuffleBtn = document.getElementById('animeShuffleBtn');
+    const list = ANIME_LISTS[ANIME_ACTIVE_STATUS] || [];
+    const showProgress = animeShowsProgress(ANIME_ACTIVE_STATUS);
+
+    ANIME_VIEW_ALL = false;
+    if (label) label.textContent = ANIME_STATUS_LABELS[ANIME_ACTIVE_STATUS] || '';
+    if (viewAllIcon) viewAllIcon.classList.remove('open');
+    if (viewAllBtn) viewAllBtn.firstChild.textContent = 'see all ';
+
+    if (!list.length){
+        renderAnimeGrid([], showProgress);
+        if (viewAllBtn) viewAllBtn.style.display = 'none';
+        if (shuffleBtn) shuffleBtn.style.display = 'none';
+        return;
+    }
+
+    if (list.length > 10){
+        renderAnimeGrid(shuffleArrayCopy(list).slice(0, 10), showProgress);
+        if (viewAllBtn) viewAllBtn.style.display = 'inline-flex';
+        if (viewAllCount) viewAllCount.textContent = `(${list.length})`;
+        if (shuffleBtn) shuffleBtn.style.display = 'flex';
+    } else {
+        renderAnimeGrid(list, showProgress);
+        if (viewAllBtn) viewAllBtn.style.display = 'none';
+        if (shuffleBtn) shuffleBtn.style.display = 'none';
+    }
+}
+
+async function fetchAniList(){
+    const grid = document.getElementById('animeGrid');
+    if (!grid) return;
+    const query = `query($name:String){
+        User(name:$name){ statistics{ anime{ count meanScore episodesWatched minutesWatched } } }
+        current: MediaListCollection(userName:$name, type:ANIME, status:CURRENT){ lists{ entries{ progress score media{ title{ romaji english } coverImage{ large } siteUrl episodes } } } }
+        paused: MediaListCollection(userName:$name, type:ANIME, status:PAUSED){ lists{ entries{ progress score media{ title{ romaji english } coverImage{ large } siteUrl episodes } } } }
+        dropped: MediaListCollection(userName:$name, type:ANIME, status:DROPPED){ lists{ entries{ progress score media{ title{ romaji english } coverImage{ large } siteUrl episodes } } } }
+        completed: MediaListCollection(userName:$name, type:ANIME, status_in:[COMPLETED,REPEATING]){ lists{ entries{ score media{ title{ romaji english } coverImage{ large } siteUrl episodes } } } }
+    }`;
+    try{
+        const res = await fetch('https://graphql.anilist.co', {
+            method: 'POST',
+            headers: { 'Content-Type':'application/json', 'Accept':'application/json' },
+            body: JSON.stringify({ query, variables:{ name: ANILIST_USERNAME } })
+        });
+        const json = await res.json();
+        const data = json.data;
+        // top stat row — always straight from AniList, so it's always accurate/live
+        const stats = data?.User?.statistics?.anime;
+        if (stats){
+            document.getElementById('animeStatCount').textContent = stats.count ?? '\u2014';
+            document.getElementById('animeStatScore').textContent = stats.meanScore ? stats.meanScore.toFixed(1) : '\u2014';
+            document.getElementById('animeStatEps').textContent = Number(stats.episodesWatched || 0).toLocaleString();
+            document.getElementById('animeStatDays').textContent = stats.minutesWatched ? Math.round(stats.minutesWatched / 1440) : '\u2014';
+        }
+
+        ANIME_LISTS.CURRENT   = (data?.current?.lists   || []).flatMap(l => l.entries || []);
+        ANIME_LISTS.PAUSED    = (data?.paused?.lists    || []).flatMap(l => l.entries || []);
+        ANIME_LISTS.DROPPED   = (data?.dropped?.lists   || []).flatMap(l => l.entries || []);
+        ANIME_LISTS.COMPLETED = (data?.completed?.lists || []).flatMap(l => l.entries || []);
+
+        // default to the first non-empty status, in order of relevance
+        const order = ['CURRENT', 'PAUSED', 'COMPLETED', 'DROPPED'];
+        ANIME_ACTIVE_STATUS = order.find(s => ANIME_LISTS[s].length) || 'CURRENT';
+        document.querySelectorAll('.anime-status-btn').forEach(btn => {
+            const isActive = btn.dataset.status === ANIME_ACTIVE_STATUS;
+            btn.classList.toggle('active', isActive);
+            btn.setAttribute('aria-selected', isActive ? 'true' : 'false');
+        });
+
+        renderActiveAnimeStatus();
+    }catch(err){
+        grid.innerHTML = '<p style="font-size:12px;color:var(--ink-faint);">couldn\u2019t load AniList data.</p>';
+    }
+}
+fetchAniList();
+
+safeRun(function initAnimeControls(){
+    const shuffleBtn = document.getElementById('animeShuffleBtn');
+    const viewAllBtn = document.getElementById('animeViewAllBtn');
+    const viewAllIcon = document.getElementById('animeViewAllIcon');
+
+    // status pills — swap which cached list is shown, never fetch again, never show more than one at once
+    document.querySelectorAll('.anime-status-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            if (btn.classList.contains('active')) return;
+            document.querySelectorAll('.anime-status-btn').forEach(b => {
+                b.classList.remove('active');
+                b.setAttribute('aria-selected', 'false');
+            });
+            btn.classList.add('active');
+            btn.setAttribute('aria-selected', 'true');
+            ANIME_ACTIVE_STATUS = btn.dataset.status;
+            renderActiveAnimeStatus();
+            SFX.tab();
+        });
+    });
+
+    if (shuffleBtn) shuffleBtn.addEventListener('click', () => {
+        if (ANIME_VIEW_ALL) return; // shuffle only makes sense in the 10-pick view
+        const list = ANIME_LISTS[ANIME_ACTIVE_STATUS] || [];
+        renderAnimeGrid(shuffleArrayCopy(list).slice(0, 10), animeShowsProgress(ANIME_ACTIVE_STATUS));
+        SFX.click();
+    });
+    if (viewAllBtn) viewAllBtn.addEventListener('click', () => {
+        const list = ANIME_LISTS[ANIME_ACTIVE_STATUS] || [];
+        const showProgress = animeShowsProgress(ANIME_ACTIVE_STATUS);
+        ANIME_VIEW_ALL = !ANIME_VIEW_ALL;
+        if (ANIME_VIEW_ALL){
+            const sorted = list.slice().sort((a, b) => {
+                const ta = (a.media.title.english || a.media.title.romaji || '').toLowerCase();
+                const tb = (b.media.title.english || b.media.title.romaji || '').toLowerCase();
+                return ta.localeCompare(tb);
+            });
+            renderAnimeGrid(sorted, showProgress);
+            viewAllBtn.firstChild.textContent = 'show 10 random picks ';
+            if (viewAllIcon) viewAllIcon.classList.add('open');
+        } else {
+            renderAnimeGrid(shuffleArrayCopy(list).slice(0, 10), showProgress);
+            viewAllBtn.firstChild.textContent = 'see all ';
+            if (viewAllIcon) viewAllIcon.classList.remove('open');
+        }
+        SFX.click();
+    });
+});
+
+/* ============================================================
+   COMMENTS / GUESTBOOK
+   ------------------------------------------------------------
+   Stored per-browser in localStorage — not a shared global
+   guestbook without a real backend behind it. See README.md.
+   ============================================================ */
+const COMMENTS_KEY = 'ashy_comments_v1';
+const COMMENT_VOTES_KEY = 'ashy_comment_votes_v1';
+const COMMENT_DISLIKE_LIMIT = 5;
+
+function loadComments(){
+    try{ return JSON.parse(localStorage.getItem(COMMENTS_KEY)) || []; }catch(e){ return []; }
+}
+function saveComments(list){ localStorage.setItem(COMMENTS_KEY, JSON.stringify(list)); }
+function loadCommentVotes(){
+    try{ return JSON.parse(localStorage.getItem(COMMENT_VOTES_KEY)) || {}; }catch(e){ return {}; }
+}
+function saveCommentVotes(v){ localStorage.setItem(COMMENT_VOTES_KEY, JSON.stringify(v)); }
+
+function renderComments(){
+    const list = document.getElementById('commentList');
+    if (!list) return;
+    let comments = loadComments();
+
+    const before = comments.length;
+    comments = comments.filter(c => c.dislikes < COMMENT_DISLIKE_LIMIT);
+    if (comments.length !== before) saveComments(comments);
+
+    if (!comments.length){
+        list.innerHTML = '<p class="comment-empty">no comments yet — be the first to say something.</p>';
+        return;
+    }
+
+    const votes = loadCommentVotes();
+    list.innerHTML = comments.slice().reverse().map(c => {
+        const myVote = votes[c.id];
+        return `
+        <div class="comment-card" data-id="${c.id}">
+            <div class="comment-head">
+                <span class="comment-name">${escapeHtml(c.name || 'Anonymous')}</span>
+                <span class="comment-time">${timeAgo(c.ts)}</span>
+            </div>
+            <div class="comment-text">${escapeHtml(c.text)}</div>
+            <div class="comment-actions">
+                <button class="comment-vote${myVote === 'like' ? ' active-like' : ''}" onclick="voteComment('${c.id}','like')"><i class="fas fa-thumbs-up"></i> ${c.likes}</button>
+                <button class="comment-vote${myVote === 'dislike' ? ' active-dislike' : ''}" onclick="voteComment('${c.id}','dislike')"><i class="fas fa-thumbs-down"></i> ${c.dislikes}</button>
+            </div>
+        </div>`;
+    }).join('');
+}
+
+function voteComment(id, type){
+    const comments = loadComments();
+    const c = comments.find(x => String(x.id) === String(id));
+    if (!c) return;
+    const votes = loadCommentVotes();
+    const prev = votes[id];
+
+    if (prev === type){
+        if (type === 'like') c.likes = Math.max(0, c.likes - 1);
+        else c.dislikes = Math.max(0, c.dislikes - 1);
+        delete votes[id];
+    } else {
+        if (prev === 'like') c.likes = Math.max(0, c.likes - 1);
+        if (prev === 'dislike') c.dislikes = Math.max(0, c.dislikes - 1);
+        if (type === 'like') c.likes += 1; else c.dislikes += 1;
+        votes[id] = type;
+    }
+    saveCommentVotes(votes);
+
+    if (c.dislikes >= COMMENT_DISLIKE_LIMIT){
+        saveComments(comments.filter(x => x !== c));
+        showToast('comment removed', 'fa-trash');
+    } else {
+        saveComments(comments);
+    }
+    renderComments();
+}
+
+safeRun(function initCommentForm(){
+    const form = document.getElementById('commentForm');
+    if (!form) return;
+    form.addEventListener('submit', e => {
+        e.preventDefault();
+        const nameEl = document.getElementById('commentName');
+        const textEl = document.getElementById('commentText');
+        const text = textEl.value.trim();
+        if (!text) return;
+
+        const comments = loadComments();
+        comments.push({
+            id: Date.now() + '_' + Math.random().toString(36).slice(2, 8),
+            name: nameEl.value.trim().slice(0, 40),
+            text: text.slice(0, 500),
+            ts: Date.now() / 1000,
+            likes: 0,
+            dislikes: 0
+        });
+        saveComments(comments);
+
+        textEl.value = '';
+        nameEl.value = '';
+        renderComments();
+        showToast('comment posted', 'fa-comment');
+    });
+    renderComments();
+});
+</script>
+</body>
+</html>
+
