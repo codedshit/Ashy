@@ -309,7 +309,6 @@ body.has-bg-video #bg-tint{ background:rgba(6,6,7,.6); }
     box-shadow:none;
     transition:color .25s ease, transform .25s ease;
 }
-}
 .social-btn:hover{ transform:translateY(-2px); }
 .social-btn img{
     width:17px; height:17px; object-fit:contain;
@@ -318,6 +317,23 @@ body.has-bg-video #bg-tint{ background:rgba(6,6,7,.6); }
     -webkit-mask-image:radial-gradient(circle, #000 70%, transparent 100%);
     mask-image:radial-gradient(circle, #000 70%, transparent 100%);
 }
+    .social-btn img,
+.social-btn i{
+  filter: drop-shadow(0 0 5px var(--accent-soft));
+  transition: filter .25s ease, transform .25s ease;
+}
+
+.social-btn:hover img,
+.social-btn:hover i{
+  filter: drop-shadow(0 0 9px var(--accent-strong));
+  transform: scale(1.15);
+}
+
+/* match the glow to each platform's own hover color */
+.social-btn.discord:hover img, .social-btn.discord:hover i { filter: drop-shadow(0 0 9px var(--blue-strong)); }
+.social-btn.github:hover  img, .social-btn.github:hover  i { filter: drop-shadow(0 0 9px var(--ink)); }
+.social-btn.anilist:hover img, .social-btn.anilist:hover i { filter: drop-shadow(0 0 9px var(--green-strong)); }
+.social-btn.spotify:hover img, .social-btn.spotify:hover i { filter: drop-shadow(0 0 9px var(--green-strong)); }
 .social-btn.discord:hover{ color:var(--blue-strong); border-color:var(--blue-soft); }
 .social-btn.github:hover{ color:var(--ink); border-color:var(--line-strong); }
 .social-btn.anilist:hover{ color:var(--green-strong); border-color:var(--green-soft); }
@@ -876,7 +892,7 @@ html.custom-cursor-active *{ cursor:none !important; }
                 <span class="card-corner bl" aria-hidden="true"></span><span class="card-corner br" aria-hidden="true"></span>
                 <div class="card-sheen" aria-hidden="true"></div>
 
-                <div class="profile-meta">He/Him - anyways am so fucking done nigga</div>
+                <div class="profile-meta">Anyways am so fucking done nigga 🫪</div>
                 <div class="greeting-line"><i class="fas fa-circle" style="font-size:6px;"></i><span id="greetingText">good day</span></div>
 
                 <div class="avatar-wrap">
@@ -921,7 +937,7 @@ html.custom-cursor-active *{ cursor:none !important; }
                     <button class="tab-btn" data-tab="anime" role="tab" aria-selected="false" onclick="switchTab('anime')"><i class="fas fa-clapperboard"></i><span>Anime</span></button>
                     <button class="tab-btn" data-tab="vibe" role="tab" aria-selected="false" onclick="switchTab('vibe')"><i class="fab fa-discord"></i><span>Status</span></button>
                     <button class="tab-btn" data-tab="music" role="tab" aria-selected="false" onclick="switchTab('music')"><i class="fas fa-music"></i><span>Audio</span></button>
-                    <button class="tab-btn" data-tab="guestbook" role="tab" aria-selected="false" onclick="switchTab('guestbook')"><i class="fas fa-comments"></i><span>Guestbook</span></button>
+                    <button class="tab-btn" data-tab="guestbook" role="tab" aria-selected="false" onclick="switchTab('guestbook')"><i class="fas fa-comments"></i><span>#leave-a-note 🤡</span></button>
                 </nav>
                 <div class="tab-panels">
 
@@ -937,7 +953,7 @@ html.custom-cursor-active *{ cursor:none !important; }
                             <div class="info-block reveal-on-scroll" data-reveal-index="1">
                                 <div class="info-block-title"><i class="fas fa-user"></i> About Me</div>
                                 <div class="newspaper-box">
-                                    <p class="newspaper-text" style="margin-bottom:10px;"><strong>I'm Ash</strong> — and i love Vibecoding </p>
+                                    <p class="newspaper-text" style="margin-bottom:10px;"><strong>I'm Ash</strong> — and i love Vibecoding 🤑</p>
                                 </div>
                             </div>
 
@@ -953,7 +969,7 @@ html.custom-cursor-active *{ cursor:none !important; }
                                 <div class="tag-row">
                                     <span class="tag-chip tag-chip-featured">Cyberpunk Edgerunners</span>
                                     <span class="tag-chip tag-chip-featured">Clannad</span>
-                                    <span class="tag-chip tag-chip-featured">Terror in resonancr</span>
+                                    <span class="tag-chip tag-chip-featured">Terror in resonance</span>
                                 </div>
                             </div>
                         </div>
@@ -1073,7 +1089,7 @@ html.custom-cursor-active *{ cursor:none !important; }
 
                             <!-- jumps over to the Guestbook tab -->
                             <div class="globe-teaser">
-                                <div class="section-label">say some bs 🤡</div>
+                                <div class="section-label">say something</div>
                                 <p class="comments-teaser-text">Leave a note for every crackheads<button class="link-inline" onclick="switchTab('guestbook'); document.getElementById('siteNav').scrollIntoView({behavior:'smooth'}); SFX.tab();">guestbook tab <i class="fas fa-comments"></i></button></p>
                             </div>
 
