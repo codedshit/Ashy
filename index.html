@@ -875,7 +875,6 @@ html.custom-cursor-active *{ cursor:none !important; }
 <div id="entry-overlay" onclick="enterSite()">
     <div class="entry-inner">
         <div class="entry-text"><span id="entryText"></span><span class="entry-caret" aria-hidden="true"></span></div>
-        <div class="entry-sub">tap anywhere</div>
     </div>
 </div>
 
@@ -1711,6 +1710,19 @@ function enterSite(){
     if (typeof startPlaylistOnEntry === 'function') startPlaylistOnEntry();
 }
 
+    function enterSite(){
+    if (entered) return;
+    entered = true;
+    const overlay = document.getElementById('entry-overlay');
+    overlay.classList.add('hidden');
+    document.body.classList.remove('no-scroll');
+    setTimeout(() => { overlay.style.display = 'none'; }, 750);
+    SFX.resume();
+    SFX.tab();
+    safeRun(() => whenFontsReady(() => typewriterLoop(document.getElementById('taglineText'), TAGLINES))); // ← added
+    if (typeof startPlaylistOnEntry === 'function') startPlaylistOnEntry();
+    }
+    
 function typeOnce(el, text, speed){
     if (!el) return;
     if (REDUCED_MOTION){ el.textContent = text; return; }
@@ -1732,7 +1744,7 @@ function whenFontsReady(cb){
         run();
     }
 }
-safeRun(() => whenFontsReady(() => typeOnce(document.getElementById('entryText'), 'Click to enter')));
+safeRun(() => whenFontsReady(() => typewriterLoop(document.getElementById('entryText'), ['Click to enter'])));
 
 function typewriterLoop(el, lines){
     if (!el) return;
@@ -1760,11 +1772,11 @@ function typewriterLoop(el, lines){
     typeLine();
 }
 const TAGLINES = [
-    'Hey!! Howdy?',
-    'Give me a quick add on Discord, I\u2019ll add you back',
-    'Feel free to stalk me'
+    'Hey dude',
+    'add me on any socials linked below',
+    'i mightt add you back',
+    'but its not like i WILL add you back'
 ];
-safeRun(() => whenFontsReady(() => typewriterLoop(document.getElementById('taglineText'), TAGLINES)));
 
 /* GREETING + CLOCKS */
 function timeSlot(hour){
