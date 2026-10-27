@@ -1236,9 +1236,13 @@ const AVATAR_DECORATION_SRC = 'profiledeco.gif';
 
 /* PLAYLIST */
 const TRACKS = [
-    { title: '3 musketeers', artist: '', file: '3musk.mp3', cover: '3musk.jpg' },
-    { title: 'Rae', artist: '', file: 'rae.mp3', cover: 'Rae.jpg' },
-    { title: 'Roi', artist: '', file: 'Roi.mp3', cover: 'roi.jpg' }
+    { title: 'Midnight', artist: '', file: 'midnight.mp3', cover: 'midnight.jpg' },
+    { title: '20 Min', artist: '', file: '20min.mp3', cover: '20min.jpg' },
+    { title: 'Roi', artist: '', file: 'Roi.mp3', cover: 'roi.jpg' },
+    { title: 'Fever', artist: '', file: 'fever.mp3', cover: 'fever.jpg' },
+    { title: 'Revenge', artist: '', file: 'revenge.mp3', cover: 'revenge.jpg' },
+    { title: 'Fuck Love', artist: '', file: 'fuck.mp3', cover: 'fuck.jpg' },
+    { title: 'All Girls Are the Same', artist: '', file: 'allgirls.mp3', cover: 'allgirls.jpg' }
 ];
 
 /* BACKGROUND VIDEO */
@@ -2724,35 +2728,32 @@ function playHeart(){
     });
 })();
 
-(async function initQuote(){
+(async function initLoveApi(){
     const box = document.querySelector('.bio-quote');
     if (!box) return;
-    const SOURCES = [
-        { get url(){ return 'https://quote-garden.onrender.com/api/v3/quotes/random?genre=' + (Math.random() < .5 ? 'romance' : 'love'); }, pick:d => (d && d.data || []).map(x => ({ q:x.quoteText, a:x.quoteAuthor })) },
-        { url:'https://api.quotable.io/quotes/random?tags=love%7Cromance&limit=10&maxLength=100', pick:d => (Array.isArray(d) ? d : []).map(x => ({ q:x.content, a:x.author })) }
-    ];
-    for (const src of SOURCES){
-        for (let i = 0; i < 3; i++){
-            const ctl = new AbortController();
-            const timer = setTimeout(() => ctl.abort(), 5000);
-            try{
-                const r = await fetch(src.url, { signal:ctl.signal });
-                clearTimeout(timer);
-                if (!r.ok) continue;
-                const found = src.pick(await r.json()).find(x => x.q && x.q.trim().length <= 100);
-                if (found){
-                    box.textContent = '\u201c' + found.q.trim() + '\u201d';
-                    const au = (found.a || '').trim();
-                    if (au && au.toLowerCase() !== 'unknown'){
-                        const a = document.createElement('span');
-                        a.className = 'q-author';
-                        a.textContent = '\u2014 ' + au;
-                        box.appendChild(a);
-                    }
-                    return;
+    const KEY = 'R5t3iAGu2rBzKvNm93SP8esoZLsBD0Rwh2ayCQnY';
+    for (let i = 0; i < 3; i++){
+        const ctl = new AbortController();
+        const timer = setTimeout(() => ctl.abort(), 5000);
+        try{
+            const r = await fetch('https://api.api-ninjas.com/v2/randomquotes?categories=love', { headers:{ 'X-Api-Key':KEY }, signal:ctl.signal });
+            clearTimeout(timer);
+            if (!r.ok) return;
+            const d = await r.json();
+            const x = Array.isArray(d) ? d[0] : d;
+            const q = ((x && (x.quote || x.text)) || '').trim();
+            if (q && q.length <= 100){
+                box.textContent = '\u201c' + q + '\u201d';
+                const au = ((x && x.author) || '').trim();
+                if (au){
+                    const a = document.createElement('span');
+                    a.className = 'q-author';
+                    a.textContent = '\u2014 ' + au;
+                    box.appendChild(a);
                 }
-            }catch(e){ clearTimeout(timer); break; }
-        }
+                return;
+            }
+        }catch(e){ clearTimeout(timer); return; }
     }
 })();
 </script>
