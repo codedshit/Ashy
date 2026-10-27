@@ -924,7 +924,7 @@ const m=document.querySelector('meta[name="theme-color"]');if(m)m.setAttribute('
 <button class="chat-fab" id="chatToggle" aria-label="Talk to Ash" aria-expanded="false">💬</button>
 <section class="chat-panel" id="chatPanel" aria-label="Chat with Ash">
     <header class="chat-head">
-        <span class="chat-name">Ash</span><span class="chat-tag">clone</span>
+        <span class="chat-name">Ash's</span><span class="chat-tag">clone</span>
         <button class="chat-close" id="chatClose" aria-label="Close chat"><i class="fas fa-xmark"></i></button>
     </header>
     <div class="chat-log" id="chatLog" aria-live="polite"></div>
@@ -944,8 +944,8 @@ const m=document.querySelector('meta[name="theme-color"]');if(m)m.setAttribute('
 
 <div class="dev-modal" id="devModal">
     <div class="dev-card">
-        <div class="dev-title">dev</div>
-        <p class="dev-text">I am a beginner coder. This is my personal site, built while learning HTML, CSS and JavaScript.</p>
+        <div class="dev-title">dev..</div>
+        <p class="dev-text">sorry but i aint no coder, just a humble vibercoder yk 😒</p>
         <button class="dev-close" id="devClose" type="button">close</button>
     </div>
 </div>
@@ -1009,9 +1009,9 @@ const m=document.querySelector('meta[name="theme-color"]');if(m)m.setAttribute('
                             <div class="info-block reveal-on-scroll" data-reveal-index="1">
                                 <div class="info-block-title"><i class="fas fa-user"></i> About Me</div>
                                 <ul class="bio-list">
-                                    <li><i class="fas fa-ghost"></i><span><strong>I'm Ash</strong> &mdash; quiet by nature, curious by habit.</span></li>
+                                    <li><i class="fas fa-ghost"></i><span><strong>I'm Ash</strong> &mdash; Ruining fun is my habit.</span></li>
                                     <li><i class="fas fa-music"></i><span>Always listening to something.</span></li>
-                                    <li><i class="fas fa-code"></i><span>Learning to code, one project at a time.</span></li>
+                                    <li><i class="fas fa-code"></i><span>i love, when everything is organized & minimalist.</span></li>
                                 </ul>
                                 <p class="bio-note"><strong>P.S.</strong> Messages are always welcome. Say hi on any of the links above.</p>
                             </div>
@@ -2727,25 +2727,32 @@ function playHeart(){
 (async function initQuote(){
     const box = document.querySelector('.bio-quote');
     if (!box) return;
-    for (let i = 0; i < 5; i++){
-        const ctl = new AbortController();
-        const timer = setTimeout(() => ctl.abort(), 4000);
-        try{
-            const r = await fetch('https://dummyjson.com/quotes/random', { signal: ctl.signal });
-            clearTimeout(timer);
-            if (!r.ok) return;
-            const d = await r.json();
-            if (d && d.quote && d.quote.length <= 100){
-                box.textContent = '\u201c' + d.quote + '\u201d';
-                if (d.author){
-                    const a = document.createElement('span');
-                    a.className = 'q-author';
-                    a.textContent = '\u2014 ' + d.author;
-                    box.appendChild(a);
+    const SOURCES = [
+        { get url(){ return 'https://quote-garden.onrender.com/api/v3/quotes/random?genre=' + (Math.random() < .5 ? 'romance' : 'love'); }, pick:d => (d && d.data || []).map(x => ({ q:x.quoteText, a:x.quoteAuthor })) },
+        { url:'https://api.quotable.io/quotes/random?tags=love%7Cromance&limit=10&maxLength=100', pick:d => (Array.isArray(d) ? d : []).map(x => ({ q:x.content, a:x.author })) }
+    ];
+    for (const src of SOURCES){
+        for (let i = 0; i < 3; i++){
+            const ctl = new AbortController();
+            const timer = setTimeout(() => ctl.abort(), 5000);
+            try{
+                const r = await fetch(src.url, { signal:ctl.signal });
+                clearTimeout(timer);
+                if (!r.ok) continue;
+                const found = src.pick(await r.json()).find(x => x.q && x.q.trim().length <= 100);
+                if (found){
+                    box.textContent = '\u201c' + found.q.trim() + '\u201d';
+                    const au = (found.a || '').trim();
+                    if (au && au.toLowerCase() !== 'unknown'){
+                        const a = document.createElement('span');
+                        a.className = 'q-author';
+                        a.textContent = '\u2014 ' + au;
+                        box.appendChild(a);
+                    }
+                    return;
                 }
-                return;
-            }
-        }catch(e){ clearTimeout(timer); return; }
+            }catch(e){ clearTimeout(timer); break; }
+        }
     }
 })();
 </script>
