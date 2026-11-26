@@ -964,7 +964,7 @@ const m=document.querySelector('meta[name="theme-color"]');if(m)m.setAttribute('
         <div class="profile-card-stage">
             <aside class="profile-card card" id="profileCard" data-tilt-max="18">
 
-                <div class="profile-meta">I have discontinued this site, but it will always show my status. 💔</div>
+                <div class="profile-meta">Holy OPSEC 🥹</div>
                 <div class="greeting-line"><i class="fas fa-circle" style="font-size:6px;"></i><span id="greetingText">good day</span></div>
 
                 <div class="avatar-wrap">
@@ -1018,9 +1018,9 @@ const m=document.querySelector('meta[name="theme-color"]');if(m)m.setAttribute('
                                 <ul class="bio-list">
                                     <li><i class="fas fa-ghost"></i><span><strong>I'm Ash</strong> &mdash; Ruining fun is my habit.</span></li>
                                     <li><i class="fas fa-music"></i><span>Always listening to something.</span></li>
-                                    <li><i class="fas fa-code"></i><span>i love, when everything is organized & minimalist.</span></li>
+                                    <li><i class="fas fa-code"></i><span>i use Arch btw 😭✌️</span></li>
                                 </ul>
-                                <p class="bio-note"><strong>P.S.</strong> Messages are always welcome. Say hi on any of the links above.</p>
+                                <p class="bio-note"><strong>P.S.</strong> getting a message makes me twitch a bit.</p>
                             </div>
 
                             <div class="info-block reveal-on-scroll" data-reveal-index="2">
@@ -1268,13 +1268,6 @@ const BANNER_SRC = 'assets/shareimage.jpg';
 const VISITOR_NAMESPACE = 'ashy-geek';
 const VISITOR_KEY = 'ashy-geek';
 
-const LINKS = [
-    { label:'Discord', href:'https://discord.com/users/' + DISCORD_ID, icon:'fab fa-discord', className:'discord' },
-    { label:'TikTok',  href:'https://www.tiktok.com/@fw.shahi', icon:'fab fa-tiktok', className:'tiktok' },
-    { label:'AniList',  href:'https://anilist.co/user/Klxxy/',    icon:'fas fa-leaf',     className:'anilist' },
-    { label:'Soundcloud', href:'https://on.soundcloud.com/8DGQU2SATrR7fZ0321', icon:'fab fa-soundcloud', className:'soundcloud' },
-    { label:'Spotify',  href:'https://open.spotify.com/user/31oyzi66p57fkbpncfhkvt2nxi2u?si=mo0CblPkTimLfeh4JG0oLA&utm_source=copy-link', icon:'fab fa-spotify', className:'spotify' }
-];
 function renderSocialLinks(){
     const row = document.getElementById('socialRow');
     if (!row) return;
@@ -1291,13 +1284,6 @@ renderSocialLinks();
     if (!document.fonts || !document.fonts.load) return;
     document.fonts.load('400 16px "Font Awesome 6 Brands"').then(f => { if (!f.length) fb(); }).catch(fb);
 })();
-
-/* STATUS TAB */
-const STATUS_QUICK_ACTIONS = [
-    { label:'Add on Discord', icon:'fa-brands fa-discord', href:'https://discord.com/users/' + DISCORD_ID },
-    { label:'Copy Discord ID', icon:'fas fa-copy', action:'copyDiscordId' },
-    { label:'Follow on AniList', icon:'fas fa-leaf', href:'https://anilist.co/user/Klxxy/' }
-];
 
 /* CLICK SOUND */
 const CLICK_SOUND_FILE = 'sfx/cyber.mp3';
@@ -1668,9 +1654,7 @@ function typewriterLoop(el, lines){
 }
 const TAGLINES = [
     'there isnt much bout me',
-    'u can check the links below 🤷‍♂️',
-    'just give me an  direct message i might answer',
-    'well thats all from me, love you.'
+    'holy opsec?' 
 ];
 
 function timeSlot(hour){
