@@ -982,7 +982,7 @@ const m=document.querySelector('meta[name="theme-color"]');if(m)m.setAttribute('
                 <h1 class="header-name">Ash</h1>
                                                 <p class="tagline"><span id="taglineText"></span><span class="tagline-cursor" aria-hidden="true">|</span></p>
 
-                <div class="social-row" id="socialRow"></div>
+                
 
                 <div class="mini-chip-row">
                     <span class="mini-chip id-badge" id="visitorChip" role="button" tabindex="0"><span id="visitorCount"><i class="fa-solid fa-eye"></i> &hellip;</span></span>
@@ -1141,7 +1141,7 @@ const m=document.querySelector('meta[name="theme-color"]');if(m)m.setAttribute('
 
                             <div class="panel-divider"></div>
 
-                            <div class="st-quick-actions" id="stQuickActions"></div>
+                            
                         </div>
                     </div>
 
@@ -1267,23 +1267,6 @@ const BANNER_SRC = 'assets/shareimage.jpg';
 /* VISITOR COUNTER */
 const VISITOR_NAMESPACE = 'ashy-geek';
 const VISITOR_KEY = 'ashy-geek';
-
-function renderSocialLinks(){
-    const row = document.getElementById('socialRow');
-    if (!row) return;
-    row.innerHTML = LINKS.map(l => `
-        <a class="social-btn${l.className ? ' ' + l.className : ''}" href="${l.href}" target="_blank" rel="noopener" aria-label="${l.label}">
-            ${l.img ? `<img src="${l.img}" alt="${l.label}" loading="lazy" decoding="async" onerror="this.replaceWith(Object.assign(document.createElement('i'),{className:'fas fa-link'}))">` : `<i class="${l.icon}"></i>`}
-        </a>
-    `).join('');
-}
-renderSocialLinks();
-(function socialFallback(){
-    const row = document.getElementById('socialRow');
-    const fb = () => row && row.classList.add('text-fallback');
-    if (!document.fonts || !document.fonts.load) return;
-    document.fonts.load('400 16px "Font Awesome 6 Brands"').then(f => { if (!f.length) fb(); }).catch(fb);
-})();
 
 /* CLICK SOUND */
 const CLICK_SOUND_FILE = 'sfx/cyber.mp3';
@@ -1548,18 +1531,6 @@ function copyDiscordId(){
         showToast(DISCORD_ID, 'fa-copy');
     }
 }
-safeRun(function initStatusQuickActions(){
-    const wrap = document.getElementById('stQuickActions');
-    if (!wrap || !STATUS_QUICK_ACTIONS.length) return;
-    wrap.innerHTML = STATUS_QUICK_ACTIONS.map(a => {
-        const iconTag = `<i class="${a.icon}"></i>`;
-        if (a.href){
-            return `<a class="st-quick-action" href="${a.href}" target="_blank" rel="noopener">${iconTag}<span>${escapeHtml(a.label)}</span></a>`;
-        }
-        return `<button class="st-quick-action" onclick="${a.action}()">${iconTag}<span>${escapeHtml(a.label)}</span></button>`;
-    }).join('');
-});
-
 /* KONAMI CODE EASTER EGG */
 (function initKonami(){
     const seq = ['ArrowUp','ArrowUp','ArrowDown','ArrowDown','ArrowLeft','ArrowRight','ArrowLeft','ArrowRight','b','a'];
@@ -2550,7 +2521,6 @@ safeRun(function initChat(){
     let busy = false;
 
     const allowedHosts = new Set([location.hostname]);
-    if (typeof LINKS !== 'undefined') LINKS.forEach(l => { try{ allowedHosts.add(new URL(l.href).hostname); }catch(e){} });
     function setRich(el, text){
         el.textContent = '';
         const re = /https?:\/\/[^\s<>"')]+/g;
@@ -2588,8 +2558,7 @@ safeRun(function initChat(){
         const active = clean(document.querySelector('.tab-btn.active'));
         const panels = [...document.querySelectorAll('.tab-panel')]
             .map(p => (names[p.id.replace('tab-', '')] || p.id) + ' tab: ' + clean(p).slice(0, 900));
-        const socials = (typeof LINKS !== 'undefined' ? LINKS : []).map(l => l.label + ': ' + l.href.split('?')[0]).join('; ');
-        return ('Social links: ' + socials + '\nOpen tab: ' + active + '\nLive right now: ' + (live.join('; ') || 'nothing') + '\n' + panels.join('\n')).slice(0, 3500);
+        return ('Open tab: ' + active + '\nLive right now: ' + (live.join('; ') || 'nothing') + '\n' + panels.join('\n')).slice(0, 3500);
     }
 
     function add(role, text){
